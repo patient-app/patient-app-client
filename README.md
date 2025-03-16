@@ -17,12 +17,12 @@
 ###  Main Environment
 
 - The "main" environment shows the latest changes on the main branch
-- <https://therapist-app-main.jonas-blum.ch/>
+- <https://patient-app-main.jonas-blum.ch/>
 
 ###  Production Environment
 
 - The "production" environment shows the latest changes on the production branch
-- <https://therapist-app-production.jonas-blum.ch/>
+- <https://patient-app-production.jonas-blum.ch/>
 
 ## Pre-Commit Hooks (currently not setup in this repos -> see therapist-app if you want this)
 
