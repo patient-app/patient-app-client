@@ -24,7 +24,7 @@
 - The "production" environment shows the latest changes on the production branch
 - <https://patient-app-production.jonas-blum.ch/>
 
-## Pre-Commit Hooks (currently not setup in this repos -> see therapist-app if you want this)
+## Pre-Commit Hooks (currently not setup in this repo -> see therapist-app if you want this)
 
 - Automatically formats your code before every commit
 - on Github actions the code formatting is also checked -> so either you need to do it manually or automatically whenever you are committing code
@@ -42,11 +42,6 @@
 5. Add the issue number to the pull request title (e.g. `5: Create login/register endpoint`)
 6. In the description of the pull request, add `-closes #5` to automatically close the issue when the pull request is merged
 7. Assign the pull request to yourself
-<!-- 8. When you are done with the implementation do the file formatting for the frontend/backend wherever you worked on (formatting is applied automatically if you have the pre-commit hooks setup):
-
-   - For the frontend (inside the /frontend folder): `npm run fix-all`
-   - For the backend (inside the /backend folder): `./gradlew spotlessApply` -->
-
 8. After applying the file formatting take a look at the changes of the pull request in Github under "Files changed" to see that everything is correct
 9. If everything is correct, merge the pull request with the option "Squash and merge" (so we have a nice history with one commit per issue -> otherwise the commit history is bloated with commits)
 10. (Optional) If you cannot merge your branch into main due to a conflict do the following steps:
