@@ -43,4 +43,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Frontend Image with Cache
-        run: docker build -t frontend-patient-app-test-build
+        run: docker build -t frontend-patient-app-test-build .

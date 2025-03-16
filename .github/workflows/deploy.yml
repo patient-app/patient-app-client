@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Frontend Image
         run: |
-          docker build --build-arg ENV_NAME=${{ env.BRANCH }} -t ${{ env.FRONTEND_IMAGE }}
+          docker build --build-arg ENV_NAME=${{ env.BRANCH }} -t ${{ env.FRONTEND_IMAGE }} .
 
       - name: Push Frontend Image
         run: |
