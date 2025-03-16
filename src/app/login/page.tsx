@@ -1,7 +1,7 @@
 "use client";
 
 import { LoginPatientDTO } from "@/dto/input/LoginPatientDTO";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
@@ -24,8 +24,14 @@ const Login = () => {
     try {
       const requestInit: RequestInit = {
         method: "POST",
+        credentials: "include",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
       };
-      await await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/login", requestInit);
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/login", requestInit);
+      if (!response.ok) {
+        throw new Error("Failed to login");
+      }
       router.push("/");
     } catch (e) {
       setError(`Failed to login, please try again`);

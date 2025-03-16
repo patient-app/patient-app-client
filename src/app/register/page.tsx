@@ -1,7 +1,7 @@
 "use client";
 
 import { RegisterPatientDTO } from "@/dto/input/RegisterPatientDTO";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Register = () => {
@@ -22,11 +22,20 @@ const Register = () => {
       return;
     }
     try {
-      await await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/register");
+      const requestInit: RequestInit = {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      };
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/register", requestInit);
+      if (!response.ok) {
+        throw new Error("Failed to register");
+      }
       router.push("/");
     } catch (e) {
-      setError(`Failed to login, please try again`);
-      console.error("Failed to login", e);
+      setError(`Failed to register, please try again`);
+      console.error("Failed to register", e);
     }
   };
 
@@ -55,7 +64,7 @@ const Register = () => {
           <input name="password" type="password" value={formData.password} onChange={handleChange} required />
           {error && <p>{error}</p>}
           <button type="submit" color="primary">
-            Login
+            Register
           </button>
         </form>
       </div>
