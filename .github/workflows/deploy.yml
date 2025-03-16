@@ -1,0 +1,52 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - production
+
+jobs:
+  build-and-restart:
+    runs-on: [self-hosted, k3s]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Environment Variables
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+
+            echo "BRANCH=main" >> $GITHUB_ENV
+            echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-main:latest" >> $GITHUB_ENV
+
+          elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then
+
+            echo "BRANCH=production" >> $GITHUB_ENV
+            echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-production:latest" >> $GITHUB_ENV
+
+          fi
+
+      - name: Build Frontend Image
+        run: |
+          docker build --build-arg ENV_NAME=${{ env.BRANCH }} -t ${{ env.FRONTEND_IMAGE }} .
+
+      - name: Push Frontend Image
+        run: |
+          docker push ${{ env.FRONTEND_IMAGE }}
+
+      - name: Restart Kubernetes Deployment
+
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            
+            kubectl apply -k .kubernetes/overlays/main
+            kubectl rollout restart deployment/patient-app-frontend -n patient-app-main
+
+          elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then 
+            
+            kubectl apply -k .kubernetes/overlays/production
+            kubectl rollout restart deployment/patient-app-frontend -n patient-app-production
+            
+          fi

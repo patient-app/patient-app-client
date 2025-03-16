@@ -1,0 +1,46 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  frontend-lint-and-typecheck:
+    name: Run Type Checking, Linting, and Prettier
+    runs-on: [self-hosted, k3s]
+    env:
+      HUSKY: 0
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+
+      - name: Run Linting
+        run: |
+          npm run lint
+
+      # - name: Run Prettier Check
+      #   run: |
+      #     npm run format
+
+  build-frontend:
+    name: Build Frontend Docker Image
+    runs-on: [self-hosted, k3s]
+    needs: [frontend-lint-and-typecheck]
+    env:
+      HUSKY: 0
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Frontend Image with Cache
+        run: docker build -t frontend-patient-app-test-build .

@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Patient App Client
 
-## Getting Started
+##  How to run
 
-First, run the development server:
+1. Install nodejs 22.14.0 -> when typing `node -v` in the terminal, the output should be `v22.14.0`
+2. `npm install`
+3. `npm run dev`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Environment Variables
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- In the frontend there are ususally no secrets (as all of the code is sent to the client anyways)
+- To add a new environment variable, add it to the `.env` file and to the `.env.production.main` and `.env.production.production` files
+- When building the docker image, the environment variables from the `.env.production.main` and `.env.production.production` files are automatically added to the built image
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Main and Production Environments
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+###  Main Environment
 
-## Learn More
+- The "main" environment shows the latest changes on the main branch
+- <https://therapist-app-main.jonas-blum.ch/>
 
-To learn more about Next.js, take a look at the following resources:
+###  Production Environment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- The "production" environment shows the latest changes on the production branch
+- <https://therapist-app-production.jonas-blum.ch/>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Pre-Commit Hooks (currently not setup in this repos -> see therapist-app if you want this)
 
-## Deploy on Vercel
+- Automatically formats your code before every commit
+- on Github actions the code formatting is also checked -> so either you need to do it manually or automatically whenever you are committing code
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. `npm install`
+2. `npm run prepare`
+3. Now whenver you commit code, it will be formatted automatically
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Workflow: How to implement an issue
+
+1. Look at the issue number and create a new branch (from main) with the name `issueNumber-issue-title` (e.g. `5-create-login-register-endpoint`)
+2. Do some changes and add your first commit
+3. As soon as you added the first commit, push the branch (so other team member are aware of your work and can already see if any problems might arise -> if everyone just codes by themselves the collaboration is usually a lot worse)
+4. Create a pull request from your branch to main
+5. Add the issue number to the pull request title (e.g. `5: Create login/register endpoint`)
+6. In the description of the pull request, add `-closes #5` to automatically close the issue when the pull request is merged
+7. Assign the pull request to yourself
+<!-- 8. When you are done with the implementation do the file formatting for the frontend/backend wherever you worked on (formatting is applied automatically if you have the pre-commit hooks setup):
+
+   - For the frontend (inside the /frontend folder): `npm run fix-all`
+   - For the backend (inside the /backend folder): `./gradlew spotlessApply` -->
+
+8. After applying the file formatting take a look at the changes of the pull request in Github under "Files changed" to see that everything is correct
+9. If everything is correct, merge the pull request with the option "Squash and merge" (so we have a nice history with one commit per issue -> otherwise the commit history is bloated with commits)
+10. (Optional) If you cannot merge your branch into main due to a conflict do the following steps:
+
+- `git checkout main`
+- `git pull` (or `git reset --hard origin/main` if you have some local changes)
+- `git checkout YOUR-BRANCH` (e.g. `5-create-login-register-endpoint`)
+- `git rebase -i main`
+- Solve the conflicts with the help of your IDE
+- Do a force push of your branch `git push -f`
+- Now the conflicts should be solved and you can merge your branch into main through Github (with the option "Squash and merge")
