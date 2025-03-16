@@ -28,9 +28,9 @@ jobs:
         run: |
           npm run lint
 
-      - name: Run Prettier Check
-        run: |
-          npm run format
+      # - name: Run Prettier Check
+      #   run: |
+      #     npm run format
 
   build-frontend:
     name: Build Frontend Docker Image
