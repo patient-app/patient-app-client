@@ -53,3 +53,9 @@
 - Solve the conflicts with the help of your IDE
 - Do a force push of your branch `git push -f`
 - Now the conflicts should be solved and you can merge your branch into main through Github (with the option "Squash and merge")
+
+## How to update the production branch
+
+1. `git checkout main`
+2. `git pull` (or `git reset --hard origin/main` if you have some local changes)
+3. `git push --force origin main:production`

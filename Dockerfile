@@ -10,7 +10,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY .env .env.production.production .env.production.main package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+COPY .env.production.production .env.production.main package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 
 # To get the correct .env file in the built image
 ARG ENV_NAME=production
