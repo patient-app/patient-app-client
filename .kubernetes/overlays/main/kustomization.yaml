@@ -1,0 +1,16 @@
+resources:
+  - ../../base
+  - namespace.yaml
+
+namespace: patient-app-main
+
+images:
+  - name: jonasblum/image-to-be-replaced-depending-on-environment
+    newName: jonasblum/patient-app-frontend-main
+    newTag: latest
+
+patches:
+  - target:
+      kind: Ingress
+      name: patient-app-frontend-ingress
+    path: patch-ingress.json

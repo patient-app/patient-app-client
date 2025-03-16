@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: patient-app-frontend-ingress
+spec:
+  rules:
+    - host: patient-app-main.jonas-blum.ch
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: patient-app-frontend-service
+                port:
+                  number: 80

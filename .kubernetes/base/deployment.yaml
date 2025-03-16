@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-app-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patient-app-frontend
+  template:
+    metadata:
+      labels:
+        app: patient-app-frontend
+    spec:
+      containers:
+        - name: patient-app-frontend
+          image: jonasblum/image-to-be-replaced-depending-on-environment
+          ports:
+            - containerPort: 80
+      nodeName: pc147
