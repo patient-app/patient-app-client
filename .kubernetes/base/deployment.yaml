@@ -16,5 +16,5 @@ spec:
         - name: patient-app-frontend
           image: jonasblum/image-to-be-replaced-depending-on-environment
           ports:
-            - containerPort: 80
+            - containerPort: 3000
       nodeName: pc147
