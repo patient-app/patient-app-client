@@ -51,25 +51,45 @@ const Login = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           width: "100%",
-          gap: "32px",
+          gap: "20px",
+          padding: "20px",
         }}
       >
-        <h2> Welcome to the Patient App</h2>
-        <h4>Login</h4>
-      </div>
-      <div>
-        <form onSubmit={handleLogin}>
-          <input name="email" type="email" value={formData.email} onChange={handleChange} required />
-          <input name="password" type="password" value={formData.password} onChange={handleChange} required />
+        <h1 style={{ fontSize: "32px" }}> Welcome to the Patient App</h1>
+        <h4 style={{ fontSize: "28px" }}>Login</h4>
+
+        <form style={{ display: "flex", width: "100%", justifyContent: "center", gap: "10px" }} onSubmit={handleLogin}>
+          <input
+            style={{ border: "3px solid black" }}
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            style={{ border: "3px solid black" }}
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
           {error && <p>{error}</p>}
-          <button type="submit" color="primary">
+          <button style={{ padding: "5px", background: "grey", cursor: "pointer" }} type="submit">
             Login
           </button>
         </form>
-      </div>
-      <div style={{ display: "flex", width: "100%", marginTop: "32px", justifyContent: "center" }}>
-        <button onClick={() => router.push("/register")}>Go to Registration</button>
+        <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+          <button
+            style={{ padding: "5px", background: "grey", cursor: "pointer" }}
+            onClick={() => router.push("/register")}
+          >
+            Go to Registration
+          </button>
+        </div>
       </div>
     </>
   );

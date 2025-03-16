@@ -51,25 +51,48 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           width: "100%",
-          gap: "32px",
+          gap: "20px",
+          padding: "20px",
         }}
       >
-        <h2> Welcome to the Patient App</h2>
-        <h4>Register</h4>
-      </div>
-      <div>
-        <form onSubmit={handleRegister}>
-          <input name="email" type="email" value={formData.email} onChange={handleChange} required />
-          <input name="password" type="password" value={formData.password} onChange={handleChange} required />
+        <h1 style={{ fontSize: "32px" }}> Welcome to the Patient App</h1>
+        <h2 style={{ fontSize: "28px" }}>Register</h2>
+
+        <form
+          style={{ display: "flex", width: "100%", justifyContent: "center", gap: "10px" }}
+          onSubmit={handleRegister}
+        >
+          <input
+            style={{ border: "3px solid black" }}
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            style={{ border: "3px solid black" }}
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
           {error && <p>{error}</p>}
-          <button type="submit" color="primary">
+          <button style={{ padding: "5px", background: "grey", cursor: "pointer" }} type="submit" color="primary">
             Register
           </button>
         </form>
-      </div>
-      <div style={{ display: "flex", width: "100%", marginTop: "32px", justifyContent: "center" }}>
-        <button onClick={() => router.push("/login")}>Go to Login</button>
+        <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+          <button
+            style={{ padding: "5px", background: "grey", cursor: "pointer" }}
+            onClick={() => router.push("/login")}
+          >
+            Go to Login
+          </button>
+        </div>
       </div>
     </>
   );
