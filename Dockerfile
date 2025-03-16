@@ -8,10 +8,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY .env.production.production .env.production.main package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-
-ARG ENV_NAME=production
-RUN cp .env.production.$ENV_NAME .env
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 
 RUN \
     if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -24,6 +21,9 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+ARG ENV_NAME=production
+RUN cp .env.production.$ENV_NAME .env
 
 ENV NEXT_LOG_LEVEL=debug
 
