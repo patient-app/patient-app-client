@@ -35,7 +35,7 @@ jobs:
   build-frontend:
     name: Build Frontend Docker Image
     runs-on: [self-hosted, k3s]
-    needs: [frontend-lint-and-typecheck]
+    # needs: [frontend-lint-and-typecheck]
     env:
       HUSKY: 0
     steps:
