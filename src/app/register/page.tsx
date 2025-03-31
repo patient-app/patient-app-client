@@ -46,31 +46,36 @@ const Register = () => {
     return (
         <>
             {" "}
-            <div className="flex flex-col items-center justify-center w-full gap-6 p-6">
-                <h1 className="text-3xl font-semibold">Welcome to the Patient App</h1>
+            <div className="flex flex-col items-center justify-center w-full gap-6 p-4">
+                <h1 className="text-3xl font-semibold text-center">Welcome to the Patient App</h1>
                 <h2 className="text-2xl font-medium">Register</h2>
 
-                <form className="flex flex-col md:flex-row items-center gap-4 w-full max-w-md"
-                      onSubmit={handleRegister}
+                <form onSubmit={handleRegister} className="flex flex-col md:flex-row items-center md:items-end gap-4 w-full max-w-md"
                 >
-                    <input
-                        className="w-full px-4 py-2 border-2 border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        className="w-full px-4 py-2 border-2 border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        name="password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold">Username</label>
+                        <input
+                            className="w-full px-4 py-2 border-2 border-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-200"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold">Password</label>
+                        <input
+                            className="w-full px-4 py-2 border-2 border-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-200"
+                            name="password"
+                            type="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                     {error && <p>{error}</p>}
-                    <button className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
+                    <button className="mt-2 px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
                             type="submit" color="primary"> Register
                     </button>
                 </form>
