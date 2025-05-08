@@ -35,7 +35,7 @@ export default function Home() {
                 setMePatient(await response.json());
             } catch (e) {
                 console.error(e);
-                router.push("/register");
+                router.push("/login");
             }
         };
         fetchMyself();
