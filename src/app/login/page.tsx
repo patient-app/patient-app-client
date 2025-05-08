@@ -77,6 +77,11 @@ const Login = () => {
                             required
                         />
 
+                        <div className="flex gap-1 items-center text-base mt-2">
+                            <span>Forgot password?</span>
+                            <a href="/reset" className="text-emerald-600 hover:underline cursor-pointer">Reset</a>
+                        </div>
+
                         <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
                                 type="submit" color="primary">
                             Login
