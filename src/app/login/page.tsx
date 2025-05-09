@@ -30,9 +30,11 @@ const Login = () => {
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/login", requestInit);
             if (!response.ok) {
-                throw new Error("Failed to login");
+                const errorData = await response.json();
+                setError(("Failed to login: " + errorData.message) || "Failed to login, please try again.");
+            } else {
+                router.push("/");
             }
-            router.push("/");
         } catch (e) {
             setError(`Failed to login, please try again`);
             console.error("Failed to login", e);

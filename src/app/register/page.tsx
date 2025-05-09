@@ -30,9 +30,11 @@ const Register = () => {
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/register", requestInit);
             if (!response.ok) {
-                throw new Error("Failed to register");
+                const errorData = await response.json();
+                setError(("Failed to register: " + errorData.message) || "Failed to register, please try again.");
+            } else {
+                router.push("/");
             }
-            router.push("/");
         } catch (e) {
             setError(`Failed to register, please try again`);
             console.error("Failed to register", e);
