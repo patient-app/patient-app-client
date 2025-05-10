@@ -30,9 +30,11 @@ export default function Home() {
                 };
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
                 if (!response.ok) {
-                    throw new Error("Failed to fetch patient data");
+                    console.warn("Failed to fetch patient data");
+                    router.push("/login");
+                } else {
+                    setMePatient(await response.json());
                 }
-                setMePatient(await response.json());
             } catch (e) {
                 console.error(e);
                 router.push("/login");

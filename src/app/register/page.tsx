@@ -49,9 +49,6 @@ const Register = () => {
         <>
             {" "}
             <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
-                <div className="absolute top-4 left-4 text-2xl font-bold uppercase">
-                    <span className="text-3xl">P</span>atient&#39;s <span className="text-3xl">A</span>pp
-                </div>
                 <h2 className="text-2xl font-medium mb-3">Create an account</h2>
 
                 <form onSubmit={handleRegister} className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
