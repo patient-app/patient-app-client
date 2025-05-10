@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import 'react-chatbot-kit/build/main.css';
+import TermsLink from "../components/TermsLink";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
             <span className="text-3xl">P</span>atient&#39;s <span className="text-3xl">A</span>pp
         </div>
         {children}
+        <TermsLink />
         </body>
         </html>
     );

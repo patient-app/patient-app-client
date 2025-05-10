@@ -39,17 +39,17 @@ const Page = () => {
 
                 <h2 className="text-2xl font-medium mb-3">Terms of Use</h2>
 
-                <div className="flex gap-1 items-center text-base mt-2">
-                    <Link href="/" className="text-emerald-600 hover:underline cursor-pointer">Close Terms</Link>
-                </div>
+                <button onClick={() => window.close()} className="text-emerald-600 hover:underline cursor-pointer">
+                    Close Terms
+                </button>
 
                 <div className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "40rem" }}>
                     <span dangerouslySetInnerHTML={{ __html: terms }} />
                 </div>
 
-                <div className="flex gap-1 items-center text-base mt-2">
-                    <Link href="/" className="text-emerald-600 hover:underline cursor-pointer">Close Terms</Link>
-                </div>
+                <button onClick={() => window.close()} className="text-emerald-600 hover:underline cursor-pointer">
+                    Close Terms
+                </button>
             </div>
         </>
     );

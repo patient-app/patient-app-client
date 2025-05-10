@@ -107,12 +107,6 @@ const Register = () => {
                         </div>
                     </div>
                 </form>
-
-                <div className="absolute bottom-4 text-sm text-gray-600 flex gap-2 justify-center">
-                    <a href="/terms" className="text-emerald-600 hover:underline">Terms of Use</a>
-                    <span>|</span>
-                    <a href="/privacy" className="text-emerald-600 hover:underline">Privacy Policy</a>
-                </div>
             </div>
         </>
     );
