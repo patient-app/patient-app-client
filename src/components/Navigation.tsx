@@ -2,10 +2,11 @@
 
 import {usePathname, useRouter} from "next/navigation";
 
-export default function TermsLink() {
+export default function Navigation() {
     const pathname = usePathname();
     const router = useRouter();
 
+    {/* Navigation is not shown at these sites:*/}
     const noNavigationPages = ["/terms", "/login", "/register"];
     if (noNavigationPages.includes(pathname)) return null;
 
@@ -19,7 +20,7 @@ export default function TermsLink() {
     };
 
     return (
-        <aside className="h-screen w-64 bg-[#F9F9F9] p-4 pt-20 pl-7 hidden md:block">
+        <aside className="h-screen w-64 bg-[#F9F9F9] p-4 pt-20 pl-7">
             <nav className="flex flex-col gap-2">
                 <a href="/chat" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Chatbot</a>
                 <a href="/settings" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Settings</a>
