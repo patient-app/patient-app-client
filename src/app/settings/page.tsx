@@ -14,6 +14,11 @@ const Page = () => {
     const router = useRouter();
     const pathname = usePathname();
     const { t } = useTranslation();
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
 
 
