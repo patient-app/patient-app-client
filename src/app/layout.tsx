@@ -38,7 +38,7 @@ export default function RootLayout({
         {/* Horizontal layout: sidebar + page content: */}
         <div className="flex min-h-screen">
             <Navigation />
-            <main className="flex-1 p-6">{children}</main>
+            <main className="flex-1 p-6 mt-13">{children}</main>
         </div>
 
         {/* Terms and Conditions: */}
