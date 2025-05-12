@@ -3,9 +3,11 @@
 import {LoginPatientDTO} from "@/dto/input/LoginPatientDTO";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const [formData, setFormData] = useState<LoginPatientDTO>({
         email: "",
@@ -52,6 +54,7 @@ const Login = () => {
 
                 <form onSubmit={handleLogin} className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
                     <div className="flex flex-col gap-2 w-full">
+                        <li>{t('save_your_change')}</li>
                         <label className="font-semibold" htmlFor="email">Email Address</label>
                         <input
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
