@@ -1,4 +1,5 @@
 import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
     const randomAnswer = () => {
