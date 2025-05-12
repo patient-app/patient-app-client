@@ -3,9 +3,12 @@
 import {ResetPasswordPatientDTO} from "@/dto/input/ResetPasswordPatientDTO";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import { useTranslation } from "react-i18next";
+
 
 const Page = () => {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const [formData, setFormData] = useState<ResetPasswordPatientDTO>({
         email: "",
@@ -31,14 +34,14 @@ const Page = () => {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/reset-password", requestInit);
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(("Failed to reset password: " + errorData.message) || "Failed to reset the password, please try again.");
+                setError(( t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
             } else {
-                setSuccess("Password reset successfully!");
+                setSuccess(t("reset.success"));
                 await new Promise(resolve => setTimeout(resolve, 5000));
                 router.push("/login");
             }
         } catch (e) {
-            setError(`Failed to reset the password, please try again`);
+            setError(t("reset.error.resetTryAgain"));
             console.error("Failed to reset the password", e);
         }
     };
@@ -51,24 +54,24 @@ const Page = () => {
         <>
             {" "}
             <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
-                <h2 className="text-2xl font-medium mb-3">Reset the password</h2>
+                <h2 className="text-2xl font-medium mb-3">{t("reset.title")}</h2>
 
                 <form onSubmit={handleReset} className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
                     <div className="flex flex-col gap-2 w-full">
-                        <label className="font-semibold" htmlFor="email">Email Address</label>
+                        <label className="font-semibold" htmlFor="email">{t("reset.email")}</label>
                         <input
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
                             name="email"
                             type="email"
                             id="email"
-                            placeholder="Email Address"
+                            placeholder={t("reset.email")}
                             value={formData.email}
                             onChange={handleChange}
                             required
                         />
 
                         <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                                type="submit" color="primary"> Reset
+                                type="submit" color="primary">{t("reset.submit")}
                         </button>
 
                         {error && (
@@ -84,16 +87,16 @@ const Page = () => {
                         )}
 
                         <div className="flex gap-1 items-center text-base mt-2">
-                            <span>Go back to login: </span>
-                            <a href="/login" className="text-emerald-600 hover:underline cursor-pointer">Log in</a>
+                            <span>{t("reset.backToLogin")} </span>
+                            <a href="/login" className="text-emerald-600 hover:underline cursor-pointer">{t("reset.login")}</a>
                         </div>
                     </div>
                 </form>
 
                 <div className="absolute bottom-4 text-sm text-gray-600 flex gap-2 justify-center">
-                    <a href="/terms" className="text-emerald-600 hover:underline">Terms of Use</a>
+                    <a href="/terms" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                     <span>|</span>
-                    <a href="/privacy" className="text-emerald-600 hover:underline">Privacy Policy</a>
+                    <a href="/privacy" className="text-emerald-600 hover:underline">{t("footer.privacy")}</a>
                 </div>
             </div>
         </>

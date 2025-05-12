@@ -1,9 +1,58 @@
 {
-  "get_start": "Get started by editing",
-  "save_your_change": "Save and",
-  "deploy_now": "Deploy now",
-  "read_our_doc": "Read our docs",
-  "learn": "Learn",
-  "examples": "Examples",
-  "go_to_next": "Go to nextjs.org →"
+  "settings": {
+    "language": "Мова",
+    "settings": "Налаштування"
+  },
+  "login": {
+    "error": {
+      "emptyFields": "Обидва поля є обов'язковими.",
+      "loginFailed": "Не вдалося ввійти: ",
+      "loginTryAgain": "Не вдалося ввійти, будь ласка, спробуйте ще раз."
+    },
+    "title": "Ласкаво просимо назад",
+    "email": "Адреса електронної пошти",
+    "password": "Пароль",
+    "forgotPassword": "Забули пароль?",
+    "reset": "Скинути",
+    "submit": "Логін",
+    "noAccount": "Немає облікового запису?",
+    "register": "зареєструватися"
+  },
+  "register": {
+    "title": "Створіть свій акаунт",
+    "email": "Адреса електронної пошти",
+    "password": "Пароль",
+    "submit": "зареєструватися",
+    "haveAccount": "Вже маєте акаунт?",
+    "login": "Логін",
+    "error": {
+      "emptyFields": "Обидва поля є обов’язковими.",
+      "registrationFailed": "Не вдалося зареєструвати: ",
+      "registrationTryAgain": "Не вдалося зареєструватися, спробуйте ще раз"
+    }
+  },
+  "reset": {
+    "title": "Скинути пароль",
+    "email": "Адреса електронної пошти",
+    "submit": "Скинути",
+    "success": "Пароль скинуто успішно!",
+    "error": {
+      "resetFailed": "Не вдалося скинути пароль: ",
+      "resetTryAgain": "Не вдалося скинути пароль, повторіть спробу."
+    },
+    "backToLogin": "Повернутися до входу: ",
+    "login": "Логін"
+  },
+  "home": {
+    "title": "Ласкаво просимо в додаток для пацієнтів",
+    "loggedInAs": "Ви увійшли як: ",
+    "error": {
+      "generic": "Щось пішло не так"
+    },
+    "logout": "вийти"
+  },
+  "footer": {
+    "terms": "Умови використання",
+    "privacy": "політика конфіденційності"
+  }
 }
