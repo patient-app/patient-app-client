@@ -1,13 +1,19 @@
 .react-chatbot-kit-chat-container {
+    width: 75%;
+
+    /* 100vh = screen height | 24px = chatbot padding | 52px = chatbot margin | 80px = mobile navigation height*/
+    /* 20px spacing */
+    height: calc(100vh - 176px); /* 24 + 52 + 80 + 20 = 156 */
+
+    margin-left: auto;
+    margin-right: auto;a
 }
 
-@media screen and (max-width: 1081px) {
+@media screen and (max-width: 1000px) {
     .react-chatbot-kit-chat-container {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
     }
 }
-
 
 .react-chatbot-kit-chat-inner-container {
 }
