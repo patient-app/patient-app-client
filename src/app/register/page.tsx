@@ -76,7 +76,6 @@ const Register = () => {
                             onChange={handleChange}
                             required
                         />
-
                         <div className="flex items-center gap-2">
                             <input
                                 type="checkbox"
@@ -90,7 +89,6 @@ const Register = () => {
                                 I accept the <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">terms and conditions</a>.
                             </label>
                         </div>
-
                         <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
                                 type="submit" color="primary"> Register
                         </button>
