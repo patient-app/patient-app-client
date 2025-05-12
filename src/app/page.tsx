@@ -12,15 +12,6 @@ export default function Home() {
         email: "",
     });
 
-    const logout = async () => {
-        const requestInit: RequestInit = {
-            method: "POST",
-            credentials: "include",
-        };
-        await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
-        router.push("/login");
-    };
-
     useEffect(() => {
         const fetchMyself = async () => {
             try {
@@ -47,9 +38,6 @@ export default function Home() {
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">Welcome to the Patient App</h1>
             {mePatient.email ? <p>You are logged in as: {mePatient.email}</p> : <div>Something went wrong</div>}
-            <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" onClick={logout}>
-                Logout
-            </button>
         </main>
     );
 }

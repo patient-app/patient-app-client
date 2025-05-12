@@ -3,6 +3,8 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import 'react-chatbot-kit/build/main.css';
 import TermsLink from "../components/TermsLink";
+import Navigation from "../components/Navigation";
+import Link from "next/link";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,16 +30,27 @@ export default function RootLayout({
         <html lang="en">
         <head>
             <meta className="viewport" content="width=decive-width, initial-scale=1"/>
+            <title>Patient&#39;s App</title>
         </head>
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Top-left clickable title: */}
+        <Link
+            href="/"
+            className="absolute top-4 left-4 text-2xl font-bold uppercase cursor-pointer z-10"
         >
-        <div className="absolute top-4 left-4 text-2xl font-bold uppercase">
             <span className="text-3xl">P</span>atient&#39;s <span className="text-3xl">A</span>pp
+        </Link>
+
+        {/* Horizontal layout: sidebar + page content: */}
+        <div className="flex min-h-screen">
+            <Navigation />
+            <main className="flex-1 p-6">{children}</main>
         </div>
-        {children}
+
+        {/* Terms and Conditions: */}
         <TermsLink />
         </body>
+
         </html>
     );
 }
