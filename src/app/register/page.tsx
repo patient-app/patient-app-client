@@ -2,14 +2,13 @@
 
 import {RegisterPatientDTO} from "@/dto/input/RegisterPatientDTO";
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 
 const Register = () => {
     const router = useRouter();
     const {t} = useTranslation();
-    const [isClient, setIsClient] = useState(false);
 
     const [formData, setFormData] = useState<RegisterPatientDTO>({
         email: "",
@@ -17,9 +16,6 @@ const Register = () => {
     });
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();

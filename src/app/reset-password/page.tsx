@@ -2,14 +2,13 @@
 
 import {ResetPasswordPatientDTO} from "@/dto/input/ResetPasswordPatientDTO";
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { useTranslation } from "react-i18next";
 
 
 const Page = () => {
     const router = useRouter();
     const { t } = useTranslation();
-    const [isClient, setIsClient] = useState(false);
 
     const [formData, setFormData] = useState<ResetPasswordPatientDTO>({
         email: "",
@@ -17,9 +16,6 @@ const Page = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     const handleReset = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -3,10 +3,12 @@
 import {PatientOutputDTO} from "@/dto/output/PatientOutputDTO";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
     const router = useRouter();
-    const [isClient, setIsClient] = useState(false);
+    const { t } = useTranslation();
+
 
     const [mePatient, setMePatient] = useState<PatientOutputDTO>({
         id: "",
@@ -21,10 +23,6 @@ export default function Home() {
         await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
         router.push("/login");
     };
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     useEffect(() => {
         const fetchMyself = async () => {
@@ -50,10 +48,10 @@ export default function Home() {
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
-            <h1 className="text-3xl font-semibold">Welcome to the Patient App</h1>
-            {mePatient.email ? <p>You are logged in as: {mePatient.email}</p> : <div>Something went wrong</div>}
+            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
+            {mePatient.email ? <p>{t("home.loggedInAs")}{mePatient.email}</p> : <div>{t("home.error.generic")}</div>}
             <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" onClick={logout}>
-                Logout
+                {t("home.logout")}
             </button>
         </main>
     );
