@@ -3,13 +3,17 @@
 import {PatientOutputDTO} from "@/dto/output/PatientOutputDTO";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export default function Home() {
     const router = useRouter();
+    const {t, i18n} = useTranslation();
+
 
     const [mePatient, setMePatient] = useState<PatientOutputDTO>({
         id: "",
         email: "",
+        language: ""
     });
 
     const logout = async () => {
@@ -33,7 +37,11 @@ export default function Home() {
                     console.warn("Failed to fetch patient data");
                     router.push("/login");
                 } else {
-                    setMePatient(await response.json());
+                    const patient_response = await response.json();
+                    setMePatient(patient_response);
+                    console.log("Patient data fetched successfully", mePatient);
+                    localStorage.setItem('lang', patient_response.language);
+                    await i18n.changeLanguage(patient_response.language);
                 }
             } catch (e) {
                 console.error(e);
@@ -45,10 +53,10 @@ export default function Home() {
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
-            <h1 className="text-3xl font-semibold">Welcome to the Patient App</h1>
-            {mePatient.email ? <p>You are logged in as: {mePatient.email}</p> : <div>Something went wrong</div>}
+            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
+            {mePatient.email ? <p>{t("home.loggedInAs")}{mePatient.email}</p> : <div>{t("home.error.generic")}</div>}
             <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" onClick={logout}>
-                Logout
+                {t("home.logout")}
             </button>
         </main>
     );

@@ -3,9 +3,12 @@
 import {RegisterPatientDTO} from "@/dto/input/RegisterPatientDTO";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
+
 
 const Register = () => {
     const router = useRouter();
+    const {t} = useTranslation();
 
     const [formData, setFormData] = useState<RegisterPatientDTO>({
         email: "",
@@ -13,12 +16,13 @@ const Register = () => {
     });
     const [error, setError] = useState<string | null>(null);
 
+
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
         if (!formData.email || !formData.password) {
-            setError("Both fields are required.");
+            setError(t("register.error.emptyFields"));
             return;
         }
         try {
@@ -31,12 +35,12 @@ const Register = () => {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/register", requestInit);
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(("Failed to register: " + errorData.message) || "Failed to register, please try again.");
+                setError((t("register.error.registrationFailed") + errorData.message) || t("register.error.registrationTryAgain"));
             } else {
                 router.push("/");
             }
         } catch (e) {
-            setError(`Failed to register, please try again`);
+            setError(t("register.error.registrationTryAgain"));
             console.error("Failed to register", e);
         }
     };
@@ -49,29 +53,30 @@ const Register = () => {
         <>
             {" "}
             <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
-                <h2 className="text-2xl font-medium mb-3">Create an account</h2>
+                <h2 className="text-2xl font-medium mb-3">{t("register.title")}</h2>
 
-                <form onSubmit={handleRegister} className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
+                <form onSubmit={handleRegister} className="flex flex-col items-center gap-4 w-full"
+                      style={{maxWidth: "20rem"}}>
                     <div className="flex flex-col gap-2 w-full">
-                        <label className="font-semibold" htmlFor="email">Email Address</label>
+                        <label className="font-semibold" htmlFor="email">{t("register.email")}</label>
                         <input
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
                             name="email"
                             type="email"
                             id="email"
-                            placeholder="Email Address"
+                            placeholder={t("register.email")}
                             value={formData.email}
                             onChange={handleChange}
                             required
                         />
 
-                        <label className="font-semibold" htmlFor="password">Password</label>
+                        <label className="font-semibold" htmlFor="password">{t("register.password")}</label>
                         <input
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
                             name="password"
                             type="password"
                             id="password"
-                            placeholder="Password"
+                            placeholder={t("register.password")}
                             value={formData.password}
                             onChange={handleChange}
                             required
@@ -94,14 +99,16 @@ const Register = () => {
                         </button>
 
                         {error && (
-                            <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                            <div
+                                className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
                                 {error}
                             </div>
                         )}
 
                         <div className="flex gap-1 items-center text-base mt-2">
-                          <span>Already have an account?</span>
-                          <a href="/login" className="text-emerald-600 hover:underline cursor-pointer">Log in</a>
+                            <span>{t("register.haveAccount")}</span>
+                            <a href="/login"
+                               className="text-emerald-600 hover:underline cursor-pointer">{t("register.login")}</a>
                         </div>
                     </div>
                 </form>
