@@ -3,16 +3,17 @@
 import {PatientOutputDTO} from "@/dto/output/PatientOutputDTO";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 export default function Home() {
     const router = useRouter();
-    const { t } = useTranslation();
+    const {t, i18n} = useTranslation();
 
 
     const [mePatient, setMePatient] = useState<PatientOutputDTO>({
         id: "",
         email: "",
+        language: ""
     });
 
     const logout = async () => {
@@ -36,7 +37,11 @@ export default function Home() {
                     console.warn("Failed to fetch patient data");
                     router.push("/login");
                 } else {
-                    setMePatient(await response.json());
+                    const patient_response = await response.json();
+                    setMePatient(patient_response);
+                    console.log("Patient data fetched successfully", mePatient);
+                    localStorage.setItem('lang', patient_response.language);
+                    await i18n.changeLanguage(patient_response.language);
                 }
             } catch (e) {
                 console.error(e);

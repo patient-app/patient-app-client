@@ -1,7 +1,11 @@
 {
   "settings": {
     "language": "Language",
-    "settings": "Settings"
+    "settings": "Settings",
+    "error": {
+      "languageFailed": "Failed to change language: ",
+      "resetTryAgain": "Failed to change the language, please try again."
+    }
   },
   "login": {
     "error": {

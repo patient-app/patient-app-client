@@ -2,7 +2,11 @@ interface Resources {
     "translation": {
         "settings": {
             "language": "",
-            "settings": ""
+            "settings": "",
+            "error": {
+                "languageFailed": "",
+                "languageTryAgain": ""
+            }
         },
         "login": {
             "error": {

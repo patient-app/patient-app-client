@@ -1,7 +1,11 @@
 {
   "settings": {
     "language": "Мова",
-    "settings": "Налаштування"
+    "settings": "Налаштування",
+    "error": {
+      "languageFailed": "Не вдалося змінити мову: ",
+      "resetTryAgain": "Не вдалося змінити мову, спробуйте ще раз."
+    }
   },
   "login": {
     "error": {
