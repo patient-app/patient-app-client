@@ -55,6 +55,12 @@
     },
     "logout": "Logout"
   },
+  "navigation": {
+    "home": "Home",
+    "chatbot": "Chatbot",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
   "footer": {
     "terms": "Terms of Use",
     "privacy": "Privacy Policy"
