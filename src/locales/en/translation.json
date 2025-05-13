@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "language": "Language",
+    "settings": "Settings",
+    "error": {
+      "languageFailed": "Failed to change language: ",
+      "resetTryAgain": "Failed to change the language, please try again."
+    }
+  },
+  "login": {
+    "error": {
+      "emptyFields": "Both fields are required.",
+      "loginFailed": "Failed to login: ",
+      "loginTryAgain": "Failed to login, please try again."
+    },
+    "title": "Welcome back",
+    "email": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "reset": "Reset",
+    "submit": "Login",
+    "noAccount": "Don't have an account?",
+    "register": "Register"
+  },
+  "register": {
+    "title": "Create your account",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Register",
+    "haveAccount": "Already have an account?",
+    "login": "Login",
+    "error": {
+      "emptyFields": "Both fields are required.",
+      "registrationFailed": "Failed to register: ",
+      "registrationTryAgain": "Failed to register, please try again."
+    }
+  },
+  "reset": {
+    "title": "Reset the password",
+    "email": "Email Address",
+    "submit": "Reset",
+    "success": "Password reset successfully!",
+    "error": {
+      "resetFailed": "Failed to reset password: ",
+      "resetTryAgain": "Failed to reset the password, please try again."
+    },
+    "backToLogin": "Go back to login: ",
+    "login": "Login"
+  },
+  "home": {
+    "title": "Welcome to the Patient App",
+    "loggedInAs": "You are logged in as: ",
+    "error": {
+      "generic": "Something went wrong"
+    },
+    "logout": "Logout"
+  },
+  "footer": {
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"
+  }
+}

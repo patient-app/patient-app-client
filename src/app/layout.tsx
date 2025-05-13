@@ -6,6 +6,9 @@ import TermsLink from "../components/TermsLink";
 import Navigation from "../components/Navigation";
 import Link from "next/link";
 import React from "react";
+import TranslationsProvider from "@/libs/provider/translation-provider";
+import {ReactNode} from "react";
+import initTranslations, {i18nNamespaces} from "@/libs/i18n/i18n";
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -15,11 +18,18 @@ export const metadata: Metadata = {
     description: "To support clients.",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+interface LayoutProps {
+    children: ReactNode;
+    params: Promise<{
+        locale: string;
+    }>;
+}
+
+export default async function RootLayout({
+                                             children, params
+                                         }: Readonly<LayoutProps>) {
+    const {locale} = await params;
+    const {resources} = await initTranslations(locale, i18nNamespaces);
     return (
         <html lang="en">
         <head>
@@ -27,6 +37,12 @@ export default function RootLayout({
             <title>Patient&#39;s App</title>
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
+        <TranslationsProvider
+            namespaces={i18nNamespaces}
+            locale={locale}
+            resources={resources}
+        >
         {/* Top-left clickable title: */}
         <Link
             href="/"
@@ -43,6 +59,7 @@ export default function RootLayout({
 
         {/* Terms and Conditions: */}
         <TermsLink />
+        </TranslationsProvider>
         </body>
 
         </html>
