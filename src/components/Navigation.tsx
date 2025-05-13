@@ -11,7 +11,7 @@ export default function Navigation() {
     const {t} = useTranslation();
 
     {/* Navigation is not shown at these sites:*/}
-    const noNavigationPages = ["/terms", "/login", "/register"];
+    const noNavigationPages = ["/terms", "/login", "/register", "/reset-password"];
     if (noNavigationPages.includes(pathname)) return null;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
