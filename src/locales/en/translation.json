@@ -55,6 +55,11 @@
     },
     "logout": "Logout"
   },
+  "chatbot": {
+    "name": "Lumina",
+    "header": "Lumina AI",
+    "placeholder": "Ask Lumina AI"
+  },
   "navigation": {
     "home": "Home",
     "chatbot": "Chatbot",

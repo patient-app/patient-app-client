@@ -55,6 +55,11 @@
     },
     "logout": "вийти"
   },
+  "chatbot": {
+    "name": "Люміна",
+    "header": "Люміна ШІ",
+    "placeholder": "Запитайте Люміну ШІ"
+  },
   "navigation": {
     "home": "Головна",
     "chatbot": "Чат-бот",

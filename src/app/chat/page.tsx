@@ -5,8 +5,10 @@ import config from "@/chatbot/config";
 import MessageParser from "@/chatbot/MessageParser";
 import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
+import {useTranslation} from "react-i18next";
 
 export default function ChatPage() {
+    const {t} = useTranslation();
 
     return (
 
@@ -15,8 +17,8 @@ export default function ChatPage() {
                     config={config}
                     messageParser={MessageParser}
                     actionProvider={ActionProvider}
-                    headerText={"I'm a bad Therapist"}
-                    placeholderText={"tell me your issues here"}
+                    headerText={t("chatbot.header")}
+                    placeholderText={t("chatbot.placeholder")}
                 />
         </div>
     );

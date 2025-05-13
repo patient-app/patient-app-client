@@ -1,13 +1,13 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
 
-const botName = "Best Buddy";
+const botName = "Lumina";
 
 const config = {
-    initialMessages: [createChatBotMessage(`what up? I'm your ${botName}`, {})],
+    initialMessages: [createChatBotMessage(`Hey, I'm ${botName}. How can I help you today?`, {})],
     botName: botName,
     customStyles: {
         chatButton: {
-            backgroundColor: '#5ccc9d',
+            backgroundColor: 'oklch(69.6% 0.17 162.48)',
         },
     },
 };
