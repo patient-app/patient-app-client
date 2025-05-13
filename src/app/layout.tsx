@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import 'react-chatbot-kit/build/main.css';
+import TermsLink from "../components/TermsLink";
 import TranslationsProvider from "@/libs/provider/translation-provider";
 import {ReactNode} from "react";
 import initTranslations, {i18nNamespaces} from "@/libs/i18n/i18n";
@@ -50,6 +51,7 @@ export default async function RootLayout({
                 <span className="text-3xl">P</span>atient&#39;s <span className="text-3xl">A</span>pp
             </div>
             {children}
+            <TermsLink/>
         </TranslationsProvider>
         </body>
         </html>

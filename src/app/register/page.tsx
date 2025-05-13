@@ -81,9 +81,21 @@ const Register = () => {
                             onChange={handleChange}
                             required
                         />
-                        <button
-                            className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                            type="submit" color="primary"> {t("register.submit")}
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                name="terms"
+                                required
+                                onInvalid={(e) => e.currentTarget.setCustomValidity("Please accept the terms and conditions to proceed.")}
+                                className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-0"
+                            />
+                            <label htmlFor="terms" className="text-sm text-gray-700">
+                                I accept the <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">terms and conditions</a>.
+                            </label>
+                        </div>
+                        <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                                type="submit" color="primary"> Register
                         </button>
 
                         {error && (
@@ -100,12 +112,6 @@ const Register = () => {
                         </div>
                     </div>
                 </form>
-
-                <div className="absolute bottom-4 text-sm text-gray-600 flex gap-2 justify-center">
-                    <a href="/terms" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
-                    <span>|</span>
-                    <a href="/privacy" className="text-emerald-600 hover:underline">{t("footer.privacy")}</a>
-                </div>
             </div>
         </>
     );

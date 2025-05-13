@@ -108,14 +108,10 @@ const Login = () => {
 
                 </div>
             </form>
-
-            <div className="absolute bottom-4 text-sm text-gray-600 flex gap-2 justify-center">
-                <a href="/terms" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
-                <span>|</span>
-                <a href="/privacy" className="text-emerald-600 hover:underline">{t("footer.privacy")}</a>
-            </div>
         </div>
-    );
+</>
+)
+    ;
 };
 
 export default Login;

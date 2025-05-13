@@ -49,7 +49,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, [router]);
+    }, []);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
