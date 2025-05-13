@@ -2,6 +2,7 @@
 
 import {usePathname, useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
+import Link from "next/link";
 
 export default function Navigation() {
     const pathname = usePathname();
@@ -35,6 +36,13 @@ export default function Navigation() {
     if (isMobile) {
         return (
             <footer className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-3 px-2 z-50 h-20">
+                <button onClick={() => router.push("/")} className="flex-1 flex flex-col items-center justify-center gap-1" aria-label="Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span className="text-xs font-medium">Home</span>
+                </button>
                 <button onClick={() => router.push("/chat")} className="flex-1 flex flex-col items-center justify-center gap-1" aria-label="Chatbot">
                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -63,8 +71,9 @@ export default function Navigation() {
     return (
         <aside className="h-screen w-64 bg-[#F9F9F9] p-4 pt-20 pl-7">
             <nav className="flex flex-col gap-2">
-                <a href="/chat" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Chatbot</a>
-                <a href="/settings" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Settings</a>
+                <Link href="/" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Home</Link>
+                <Link href="/chat" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Chatbot</Link>
+                <Link href="/settings" className="text-black font-[500] hover:text-emerald-600 hover:bg-[#f0f0f0] rounded-md px-2 py-1">Settings</Link>
                 <button
                     onClick={logout}
                     className="text-left text-black font-[500] hover:text-red-500 hover:bg-[#f0f0f0] cursor-pointer rounded-md px-2 py-1">
