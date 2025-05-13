@@ -10,13 +10,7 @@ export default function Navigation() {
     const router = useRouter();
     const {t} = useTranslation();
 
-    {/* Navigation is not shown at these sites:*/}
-    const noNavigationPages = ["/terms", "/login", "/register", "/reset-password"];
-    if (noNavigationPages.includes(pathname)) return null;
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isMobile, setIsMobile] = useState(false);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 725);
@@ -25,6 +19,10 @@ export default function Navigation() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    {/* Navigation is not shown at these sites:*/}
+    const noNavigationPages = ["/terms", "/login", "/register", "/reset-password"];
+    if (noNavigationPages.includes(pathname)) return null;
 
     const logout = async () => {
         const requestInit: RequestInit = {
