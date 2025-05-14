@@ -10,7 +10,7 @@ export default function ChatPage() {
 
     return (
 
-        <div className="flex justify-center">
+        <div>
                 <Chatbot
                     config={config}
                     messageParser={MessageParser}

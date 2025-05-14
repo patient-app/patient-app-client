@@ -10,8 +10,8 @@ export default function TermsLink() {
     if (pathname === "/terms") return null;
 
     return (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex gap-2 justify-center">
-            <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
-        </div>
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex gap-2 justify-center z-10">
+        <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+      </div>
     );
 }
