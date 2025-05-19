@@ -13,7 +13,7 @@
     "i18next": "^25.1.2",
     "i18next-resources-for-ts": "^1.6.0",
     "i18next-resources-to-backend": "^1.2.1",
-    "next": "15.2.3",
+    "next": "15.2.4",
     "next-i18n-router": "^5.5.1",
     "react": "^19.0.0",
     "react-chatbot-kit": "^2.2.2",
