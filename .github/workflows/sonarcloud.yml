@@ -8,7 +8,6 @@ on:
 
 jobs:
   sonarqube-frontend:
-    if: false # This disables the job
     name: SonarQube Frontend
     runs-on: ubuntu-latest
     steps:

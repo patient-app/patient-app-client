@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "i18n": "i18next-resources-for-ts interface -i ./locales/en -o ./@Types/resources.d.ts"
+    "i18n": "i18next-resources-for-ts interface -i ./src/locales/en -o ./@Types/resources.d.ts"
   },
   "dependencies": {
     "i18next": "^25.1.2",
