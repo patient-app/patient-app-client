@@ -4,24 +4,34 @@
 
     /* 100vh = screen height | 24px = chatbot padding | 52px = chatbot margin | 80px = mobile navigation height*/
     /* 20px spacing */
-    height: calc(100vh - 176px); /* 24 + 52 + 80 + 20 = 156 */
+    height: calc(100vh - 176px); /* 24 + 52 + 80 + 20 = 176 */
 
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
 }
 
-/* For medium and small screens below 1000px: */
+/* For (mobile) screens up to 1000px: */
 @media screen and (max-width: 1000px) {
     .react-chatbot-kit-chat-container {
         width: 100%;
     }
 }
 
+/* From 0 pixels up to 725, i.e. when navigation is at the bottom: */
+@media screen and (max-width: 725px) {
+    .react-chatbot-kit-chat-input-container {
+        position: relative;
+    }
+}
+
+
 .react-chatbot-kit-chat-inner-container {
     height: 100%;
 }
 
 .react-chatbot-kit-chat-header {
+    display: none;
 }
 
 .react-chatbot-kit-chat-input-container {
@@ -33,6 +43,11 @@
 }
 
 .react-chatbot-kit-chat-input {
+}
+
+.react-chatbot-kit-chat-input:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .react-chatbot-kit-chat-input-form {

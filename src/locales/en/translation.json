@@ -1,7 +1,7 @@
 {
   "settings": {
+    "title": "Settings",
     "language": "Language",
-    "settings": "Settings",
     "error": {
       "languageFailed": "Failed to change language: ",
       "resetTryAgain": "Failed to change the language, please try again."
@@ -48,7 +48,7 @@
     "login": "Login"
   },
   "home": {
-    "title": "Welcome to the Patient App",
+    "title": "Patient's App Home",
     "loggedInAs": "You are logged in as: ",
     "error": {
       "generic": "Something went wrong"
@@ -56,6 +56,7 @@
     "logout": "Logout"
   },
   "chatbot": {
+    "title": "Lumina AI",
     "name": "Lumina",
     "header": "Lumina AI",
     "placeholder": "Ask Lumina AI"
@@ -68,6 +69,7 @@
   },
   "footer": {
     "terms": "Terms of Use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "aiwarning": "AI responses may be inaccurate. Verify important information."
   }
 }
