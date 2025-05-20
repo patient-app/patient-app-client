@@ -88,6 +88,7 @@ const Register = () => {
                                 name="terms"
                                 required
                                 onInvalid={(e) => e.currentTarget.setCustomValidity("Please accept the terms and conditions to proceed.")}
+                                onChange={(e) => e.currentTarget.setCustomValidity("")}
                                 className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-0"
                             />
                             <label htmlFor="terms" className="text-sm text-gray-700">

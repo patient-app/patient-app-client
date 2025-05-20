@@ -3,9 +3,17 @@ import React from 'react';
 
 const MessageParser = ({ children, actions }: any) => {
     const parse = (message: any) => {
-        console.log(message);
-        console.log("every message from user comes in here")
-        actions.randomAnswer();
+        console.log("User Message: '" + message + "'");
+
+        // Check if the message is empty, null, undefined, or just whitespace
+        if (!message || message.trim() === '') {
+            console.log("Empty message detected - ignoring");
+            actions.emptyInput();
+            return;
+        }
+
+        // Pass the message to the generateAnswer function
+        actions.generateAnswer(message);
     };
 
     return (

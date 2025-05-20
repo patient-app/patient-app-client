@@ -55,8 +55,7 @@ const Page = () => {
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
-            <h2 className="text-2xl font-medium mb-3">{t('settings.settings')}</h2>
-
+            <h1 className="text-3xl font-semibold text-center">{t("settings.title")}</h1>
             <form className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
                 <div className="flex flex-col gap-2 w-full">
                     <label className="font-semibold" htmlFor="language">{t('settings.language')}</label>
