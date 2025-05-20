@@ -65,7 +65,8 @@ interface Resources {
     },
     "chats": {
       "title": "",
-      "empty": ""
+      "empty": "",
+      "loading": ""
     },
     "terms": {
       "title": "",
