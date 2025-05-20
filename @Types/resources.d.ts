@@ -3,6 +3,7 @@ interface Resources {
     "settings": {
       "title": "",
       "language": "",
+      "logout": "",
       "error": {
         "languageFailed": "",
         "resetTryAgain": ""
@@ -62,6 +63,10 @@ interface Resources {
       "header": "",
       "placeholder": ""
     },
+    "chats": {
+      "title": "",
+      "empty": ""
+    },
     "terms": {
       "title": "",
       "text": "",
@@ -69,7 +74,8 @@ interface Resources {
     },
     "navigation": {
       "home": "",
-      "chatbot": "",
+      "chat": "",
+      "chats": "",
       "settings": "",
       "logout": ""
     },

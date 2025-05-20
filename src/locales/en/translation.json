@@ -2,6 +2,7 @@
   "settings": {
     "title": "Settings",
     "language": "Language",
+    "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
       "resetTryAgain": "Failed to change the language, please try again."
@@ -55,11 +56,15 @@
     },
     "logout": "Logout"
   },
-  "chatbot": {
+  "chat": {
     "title": "Lumina AI",
     "name": "Lumina",
     "header": "Lumina AI",
     "placeholder": "Ask Lumina AI"
+  },
+  "chats": {
+    "title": "Chat History",
+    "empty": "No chats available."
   },
   "terms": {
     "title": "Terms and Conditions",
@@ -68,7 +73,8 @@
   },
   "navigation": {
     "home": "Home",
-    "chatbot": "Chatbot",
+    "chat": "New Chat",
+    "chats": "Chat History",
     "settings": "Settings",
     "logout": "Log out"
   },
