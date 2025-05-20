@@ -62,6 +62,11 @@ interface Resources {
       "header": "",
       "placeholder": ""
     },
+    "terms": {
+      "title": "",
+      "text": "",
+      "closebutton": ""
+    },
     "navigation": {
       "home": "",
       "chatbot": "",
