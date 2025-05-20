@@ -9,6 +9,7 @@ interface NavigationButtonProps {
     href?: string;
     icon: React.ReactNode;
     label: string;
+    showOnMobile?: boolean;
     className?: string;
 }
 
@@ -18,6 +19,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
                                                                href,
                                                                icon,
                                                                label,
+                                                               showOnMobile = false,
                                                                className = "",
                                                            }) => {
     const pathname = usePathname();
@@ -28,6 +30,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     const selectionClassesMobile = isActive ? "text-emerald-600" : "";
 
     if (isMobile) {
+        if(!showOnMobile) return null; // Don't show on mobile if not specified
         return (
             <button
                 onClick={onClick}
