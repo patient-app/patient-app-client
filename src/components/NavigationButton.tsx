@@ -10,6 +10,7 @@ interface NavigationButtonProps {
     icon: React.ReactNode;
     label: string;
     showOnMobile?: boolean;
+    alignBottom?: boolean;
     className?: string;
 }
 
@@ -20,6 +21,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
                                                                icon,
                                                                label,
                                                                showOnMobile = false,
+                                                               alignBottom = false,
                                                                className = "",
                                                            }) => {
     const pathname = usePathname();
@@ -43,7 +45,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     }
 
     return (
-        <Link href={href || "#"} onClick={onClick} className={`text-[hsl(0,0%,0%)] font-[500] hover:text-emerald-600 hover:bg-[hsl(0,0%,95%)] rounded-md px-2 py-1 ${selectionClassesDesktop} ${className}`}>
+        <Link href={href || "#"} onClick={onClick} className={`text-[hsl(0,0%,0%)] font-[500] hover:text-emerald-600 hover:bg-[hsl(0,0%,95%)] rounded-md px-2 py-1 ${selectionClassesDesktop} ${alignBottom ? "mt-auto" : ""} ${className}`}>
             {label}
         </Link>
     );
