@@ -2,6 +2,7 @@
 
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
 const languages = [
     {id: "en", label: "English", native: "English"},
@@ -13,6 +14,7 @@ const Page = () => {
     const [isClient, setIsClient] = useState(false);
     const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
     const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         setIsClient(true);
@@ -23,6 +25,15 @@ const Page = () => {
             setSelectedLang(savedLang);
         }
     }, [i18n]);
+
+    const logout = async () => {
+        const requestInit: RequestInit = {
+            method: "POST",
+            credentials: "include",
+        };
+        await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
+        router.push("/login");
+    };
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -80,6 +91,9 @@ const Page = () => {
                     )}
                 </div>
             </form>
+            <button className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
+                    type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout") }
+            </button>
         </div>
     );
 };
