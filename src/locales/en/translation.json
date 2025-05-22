@@ -65,7 +65,8 @@
     "home": "Home",
     "chatbot": "Chatbot",
     "settings": "Settings",
-    "logout": "Log out"
+    "logout": "Log out",
+    "exercise": "Exercise"
   },
   "footer": {
     "terms": "Terms of Use",

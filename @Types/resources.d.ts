@@ -66,7 +66,8 @@ interface Resources {
       "home": "",
       "chatbot": "",
       "settings": "",
-      "logout": ""
+      "logout": "",
+      "exercise": "",
     },
     "footer": {
       "terms": "",
