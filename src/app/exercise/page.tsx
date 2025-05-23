@@ -3,11 +3,16 @@
 const Exercise = () => {
 
 
-
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold mb-4">Exercise</h1>
-            <p className="text-lg">This is the exercise page.</p>
+        <div className="gap-4 p-4 flex flex-wrap justify-start">
+                {Array.from({length: 5}).map((_, index) => (
+                    <button
+                        key={index}
+                        className="w-26 h-24 bg-blue-figma shadow-md rounded-[20px] hover:bg-medium-blue-figma transition cursor-pointer"
+                    >
+                        <p className="font-semibold">Exercise</p>
+                    </button>
+                ))}
         </div>
     );
 };
