@@ -7,4 +7,6 @@ body {
 @theme {
   --color-blue-figma: #CAF0F0;
   --color-medium-blue-figma: #a9ecec;
+  --breakpoint-mobile: 725;
 }
+
