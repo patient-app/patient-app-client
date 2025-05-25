@@ -65,7 +65,8 @@
   "chats": {
     "title": "Chat History",
     "empty": "No chats available.",
-    "loading": "Loading chats..."
+    "loading": "Loading chats...",
+    "chat": "Chat "
   },
   "terms": {
     "title": "Terms and Conditions",
