@@ -8,6 +8,7 @@ import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
+import { ComponentProps } from "react";
 
 export default function ChatPage() {
     const router = useRouter();
@@ -74,12 +75,10 @@ export default function ChatPage() {
             }
         };
         fetchMyself();
-    }, [chatId]);
+    }, [chatId, router]);
 
     return (
-
-        <main className="w-full gap-5 p-5">
-
+        <>
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
@@ -90,12 +89,13 @@ export default function ChatPage() {
                 <Chatbot
                     config={config}
                     messageParser={MessageParser}
-                    actionProvider={ActionProvider}
+                    actionProvider={(
+                        props: ComponentProps<typeof ActionProvider>     // <- no more “any”
+                    ) => <ActionProvider {...props} chatId={chatId} />}
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
             )}
-        </main>
-
+        </>
     )
 }

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
+const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: any) => {
     // Add a state variable to track if a conversation has been created
-    const [conversationCreated, setConversationCreated] = useState(false);
-    const [conversationId, setConversationId] = useState<string | null>(null);
+    const [conversationCreated, setConversationCreated] = useState(!!chatId);
+    const [conversationId, setConversationId] = useState<string | null>(chatId || null);
 
     const createConversation = async () => {
         try {
