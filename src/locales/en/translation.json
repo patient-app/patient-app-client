@@ -4,7 +4,7 @@
     "language": "Language",
     "error": {
       "languageFailed": "Failed to change language: ",
-      "resetTryAgain": "Failed to change the language, please try again."
+      "languageTryAgain": "Failed to change the language, please try again."
     }
   },
   "login": {

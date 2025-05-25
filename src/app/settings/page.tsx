@@ -45,7 +45,8 @@ const Page = () => {
                 setSelectedLang(lang);
             }
         } catch (e) {
-            setError(`t("settings.error.languageTryAgain")`);
+            setError(t("settings.error.languageTryAgain")
+            );
             console.error("Failed to change language", e);
         }
 
