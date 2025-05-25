@@ -9,7 +9,6 @@ export default function Home() {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
-
     const [mePatient, setMePatient] = useState<PatientOutputDTO>({
         id: "",
         email: "",
@@ -33,6 +32,9 @@ export default function Home() {
                     console.log("Patient data fetched successfully", mePatient);
                     localStorage.setItem('lang', patient_response.language);
                     await i18n.changeLanguage(patient_response.language);
+
+                    // TODO: Adapt to the backend's response structure
+                    if(!patient_response.onboardingDone) router.push("/onboarding");
                 }
             } catch (e) {
                 console.error(e);
@@ -40,7 +42,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, []);
+    }, [i18n, mePatient, router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">

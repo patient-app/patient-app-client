@@ -61,6 +61,19 @@
     "header": "Lumina AI",
     "placeholder": "Ask Lumina AI"
   },
+  "onboarding": {
+    "welcomeTitle": "Welcome to Lumina AI",
+    "welcomeText": "Let's get started with a few questions to personalize your experience.",
+    "continue": "Continue",
+    "nameTitle": "How should we call you?",
+    "namePlaceholder": "Enter your preferred name",
+    "infoTitle": "Nice to meet you, {{name}}!",
+    "infoText_1": "Let's work together toward better health.",
+    "infoText_2": "Lumina AI is here to support your well-being and guide you through personalized exercises.",
+    "configuredTitle": "Your coach already defined some things.",
+    "configuredText": "Lumina is personalized for your individual needs. You can talk to your coach to change it. This is what was configured:",
+    "finish": "Get started!"
+  },
   "navigation": {
     "home": "Home",
     "chatbot": "Chatbot",
