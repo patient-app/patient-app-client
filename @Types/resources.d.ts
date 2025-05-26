@@ -74,7 +74,8 @@ interface Resources {
         "infoText_2": "",
         "configuredTitle": "",
         "configuredText": "",
-        "finish": ""
+        "finish": "",
+        "languageSelection": ""
     }
     "navigation": {
       "home": "",

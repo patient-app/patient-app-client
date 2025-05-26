@@ -70,9 +70,10 @@
     "infoTitle": "Nice to meet you, {{name}}!",
     "infoText_1": "Let's work together toward better health.",
     "infoText_2": "Lumina AI is here to support your well-being and guide you through personalized exercises.",
-    "configuredTitle": "Your coach already defined some things.",
+    "configuredTitle": "Your coach already defined some things for you.",
     "configuredText": "Lumina is personalized for your individual needs. You can talk to your coach to change it. This is what was configured:",
-    "finish": "Get started!"
+    "finish": "Get started!",
+    "languageSelection": "What language would you like to use?"
   },
   "navigation": {
     "home": "Home",

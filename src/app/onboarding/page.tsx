@@ -1,16 +1,57 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 
 
 const Login = () => {
     const router = useRouter();
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
+
+    const languages = [
+        {id: "en", label: "English", native: "English"},
+        {id: "uk", label: "Ukrainian", native: "Українська"},
+    ];
+    const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem('lang');
+        if (savedLang && savedLang !== i18n.language) {
+            i18n.changeLanguage(savedLang);
+            setSelectedLang(savedLang);
+        }
+    }, [i18n]);
 
     const [screen, setScreen] = useState<1 | 2 | 3 | 4>(1);
     const [name, setName] = useState("");
+
+    const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const lang = e.target.value;
+        const formData = {language: lang};
+        setError(null)
+        try {
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                body: JSON.stringify(formData),
+                headers: {"Content-Type": "application/json"},
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
+            if (response.status !== 204) {
+                const errorData = await response.json();
+                setError((t("settings.error.languageFailed") + errorData.message) || t("settings.error.languageTryAgain"));
+            } else {
+                localStorage.setItem('lang', lang);
+                await i18n.changeLanguage(lang);
+                setSelectedLang(lang);
+            }
+        } catch (e) {
+            setError(t("settings.error.languageTryAgain"));
+            console.error("Failed to change language", e);
+        }
+    };
 
     const handleNext = () => {
         if (screen < 4) {
@@ -34,6 +75,27 @@ const Login = () => {
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.welcomeTitle")}</h2>
                     <p>{t("onboarding.welcomeText")}</p>
+                    <div className="w-full flex justify-center">
+                        <select
+                            id="language"
+                            name="language"
+                            value={selectedLang}
+                            onChange={handleLanguageChange}
+                            className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
+                        >
+                            {languages.map(lang => (
+                                <option key={lang.id} value={lang.id}>
+                                    {lang.native} - {lang.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    {error && (
+                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs">
+                            {error}
+                        </div>
+                    )}
+
                     <button
                         onClick={handleNext}
                         className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
