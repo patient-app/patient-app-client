@@ -28,13 +28,21 @@ export default function Home() {
                     router.push("/login");
                 } else {
                     const patient_response = await response.json();
+
+                    // TODO: Adapt to the backend's response structure
+                    // Check if the onboarding is done and redirect if not
+                    if (!patient_response.onboardingDone && window.location.pathname !== "/onboarding" && localStorage.getItem("onboardingDone") !== "true") {
+                        // TODO: localStorage.setItem("onboardingDone", "false");
+                        router.push("/onboarding");
+                        return;
+                    } else {
+                        localStorage.setItem("onboardingDone", "true");
+                    }
+
                     setMePatient(patient_response);
                     console.log("Patient data fetched successfully", mePatient);
                     localStorage.setItem('lang', patient_response.language);
                     await i18n.changeLanguage(patient_response.language);
-
-                    // TODO: Adapt to the backend's response structure
-                    if(!patient_response.onboardingDone) router.push("/onboarding");
                 }
             } catch (e) {
                 console.error(e);

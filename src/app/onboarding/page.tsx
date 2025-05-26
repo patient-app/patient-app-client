@@ -17,9 +17,16 @@ const Login = () => {
             setScreen((prev) => (prev + 1) as 1 | 2 | 3 | 4);
         } else {
             // TODO: Save the onboarding data to the backend + mark onboarding as done
+            localStorage.setItem("onboardingDone", "true");
             router.push("/");
+            return;
         }
     };
+
+    if( localStorage.getItem("onboardingDone") === "true" ) {
+        router.push("/");
+        return;
+    }
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center">
