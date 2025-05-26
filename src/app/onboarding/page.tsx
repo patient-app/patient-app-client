@@ -75,6 +75,7 @@ const Login = () => {
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.welcomeTitle")}</h2>
                     <p>{t("onboarding.welcomeText")}</p>
+                    <p><b>{t("onboarding.languageSelection")}</b></p>
                     <div className="w-full flex justify-center">
                         <select
                             id="language"
