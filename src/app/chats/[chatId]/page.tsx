@@ -40,7 +40,7 @@ export default function ChatPage() {
                         "Content-Type": "application/json",
                     },
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/" + chatId, requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + chatId, requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
                     router.push("/chat");

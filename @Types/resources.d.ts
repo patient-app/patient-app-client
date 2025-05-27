@@ -55,7 +55,8 @@ interface Resources {
       "error": {
         "generic": ""
       },
-      "logout": ""
+      "logout": "",
+      "lastChat": ""
     },
     "chatbot": {
       "title": "",

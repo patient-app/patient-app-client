@@ -31,7 +31,7 @@ export default function Home() {
 
                 const respo = await response.json();
                 console.log(respo);
-                setConversations(respo);
+                setConversations(respo.reverse());
                 console.log("Conversations fetched successfully", conversations);
             } catch (e) {
                 console.error(e);

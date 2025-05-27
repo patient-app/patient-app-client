@@ -54,7 +54,8 @@
     "error": {
       "generic": "Something went wrong"
     },
-    "logout": "Logout"
+    "logout": "Logout",
+    "lastChat": "Continue last chat: "
   },
   "chat": {
     "title": "Lumina AI",
