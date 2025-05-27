@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 
 const PUBLIC_ROUTES = ['/login', '/register', '/reset-password'];
 
@@ -22,6 +22,15 @@ export default async function middleware(req: NextRequest) {
     const token = req.cookies.get('auth')?.value;
     const session = parseJwt(token);
     const isLoggedIn = !!session?.sub; //creates boolean
+
+    if (session?.exp) {
+        const now = Math.floor(Date.now() / 1000);
+        const isExpired = now >= session.exp;
+
+        if (isExpired) {
+            return NextResponse.redirect(new URL('/login', req.nextUrl));
+        }
+    }
 
     if (!isPublicRoute && !isLoggedIn) {
         return NextResponse.redirect(new URL('/login', req.nextUrl));
