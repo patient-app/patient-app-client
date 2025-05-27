@@ -50,7 +50,7 @@ export default function Home() {
                         onClick={() => router.push(`/chat`)}
                         className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
                     >
-                        <p className="font-bold">+ Start a New Conversation</p>
+                        <p className="font-bold">{t("chats.startNewConversation")}</p>
                     </div>
                     {conversations.map((conv, i) => (
                         <div

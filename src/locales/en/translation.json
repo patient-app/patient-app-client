@@ -55,7 +55,9 @@
       "generic": "Something went wrong"
     },
     "logout": "Logout",
-    "lastChat": "Continue last chat: "
+    "lastChat": "Continue last chat: ",
+    "startNewConversation": "+ Start a new conversation",
+    "noConversationsYet": "no conversations yet"
   },
   "chat": {
     "title": "Lumina AI",
@@ -67,7 +69,8 @@
     "title": "Conversations",
     "empty": "No chats available.",
     "loading": "Loading chats...",
-    "chat": "Chat "
+    "chat": "Chat ",
+    "startNewConversation": "+ Start a new conversation"
   },
   "terms": {
     "title": "Terms and Conditions",

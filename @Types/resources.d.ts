@@ -56,7 +56,9 @@ interface Resources {
         "generic": ""
       },
       "logout": "",
-      "lastChat": ""
+      "lastChat": "",
+      "startNewConversation": "",
+      "noConversationsYet": ""
     },
     "chatbot": {
       "title": "",
@@ -68,7 +70,8 @@ interface Resources {
       "title": "",
       "empty": "",
       "loading": "",
-      "chat": ""
+      "chat": "",
+      "startNewConversation": ""
     },
     "terms": {
       "title": "",
