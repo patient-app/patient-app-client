@@ -75,7 +75,12 @@ interface Resources {
         "configuredTitle": "",
         "configuredText": "",
         "finish": "",
-        "languageSelection": ""
+        "languageSelection": "",
+        "termsTitle": "",
+        "termsText": "",
+        "termsButton": "",
+        "onboardingError": "",
+        "onboardingTryAgain": ""
     }
     "navigation": {
       "home": "",

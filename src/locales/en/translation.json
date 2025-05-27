@@ -73,7 +73,12 @@
     "configuredTitle": "Your coach already defined some things for you.",
     "configuredText": "Lumina is personalized for your individual needs. You can talk to your coach to change it. This is what was configured:",
     "finish": "Get started!",
-    "languageSelection": "What language would you like to use?"
+    "languageSelection": "What language would you like to use?",
+    "termsTitle": "Something technical first.",
+    "termsText": "In order to use our application, you need to agree to the terms of use and privacy policy. We do the best we can to protect your data. You can read the terms of use by clicking below.",
+    "termsButton": "Agree & Continue",
+    "onboardingError": "Failed to onboard: ",
+    "onboardingTryAgain": "Failed to onboard, please try again."
   },
   "navigation": {
     "home": "Home",

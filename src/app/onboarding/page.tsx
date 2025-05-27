@@ -24,8 +24,35 @@ const Login = () => {
         }
     }, [i18n]);
 
-    const [screen, setScreen] = useState<1 | 2 | 3 | 4>(1);
+    const [screen, setScreen] = useState<1 | 2 | 3 | 4 | 5>(1);
     const [name, setName] = useState("");
+
+    useEffect(() => {
+        const fetchPatientData = async () => {
+            const requestInit: RequestInit = {
+                method: "GET",
+                credentials: "include",
+            };
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
+                if (!response.ok) {
+                    console.warn("Failed to fetch patient data");
+                    router.push("/login");
+                    return;
+                }
+                const patient_response = await response.json();
+                if (patient_response.onboarded) {
+                    console.log("Patient is already onboarded, redirecting to dashboard.");
+                    router.push("/");
+                    return;
+                }
+            } catch (error) {
+                console.error("Error fetching patient data:", error);
+            }
+        };
+
+        fetchPatientData();
+    }, [router]);
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -53,21 +80,27 @@ const Login = () => {
         }
     };
 
-    const handleNext = () => {
-        if (screen < 4) {
-            setScreen((prev) => (prev + 1) as 1 | 2 | 3 | 4);
+    const handleNext = async () => {
+        if (screen < 5) {
+            setScreen((prev) => (prev + 1) as 1 | 2 | 3 | 4 | 5);
         } else {
-            // TODO: Save the onboarding data to the backend + mark onboarding as done
-            localStorage.setItem("onboardingDone", "true");
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                body: JSON.stringify({"onboarded": true}),
+                headers: {"Content-Type": "application/json"},
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/onboarded", requestInit);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError((t("onboarding.onboardingFailed") + errorData.message) || t("onboarding.onboardingTryAgain"));
+                return;
+            }
             router.push("/");
             return;
         }
     };
-
-    if( localStorage.getItem("onboardingDone") === "true" ) {
-        router.push("/");
-        return;
-    }
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center">
@@ -92,7 +125,7 @@ const Login = () => {
                         </select>
                     </div>
                     {error && (
-                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs">
+                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">
                             {error}
                         </div>
                     )}
@@ -104,6 +137,8 @@ const Login = () => {
                         {t("onboarding.continue")}
                     </button>
                     <div className="flex justify-center gap-2 mt-4">
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
@@ -112,6 +147,29 @@ const Login = () => {
             )}
 
             {screen === 2 && (
+                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                    <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
+                    <p>{t("onboarding.termsText")}</p>
+                    <div className="text-gray-600 flex gap-2 justify-center z-10">
+                        <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                    </div>
+                    <button
+                        onClick={handleNext}
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                    >
+                        {t("onboarding.termsButton")}
+                    </button>
+                    <div className="flex justify-center gap-2 mt-4">
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                    </div>
+                </div>
+            )}
+
+            {screen === 3 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.nameTitle")}</h2>
                     <div className="w-full flex justify-center">
@@ -135,13 +193,15 @@ const Login = () => {
                     </div>
                     <div className="flex justify-center gap-2 mt-4">
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
 
-            {screen === 3 && (
+            {screen === 4 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.infoTitle", { name })}</h2>
                     <p>{t("onboarding.infoText_1")}<br/>{t("onboarding.infoText_2")}</p>
@@ -154,12 +214,14 @@ const Login = () => {
                     <div className="flex justify-center gap-2 mt-4">
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
 
-            {screen === 4 && (
+            {screen === 5 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
@@ -177,6 +239,8 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="flex justify-center gap-2 mt-4">
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>

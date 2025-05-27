@@ -29,14 +29,10 @@ export default function Home() {
                 } else {
                     const patient_response = await response.json();
 
-                    // TODO: Adapt to the backend's response structure
-                    // Check if the onboarding is done and redirect if not
-                    if (!patient_response.onboardingDone && window.location.pathname !== "/onboarding" && localStorage.getItem("onboardingDone") !== "true") {
-                        // TODO: localStorage.setItem("onboardingDone", "false");
+                    if (!patient_response.onboarded && window.location.pathname !== "/onboarding") {
+                        console.log("Patient is not onboarded, redirecting to onboarding.");
                         router.push("/onboarding");
                         return;
-                    } else {
-                        localStorage.setItem("onboardingDone", "true");
                     }
 
                     setMePatient(patient_response);
