@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 interface Conversation {
     id: string;
-    // Add other fields as needed based on your API response
+    name: string | null;
 }
 
 export default function Home() {
@@ -22,40 +22,44 @@ export default function Home() {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/patient", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
-                    // router.push("/login"); <- uncomment after testing
-
-                    // For testing purposes, we can set some dummy conversations
-                    setConversations([
-                        { id: "1478fa78-ffc8-42a1-bee3-eb78f848833e" },
-                        { id: "08c9cca3-63c5-4c0a-a94d-17e96348a8ba" },
-                        { id: "84938316-0153-4a7d-9762-09fec1e50bc2" }
-                    ]);
-                } else {
-                    const respo = await response.json();
-                    setConversations(respo.conversationIds.map((id: string) => ({ id })));
+                    router.push("/login");
+                    return;
                 }
+
+                const respo = await response.json();
+                console.log(respo);
+                setConversations(respo);
+                console.log("Conversations fetched successfully", conversations);
             } catch (e) {
                 console.error(e);
-                // router.push("/login"); <- uncomment after testing
+                router.push("/login");
+                return;
             }
         };
         fetchMyself();
-    }, []);
+    }, [router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
-            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
-                <div>
+            <h1 className="text-3xl font-semibold">{t("chats.title")}</h1>
+                <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
+                    <div
+                        onClick={() => router.push(`/chat`)}
+                        className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
+                    >
+                        <p className="font-bold">+ Start a New Conversation</p>
+                    </div>
                     {conversations.map((conv, i) => (
                         <div
                             key={i}
                             onClick={() => router.push(`/chats/${conv.id}`)}
                             className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                         >
-                            <p>Conversation {conv.id}</p>
+                            <p className="font-bold">{conv.name ? `Conversation ${conv.name}` : "Unnamed conversation"}</p>
+                            <p className="italic text-gray-400 text-sm">{conv.id}</p>
                         </div>
                     ))}
                 </div>

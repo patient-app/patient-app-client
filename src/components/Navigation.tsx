@@ -45,14 +45,6 @@ export default function Navigation() {
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/chat"
-                onClick={() => router.push("/chat")}
-                icon={<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>}
-                label={t("navigation.chat")}
-                showOnMobile={true}
-            />
-            <NavigationButton
-                isMobile={isMobile}
                 href="/chats"
                 onClick={() => router.push("/chats")}
                 icon={<svg

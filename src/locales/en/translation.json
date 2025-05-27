@@ -63,7 +63,7 @@
     "placeholder": "Ask Lumina AI"
   },
   "chats": {
-    "title": "Chat History",
+    "title": "Conversations",
     "empty": "No chats available.",
     "loading": "Loading chats...",
     "chat": "Chat "
@@ -76,7 +76,7 @@
   "navigation": {
     "home": "Home",
     "chat": "New Chat",
-    "chats": "Chat History",
+    "chats": "Conversations",
     "settings": "Settings",
     "logout": "Log out"
   },
