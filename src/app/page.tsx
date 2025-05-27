@@ -73,10 +73,10 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
-            {mePatient.email ? <div className="w-xl max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 hover:bg-gray-50 transition"><p>{t("home.loggedInAs")}{mePatient.email}</p></div> : <div>{t("home.error.generic")}</div>}
+            {mePatient.email ? <div className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 hover:bg-gray-50 transition"><p>{t("home.loggedInAs")}{mePatient.email}</p></div> : <div>{t("home.error.generic")}</div>}
             <div
                 onClick={() => router.push(`/chats/${lastChatId}`)}
-                className="w-xl max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
             >
                 <p>{t("home.lastChat")}</p>
                 <p className="font-bold">{lastChatName ? `Conversation ${lastChatName}` : "Unnamed conversation"}</p>
