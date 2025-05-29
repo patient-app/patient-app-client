@@ -62,6 +62,26 @@ interface Resources {
       "header": "",
       "placeholder": ""
     },
+    "onboarding": {
+      "welcomeTitle": "",
+        "welcomeText": "",
+        "continue": "",
+        "nameTitle": "",
+        "namePlaceholder": "",
+        "next": "",
+        "infoTitle": "",
+        "infoText_1": "",
+        "infoText_2": "",
+        "configuredTitle": "",
+        "configuredText": "",
+        "finish": "",
+        "languageSelection": "",
+        "termsTitle": "",
+        "termsText": "",
+        "termsButton": "",
+        "onboardingError": "",
+        "onboardingTryAgain": ""
+    }
     "navigation": {
       "home": "",
       "chatbot": "",
