@@ -5,7 +5,12 @@ interface Resources {
             "language": "",
             "error": {
                 "languageFailed": "",
-                "resetTryAgain": ""
+                "resetTryAgain": "",
+                "passwordEmptyFields":"",
+                "passwordsDoNotMatch": "",
+                "passwordChangeFailed": "",
+                "passwordChangeTryAgain": ""
+
             },
             "password": {
                 "label": "",

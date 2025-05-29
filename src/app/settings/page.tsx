@@ -2,6 +2,7 @@
 
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
+import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
 
 const languages = [
     {id: "en", label: "English", native: "English"},
@@ -51,11 +52,18 @@ const Page = () => {
     const {t, i18n} = useTranslation();
     const [isClient, setIsClient] = useState(false);
     const [selectedLang, setSelectedLang] = useState(i18n.language || "en");
-    const [error, setError] = useState<string | null>(null);
+    const [languageError, setLanguageError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
 
     const [showOld, setShowOld] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+
+    const [formData, setFormData] = useState<ChangePasswordPatientDTO & { confirmPassword: string }>({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
 
     useEffect(() => {
         setIsClient(true);
@@ -70,7 +78,7 @@ const Page = () => {
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
         const formData = {language: lang};
-        setError(null);
+        setLanguageError(null);
         try {
             const requestInit: RequestInit = {
                 method: "PUT",
@@ -81,9 +89,9 @@ const Page = () => {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/language", requestInit);
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(
-                    (t("settings.error.languageFailed") + errorData.message) ||
-                    t("settings.error.languageTryAgain")
+                setLanguageError(
+                    (t("settings.languageError.languageFailed") + errorData.message) ||
+                    t("settings.languageError.languageTryAgain")
                 );
             } else {
                 localStorage.setItem("lang", lang);
@@ -91,7 +99,7 @@ const Page = () => {
                 setSelectedLang(lang);
             }
         } catch (e) {
-            setError(t("settings.error.languageTryAgain"));
+            setLanguageError(t("settings.languageError.languageTryAgain"));
             console.error("Failed to change language", e);
         }
     };
@@ -99,6 +107,7 @@ const Page = () => {
     const renderPasswordField = (
         id: string,
         placeholder: string,
+        value: string,
         show: boolean,
         toggle: () => void
     ) => (
@@ -108,7 +117,10 @@ const Page = () => {
                 name={id}
                 type={show ? "text" : "password"}
                 id={id}
+                value={value}
                 placeholder={placeholder}
+                onChange={handleChange}
+                required
             />
             <button
                 type="button"
@@ -123,7 +135,46 @@ const Page = () => {
 
     const handleConfirm = async (e: React.FormEvent) => {
         e.preventDefault();
+        setPasswordError(null);
+        if (!formData.oldPassword || !formData.newPassword || !formData.confirmPassword) {
+            setPasswordError(t("settings.error.passwordEmptyFields"));
+            return;
+        }
+        if (formData.newPassword !== formData.confirmPassword) {
+            setPasswordError(t("settings.error.passwordsDoNotMatch"));
+            return;
+        }
+        console.log(JSON.stringify({
+            currentPassword: formData.oldPassword,
+            newPassword: formData.newPassword,
+        }),)
+        try {
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    currentPassword: formData.oldPassword,
+                    newPassword: formData.newPassword,
+                }),
+            };
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/passwords`, requestInit);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setPasswordError((t("settings.error.passwordChangeFailed") + errorData.message) || t("settings.error.passwordChangeTryAgain"));
+            }
+        } catch (e) {
+            console.error("Failed to change password", e);
+            setPasswordError(t("settings.error.passwordChangeTryAgain"));
+        }
+
+
     }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    };
 
     if (!isClient) return null;
 
@@ -150,9 +201,10 @@ const Page = () => {
                         ))}
                     </select>
 
-                    {error && (
-                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {error}
+                    {languageError && (
+                        <div
+                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                            {languageError}
                         </div>
                     )}
                 </div>
@@ -162,27 +214,34 @@ const Page = () => {
                     <h2 className="text-lg font-semibold text-gray-800">{t("settings.password.label")}</h2>
 
                     <div>
-                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordOld">
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="oldPassword">
                             {t("settings.password.old")}
                         </label>
-                        {renderPasswordField("passwordOld", t("settings.password.old"), showOld, () => setShowOld(!showOld))}
+                        {renderPasswordField("oldPassword", t("settings.password.old"), formData.oldPassword, showOld, () => setShowOld(!showOld))}
                     </div>
 
                     <div>
-                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordNew">
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="newPassword">
                             {t("settings.password.new")}
                         </label>
-                        {renderPasswordField("passwordNew", t("settings.password.new"), showNew, () => setShowNew(!showNew))}
+                        {renderPasswordField("newPassword", t("settings.password.new"), formData.newPassword, showNew, () => setShowNew(!showNew))}
                     </div>
 
                     <div>
-                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordConfirm">
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="confirmPassword">
                             {t("settings.password.confirm")}
                         </label>
-                        {renderPasswordField("passwordConfirm", t("settings.password.confirm"), showConfirm, () =>
+                        {renderPasswordField("confirmPassword", t("settings.password.confirm"), formData.confirmPassword, showConfirm, () =>
                             setShowConfirm(!showConfirm)
                         )}
                     </div>
+
+                    {passwordError && (
+                        <div
+                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                            {passwordError}
+                        </div>
+                    )}
 
                     <button
                         className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition"

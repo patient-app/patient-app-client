@@ -4,7 +4,11 @@
     "language": "Мова",
     "error": {
       "languageFailed": "Не вдалося змінити мову: ",
-      "resetTryAgain": "Не вдалося змінити мову, спробуйте ще раз."
+      "resetTryAgain": "Не вдалося змінити мову, спробуйте ще раз.",
+      "passwordEmptyFields":"Усі поля є обов’язковими для заповнення.",
+      "passwordsDoNotMatch": "Паролі не збігаються.",
+      "passwordChangeFailed": "Не вдалося змінити пароль: ",
+      "passwordChangeTryAgain": "Не вдалося змінити пароль, повторіть спробу."
     },
     "password": {
       "label": "Змінити пароль",
