@@ -5,6 +5,13 @@
     "error": {
       "languageFailed": "Failed to change language: ",
       "resetTryAgain": "Failed to change the language, please try again."
+    },
+    "password": {
+      "label": "Change Password",
+      "old": "Old Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "button": "Change Password"
     }
   },
   "login": {

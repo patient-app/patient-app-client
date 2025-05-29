@@ -121,20 +121,27 @@ const Page = () => {
         </div>
     );
 
+    const handleConfirm = async (e: React.FormEvent) => {
+        e.preventDefault();
+    }
+
     if (!isClient) return null;
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
             <h1 className="text-3xl font-semibold text-center">{t("settings.title")}</h1>
             <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
-                <div className="flex flex-col gap-2 w-full">
-                    <label className="font-semibold" htmlFor="language">{t("settings.language")}</label>
+                {/* Language Selection */}
+                <div className="w-full">
+                    <label className="block font-semibold text-gray-700 mb-1" htmlFor="language">
+                        {t("settings.language")}
+                    </label>
                     <select
                         id="language"
                         name="language"
                         value={selectedLang}
                         onChange={handleLanguageChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     >
                         {languages.map((lang) => (
                             <option key={lang.id} value={lang.id}>
@@ -142,22 +149,48 @@ const Page = () => {
                             </option>
                         ))}
                     </select>
+
                     {error && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
                             {error}
                         </div>
                     )}
-                    {t("settings.change.password")}
-                    <label className="font-semibold" htmlFor="passwordOld">{t("settings.old.password")}</label>
-                    {renderPasswordField("passwordOld", t("settings.old.password"), showOld, () => setShowOld(!showOld))}
-                    <label className="font-semibold" htmlFor="passwordNew">{t("settings.new.password")}</label>
-                    {renderPasswordField("passwordNew", t("settings.new.password"), showNew, () => setShowNew(!showNew))}
-                    <label className="font-semibold" htmlFor="passwordConfirm">{t("settings.confirm.password")}</label>
-                    {renderPasswordField("passwordConfirm", t("settings.confirm.password"), showConfirm, () =>
-                        setShowConfirm(!showConfirm)
-                    )}
                 </div>
+
+                {/* Password Change Form */}
+                <form onSubmit={handleConfirm} className="w-full space-y-2">
+                    <h2 className="text-lg font-semibold text-gray-800">{t("settings.password.label")}</h2>
+
+                    <div>
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordOld">
+                            {t("settings.password.old")}
+                        </label>
+                        {renderPasswordField("passwordOld", t("settings.password.old"), showOld, () => setShowOld(!showOld))}
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordNew">
+                            {t("settings.password.new")}
+                        </label>
+                        {renderPasswordField("passwordNew", t("settings.password.new"), showNew, () => setShowNew(!showNew))}
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold text-gray-700 mb-1" htmlFor="passwordConfirm">
+                            {t("settings.password.confirm")}
+                        </label>
+                        {renderPasswordField("passwordConfirm", t("settings.password.confirm"), showConfirm, () =>
+                            setShowConfirm(!showConfirm)
+                        )}
+                    </div>
+
+                    <button
+                        className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition"
+                        type="submit"
+                    >
+                        {t("settings.password.button")}
+                    </button>
+                </form>
             </div>
         </div>
     );
