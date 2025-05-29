@@ -102,7 +102,7 @@ const Page = () => {
         show: boolean,
         toggle: () => void
     ) => (
-        <div className="relative mt-2">
+        <div className="relative">
             <input
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
                 name={id}
@@ -148,11 +148,12 @@ const Page = () => {
                             {error}
                         </div>
                     )}
-
-                    <label className="font-semibold" htmlFor="passwordOld">{t("settings.password")}</label>
-
+                    {t("settings.change.password")}
+                    <label className="font-semibold" htmlFor="passwordOld">{t("settings.old.password")}</label>
                     {renderPasswordField("passwordOld", t("settings.old.password"), showOld, () => setShowOld(!showOld))}
+                    <label className="font-semibold" htmlFor="passwordNew">{t("settings.new.password")}</label>
                     {renderPasswordField("passwordNew", t("settings.new.password"), showNew, () => setShowNew(!showNew))}
+                    <label className="font-semibold" htmlFor="passwordConfirm">{t("settings.confirm.password")}</label>
                     {renderPasswordField("passwordConfirm", t("settings.confirm.password"), showConfirm, () =>
                         setShowConfirm(!showConfirm)
                     )}
