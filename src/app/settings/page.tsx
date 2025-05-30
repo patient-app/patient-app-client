@@ -28,6 +28,38 @@ const eyeIcon = (
     </svg>
 );
 
+const checkIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="16"
+         height="16"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         strokeWidth="2"
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className="lucide lucide-check-icon lucide-check">
+        <path d="M20 6 9 17l-5-5"/>
+    </svg>
+);
+
+const crossIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="16"
+         height="16"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         strokeWidth="2"
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className="lucide lucide-x-icon lucide-x">
+        <path d="M18 6 6 18"/>
+        <path d="m6 6 12 12"/>
+    </svg>
+);
+
+
 const eyeOffIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +80,13 @@ const eyeOffIcon = (
     </svg>
 );
 
+const rules = [
+    {label: "settings.password.rules.minLength", value: 8},
+    {label: "settings.password.rules.uppercase", value: 1},
+    {label: "settings.password.rules.number", value: 1},
+    {label: "settings.password.rules.specialChar", value: 1},
+];
+
 const Page = () => {
     const {t, i18n} = useTranslation();
     const [isClient, setIsClient] = useState(false);
@@ -59,21 +98,40 @@ const Page = () => {
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
+    const [passwordRules, setPasswordRules] = useState({
+        minLength: false,
+        uppercase: false,
+        number: false,
+        specialChar: false
+    });
+
     const [formData, setFormData] = useState<ChangePasswordPatientDTO & { confirmPassword: string }>({
         oldPassword: "",
         newPassword: "",
         confirmPassword: ""
     });
 
+    const allRulesValid = Object.values(passwordRules).every(Boolean);
+    const passwordsMismatch = formData.confirmPassword !== "" && formData.newPassword !== formData.confirmPassword;
+
     useEffect(() => {
         setIsClient(true);
-
         const savedLang = localStorage.getItem("lang");
         if (savedLang && savedLang !== i18n.language) {
             i18n.changeLanguage(savedLang);
             setSelectedLang(savedLang);
         }
     }, [i18n]);
+
+    useEffect(() => {
+        const {newPassword} = formData;
+        setPasswordRules({
+            minLength: newPassword.length >= 8,
+            uppercase: /[A-Z]/.test(newPassword),
+            number: /\d/.test(newPassword),
+            specialChar: /[^A-Za-z0-9]/.test(newPassword),
+        });
+    }, [formData.newPassword]);
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -136,18 +194,17 @@ const Page = () => {
     const handleConfirm = async (e: React.FormEvent) => {
         e.preventDefault();
         setPasswordError(null);
+
         if (!formData.oldPassword || !formData.newPassword || !formData.confirmPassword) {
             setPasswordError(t("settings.error.passwordEmptyFields"));
             return;
         }
+
         if (formData.newPassword !== formData.confirmPassword) {
             setPasswordError(t("settings.error.passwordsDoNotMatch"));
             return;
         }
-        console.log(JSON.stringify({
-            currentPassword: formData.oldPassword,
-            newPassword: formData.newPassword,
-        }),)
+
         try {
             const requestInit: RequestInit = {
                 method: "PUT",
@@ -162,15 +219,16 @@ const Page = () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setPasswordError((t("settings.error.passwordChangeFailed") + errorData.message) || t("settings.error.passwordChangeTryAgain"));
+                setPasswordError(
+                    (t("settings.error.passwordChangeFailed") + errorData.message) ||
+                    t("settings.error.passwordChangeTryAgain")
+                );
             }
         } catch (e) {
             console.error("Failed to change password", e);
             setPasswordError(t("settings.error.passwordChangeTryAgain"));
         }
-
-
-    }
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -227,6 +285,28 @@ const Page = () => {
                         {renderPasswordField("newPassword", t("settings.password.new"), formData.newPassword, showNew, () => setShowNew(!showNew))}
                     </div>
 
+                    {formData.newPassword && (
+                        <div className="mt-2 text-sm text-gray-600 space-y-1">
+                            {rules.map((rule) => (
+                                <div
+                                    key={rule.label}
+                                    className={`flex items-center gap-2 ${
+                                        passwordRules[rule.label.split('.').pop() as keyof typeof passwordRules]
+                                            ? "text-green-600"
+                                            : "text-gray-400"
+                                    }`}
+                                >
+                                    <span>
+                                        {passwordRules[rule.label.split('.').pop() as keyof typeof passwordRules]
+                                            ? checkIcon
+                                            : crossIcon}
+                                    </span>
+                                    <span>{t(rule.label, {value: rule.value})}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     <div>
                         <label className="block font-semibold text-gray-700 mb-1" htmlFor="confirmPassword">
                             {t("settings.password.confirm")}
@@ -236,6 +316,13 @@ const Page = () => {
                         )}
                     </div>
 
+                    {passwordsMismatch && (
+                        <div
+                            className="mt-2 text-sm text-red-700 space-y-1">
+                            {t("settings.error.passwordsDoNotMatch")}
+                        </div>
+                    )}
+
                     {passwordError && (
                         <div
                             className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
@@ -244,8 +331,9 @@ const Page = () => {
                     )}
 
                     <button
-                        className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition"
+                        className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition disabled:bg-gray-300"
                         type="submit"
+                        disabled={!allRulesValid || passwordsMismatch}
                     >
                         {t("settings.password.button")}
                     </button>
