@@ -17,7 +17,14 @@ interface Resources {
                 "old": "",
                 "new": "",
                 "confirm": "",
-                "button": ""
+                "button": "",
+                "success": "",
+                "rules":{
+                    "minLength": "",
+                    "uppercase": "",
+                    "number": "",
+                    "specialChar": ""
+                }
             }
         },
         "login": {

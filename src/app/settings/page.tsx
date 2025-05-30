@@ -9,6 +9,13 @@ const languages = [
     {id: "uk", label: "Ukrainian", native: "Українська"},
 ];
 
+const rules = [
+    {key: "minLength", value: 8},
+    {key: "uppercase", value: 1},
+    {key: "number", value: 1},
+    {key: "specialChar", value: 1},
+];
+
 const eyeIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -80,12 +87,6 @@ const eyeOffIcon = (
     </svg>
 );
 
-const rules = [
-    {label: "settings.password.rules.minLength", value: 8},
-    {label: "settings.password.rules.uppercase", value: 1},
-    {label: "settings.password.rules.number", value: 1},
-    {label: "settings.password.rules.specialChar", value: 1},
-];
 
 const Page = () => {
     const {t, i18n} = useTranslation();
@@ -93,12 +94,11 @@ const Page = () => {
     const [selectedLang, setSelectedLang] = useState(i18n.language || "en");
     const [languageError, setLanguageError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [passwordSuccess, setPasswordSuccess] = useState(false);
 
     const [showOld, setShowOld] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-
-    const [passwordSuccess, setPasswordSuccess] = useState(false);
 
     const [passwordRules, setPasswordRules] = useState({
         minLength: false,
@@ -126,7 +126,7 @@ const Page = () => {
     }, [i18n]);
 
     useEffect(() => {
-        const {newPassword} = formData;
+        const newPassword = formData.newPassword;
         setPasswordRules({
             minLength: newPassword.length >= 8,
             uppercase: /[A-Z]/.test(newPassword),
@@ -141,7 +141,7 @@ const Page = () => {
                 setPasswordSuccess(false);
             }, 5000);
 
-            return () => clearTimeout(timer); // cleanup if component unmounts or reruns early
+            return () => clearTimeout(timer);
         }
     }, [passwordSuccess]);
 
@@ -173,35 +173,6 @@ const Page = () => {
             console.error("Failed to change language", e);
         }
     };
-
-    const renderPasswordField = (
-        id: string,
-        placeholder: string,
-        value: string,
-        show: boolean,
-        toggle: () => void
-    ) => (
-        <div className="relative">
-            <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
-                name={id}
-                type={show ? "text" : "password"}
-                id={id}
-                value={value}
-                placeholder={placeholder}
-                onChange={handleChange}
-                required
-            />
-            <button
-                type="button"
-                onClick={toggle}
-                className="absolute right-3 top-2"
-                aria-label="Toggle password visibility"
-            >
-                {show ? eyeOffIcon : eyeIcon}
-            </button>
-        </div>
-    );
 
     const handleConfirm = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -258,6 +229,35 @@ const Page = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
+    const renderPasswordField = (
+        id: string,
+        placeholder: string,
+        value: string,
+        show: boolean,
+        toggle: () => void
+    ) => (
+        <div className="relative">
+            <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
+                name={id}
+                type={show ? "text" : "password"}
+                id={id}
+                value={value}
+                placeholder={placeholder}
+                onChange={handleChange}
+                required
+            />
+            <button
+                type="button"
+                onClick={toggle}
+                className="absolute right-3 top-2"
+                aria-label="Toggle password visibility"
+            >
+                {show ? eyeOffIcon : eyeIcon}
+            </button>
+        </div>
+    );
+
     if (!isClient) return null;
 
     return (
@@ -313,19 +313,19 @@ const Page = () => {
                         <div className="mt-2 text-sm text-gray-600 space-y-1">
                             {rules.map((rule) => (
                                 <div
-                                    key={rule.label}
+                                    key={rule.key}
                                     className={`flex items-center gap-2 ${
-                                        passwordRules[rule.label.split('.').pop() as keyof typeof passwordRules]
+                                        passwordRules[rule.key as keyof typeof passwordRules]
                                             ? "text-green-600"
                                             : "text-gray-400"
                                     }`}
                                 >
                                     <span>
-                                        {passwordRules[rule.label.split('.').pop() as keyof typeof passwordRules]
+                                        {passwordRules[rule.key as keyof typeof passwordRules]
                                             ? checkIcon
                                             : crossIcon}
                                     </span>
-                                    <span>{t(rule.label, {value: rule.value})}</span>
+                                    <span>{t(`settings.password.rules.${rule.key}`, {value: rule.value})}</span>
                                 </div>
                             ))}
                         </div>
@@ -357,7 +357,7 @@ const Page = () => {
                     {passwordSuccess && (
                         <div
                             className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
-                            {t("settings.success.passwordChanged")}
+                            {t("settings.password.success")}
                         </div>
                     )}
 

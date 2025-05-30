@@ -15,7 +15,14 @@
       "old": "Old Password",
       "new": "New Password",
       "confirm": "Confirm New Password",
-      "button": "Change Password"
+      "button": "Change Password",
+      "success": "Password changed successfully!",
+      "rules": {
+        "minLength": "At least {{value}} characters",
+        "uppercase": "At least {{value}} uppercase letter",
+        "number": "At least {{value}} number",
+        "specialChar": "At least {{value}} special character"
+      }
     }
   },
   "login": {
