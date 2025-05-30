@@ -98,6 +98,8 @@ const Page = () => {
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
+    const [passwordSuccess, setPasswordSuccess] = useState(false);
+
     const [passwordRules, setPasswordRules] = useState({
         minLength: false,
         uppercase: false,
@@ -132,6 +134,16 @@ const Page = () => {
             specialChar: /[^A-Za-z0-9]/.test(newPassword),
         });
     }, [formData.newPassword]);
+
+    useEffect(() => {
+        if (passwordSuccess) {
+            const timer = setTimeout(() => {
+                setPasswordSuccess(false);
+            }, 5000);
+
+            return () => clearTimeout(timer); // cleanup if component unmounts or reruns early
+        }
+    }, [passwordSuccess]);
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -223,6 +235,18 @@ const Page = () => {
                     (t("settings.error.passwordChangeFailed") + errorData.message) ||
                     t("settings.error.passwordChangeTryAgain")
                 );
+                setPasswordSuccess(false);
+            } else {
+                setPasswordSuccess(true);
+                setFormData({
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: ""
+                });
+                setShowOld(false);
+                setShowNew(false);
+                setShowConfirm(false);
+                setPasswordError(null);
             }
         } catch (e) {
             console.error("Failed to change password", e);
@@ -327,6 +351,13 @@ const Page = () => {
                         <div
                             className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
                             {passwordError}
+                        </div>
+                    )}
+
+                    {passwordSuccess && (
+                        <div
+                            className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
+                            {t("settings.success.passwordChanged")}
                         </div>
                     )}
 
