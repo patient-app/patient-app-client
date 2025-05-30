@@ -3,6 +3,7 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
+import PasswordField from "@/components/PasswordField";
 
 const languages = [
     {id: "en", label: "English", native: "English"},
@@ -15,25 +16,6 @@ const rules = [
     {key: "number", value: 1},
     {key: "specialChar", value: 1},
 ];
-
-const eyeIcon = (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-eye-icon lucide-eye"
-    >
-        <path
-            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-        <circle cx="12" cy="12" r="3"/>
-    </svg>
-);
 
 const checkIcon = (
     <svg xmlns="http://www.w3.org/2000/svg"
@@ -65,28 +47,6 @@ const crossIcon = (
         <path d="m6 6 12 12"/>
     </svg>
 );
-
-
-const eyeOffIcon = (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-eye-off-icon lucide-eye-off"
-    >
-        <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>
-        <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>
-        <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>
-        <path d="m2 2 20 20"/>
-    </svg>
-);
-
 
 const Page = () => {
     const {t, i18n} = useTranslation();
@@ -229,34 +189,6 @@ const Page = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-    const renderPasswordField = (
-        id: string,
-        placeholder: string,
-        value: string,
-        show: boolean,
-        toggle: () => void
-    ) => (
-        <div className="relative">
-            <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
-                name={id}
-                type={show ? "text" : "password"}
-                id={id}
-                value={value}
-                placeholder={placeholder}
-                onChange={handleChange}
-                required
-            />
-            <button
-                type="button"
-                onClick={toggle}
-                className="absolute right-3 top-2"
-                aria-label="Toggle password visibility"
-            >
-                {show ? eyeOffIcon : eyeIcon}
-            </button>
-        </div>
-    );
 
     if (!isClient) return null;
 
@@ -299,14 +231,28 @@ const Page = () => {
                         <label className="block font-semibold text-gray-700 mb-1" htmlFor="oldPassword">
                             {t("settings.password.old")}
                         </label>
-                        {renderPasswordField("oldPassword", t("settings.password.old"), formData.oldPassword, showOld, () => setShowOld(!showOld))}
+                        <PasswordField
+                            id="oldPassword"
+                            value={formData.oldPassword}
+                            placeholder={t("settings.password.old")}
+                            show={showOld}
+                            toggle={() => setShowOld(!showOld)}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     <div>
                         <label className="block font-semibold text-gray-700 mb-1" htmlFor="newPassword">
                             {t("settings.password.new")}
                         </label>
-                        {renderPasswordField("newPassword", t("settings.password.new"), formData.newPassword, showNew, () => setShowNew(!showNew))}
+                        <PasswordField
+                            id="newPassword"
+                            value={formData.newPassword}
+                            placeholder={t("settings.password.new")}
+                            show={showNew}
+                            toggle={() => setShowNew(!showNew)}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     {formData.newPassword && (
@@ -335,9 +281,14 @@ const Page = () => {
                         <label className="block font-semibold text-gray-700 mb-1" htmlFor="confirmPassword">
                             {t("settings.password.confirm")}
                         </label>
-                        {renderPasswordField("confirmPassword", t("settings.password.confirm"), formData.confirmPassword, showConfirm, () =>
-                            setShowConfirm(!showConfirm)
-                        )}
+                        <PasswordField
+                            id="confirmPassword"
+                            value={formData.confirmPassword}
+                            placeholder={t("settings.password.confirm")}
+                            show={showConfirm}
+                            toggle={() => setShowConfirm(!showConfirm)}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     {passwordsMismatch && (
