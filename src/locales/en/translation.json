@@ -14,7 +14,7 @@
       "loginTryAgain": "Failed to login, please try again."
     },
     "title": "Welcome back",
-    "email": "Email Address",
+    "usernameOrEmail": "Email Address or Username",
     "password": "Password",
     "forgotPassword": "Forgot password?",
     "reset": "Reset",
