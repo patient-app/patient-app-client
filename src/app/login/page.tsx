@@ -4,11 +4,14 @@ import {LoginPatientDTO} from "@/dto/input/LoginPatientDTO";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import PasswordField from "@/components/PasswordField";
 
 
 const Login = () => {
     const router = useRouter();
     const {t} = useTranslation();
+
+    const[showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState<LoginPatientDTO>({
         email: "",
@@ -36,6 +39,7 @@ const Login = () => {
                 const errorData = await response.json();
                 setError((t("login.error.loginFailed") + errorData.message) || t("login.error.loginTryAgain"));
             } else {
+                setShowPassword(false)
                 router.push("/");
             }
         } catch (e) {
@@ -69,17 +73,14 @@ const Login = () => {
                     />
 
                     <label className="font-semibold" htmlFor="password">{t("login.password")}</label>
-                    <input
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
-                        name="password"
-                        type="password"
+                    <PasswordField
                         id="password"
-                        placeholder={t("login.password")}
                         value={formData.password}
+                        placeholder={t("login.password")}
+                        show={showPassword}
+                        toggle={() => setShowPassword(!showPassword)}
                         onChange={handleChange}
-                        required
                     />
-
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span>{t("login.forgotPassword")}</span>
                         <a href="/reset-password"

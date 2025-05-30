@@ -4,11 +4,14 @@ import {RegisterPatientDTO} from "@/dto/input/RegisterPatientDTO";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import PasswordField from "@/components/PasswordField";
 
 
 const Register = () => {
     const router = useRouter();
     const {t} = useTranslation();
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState<RegisterPatientDTO>({
         email: "",
@@ -37,6 +40,7 @@ const Register = () => {
                 const errorData = await response.json();
                 setError((t("register.error.registrationFailed") + errorData.message) || t("register.error.registrationTryAgain"));
             } else {
+                setShowPassword(false);
                 router.push("/");
             }
         } catch (e) {
@@ -71,15 +75,13 @@ const Register = () => {
                         />
 
                         <label className="font-semibold" htmlFor="password">{t("register.password")}</label>
-                        <input
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
-                            name="password"
-                            type="password"
+                        <PasswordField
                             id="password"
-                            placeholder={t("register.password")}
                             value={formData.password}
+                            placeholder={t("register.password")}
+                            show={showPassword}
+                            toggle={() => setShowPassword(!showPassword)}
                             onChange={handleChange}
-                            required
                         />
                         <div className="flex items-center gap-2">
                             <input
@@ -92,11 +94,13 @@ const Register = () => {
                                 className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-0"
                             />
                             <label htmlFor="terms" className="text-sm text-gray-700">
-                                I accept the <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">terms and conditions</a>.
+                                I accept the <a href="/terms" target="_blank"
+                                                className="text-emerald-600 hover:underline">terms and conditions</a>.
                             </label>
                         </div>
-                        <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                                type="submit" color="primary"> Register
+                        <button
+                            className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                            type="submit" color="primary"> Register
                         </button>
 
                         {error && (
