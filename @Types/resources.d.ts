@@ -15,7 +15,7 @@ interface Resources {
         "loginTryAgain": ""
       },
       "title": "",
-      "email": "",
+      "usernameOrEmail": "",
       "password": "",
       "forgotPassword": "",
       "reset": "",

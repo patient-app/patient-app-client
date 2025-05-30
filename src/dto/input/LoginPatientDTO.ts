@@ -1,4 +1,4 @@
 export interface LoginPatientDTO {
-  email: string;
+  identifier: string;
   password: string;
 }
