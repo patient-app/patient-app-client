@@ -56,6 +56,13 @@ interface Resources {
             },
             "logout": ""
         },
+        "exercise": {
+            "title": "",
+            "error": {
+                "fetchFailed": ""
+            },
+            "noExercises": ""
+        },
         "chatbot": {
             "title": "",
             "name": "",

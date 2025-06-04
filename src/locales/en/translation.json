@@ -55,6 +55,13 @@
     },
     "logout": "Logout"
   },
+  "exercise": {
+    "title": "Exercises",
+    "error": {
+      "fetchFailed": "Failed to fetch exercises: "
+    },
+    "noExercises": "No exercises available at the moment."
+  },
   "chatbot": {
     "title": "Lumina AI",
     "name": "Lumina",

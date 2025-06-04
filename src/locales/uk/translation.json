@@ -55,6 +55,13 @@
     },
     "logout": "вийти"
   },
+  "exercise": {
+    "title": "вправи",
+    "error": {
+      "fetchFailed": "Не вдалося отримати вправи: "
+    },
+    "noExercises": "Наразі вправ немає."
+  },
   "chatbot": {
     "title": "Люміна ШІ",
     "name": "Люміна",
