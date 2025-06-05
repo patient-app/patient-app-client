@@ -52,8 +52,6 @@ const crossIcon = (
 const Page = () => {
     const {t, i18n} = useTranslation();
     const [isClient, setIsClient] = useState(false);
-    const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
-    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const [selectedLang, setSelectedLang] = useState(i18n.language || "en");
     const [languageError, setLanguageError] = useState<string | null>(null);
@@ -317,11 +315,6 @@ const Page = () => {
                             {passwordError}
                         </div>
                     )}
-                </div>
-            </form>
-            <button className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
-                    type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout") }
-            </button>
 
                     {passwordSuccess && (
                         <div
@@ -338,6 +331,10 @@ const Page = () => {
                         {t("settings.password.button")}
                     </button>
                 </form>
+                <button
+                    className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
+                    type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}
+                </button>
             </div>
         </div>
     );
