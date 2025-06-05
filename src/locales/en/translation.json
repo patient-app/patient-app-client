@@ -5,7 +5,25 @@
     "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
-      "resetTryAgain": "Failed to change the language, please try again."
+      "resetTryAgain": "Failed to change the language, please try again.",
+      "passwordEmptyFields": "All fields are required.",
+      "passwordsDoNotMatch": "Passwords do not match.",
+      "passwordChangeFailed": "Failed to change password: ",
+      "passwordChangeTryAgain": "Failed to change the password, please try again."
+    },
+    "password": {
+      "label": "Change Password",
+      "old": "Old Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "button": "Change Password",
+      "success": "Password changed successfully!",
+      "rules": {
+        "minLength": "At least {{value}} characters",
+        "uppercase": "At least {{value}} uppercase letter",
+        "number": "At least {{value}} number",
+        "specialChar": "At least {{value}} special character"
+      }
     }
   },
   "login": {
