@@ -2,9 +2,28 @@
   "settings": {
     "title": "Settings",
     "language": "Language",
+    "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
-      "languageTryAgain": "Failed to change the language, please try again."
+      "resetTryAgain": "Failed to change the language, please try again.",
+      "passwordEmptyFields": "All fields are required.",
+      "passwordsDoNotMatch": "Passwords do not match.",
+      "passwordChangeFailed": "Failed to change password: ",
+      "passwordChangeTryAgain": "Failed to change the password, please try again."
+    },
+    "password": {
+      "label": "Change Password",
+      "old": "Old Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "button": "Change Password",
+      "success": "Password changed successfully!",
+      "rules": {
+        "minLength": "At least {{value}} characters",
+        "uppercase": "At least {{value}} uppercase letter",
+        "number": "At least {{value}} number",
+        "specialChar": "At least {{value}} special character"
+      }
     }
   },
   "login": {
@@ -53,7 +72,10 @@
     "error": {
       "generic": "Something went wrong"
     },
-    "logout": "Logout"
+    "logout": "Logout",
+    "lastChat": "Continue last chat: ",
+    "startNewConversation": "+ Start a new conversation",
+    "noConversationsYet": "no conversations yet"
   },
   "exercise": {
     "title": "Exercises",
@@ -62,15 +84,47 @@
     },
     "noExercises": "No exercises available at the moment."
   },
-  "chatbot": {
+  "chat": {
     "title": "Lumina AI",
     "name": "Lumina",
     "header": "Lumina AI",
     "placeholder": "Ask Lumina AI"
   },
+  "chats": {
+    "title": "Conversations",
+    "empty": "No chats available.",
+    "loading": "Loading chats...",
+    "chat": "Chat ",
+    "startNewConversation": "+ Start a new conversation"
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "text": "<b>Terms and Conditions</b><br>Welcome to our Patient Support Application (\"App\"). By using this App, you agree to the following terms and conditions. Please read them carefully.<br><br><b>1. Purpose of the App</b><br>This App is designed to support patients between psychotherapeutic sessions by providing guided exercises, reminders, journaling tools, mood tracking, and a conversational AI companion. The App may also allow your therapist to monitor your progress and provide feedback.<br><br><b>2. Not a Substitute for Medical Advice</b><br>The App is not a substitute for professional medical advice, diagnosis, or treatment. Always seek advice from your qualified healthcare provider with any questions regarding a medical condition. Never disregard or delay seeking professional advice because of information provided by this App.<br><br><b>3. User Eligibility</b><br>This App is intended for use by patients receiving psychotherapeutic treatment and their therapists. By using this App, you confirm you are at least 18 years old or have consent from a legal guardian.<br><br><b>4. Privacy and Data Protection</b><br>Personal data and health-related information you enter in this App will be stored securely and only shared with your therapist as agreed.<br>You have control over what data is shared with your therapist. See our <a href=\"/privacy-policy\">Privacy Policy</a> for full details.<br>We anonymize data for research purposes where possible.<br><br><b>5. Use of AI and Chatbot</b><br>The AI chatbot is intended to support and motivate you, but may not always provide correct or appropriate information.<br>Do not rely solely on AI advice for critical decisions or emergencies.<br>All conversations may be logged for quality improvement and research, as described in the privacy policy.<br><br><b>6. User Responsibilities</b><br>You are responsible for the accuracy of the information you provide.<br>Do not use the App to harm yourself or others, or for any illegal activities.<br><br><b>7. Notifications and Reminders</b><br>The App can send notifications to remind you of therapy tasks, appointments, or healthy habits. You can manage notification settings in your profile.<br><br><b>8. Account and Security</b><br>Keep your login credentials confidential.<br>Notify us immediately if you suspect unauthorized access to your account.<br><br><b>9. Changes to the App and Terms</b><br>We may update or discontinue features at any time.<br>Terms may change; material changes will be communicated to you. Continued use means acceptance of the new terms.<br><br><b>10. Limitation of Liability</b><br>We do our best to provide a reliable App, but we cannot guarantee it will always be available, error-free, or meet your expectations. We are not liable for any damages arising from your use of the App.<br><br><b>11. Acceptance</b><br>By creating an account or using the App, you accept these Terms and Conditions.<br>",
+    "closebutton": "Close Terms and Conditions"
+  },
+  "onboarding": {
+    "welcomeTitle": "Welcome to Lumina AI",
+    "welcomeText": "Let's get started with a few questions to personalize your experience.",
+    "continue": "Continue",
+    "nameTitle": "How should we call you?",
+    "namePlaceholder": "Enter your preferred name",
+    "infoTitle": "Nice to meet you, {{name}}!",
+    "infoText_1": "Let's work together toward better health.",
+    "infoText_2": "Lumina AI is here to support your well-being and guide you through personalized exercises.",
+    "configuredTitle": "Your coach already defined some things for you.",
+    "configuredText": "Lumina is personalized for your individual needs. You can talk to your coach to change it. This is what was configured:",
+    "finish": "Get started!",
+    "languageSelection": "What language would you like to use?",
+    "termsTitle": "Something technical first.",
+    "termsText": "In order to use our application, you need to agree to the terms of use and privacy policy. We do the best we can to protect your data. You can read the terms of use by clicking below.",
+    "termsButton": "Agree & Continue",
+    "onboardingError": "Failed to onboard: ",
+    "onboardingTryAgain": "Failed to onboard, please try again."
+  },
   "navigation": {
     "home": "Home",
-    "chatbot": "Chatbot",
+    "chat": "New Chat",
+    "chats": "Conversations",
     "settings": "Settings",
     "logout": "Log out",
     "exercise": "Exercise"
