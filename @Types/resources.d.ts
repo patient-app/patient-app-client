@@ -3,6 +3,7 @@ interface Resources {
     "settings": {
       "title": "",
       "language": "",
+      "logout": "",
       "error": {
         "languageFailed": "",
         "resetTryAgain": ""
@@ -54,13 +55,28 @@ interface Resources {
       "error": {
         "generic": ""
       },
-      "logout": ""
+      "logout": "",
+      "lastChat": "",
+      "startNewConversation": "",
+      "noConversationsYet": ""
     },
     "chatbot": {
       "title": "",
       "name": "",
       "header": "",
       "placeholder": ""
+    },
+    "chats": {
+      "title": "",
+      "empty": "",
+      "loading": "",
+      "chat": "",
+      "startNewConversation": ""
+    },
+    "terms": {
+      "title": "",
+      "text": "",
+      "closebutton": ""
     },
     "onboarding": {
       "welcomeTitle": "",
@@ -84,7 +100,8 @@ interface Resources {
     }
     "navigation": {
       "home": "",
-      "chatbot": "",
+      "chat": "",
+      "chats": "",
       "settings": "",
       "logout": ""
     },
