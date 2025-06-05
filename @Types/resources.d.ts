@@ -60,7 +60,7 @@ interface Resources {
       "startNewConversation": "",
       "noConversationsYet": ""
     },
-    "chatbot": {
+    "chat": {
       "title": "",
       "name": "",
       "header": "",

@@ -65,8 +65,8 @@ const Login = () => {
                 body: JSON.stringify(formData),
                 headers: {"Content-Type": "application/json"},
             };
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
-            if (response.status !== 204) {
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/language", requestInit);
+            if (!response.ok) {
                 const errorData = await response.json();
                 setError((t("settings.error.languageFailed") + errorData.message) || t("settings.error.languageTryAgain"));
             } else {
