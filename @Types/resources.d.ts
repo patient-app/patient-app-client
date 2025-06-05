@@ -3,10 +3,11 @@ interface Resources {
         "settings": {
             "title": "",
             "language": "",
+            "logout": "",
             "error": {
                 "languageFailed": "",
                 "resetTryAgain": "",
-                "passwordEmptyFields":"",
+                "passwordEmptyFields": "",
                 "passwordsDoNotMatch": "",
                 "passwordChangeFailed": "",
                 "passwordChangeTryAgain": ""
@@ -19,7 +20,7 @@ interface Resources {
                 "confirm": "",
                 "button": "",
                 "success": "",
-                "rules":{
+                "rules": {
                     "minLength": "",
                     "uppercase": "",
                     "number": "",
@@ -73,17 +74,53 @@ interface Resources {
             "error": {
                 "generic": ""
             },
-            "logout": ""
+            "logout": "",
+            "lastChat": "",
+            "startNewConversation": "",
+            "noConversationsYet": ""
         },
-        "chatbot": {
+        "chat": {
             "title": "",
             "name": "",
             "header": "",
             "placeholder": ""
         },
+        "chats": {
+            "title": "",
+            "empty": "",
+            "loading": "",
+            "chat": "",
+            "startNewConversation": ""
+        },
+        "terms": {
+            "title": "",
+            "text": "",
+            "closebutton": ""
+        },
+        "onboarding": {
+            "welcomeTitle": "",
+            "welcomeText": "",
+            "continue": "",
+            "nameTitle": "",
+            "namePlaceholder": "",
+            "next": "",
+            "infoTitle": "",
+            "infoText_1": "",
+            "infoText_2": "",
+            "configuredTitle": "",
+            "configuredText": "",
+            "finish": "",
+            "languageSelection": "",
+            "termsTitle": "",
+            "termsText": "",
+            "termsButton": "",
+            "onboardingError": "",
+            "onboardingTryAgain": ""
+        }
         "navigation": {
             "home": "",
-            "chatbot": "",
+            "chat": "",
+            "chats": "",
             "settings": "",
             "logout": ""
         },

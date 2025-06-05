@@ -2,6 +2,7 @@
 
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
 import PasswordField from "@/components/PasswordField";
 
@@ -51,6 +52,9 @@ const crossIcon = (
 const Page = () => {
     const {t, i18n} = useTranslation();
     const [isClient, setIsClient] = useState(false);
+    const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
     const [selectedLang, setSelectedLang] = useState(i18n.language || "en");
     const [languageError, setLanguageError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -104,6 +108,15 @@ const Page = () => {
             return () => clearTimeout(timer);
         }
     }, [passwordSuccess]);
+
+    const logout = async () => {
+        const requestInit: RequestInit = {
+            method: "POST",
+            credentials: "include",
+        };
+        await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
+        router.push("/login");
+    };
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -304,6 +317,11 @@ const Page = () => {
                             {passwordError}
                         </div>
                     )}
+                </div>
+            </form>
+            <button className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
+                    type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout") }
+            </button>
 
                     {passwordSuccess && (
                         <div
