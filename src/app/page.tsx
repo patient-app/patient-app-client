@@ -9,7 +9,6 @@ export default function Home() {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
-
     const [mePatient, setMePatient] = useState<PatientOutputDTO>({
         id: "",
         email: "",
@@ -32,6 +31,13 @@ export default function Home() {
                     router.push("/login");
                 } else {
                     const patient_response = await response.json();
+
+                    if (!patient_response.onboarded && window.location.pathname !== "/onboarding") {
+                        console.log("Patient is not onboarded, redirecting to onboarding.");
+                        router.push("/onboarding");
+                        return;
+                    }
+
                     setMePatient(patient_response);
                     console.log("Patient data fetched successfully", mePatient);
                     localStorage.setItem('lang', patient_response.language);
@@ -68,7 +74,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, [router]);
+    }, [i18n, mePatient, router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">

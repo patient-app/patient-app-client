@@ -21,7 +21,7 @@ export default function Navigation() {
     }, []);
 
     // Navigation is not shown at these sites:
-    const noNavigationPages = ["/terms", "/login", "/register", "/reset-password"];
+    const noNavigationPages = ["/terms", "/login", "/register", "/reset-password", "/onboarding"];
     if (noNavigationPages.includes(pathname)) return null;
 
     const logout = async () => {

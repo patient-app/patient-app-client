@@ -60,7 +60,7 @@ interface Resources {
       "startNewConversation": "",
       "noConversationsYet": ""
     },
-    "chatbot": {
+    "chat": {
       "title": "",
       "name": "",
       "header": "",
@@ -78,6 +78,26 @@ interface Resources {
       "text": "",
       "closebutton": ""
     },
+    "onboarding": {
+      "welcomeTitle": "",
+        "welcomeText": "",
+        "continue": "",
+        "nameTitle": "",
+        "namePlaceholder": "",
+        "next": "",
+        "infoTitle": "",
+        "infoText_1": "",
+        "infoText_2": "",
+        "configuredTitle": "",
+        "configuredText": "",
+        "finish": "",
+        "languageSelection": "",
+        "termsTitle": "",
+        "termsText": "",
+        "termsButton": "",
+        "onboardingError": "",
+        "onboardingTryAgain": ""
+    }
     "navigation": {
       "home": "",
       "chat": "",
