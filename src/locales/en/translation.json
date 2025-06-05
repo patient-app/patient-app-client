@@ -5,6 +5,7 @@
     "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
+      "languageTryAgain": "Failed to change the language, please try again.",
       "resetTryAgain": "Failed to change the language, please try again.",
       "passwordEmptyFields": "All fields are required.",
       "passwordsDoNotMatch": "Passwords do not match.",

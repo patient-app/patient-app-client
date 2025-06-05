@@ -131,8 +131,8 @@ const Page = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 setLanguageError(
-                    (t("settings.languageError.languageFailed") + errorData.message) ||
-                    t("settings.languageError.languageTryAgain")
+                    (t("settings.error.languageFailed") + errorData.message) ||
+                    t("settings.error.languageTryAgain")
                 );
             } else {
                 localStorage.setItem("lang", lang);
@@ -140,7 +140,7 @@ const Page = () => {
                 setSelectedLang(lang);
             }
         } catch (e) {
-            setLanguageError(t("settings.languageError.languageTryAgain"));
+            setLanguageError(t("settings.error.languageTryAgain"));
             console.error("Failed to change language", e);
         }
     };

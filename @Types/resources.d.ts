@@ -6,6 +6,7 @@ interface Resources {
             "logout": "",
             "error": {
                 "languageFailed": "",
+                "languageTryAgain": "",
                 "resetTryAgain": "",
                 "passwordEmptyFields": "",
                 "passwordsDoNotMatch": "",
