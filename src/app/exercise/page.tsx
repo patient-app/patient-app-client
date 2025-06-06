@@ -33,7 +33,7 @@ const Exercise = () => {
                     setExercises(exercisesResponse);
                 }
             } catch (e) {
-                setError("t('exercise.error.fetchFailed')");
+                setError(t('exercise.error.fetchFailed'));
                 console.error("Failed to fetch exercises", e);
             } finally {
                 setLoading(false)
