@@ -89,7 +89,14 @@
     "empty": "No chats available.",
     "loading": "Loading chats...",
     "chat": "Chat ",
-    "startNewConversation": "+ Start a new conversation"
+    "startNewConversation": "+ Start a new conversation",
+    "sharingoptions": {
+      "title": "Sharing Options",
+      "description": "Here you can manage what data is stored and used by the application.",
+      "shareWithCoach": "Share with Coach",
+      "useForMemory": "Use for Memory",
+      "deleteChat": "Delete Chat"
+    }
   },
   "terms": {
     "title": "Terms and Conditions",

@@ -91,7 +91,14 @@ interface Resources {
             "empty": "",
             "loading": "",
             "chat": "",
-            "startNewConversation": ""
+            "startNewConversation": "",
+            "sharingoptions": {
+                "title": "",
+                "description": "",
+                "shareWithCoach": "",
+                "useForMemory": "",
+                "deleteChat": ""
+            }
         },
         "terms": {
             "title": "",
