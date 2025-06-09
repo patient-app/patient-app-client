@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, X } from 'lucide-react';
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
@@ -18,36 +19,9 @@ const rules = [
     {key: "specialChar", value: 1},
 ];
 
-const checkIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="16"
-         height="16"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         strokeWidth="2"
-         strokeLinecap="round"
-         strokeLinejoin="round"
-         className="lucide lucide-check-icon lucide-check">
-        <path d="M20 6 9 17l-5-5"/>
-    </svg>
-);
+const checkIcon = <Check size={16} strokeWidth={2} />;
 
-const crossIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="16"
-         height="16"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         strokeWidth="2"
-         strokeLinecap="round"
-         strokeLinejoin="round"
-         className="lucide lucide-x-icon lucide-x">
-        <path d="M18 6 6 18"/>
-        <path d="m6 6 12 12"/>
-    </svg>
-);
+const crossIcon = <X size={16} strokeWidth={2} />;
 
 const Page = () => {
     const {t, i18n} = useTranslation();
