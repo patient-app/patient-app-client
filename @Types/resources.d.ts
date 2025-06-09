@@ -83,7 +83,8 @@ interface Resources {
             "title": "",
             "name": "",
             "header": "",
-            "placeholder": ""
+            "placeholder": "",
+            "sharingoptions": ""
         },
         "chats": {
             "title": "",

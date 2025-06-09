@@ -17,8 +17,12 @@ export default function ChatPage() {
             <button
                 className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
             >
-                {<MessageSquareDashed size={35} strokeWidth={1.75} />}
-                <span className="text-xs font-medium">Sharing<br/>Options</span>
+                {<MessageSquareDashed size={30} strokeWidth={1.75} />}
+                <span className="text-xs font-medium text-center">
+                    {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
+                        <div key={idx}>{word}</div>
+                    ))}
+                </span>
             </button>
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
             <div>

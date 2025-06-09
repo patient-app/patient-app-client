@@ -9,6 +9,7 @@ import ActionProvider from "@/chatbot/ActionProvider";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import { ComponentProps } from "react";
+import {MessageSquareDashed} from "lucide-react";
 
 export default function ChatPage() {
     const router = useRouter();
@@ -81,6 +82,16 @@ export default function ChatPage() {
         <>
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
+            <button
+                className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+            >
+                {<MessageSquareDashed size={30} strokeWidth={1.75} />}
+                <span className="text-xs font-medium text-center">
+                    {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
+                        <div key={idx}>{word}</div>
+                    ))}
+                </span>
+            </button>
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
 
             {config.initialMessages.length === 0 ? (

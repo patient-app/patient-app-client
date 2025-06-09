@@ -81,7 +81,8 @@
     "title": "Lumina AI",
     "name": "Lumina",
     "header": "Lumina AI",
-    "placeholder": "Ask Lumina AI"
+    "placeholder": "Ask Lumina AI",
+    "sharingoptions": "Sharing Options"
   },
   "chats": {
     "title": "Conversations",
