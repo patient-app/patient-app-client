@@ -10,11 +10,13 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import { ComponentProps } from "react";
 import {MessageSquareDashed} from "lucide-react";
+import SharingOptionsPopup from "../../../components/SharingOptionsPopup";
 
 export default function ChatPage() {
     const router = useRouter();
     const { chatId } = useParams();
     const {t} = useTranslation();
+    const [showPopup, setShowPopup] = useState(false);
 
     const [config, setConfig] = useState({
         initialMessages: [],
@@ -84,6 +86,7 @@ export default function ChatPage() {
             <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
             <button
                 className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                onClick={() => setShowPopup(!showPopup)}
             >
                 {<MessageSquareDashed size={30} strokeWidth={1.75} />}
                 <span className="text-xs font-medium text-center">
@@ -92,6 +95,7 @@ export default function ChatPage() {
                     ))}
                 </span>
             </button>
+            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} />}
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
 
             {config.initialMessages.length === 0 ? (
