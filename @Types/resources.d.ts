@@ -86,6 +86,11 @@ interface Resources {
                 "fetchFailed": ""
             },
             "noExercises": ""
+            "image": {
+                "error": {
+                    "fetchFailed": ""
+                }
+            }
         },
         "chat": {
             "title": "",

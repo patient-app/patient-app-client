@@ -83,7 +83,12 @@
     "error": {
       "fetchFailed": "Failed to fetch exercises: "
     },
-    "noExercises": "No exercises available at the moment."
+    "noExercises": "No exercises available at the moment.",
+    "image": {
+      "error": {
+        "fetchFailed": "Failed to fetch exercise image: "
+      }
+    }
   },
   "chat": {
     "title": "Lumina AI",

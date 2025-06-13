@@ -8,6 +8,7 @@ import {ExerciseElementDTO} from "@/dto/output/exercise/ExerciseElementDTO";
 import {ImageDTO} from "@/dto/output/exercise/ImageDTO";
 import {PdfDTO} from "@/dto/output/exercise/PdfDTO";
 import {InputDTO} from "@/dto/output/exercise/InputDTO";
+import ExerciseImage from "@/components/ExerciseImage";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -45,29 +46,6 @@ const ExerciseDetailPage = () => {
         getExercise();
     }, [id]);
 
-    const getImage = async (pictureId: string) => {
-        try {
-            const requestInit: RequestInit = {
-                method: "GET",
-                credentials: "include",
-                headers: {"Content-Type": "application/json"},
-            }
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}/pictures/${pictureId}`,
-                requestInit
-            )
-            if (!response.ok) {
-                const errorData = await response.json();
-                setError(`Error fetching image: ${errorData.message}`); // TODO: add translation
-            } else {
-                console.log("Images"); //TODO
-            }
-        } catch (e) {
-            setError(`Error fetching image: ${e}`); // TODO: add translation
-            console.error("Failed to fetch image", e);
-        }
-
-    }
 
     const getDocument = async (fileId: string) => {
         try {
@@ -98,11 +76,12 @@ const ExerciseDetailPage = () => {
             case "IMAGE": {
                 const data = element.data as ImageDTO;
                 return (
-                    <img
+                    <ExerciseImage
                         key={element.id}
-                        src={data.url}
-                        alt={data.alt || "Exercise image"}
-                        className="my-4 max-w-full h-auto"
+                        pictureId={element.id}
+                        exerciseId={id as string}
+                        alt={data.alt}
+                        onError={(msg) => setError(msg)}
                     />
                 );
             }
