@@ -10,6 +10,7 @@ import {PdfDTO} from "@/dto/output/exercise/PdfDTO";
 import {InputDTO} from "@/dto/output/exercise/InputDTO";
 import ExerciseImage from "@/components/ExerciseImage";
 import ExerciseDocument from "@/components/ExerciseDocument";
+import ExerciseTextInput from "@/components/ExerciseTextInput";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -69,7 +70,7 @@ const ExerciseDetailPage = () => {
                         key={element.id}
                         exerciseId={id as string}
                         documentId={element.id}
-                        name = {data.name}
+                        name={data.name}
                         onError={(msg) => setError(msg)}
                     />
                 );
@@ -77,25 +78,11 @@ const ExerciseDetailPage = () => {
             case "TEXT_INPUT": {
                 const data = element.data as InputDTO;
                 return (
-                    <div key={element.id} className="my-4 w-full">
-                        <label
-                            htmlFor={element.id}
-                            className="block font-medium mb-1"
-                        >
-                            {data.label}
-                        </label>
-                        <textarea
-                            id={element.id}
-                            placeholder={data.placeholder}
-                            required={data.required}
-                            rows={2} // 2 initial rows
-                            onInput={(e) => {
-                                e.currentTarget.style.height = "auto"; // enable shrinking to fit content
-                                e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
-                            }}
-                            className="block w-full resize-none overflow-hidden bg-blue-figma rounded-md  shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2"
-                        />
-                    </div>
+                    <ExerciseTextInput
+                        key={element.id}
+                        elementId={element.id}
+                        data={data}
+                    />
                 );
             }
             default:
