@@ -6,6 +6,7 @@ interface Resources {
             "logout": "",
             "error": {
                 "languageFailed": "",
+                "languageTryAgain": "",
                 "resetTryAgain": "",
                 "passwordEmptyFields": "",
                 "passwordsDoNotMatch": "",
@@ -79,6 +80,25 @@ interface Resources {
             "startNewConversation": "",
             "noConversationsYet": ""
         },
+        "exercise": {
+            "title": "",
+            "error": {
+                "fetchFailed": ""
+            },
+            "noExercises": ""
+            "image": {
+                "error": {
+                    "fetchFailed": ""
+                }
+            },
+            "document": {
+                "view": "",
+                "download": "",
+                "error": {
+                    "fetchFailed": ""
+                }
+            }
+        },
         "chat": {
             "title": "",
             "name": "",
@@ -122,7 +142,8 @@ interface Resources {
             "chat": "",
             "chats": "",
             "settings": "",
-            "logout": ""
+            "logout": "",
+            "exercise": ""
         },
         "footer": {
             "terms": "",
