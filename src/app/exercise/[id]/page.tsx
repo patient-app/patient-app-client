@@ -9,6 +9,7 @@ import {ImageDTO} from "@/dto/output/exercise/ImageDTO";
 import {PdfDTO} from "@/dto/output/exercise/PdfDTO";
 import {InputDTO} from "@/dto/output/exercise/InputDTO";
 import ExerciseImage from "@/components/ExerciseImage";
+import ExerciseDocument from "@/components/ExerciseDocument";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -47,30 +48,6 @@ const ExerciseDetailPage = () => {
     }, [id]);
 
 
-    const getDocument = async (fileId: string) => {
-        try {
-            const requestInit: RequestInit = {
-                method: "GET",
-                credentials: "include",
-                headers: {"Content-Type": "application/json"},
-            }
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}/documents/${fileId}`,
-                requestInit
-            )
-            if (!response.ok) {
-                const errorData = await response.json();
-                setError(`Error fetching file: ${errorData.message}`); // TODO: add translation
-            } else {
-                console.log("file"); //TODO
-            }
-        } catch (e) {
-            setError(`Error fetching file: ${e}`); // TODO: add translation
-            console.error("Failed to fetch file", e);
-        }
-
-    }
-
     const renderElement = (element: ExerciseElementDTO) => {
         switch (element.type) {
             case "IMAGE": {
@@ -86,15 +63,15 @@ const ExerciseDetailPage = () => {
                 );
             }
             case "FILE": {
-                const data = element.data as PdfDTO; //TODO: handle files
+                const data = element.data as PdfDTO;
                 return (
-                    <a
+                    <ExerciseDocument
                         key={element.id}
-                        href={data.url}
-                        className="text-blue-600 underline my-2 block"
-                    >
-                        {data.name}
-                    </a>
+                        exerciseId={id as string}
+                        documentId={element.id}
+                        name = {data.name}
+                        onError={(msg) => setError(msg)}
+                    />
                 );
             }
             case "TEXT_INPUT": {

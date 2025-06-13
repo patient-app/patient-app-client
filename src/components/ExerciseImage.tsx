@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Readonly<{
     exerciseId: string,
     pictureId: string,
-    alt?: string,
+    alt: string,
     onError?: (error: string) => void
 }>) {
     const [src, setSrc] = useState<string | null>(null);
@@ -22,7 +22,7 @@ export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Rea
                     headers: {"Content-Type": "image/png"},
                 }
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients2/exercises/${exerciseId}/pictures/${pictureId}`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/pictures/${pictureId}`,
                     requestInit
                 )
                 if (!response.ok) {
@@ -30,7 +30,6 @@ export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Rea
                     const msg = t("exercise.image.error.fetchFailed") + errorData.message;
                     onError?.(msg);
                     console.error(msg);
-                    return;
                 } else {
                     const imageBlob = await response.blob();
                     const imageURL = URL.createObjectURL(imageBlob);

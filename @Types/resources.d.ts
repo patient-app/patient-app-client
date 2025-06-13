@@ -90,6 +90,13 @@ interface Resources {
                 "error": {
                     "fetchFailed": ""
                 }
+            },
+            "document": {
+                "view": "",
+                "download": "",
+                "error": {
+                    "fetchFailed": ""
+                }
             }
         },
         "chat": {

@@ -88,6 +88,13 @@
       "error": {
         "fetchFailed": "Failed to fetch exercise image: "
       }
+    },
+    "document": {
+      "view": "View",
+      "download": "Download",
+      "error": {
+        "fetchFailed": "Error fetching document: "
+      }
     }
   },
   "chat": {
