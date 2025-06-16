@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "(npm run generate:api || true) && concurrently \"next dev --turbopack\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "i18n": "i18next-resources-for-ts interface -i ./src/locales/en -o ./@Types/resources.d.ts"
+    "i18n": "i18next-resources-for-ts interface -i ./src/locales/en -o ./@Types/resources.d.ts",
+    "generate:api": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8080/v3/api-docs -o src/api --additional-properties=supportsES6=true,withInterfaces=true,withSeparateModelsAndApi=true,apiPackage=apis,modelPackage=models --skip-validate-spec"
   },
   "dependencies": {
+    "axios": "^1.10.0",
     "i18next": "^25.1.2",
     "i18next-resources-for-ts": "^1.6.0",
     "i18next-resources-to-backend": "^1.2.1",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@openapitools/openapi-generator-cli": "^2.18.4",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
