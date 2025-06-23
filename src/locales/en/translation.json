@@ -153,6 +153,7 @@
     "noEntries": "No journal entries yet",
     "error": {
       "fetchFailed": "Failed to fetch journal entries: "
-    }
+    },
+    "newEntry": "Create a new journal entry"
   }
 }

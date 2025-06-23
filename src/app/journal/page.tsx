@@ -66,9 +66,16 @@ const Journal = () => {
         }
     }
 
+
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold text-center">{t("journal.title")}</h1>
+            <button
+                onClick={() => router.push("/journal/creation")}
+                className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
+            >
+                <p className="font-bold">{t("journal.newEntry")}</p>
+            </button>
             <div className="gap-4 p-4 flex flex-wrap justify-start">
                 {renderContent()}
             </div>

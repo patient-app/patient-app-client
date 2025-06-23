@@ -156,7 +156,8 @@ interface Resources {
             "noEntries": "",
             "error": {
                 "fetchFailed": ""
-            }
+            },
+            "newEntry": ""
         }
     }
 }
