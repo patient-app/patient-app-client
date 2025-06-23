@@ -39,6 +39,7 @@ const Register = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 setError((t("register.error.registrationFailed") + errorData.message) || t("register.error.registrationTryAgain"));
+                console.log(errorData)
             } else {
                 setShowPassword(false);
                 router.push("/");

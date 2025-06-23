@@ -143,12 +143,20 @@ interface Resources {
             "chats": "",
             "settings": "",
             "logout": "",
-            "exercise": ""
+            "exercise": "",
+            "journal": ""
         },
         "footer": {
             "terms": "",
             "privacy": "",
             "aiwarning": ""
+        },
+        "journal": {
+            "title": "",
+            "noEntries": "",
+            "error": {
+                "fetchFailed": ""
+            }
         }
     }
 }

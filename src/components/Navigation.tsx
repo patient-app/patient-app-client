@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import NavigationButton from "@/components/NavigationButton";
 import {MOBILE_BREAKPOINT} from "@/libs/constants";
+import { NotebookPen } from 'lucide-react';
 
 export default function Navigation() {
     const pathname = usePathname();
@@ -68,6 +69,14 @@ export default function Navigation() {
                 </svg>
                 }
                 label={t("navigation.exercise")}
+                showOnMobile={true}
+            />
+            <NavigationButton
+                isMobile={isMobile}
+                href="/journal"
+                onClick={() => router.push("/journal")}
+                icon={<NotebookPen size={24} strokeWidth={2} />}
+                label={t("navigation.journal")}
                 showOnMobile={true}
             />
         </>

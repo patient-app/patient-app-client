@@ -140,11 +140,19 @@
     "chats": "Conversations",
     "settings": "Settings",
     "logout": "Log out",
-    "exercise": "Exercise"
+    "exercise": "Exercise",
+    "journal": "Journal"
   },
   "footer": {
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "aiwarning": "AI responses may be inaccurate. Verify important information."
+  },
+  "journal": {
+    "title": "Journal",
+    "noEntries": "No journal entries yet",
+    "error": {
+      "fetchFailed": "Failed to fetch journal entries: "
+    }
   }
 }
