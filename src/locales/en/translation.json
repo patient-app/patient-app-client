@@ -5,6 +5,7 @@
     "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
+      "languageTryAgain": "Failed to change the language, please try again.",
       "resetTryAgain": "Failed to change the language, please try again.",
       "passwordEmptyFields": "All fields are required.",
       "passwordsDoNotMatch": "Passwords do not match.",
@@ -77,6 +78,25 @@
     "startNewConversation": "+ Start a new conversation",
     "noConversationsYet": "no conversations yet"
   },
+  "exercise": {
+    "title": "Exercises",
+    "error": {
+      "fetchFailed": "Failed to fetch exercises: "
+    },
+    "noExercises": "No exercises available at the moment.",
+    "image": {
+      "error": {
+        "fetchFailed": "Failed to fetch exercise image: "
+      }
+    },
+    "document": {
+      "view": "View",
+      "download": "Download",
+      "error": {
+        "fetchFailed": "Error fetching document: "
+      }
+    }
+  },
   "chat": {
     "title": "Lumina AI",
     "name": "Lumina",
@@ -119,7 +139,8 @@
     "chat": "New Chat",
     "chats": "Conversations",
     "settings": "Settings",
-    "logout": "Log out"
+    "logout": "Log out",
+    "exercise": "Exercise"
   },
   "footer": {
     "terms": "Terms of Use",

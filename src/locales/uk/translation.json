@@ -5,6 +5,7 @@
     "logout": "вийти",
     "error": {
       "languageFailed": "Не вдалося змінити мову: ",
+      "languageTryAgain": "Не вдалося змінити мову, будь ласка, спробуйте ще раз.",
       "resetTryAgain": "Не вдалося змінити мову, спробуйте ще раз.",
       "passwordEmptyFields": "Усі поля є обов’язковими для заповнення.",
       "passwordsDoNotMatch": "Паролі не збігаються.",
@@ -77,6 +78,25 @@
     "startNewConversation": "+ Почніть нову розмову",
     "noConversationsYet": "розмов ще не було"
   },
+  "exercise": {
+    "title": "вправи",
+    "error": {
+      "fetchFailed": "Не вдалося отримати вправи: "
+    },
+    "noExercises": "Наразі вправ немає.",
+    "image": {
+      "error": {
+        "fetchFailed": "Не вдалося отримати зображення вправи: "
+      }
+    },
+    "document": {
+      "view": "Переглянути",
+      "download": "Завантажити",
+      "error": {
+        "fetchFailed": "Помилка отримання документа: "
+      }
+    }
+  },
   "chat": {
     "title": "Люміна ШІ",
     "name": "Люміна",
@@ -119,7 +139,8 @@
     "chat": "Новий чат",
     "chats": "Розмови",
     "settings": "Налаштування",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "exercise": "Вправи"
   },
   "footer": {
     "terms": "Умови використання",
