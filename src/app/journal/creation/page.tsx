@@ -68,7 +68,7 @@ export default function JournalEntryCreationPage() {
     };
 
     return (
-        <main className="bg-blue-figma px-4 py-2 rounded-md min-h-screen">
+        <main className="px-4 py-2 rounded-md min-h-screen">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={() => router.back()}

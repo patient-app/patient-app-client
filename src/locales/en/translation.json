@@ -154,6 +154,6 @@
     "error": {
       "fetchFailed": "Failed to fetch journal entries: "
     },
-    "newEntry": "Create a new journal entry"
+    "newEntry": "+ Create a new journal entry"
   }
 }
