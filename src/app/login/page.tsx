@@ -39,6 +39,7 @@ const Login = () => {
                 const errorData = await response.json();
                 setError((t("login.error.loginFailed") + errorData.message) || t("login.error.loginTryAgain"));
             } else {
+                await response.json();
                 setShowPassword(false)
                 router.push("/");
             }
