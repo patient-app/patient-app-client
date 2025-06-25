@@ -1,14 +1,12 @@
 "use client";
 
 import {RegisterPatientDTO} from "@/dto/input/RegisterPatientDTO";
-import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import PasswordField from "@/components/PasswordField";
 
 
 const Register = () => {
-    const router = useRouter();
     const {t} = useTranslation();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +40,7 @@ const Register = () => {
             } else {
                 await response.json();
                 setShowPassword(false);
-                router.push("/");
+                window.location.href = "/"
             }
         } catch (e) {
             setError(t("register.error.registrationTryAgain"));
