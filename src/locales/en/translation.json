@@ -132,7 +132,9 @@
     "termsText": "In order to use our application, you need to agree to the terms of use and privacy policy. We do the best we can to protect your data. You can read the terms of use by clicking below.",
     "termsButton": "Agree & Continue",
     "onboardingError": "Failed to onboard: ",
-    "onboardingTryAgain": "Failed to onboard, please try again."
+    "onboardingTryAgain": "Failed to onboard, please try again.",
+    "onboardingErrorName": "Failed to set your name: ",
+    "onboardingTryAgainName": "Failed to set your name, please try again."
   },
   "navigation": {
     "home": "Home",
