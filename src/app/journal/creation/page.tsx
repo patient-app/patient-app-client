@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
-import { ArrowLeft, Bot, BotOff, UsersRound } from "lucide-react";
-import { CoachShareOff } from "@/components/CoachShareOff";
-import { JournalTag } from "@/components/JournalTag";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+import {useTranslation} from "react-i18next";
+import {ArrowLeft, Bot, BotOff, UsersRound} from "lucide-react";
+import {CoachShareOff} from "@/components/CoachShareOff";
+import {JournalTag} from "@/components/JournalTag";
+import {Button, Tooltip} from "flowbite-react";
 
 //TODO: error
 
 export default function JournalEntryCreationPage() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +44,7 @@ export default function JournalEntryCreationPage() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.log(response)
-                setError(( t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
+                setError((t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
             } else {
                 await new Promise(resolve => setTimeout(resolve, 5000));
                 router.push("/journal");
@@ -75,18 +76,23 @@ export default function JournalEntryCreationPage() {
                     className="text-gray-500 text-xl cursor-pointer"
                 />
                 <div className="flex gap-3 text-gray-500">
-                    <button
-                        onClick={() => setAiAccessAllowed(prev => !prev)}
-                        className="cursor-pointer"
-                    >
-                        {aiAccessAllowed ? <Bot /> : <BotOff />}
-                    </button>
-                    <button
-                        onClick={() => setSharedWithTherapist(prev => !prev)}
-                        className="cursor-pointer"
-                    >
-                        {sharedWithTherapist ? <UsersRound /> : <CoachShareOff />}
-                    </button>
+                    <Tooltip content={aiAccessAllowed ? "AI access enabled" : "AI access disabled"}>
+                        <button
+                            onClick={() => setAiAccessAllowed(prev => !prev)}
+                            className="cursor-pointer"
+                        >
+                            {aiAccessAllowed ? <Bot/> : <BotOff/>}
+                        </button>
+                    </Tooltip>
+
+                    <Tooltip content={sharedWithTherapist ? "Shared with therapist" : "Not shared with therapist"}>
+                        <button
+                            onClick={() => setSharedWithTherapist(prev => !prev)}
+                            className="cursor-pointer"
+                        >
+                            {sharedWithTherapist ? <UsersRound/> : <CoachShareOff/>}
+                        </button>
+                    </Tooltip>
                 </div>
             </div>
 
@@ -125,7 +131,7 @@ export default function JournalEntryCreationPage() {
 
                     <div className="flex flex-wrap gap-2">
                         {tags.map(tag => (
-                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)} />
+                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)}/>
                         ))}
                     </div>
                 </div>
