@@ -12,8 +12,6 @@ const Journal = () => {
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const [journalEntries, setJournalEntries] = useState<JournalEntryDTO[]>([]);
-    //TODO: add loading state
-
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -56,20 +54,20 @@ const Journal = () => {
             return journalEntries
                 .toSorted((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
                 .map((entry) => (
-                <button
-                    key={entry.id}
-                    onClick={() => router.push(`/journal/${entry.id}`)}
-                    className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
-                >
-                    <p className="font-bold">{entry.title}</p>
-                    <div className="flex flex-wrap gap-2">
-                        {entry.tags
-                            .map(tag => (
-                            <JournalTag key={tag} label={tag}/>
-                        ))}
-                    </div>
-                </button>
-            ));
+                    <button
+                        key={entry.id}
+                        onClick={() => router.push(`/journal/${entry.id}`)}
+                        className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                    >
+                        <p className="font-bold">{entry.title}</p>
+                        <div className="flex flex-wrap gap-2">
+                            {entry.tags
+                                .map(tag => (
+                                    <JournalTag key={tag} label={tag}/>
+                                ))}
+                        </div>
+                    </button>
+                ));
         }
     }
 

@@ -158,6 +158,33 @@ interface Resources {
                 "fetchFailed": ""
             },
             "newEntry": ""
+        },
+        "journalCreation": {
+            "error": {
+                "tagsFailed": "",
+                "savingFailed": "",
+                "savingTryAgain": "",
+            },
+            "modal": {
+                "backWarning": "",
+                "backDiscard": "",
+                "backStay": "",
+                "saveError": "",
+                "saveOkay": ""
+            },
+            "tooltip": {
+                "aiAccessEnabled": "",
+                "aiAccessDisabled": "",
+                "therapistShareEnabled": "",
+                "therapistShareDisabled": ""
+            },
+            "title": "",
+            "note": "",
+            "saveButton": ""
+        },
+        "tagSelector": {
+            "tagInputPlaceholder": "",
+            "createTag": ""
         }
     }
 }

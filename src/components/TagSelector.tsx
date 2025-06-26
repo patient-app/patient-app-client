@@ -1,20 +1,20 @@
 "use client";
 
-import {useRef, useEffect, useState} from "react";
+import React, {useRef, useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 interface TagSelectorProps {
     tags: string[];
     setTagsAction: React.Dispatch<React.SetStateAction<string[]>>;
-    fetchedTags: string[];
-    tAction: (key: string) => string;
+    fetchedTags: string[]
 }
 
 export const TagSelector: React.FC<TagSelectorProps> = ({
                                                             tags,
                                                             setTagsAction,
                                                             fetchedTags,
-                                                            tAction,
                                                         }) => {
+    const {t} = useTranslation();
     const [tagInput, setTagInput] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ export const TagSelector: React.FC<TagSelectorProps> = ({
                         handleTagAdd(tagInput);
                     }
                 }}
-                placeholder={tAction("Search or create tag")}
+                placeholder={t("tagSelector.tagInputPlaceholder")}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
@@ -91,7 +91,7 @@ export const TagSelector: React.FC<TagSelectorProps> = ({
                                     onClick={() => handleTagAdd(tagInput)}
                                     className="w-full text-left px-3 py-2 text-blue-600 hover:bg-blue-50"
                                 >
-                                    {tAction("Create tag")}:{" "}
+                                    {t("tagSelector.createTag")}:{" "}
                                     <strong>{tagInput}</strong>
                                 </button>
                             </li>

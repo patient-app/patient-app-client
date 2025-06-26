@@ -155,5 +155,32 @@
       "fetchFailed": "Failed to fetch journal entries: "
     },
     "newEntry": "+ Create a new journal entry"
+  },
+  "journalCreation": {
+    "error": {
+      "tagsFailed": "Failed to fetch tags: ",
+      "savingFailed": "Failed to save journal entry: ",
+      "savingTryAgain": "Failed to save the journal entry, please try again."
+    },
+    "modal": {
+      "backWarning": "Are you sure you want to go back? Your journal entry will be lost.",
+      "backDiscard": "Discard Changes",
+      "backStay": "Stay",
+      "saveError": "Make sure you have a title and a note.",
+      "saveOkay": "Okay"
+    },
+    "tooltip": {
+      "aiAccessEnabled": "AI access is enabled.",
+      "aiAccessDisabled": "AI access is disabled.",
+      "therapistShareEnabled": "Therapist sharing is enabled.",
+      "therapistShareDisabled": "Therapist sharing is disabled."
+    },
+    "title": "Title",
+    "note": "Note",
+    "saveButton": "Save"
+  },
+  "tagSelector": {
+    "tagInputPlaceholder": "Create or select tags",
+    "createTag": "Create Tag"
   }
 }
