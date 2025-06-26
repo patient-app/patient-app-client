@@ -195,10 +195,8 @@ const JournalEntryPage = () => {
 
             </div>
 
-            <div className="text-gray-500 text-sm">Entry
-                created: {journalEntry?.createdAt ? formatDate(journalEntry.createdAt) : "—"}</div>
-            <div className="text-gray-500 text-sm mb-4">Entry last
-                updated: {journalEntry?.updatedAt ? formatDate(journalEntry.updatedAt) : "—"}</div>
+            <div className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? formatDate(journalEntry.createdAt) : "—"}</div>
+            <div className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? formatDate(journalEntry.updatedAt) : "—"}</div>
 
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -227,7 +225,7 @@ const JournalEntryPage = () => {
                 </div>
 
                 <textarea
-                    placeholder={t("journalCreationEditing.content")}
+                    placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"

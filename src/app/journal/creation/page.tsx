@@ -156,7 +156,7 @@ export default function JournalEntryCreationPage() {
                 </div>
 
                 <textarea
-                    placeholder={t("journalCreationEditing.content")}
+                    placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"

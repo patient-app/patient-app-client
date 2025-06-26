@@ -154,7 +154,9 @@
     "error": {
       "fetchFailed": "Не вдалося отримати записи журналу: "
     },
-    "newEntry": "+ Створити новий запис у журналі"
+    "newEntry": "+ Створити новий запис у журналі",
+    "searchPlaceholder": "Пошук за назвою",
+    "resetFilters": "Скинути фільтри"
   },
   "journalCreationEditing": {
     "error": {
@@ -184,7 +186,9 @@
     "title": "Назва",
     "note": "Примітка",
     "saveButton": "зберегти",
-    "updateButton": "Оновити"
+    "updateButton": "Оновити",
+    "creationDate": "Запис створено: ",
+    "updateDate": "Запис востаннє оновлено: "
   },
   "tagSelector": {
     "tagInputPlaceholder": "Створіть або виберіть теги",

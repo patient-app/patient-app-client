@@ -157,7 +157,9 @@ interface Resources {
             "error": {
                 "fetchFailed": ""
             },
-            "newEntry": ""
+            "newEntry": "",
+            "searchPlaceholder": "",
+            "resetFilters": ""
         },
         "journalCreationEditing": {
             "error": {
@@ -186,7 +188,9 @@ interface Resources {
             "title": "",
             "note": "",
             "saveButton": "",
-            "updateButton": ""
+            "updateButton": "",
+            "creationDate": "",
+            "updateDate": ""
         },
         "tagSelector": {
             "tagInputPlaceholder": "",

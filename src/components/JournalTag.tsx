@@ -4,11 +4,12 @@ import React from "react";
 interface JournalTagProps {
     label: string;
     onRemove?: () => void;
+    className?: string;
 }
 
-export const JournalTag: React.FC<JournalTagProps> = ({ label, onRemove }) => {
+export const JournalTag: React.FC<JournalTagProps> = ({ label, onRemove, className }) => {
     return (
-        <div className="inline-flex items-center px-3 py-1 bg-blue-figma text-gray-800 text-sm rounded-full">
+        <div className={`inline-flex items-center px-3 py-1 bg-blue-figma text-gray-800 text-sm rounded-full ${className ?? ""}`}>
             <span>{label}</span>
             {onRemove && (
                 <button
@@ -22,3 +23,4 @@ export const JournalTag: React.FC<JournalTagProps> = ({ label, onRemove }) => {
         </div>
     );
 };
+

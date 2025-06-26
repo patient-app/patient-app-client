@@ -154,7 +154,9 @@
     "error": {
       "fetchFailed": "Failed to fetch journal entries: "
     },
-    "newEntry": "+ Create a new journal entry"
+    "newEntry": "+ Create a new journal entry",
+    "searchPlaceholder": "Search by title",
+    "resetFilters": "Reset Filters"
   },
   "journalCreationEditing": {
     "error": {
@@ -184,7 +186,9 @@
     "title": "Title",
     "note": "Note",
     "saveButton": "Save",
-    "updateButton": "Update"
+    "updateButton": "Update",
+    "creationDate": "Entry created on: ",
+    "updateDate": "Entry last updated on: "
   },
   "tagSelector": {
     "tagInputPlaceholder": "Create or select tags",
