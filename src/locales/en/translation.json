@@ -142,11 +142,58 @@
     "chats": "Conversations",
     "settings": "Settings",
     "logout": "Log out",
-    "exercise": "Exercise"
+    "exercise": "Exercise",
+    "journal": "Journal"
   },
   "footer": {
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "aiwarning": "AI responses may be inaccurate. Verify important information."
+  },
+  "journal": {
+    "title": "Journal",
+    "noEntries": "No journal entries yet",
+    "error": {
+      "fetchFailed": "Failed to fetch journal entries: "
+    },
+    "newEntry": "+ Create a new journal entry",
+    "searchPlaceholder": "Search by title",
+    "resetFilters": "Reset Filters"
+  },
+  "journalCreationEditing": {
+    "error": {
+      "tagsFailed": "Failed to fetch tags: ",
+      "savingFailed": "Failed to save journal entry: ",
+      "savingTryAgain": "Failed to save the journal entry, please try again."
+    },
+    "modal": {
+      "backWarning": "Are you sure you want to go back? Your journal entry will be lost.",
+      "backUpdateWarning": "Are you sure you want to go back? Your updates will be lost.",
+      "backDiscard": "Discard Changes",
+      "backStay": "Stay",
+      "saveError": "Make sure you have a title and a note.",
+      "saveOkay": "Okay",
+      "deleteWarning": "Are you sure you want to delete this journal entry? This action cannot be undone.",
+      "deleteConfirm": "Confirm Delete",
+      "deleteCancel": "Cancel",
+      "updateError": "Make sure you have a title and a note.",
+      "updateOkay": "Okay"
+    },
+    "tooltip": {
+      "aiAccessEnabled": "AI access is enabled.",
+      "aiAccessDisabled": "AI access is disabled.",
+      "therapistShareEnabled": "Therapist sharing is enabled.",
+      "therapistShareDisabled": "Therapist sharing is disabled."
+    },
+    "title": "Title",
+    "note": "Note",
+    "saveButton": "Save",
+    "updateButton": "Update",
+    "creationDate": "Entry created on: ",
+    "updateDate": "Entry last updated on: "
+  },
+  "tagSelector": {
+    "tagInputPlaceholder": "Create or select tags",
+    "createTag": "Create Tag"
   }
 }

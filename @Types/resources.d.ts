@@ -145,12 +145,58 @@ interface Resources {
             "chats": "",
             "settings": "",
             "logout": "",
-            "exercise": ""
+            "exercise": "",
+            "journal": ""
         },
         "footer": {
             "terms": "",
             "privacy": "",
             "aiwarning": ""
+        },
+        "journal": {
+            "title": "",
+            "noEntries": "",
+            "error": {
+                "fetchFailed": ""
+            },
+            "newEntry": "",
+            "searchPlaceholder": "",
+            "resetFilters": ""
+        },
+        "journalCreationEditing": {
+            "error": {
+                "tagsFailed": "",
+                "savingFailed": "",
+                "savingTryAgain": "",
+            },
+            "modal": {
+                "backWarning": "",
+                "backDiscard": "",
+                "backStay": "",
+                "saveError": "",
+                "saveOkay": ""
+                "deleteWarning": "",
+                "deleteConfirm": "",
+                "deleteCancel": ""
+                "updateError": "",
+                "updateOkay": ""
+            },
+            "tooltip": {
+                "aiAccessEnabled": "",
+                "aiAccessDisabled": "",
+                "therapistShareEnabled": "",
+                "therapistShareDisabled": ""
+            },
+            "title": "",
+            "note": "",
+            "saveButton": "",
+            "updateButton": "",
+            "creationDate": "",
+            "updateDate": ""
+        },
+        "tagSelector": {
+            "tagInputPlaceholder": "",
+            "createTag": ""
         }
     }
 }
