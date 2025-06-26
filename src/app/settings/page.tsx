@@ -171,7 +171,7 @@ const Page = () => {
             };
             const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/passwords`, requestInit);
 
-            if (!response.ok) {
+            if (response.status !== 204) {
                 const errorData = await response.json();
                 setPasswordError(
                     (t("settings.error.passwordChangeFailed") + errorData.message) ||
@@ -326,7 +326,7 @@ const Page = () => {
                     <button
                         className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition disabled:bg-gray-300"
                         type="submit"
-                        disabled={!allRulesValid || passwordsMismatch}
+                        disabled={!allRulesValid || passwordsMismatch || !formData.oldPassword || !formData.newPassword || !formData.confirmPassword}
                     >
                         {t("settings.password.button")}
                     </button>
