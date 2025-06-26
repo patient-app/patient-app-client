@@ -39,11 +39,11 @@ export default function JournalEntryCreationPage() {
                 } else {
                     const errorData = await response.json();
                     console.log(errorData)
-                    setError(t("journalCreation.error.tagsFailed") + errorData.message);
+                    setError(t("journalCreationEditing.error.tagsFailed") + errorData.message);
                 }
             } catch (e) {
                 console.error("Failed to fetch tags: ", e);
-                setError(t("journalCreation.error.tagsFailed"));
+                setError(t("journalCreationEditing.error.tagsFailed"));
             }
         };
 
@@ -77,14 +77,12 @@ export default function JournalEntryCreationPage() {
             if (response.status !== 201) {
                 const errorData = await response.json();
                 console.log(errorData)
-                setError((t("journalCreation.error.savingFailed") + errorData.message) || t("journalCreation.error.savingTryAgain"));
+                setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
             } else {
-                await new Promise(resolve => setTimeout(resolve, 5000));
                 router.push("/journal");
-
             }
         } catch (e) {
-            setError(t("journalCreation.error.savingTryAgain"));
+            setError(t("journalCreationEditing.error.savingTryAgain"));
             console.error("Failed to save the journal entry: ", e);
         }
     };
@@ -111,7 +109,7 @@ export default function JournalEntryCreationPage() {
                 />
                 <div className="flex gap-3 text-gray-500">
                     <Tooltip
-                        content={aiAccessAllowed ? t("journalCreation.tooltip.aiAccessEnabled") : t("journalCreation.tooltip.aiAccessDisabled")}>
+                        content={aiAccessAllowed ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")}>
                         <button
                             onClick={() => setAiAccessAllowed(prev => !prev)}
                             className="cursor-pointer"
@@ -121,7 +119,7 @@ export default function JournalEntryCreationPage() {
                     </Tooltip>
 
                     <Tooltip
-                        content={sharedWithTherapist ? t("journalCreation.tooltip.therapistShareEnabled") : t("journalCreation.tooltip.therapistShareDisabled")}>
+                        content={sharedWithTherapist ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")}>
                         <button
                             onClick={() => setSharedWithTherapist(prev => !prev)}
                             className="cursor-pointer"
@@ -135,7 +133,7 @@ export default function JournalEntryCreationPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                     type="text"
-                    placeholder={t("journalCreation.title")}
+                    placeholder={t("journalCreationEditing.title")}
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
@@ -158,7 +156,7 @@ export default function JournalEntryCreationPage() {
                 </div>
 
                 <textarea
-                    placeholder={t("journalCreation.content")}
+                    placeholder={t("journalCreationEditing.content")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
@@ -174,7 +172,7 @@ export default function JournalEntryCreationPage() {
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                     >
-                        {t("journalCreation.saveButton")}
+                        {t("journalCreationEditing.saveButton")}
                     </button>
                 </div>
             </form>
@@ -188,14 +186,14 @@ export default function JournalEntryCreationPage() {
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
-                            {t("journalCreation.modal.backWarning")}
+                            {t("journalCreationEditing.modal.backWarning")}
                         </h3>
                         <div className="flex justify-center gap-4">
                             <Button color="red" onClick={() => router.back()}>
-                                {t("journalCreation.modal.backDiscard")}
+                                {t("journalCreationEditing.modal.backDiscard")}
                             </Button>
                             <Button color="alternative" onClick={() => setBackModal(false)}>
-                                {t("journalCreation.modal.backStay")}
+                                {t("journalCreationEditing.modal.backStay")}
                             </Button>
                         </div>
                     </div>
@@ -211,11 +209,11 @@ export default function JournalEntryCreationPage() {
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            {t("journalCreation.modal.saveError")}
+                            {t("journalCreationEditing.modal.saveError")}
                         </h3>
                         <div className="flex justify-center gap-4">
                             <Button className="bg-blue-600" onClick={() => setSaveModal(false)}>
-                                {t("journalCreation.modal.saveOkay")}
+                                {t("journalCreationEditing.modal.saveOkay")}
                             </Button>
                         </div>
                     </div>

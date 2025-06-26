@@ -156,7 +156,7 @@
     },
     "newEntry": "+ Create a new journal entry"
   },
-  "journalCreation": {
+  "journalCreationEditing": {
     "error": {
       "tagsFailed": "Failed to fetch tags: ",
       "savingFailed": "Failed to save journal entry: ",
@@ -164,10 +164,16 @@
     },
     "modal": {
       "backWarning": "Are you sure you want to go back? Your journal entry will be lost.",
+      "backUpdateWarning": "Are you sure you want to go back? Your updates will be lost.",
       "backDiscard": "Discard Changes",
       "backStay": "Stay",
       "saveError": "Make sure you have a title and a note.",
-      "saveOkay": "Okay"
+      "saveOkay": "Okay",
+      "deleteWarning": "Are you sure you want to delete this journal entry? This action cannot be undone.",
+      "deleteConfirm": "Confirm Delete",
+      "deleteCancel": "Cancel",
+      "updateError": "Make sure you have a title and a note.",
+      "updateOkay": "Okay"
     },
     "tooltip": {
       "aiAccessEnabled": "AI access is enabled.",
@@ -177,7 +183,8 @@
     },
     "title": "Title",
     "note": "Note",
-    "saveButton": "Save"
+    "saveButton": "Save",
+    "updateButton": "Update"
   },
   "tagSelector": {
     "tagInputPlaceholder": "Create or select tags",

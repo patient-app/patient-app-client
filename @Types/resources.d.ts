@@ -159,7 +159,7 @@ interface Resources {
             },
             "newEntry": ""
         },
-        "journalCreation": {
+        "journalCreationEditing": {
             "error": {
                 "tagsFailed": "",
                 "savingFailed": "",
@@ -171,6 +171,11 @@ interface Resources {
                 "backStay": "",
                 "saveError": "",
                 "saveOkay": ""
+                "deleteWarning": "",
+                "deleteConfirm": "",
+                "deleteCancel": ""
+                "updateError": "",
+                "updateOkay": ""
             },
             "tooltip": {
                 "aiAccessEnabled": "",
@@ -180,7 +185,8 @@ interface Resources {
             },
             "title": "",
             "note": "",
-            "saveButton": ""
+            "saveButton": "",
+            "updateButton": ""
         },
         "tagSelector": {
             "tagInputPlaceholder": "",
