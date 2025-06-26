@@ -8,7 +8,7 @@ interface JournalTagProps {
 
 export const JournalTag: React.FC<JournalTagProps> = ({ label, onRemove }) => {
     return (
-        <div className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-800 text-sm rounded-full">
+        <div className="inline-flex items-center px-3 py-1 bg-blue-figma text-gray-800 text-sm rounded-full">
             <span>{label}</span>
             {onRemove && (
                 <button

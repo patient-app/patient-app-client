@@ -1,14 +1,17 @@
 "use client";
 
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {ArrowLeft, Bot, BotOff, UsersRound} from "lucide-react";
 import {CoachShareOff} from "@/components/CoachShareOff";
 import {JournalTag} from "@/components/JournalTag";
-import {Button, Tooltip} from "flowbite-react";
+import {Tooltip} from "flowbite-react";
+import {TagSelector} from "@/components/TagSelector";
 
 //TODO: error
+//TODO: translation
+//TODO: save automatically
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
@@ -21,6 +24,43 @@ export default function JournalEntryCreationPage() {
     const [tagInput, setTagInput] = useState("");
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
     const [aiAccessAllowed, setAiAccessAllowed] = useState(false);
+    const [fetchedTags, setFetchedTags] = useState<string[]>([]);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setTagInput(""); // hides the dropdown by clearing input
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        const getTags = async () => {
+            try {
+                const requestInit: RequestInit = {
+                    method: "GET",
+                    credentials: "include"
+                }
+                const response = await fetch(
+                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries/tags", requestInit);
+                if (response.ok) {
+                    const data = await response.json();
+                    setFetchedTags(data);
+                } else {
+                    throw new Error("Failed to fetch tags");
+                }
+            } catch (e) {
+                console.error("Failed to fetch tags: ", e);
+                setError(t("error"));
+            }
+        };
+
+        getTags();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,25 +84,18 @@ export default function JournalEntryCreationPage() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.log(response)
-                setError((t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
+                setError((t("error") + errorData.message) || t("error"));
             } else {
                 await new Promise(resolve => setTimeout(resolve, 5000));
                 router.push("/journal");
 
             }
         } catch (e) {
-            setError(t("reset.error.resetTryAgain"));
-            console.error("Failed to reset the password", e);
+            setError(t("error"));
+            console.error("Failed to save the journal entry: ", e);
         }
     };
 
-    const handleTagAdd = () => {
-        const newTag = tagInput.trim();
-        if (newTag && !tags.includes(newTag)) {
-            setTags(prev => [...prev, newTag]);
-            setTagInput("");
-        }
-    };
 
     const removeTag = (tagToRemove: string) => {
         setTags(prev => prev.filter(tag => tag !== tagToRemove));
@@ -106,27 +139,13 @@ export default function JournalEntryCreationPage() {
                 />
 
                 <div className="space-y-2">
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            value={tagInput}
-                            onChange={e => setTagInput(e.target.value)}
-                            onKeyDown={e => {
-                                if (e.key === "Enter") {
-                                    e.preventDefault();
-                                    handleTagAdd();
-                                }
-                            }}
-                            placeholder={t("Add tag")}
-                            className="px-3 py-1 border rounded-md text-sm"
+                    <div className="relative w-full max-w-sm">
+                        <TagSelector
+                            tags={tags}
+                            setTagsAction={setTags}
+                            fetchedTags={fetchedTags}
+                            tAction={t}
                         />
-                        <button
-                            type="button"
-                            onClick={handleTagAdd}
-                            className="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
-                        >
-                            {t("Add")}
-                        </button>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
