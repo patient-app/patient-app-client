@@ -103,7 +103,12 @@ interface Resources {
             "title": "",
             "name": "",
             "header": "",
-            "placeholder": ""
+            "placeholder": "",
+            "modal": {
+                "deleteWarning": "",
+                "deleteConfirm": "",
+                "deleteCancel": ""
+            }
         },
         "chats": {
             "title": "",
