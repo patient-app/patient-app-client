@@ -140,7 +140,9 @@ interface Resources {
             "termsText": "",
             "termsButton": "",
             "onboardingError": "",
-            "onboardingTryAgain": ""
+            "onboardingTryAgain": "",
+            "onboardingErrorName": "",
+            "onboardingTryAgainName": ""
         }
         "navigation": {
             "home": "",
