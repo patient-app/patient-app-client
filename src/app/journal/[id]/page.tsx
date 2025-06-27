@@ -285,7 +285,7 @@ const JournalEntryPage = () => {
                             <Button color="red" onClick={deleteEntry}>
                                 {t("journalCreationEditing.modal.deleteConfirm")}
                             </Button>
-                            <Button color="alternative" onClick={() => setBackModal(false)}>
+                            <Button color="alternative" onClick={() => setDeleteModal(false)}>
                                 {t("journalCreationEditing.modal.deleteCancel")}
                             </Button>
                         </div>

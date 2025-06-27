@@ -9,11 +9,14 @@ import ActionProvider from "@/chatbot/ActionProvider";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import { ComponentProps } from "react";
+import {Trash2} from "lucide-react";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 
 export default function ChatPage() {
     const router = useRouter();
     const { chatId } = useParams();
     const {t} = useTranslation();
+    const [deleteModal, setDeleteModal] = useState(false);
 
     const [config, setConfig] = useState({
         initialMessages: [],
@@ -77,11 +80,38 @@ export default function ChatPage() {
         fetchMyself();
     }, [chatId, router]);
 
+    const deleteChat = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "DELETE",
+                credentials: "include"
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/conversations/${chatId}`, requestInit);
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.warn("Failed to delete chat:", errorData);
+            } else {
+                router.push("/chats");
+            }
+        } catch (e) {
+            console.error("Failed delete conversation:", e);
+        }
+    }
+
     return (
-        <>
+        <div className="flex flex-col items-center">
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
-            <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
+            <div className="w-full flex justify-end px-4 py-2 desktop:w-[60%]">
+                <Trash2
+                    onClick={() => setDeleteModal(true)}
+                    className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                    size={24}
+                />
+            </div>
+            <span className="italic text-center text-sm text-gray-600">
+            {t("footer.aiwarning")}
+        </span>
 
             {config.initialMessages.length === 0 ? (
                 <p>Loading chat...</p>
@@ -90,12 +120,37 @@ export default function ChatPage() {
                     config={config}
                     messageParser={MessageParser}
                     actionProvider={(
-                        props: ComponentProps<typeof ActionProvider>     // <- no more “any”
+                        props: ComponentProps<typeof ActionProvider>
                     ) => <ActionProvider {...props} chatId={chatId} />}
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
             )}
-        </>
+
+            <Modal
+                show={deleteModal}
+                onClose={() => setDeleteModal(false)}
+                size="md"
+                popup
+            >
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">
+                            {t("chat.modal.deleteWarning")}
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="red" onClick={deleteChat}>
+                                {t("chat.modal.deleteConfirm")}
+                            </Button>
+                            <Button color="alternative" onClick={() => setDeleteModal(false)}>
+                                {t("chat.modal.deleteCancel")}
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
+        </div>
     )
+
 }
