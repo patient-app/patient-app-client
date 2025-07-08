@@ -202,6 +202,14 @@ interface Resources {
         "tagSelector": {
             "tagInputPlaceholder": "",
             "createTag": ""
+        },
+        "meetings":{
+            "title": "",
+            "noneFound": "",
+            "start": "",
+            "end": "",
+            "location": "",
+            "status": ""
         }
     }
 }

@@ -200,5 +200,13 @@
   "tagSelector": {
     "tagInputPlaceholder": "Створіть або виберіть теги",
     "createTag": "Створити тег"
+  },
+  "meetings": {
+    "title": "Зустрічі",
+    "noneFound": "Немає запланованих зустрічей.",
+    "start": "Почніть:",
+    "end": "Кінець:",
+    "location": "Розташування:",
+    "status": "Статус:"
   }
 }

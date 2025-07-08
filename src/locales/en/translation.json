@@ -200,5 +200,13 @@
   "tagSelector": {
     "tagInputPlaceholder": "Create or select tags",
     "createTag": "Create Tag"
+  },
+  "meetings":{
+    "title": "Meetings",
+    "noneFound": "No meetings scheduled.",
+    "start": "Start:",
+    "end": "End:",
+    "location": "Location:",
+    "status": "Status:"
   }
 }
