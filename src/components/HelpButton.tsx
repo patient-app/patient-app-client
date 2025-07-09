@@ -2,11 +2,13 @@
 
 
 import {useState, useRef, useEffect} from "react";
+import ExerciseChatbot from "@/components/ExerciseChatbot";
 
 
 export default function HelpButton() {
     const helpRef = useRef(null);
     const [isHelpVisible, setIsHelpVisible] = useState(false);
+    const [isChatbotVisible, setIsChatbotVisible] = useState(false);
 
 
     const toggleHelpVisibility = () => {
@@ -35,7 +37,8 @@ export default function HelpButton() {
                     <div className="flex flex-col items-center mb-1">
                         {/* Chatbot button */}
                         <button
-                            className="w-15 h-15 bg-gray-figma rounded-xl flex items-center justify-center hover:bg-neutral-800 transition cursor-pointer">
+                            className="w-15 h-15 bg-gray-figma rounded-xl flex items-center justify-center hover:bg-neutral-800 transition cursor-pointer"
+                            onClick={() => setIsChatbotVisible(!isChatbotVisible)}>
                             <svg width="44" height="36" viewBox="0 0 44 36" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M22 10V2H14" stroke="white" strokeWidth="4" strokeLinecap="round"
@@ -73,6 +76,8 @@ export default function HelpButton() {
                     </svg>
                 </button>
             </div>
+            <ExerciseChatbot isOpen={isChatbotVisible} onClose={() => setIsChatbotVisible(false)} />
+
         </div>
     )
 }

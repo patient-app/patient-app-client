@@ -14,7 +14,7 @@ export default function ChatPage() {
         <>
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
-            <div>
+            <div className="chatbot-wrapper chatbot-basic">
                     <Chatbot
                         config={config}
                         messageParser={MessageParser}

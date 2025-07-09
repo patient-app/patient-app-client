@@ -64,7 +64,7 @@ export default function ExerciseDocument({
             }
         };
 
-        fetchDocument();
+        //fetchDocument();
 
         return () => {
             if (pdfUrl) {

@@ -98,7 +98,7 @@ const ExerciseDetailPage = () => {
                     <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
                     <p className="pt-6">{exercise.description}</p>
                     <div className="w-full max-w-2xl mt-6">
-                        {exercise.elements.map(renderElement)}
+                        {exercise.exerciseElements.map(renderElement)}
                     </div>
                 </>
             ) : (

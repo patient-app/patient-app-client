@@ -22,7 +22,7 @@ export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Rea
                     headers: {"Content-Type": "image/png"},
                 }
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/pictures/${pictureId}`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/${pictureId}`,
                     requestInit
                 )
                 if (!response.ok) {

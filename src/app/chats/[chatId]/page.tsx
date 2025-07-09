@@ -116,6 +116,7 @@ export default function ChatPage() {
             {config.initialMessages.length === 0 ? (
                 <p>Loading chat...</p>
             ) : (
+                <div className="chatbot-wrapper chatbot-basic">
                 <Chatbot
                     config={config}
                     messageParser={MessageParser}
@@ -125,6 +126,7 @@ export default function ChatPage() {
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
+                </div>
             )}
 
             <Modal
