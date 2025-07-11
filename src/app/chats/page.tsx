@@ -22,7 +22,7 @@ export default function Home() {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/patient", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
                     router.push("/login");
@@ -47,7 +47,7 @@ export default function Home() {
             <h1 className="text-3xl font-semibold">{t("chats.title")}</h1>
                 <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                     <div
-                        onClick={() => router.push(`/chat`)}
+                        onClick={() => router.push("/chat")}
                         className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
                     >
                         <p className="font-bold">{t("chats.startNewConversation")}</p>

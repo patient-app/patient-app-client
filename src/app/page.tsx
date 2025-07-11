@@ -51,7 +51,7 @@ export default function Home() {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/patient", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
                     return;

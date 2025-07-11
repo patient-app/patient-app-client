@@ -1,29 +1,66 @@
 "use client";
 
-import ActionProvider from "@/chatbot/ActionProvider";
 import config from "@/chatbot/config";
-import MessageParser from "@/chatbot/MessageParser";
 import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
+import {useEffect, useRef, useState} from "react";
 
 export default function ChatPage() {
-    const {t} = useTranslation();
+    const hasCreatedConversation = useRef(false);
+    const { t } = useTranslation();
+    const [conversationId, setConversationId] = useState<string | null>(null);
+    const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
+
+    useEffect(() => {
+        if (hasCreatedConversation.current) return;
+        hasCreatedConversation.current = true;
+
+        const createConversation = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations`, {
+                    method: 'POST',
+                    credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create conversation');
+                }
+
+                const res = await response.json();
+                setConversationId(res.id);
+                setWelcomeMessage(res.welcomeMessage);
+            } catch (error) {
+                console.error('Error creating conversation:', error);
+            }
+        };
+
+        createConversation();
+    }, []);
+
+    // If conversationId or welcomeMessage is null, show loading state
+    if (!conversationId || !welcomeMessage) {
+        return <div className="text-center py-10 text-gray-500">Loading chatbot...</div>; //TODO: translate
+    }
+
+    const createdConfig = config(conversationId, welcomeMessage);
 
     return (
         <>
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-            <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
+            <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")}</span>
             <div className="chatbot-wrapper chatbot-basic">
-                    <Chatbot
-                        config={config}
-                        messageParser={MessageParser}
-                        actionProvider={ActionProvider}
-                        headerText={t("chat.header")}
-                        placeholderText={t("chat.placeholder")}
-                    />
+                <Chatbot
+                    config={createdConfig}
+                    messageParser={createdConfig.messageParser}
+                    actionProvider={createdConfig.actionProvider}
+                    headerText={t("chat.header")}
+                    placeholderText={t("chat.placeholder")}
+                />
             </div>
         </>
     );
-
 };
