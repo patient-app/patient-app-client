@@ -2,9 +2,9 @@
 
 import Chatbot from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
-import ActionProvider from "@/chatbot/ActionProvider";
 import {useTranslation} from "react-i18next";
 import configExercise from "@/chatbot/configExercise";
+import ActionProviderExercise from "@/chatbot/ActionProviderExercise";
 
 export default function ExerciseChatbot({isOpen, onClose}: { isOpen: boolean, onClose: () => void }) {
     const {t} = useTranslation();
@@ -20,7 +20,7 @@ export default function ExerciseChatbot({isOpen, onClose}: { isOpen: boolean, on
                     <Chatbot
                         config={configExercise (onClose)}
                         messageParser={MessageParser}
-                        actionProvider={ActionProvider}
+                        actionProvider={ActionProviderExercise}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}
                     />

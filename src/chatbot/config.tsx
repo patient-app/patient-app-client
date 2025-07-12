@@ -1,13 +1,13 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
+import {CHATBOT_NAME} from "@/libs/constants";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const botName = "Lumina";
 
 const config = (chatId: string | null, welcomeMessage: string) => ({
     initialMessages: [createChatBotMessage(welcomeMessage, {})],
-    botName: botName,
+    botName: CHATBOT_NAME,
     actionProvider: (props: any) => <ActionProvider {...props} chatId={chatId} />,
     messageParser: (props: any) => <MessageParser {...props} />,
     customStyles: {
