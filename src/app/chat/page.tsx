@@ -21,12 +21,16 @@ export default function ChatPage() {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations`, {
                     method: 'POST',
                     credentials: "include",
+                    body: JSON.stringify({
+                        conversationName: "name", // TODO: remove
+                    }),
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
 
                 if (!response.ok) {
+                    console.log(response)
                     throw new Error('Failed to create conversation');
                 }
 

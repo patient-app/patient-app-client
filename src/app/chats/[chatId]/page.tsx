@@ -9,6 +9,7 @@ import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
 import {Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
+import {CHATBOT_NAME} from "@/libs/constants";
 
 export default function ChatPage() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function ChatPage() {
 
     const [config, setConfig] = useState({
         initialMessages: [],
-        botName: "Lumina",
+        botName: CHATBOT_NAME,
         customStyles: {
             chatButton: {
                 backgroundColor: 'oklch(69.6% 0.17 162.48)',
@@ -47,6 +48,7 @@ export default function ChatPage() {
                     router.push("/chat");
                 } else {
                     const respo = await response.json();
+                    const welcomeMessage = respo.welcomeMessage;
 
                     const messagePairs = respo.messages.map((msg: MessageDTO) => ({
                         request: msg.requestMessage,
@@ -62,13 +64,13 @@ export default function ChatPage() {
                         createChatBotMessage(pair.response, {}),
                     ]);
 
+                    if (welcomeMessage) {
+                        initialBotMessages.unshift(createChatBotMessage(welcomeMessage, {}));
+                    }
                     setConfig(prev => ({
                         ...prev,
                         initialMessages: initialBotMessages,
                     }));
-
-                    console.log("Initial messages set.", initialBotMessages);
-
                 }
             } catch (e) {
                 console.error(e);
@@ -117,15 +119,15 @@ export default function ChatPage() {
                 <p>Loading chat...</p>
             ) : (
                 <div className="chatbot-wrapper chatbot-basic">
-                <Chatbot
-                    config={config}
-                    messageParser={MessageParser}
-                    actionProvider={(
-                        props: ComponentProps<typeof ActionProvider>
-                    ) => <ActionProvider {...props} chatId={chatId}/>}
-                    headerText={t("chat.header")}
-                    placeholderText={t("chat.placeholder")}
-                />
+                    <Chatbot
+                        config={config}
+                        messageParser={MessageParser}
+                        actionProvider={(
+                            props: ComponentProps<typeof ActionProvider>
+                        ) => <ActionProvider {...props} chatId={chatId}/>}
+                        headerText={t("chat.header")}
+                        placeholderText={t("chat.placeholder")}
+                    />
                 </div>
             )}
 
