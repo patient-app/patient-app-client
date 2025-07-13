@@ -40,7 +40,7 @@ const Exercise = () => {
             }
         };
         fetchExercises();
-    }, []);
+    }, [t]);
 
 
     const renderContent = () => {

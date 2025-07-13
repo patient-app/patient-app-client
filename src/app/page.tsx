@@ -36,7 +36,6 @@ export default function Home() {
                     }
 
                     setMePatient(patient_response);
-                    console.log("Patient data fetched successfully", mePatient);
                     localStorage.setItem('lang', patient_response.language);
                     await i18n.changeLanguage(patient_response.language);
                 }
@@ -71,7 +70,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, []);
+    }, [i18n, router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">

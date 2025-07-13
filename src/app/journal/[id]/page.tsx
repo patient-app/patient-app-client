@@ -55,7 +55,7 @@ const JournalEntryPage = () => {
         };
 
         getTags();
-    }, []);
+    }, [t]);
 
     useEffect(() => {
         const fetchEntry = async () => {
@@ -83,7 +83,7 @@ const JournalEntryPage = () => {
             }
         };
         fetchEntry();
-    }, []);
+    }, [t, id]);
 
 
     const deleteEntry = async () => {

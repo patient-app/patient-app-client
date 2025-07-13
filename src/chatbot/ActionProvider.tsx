@@ -23,6 +23,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: an
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + chatId, requestInit);
 
             if (!response.ok) {
+                console.log(response)
                 throw new Error('Network response was not ok');
             }
 
