@@ -32,7 +32,7 @@ export default function Home() {
                 const respo = await response.json();
                 console.log(respo);
                 setConversations(respo.reverse());
-                console.log("Conversations fetched successfully", conversations);
+                console.log("Conversations fetched successfully");
             } catch (e) {
                 console.error(e);
                 router.push("/login");
@@ -40,7 +40,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, [conversations, router]);
+    }, [router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
