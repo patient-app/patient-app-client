@@ -79,10 +79,9 @@ export default function Home() {
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
-            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
-            <h2 className="text-xl font-semibold">
-                {mePatient.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.error.generic")}
-            </h2>
+            <h1 className="text-3xl font-semibold">
+                {mePatient.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}
+            </h1>
             {lastChatId ?
             <div
                 onClick={() => router.push(`/chats/${lastChatId}`)}

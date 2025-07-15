@@ -54,7 +54,7 @@
     "login": "Login"
   },
   "home": {
-    "title": "Patient's App Home",
+    "title": "Home",
     "welcome": "Welcome back",
     "error": {
       "generic": "Something went wrong"
