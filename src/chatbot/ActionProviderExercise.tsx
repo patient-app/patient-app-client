@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "next/navigation";
+import {setExternalActions} from "@/chatbot/configExercise";
+import {CHATBOT_NAME} from "@/libs/constants";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProviderExercise = ({ createChatBotMessage, setState, children }: any) => {
+const ActionProviderExercise = ({createChatBotMessage, setState, children}: any) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
+    const hasInitialized = useRef(false);
 
     const params = useParams();
     const exerciseId = params?.id;
@@ -16,7 +20,7 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
             const requestInit: RequestInit = {
                 method: "GET",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/chatbot`,
@@ -26,6 +30,7 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
             if (!response.ok) {
                 throw new Error("Failed to create conversation");
             }
+            console.log("Conversation created successfully");
 
             const data = await response.json();
             setConversationCreated(true);
@@ -42,7 +47,7 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
             const requestInit: RequestInit = {
                 method: "GET",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercise-conversation/${conversationId}/messages`,
@@ -99,8 +104,8 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
             const requestInit: RequestInit = {
                 method: "POST",
                 credentials: "include",
-                body: JSON.stringify({ message }),
-                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({message}),
+                headers: {"Content-Type": "application/json"},
             };
 
             const response = await fetch(
@@ -150,8 +155,37 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
         }));
     };
 
+    const clearHistory = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "DELETE",
+                credentials: "include",
+                headers: {"Content-Type": "application/json"},
+            };
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercise-conversation/${conversationId}`,
+                requestInit
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to clear conversation history");
+            }
+            const initialMessage = createChatBotMessage(`Hey, I'm ${CHATBOT_NAME}. How can I help you today?`, {})
+            setState((prev: { messages: any }) => ({
+                ...prev,
+                messages: [initialMessage],
+            }));
+        } catch (error) {
+            console.error("Error clearing history:", error);
+        }
+    };
+
+
     useEffect(() => {
         const initializeConversation = async () => {
+            if (hasInitialized.current) return; // <- this blocks repeated calls
+            hasInitialized.current = true;
+
             if (!conversationCreated && !conversationId && exerciseId) {
                 try {
                     const newConversationId = await createConversation();
@@ -163,18 +197,24 @@ const ActionProviderExercise = ({ createChatBotMessage, setState, children }: an
         };
 
         initializeConversation();
-    }, [conversationCreated, conversationId, exerciseId]);
+    }, [exerciseId]);
+
 
     return (
         <div>
-            {React.Children.map(children, (child) =>
-                React.cloneElement(child, {
-                    actions: {
-                        generateAnswer,
-                        emptyInput,
-                    },
-                })
-            )}
+            {React.Children.map(children, (child) => {
+                const actions = {
+                    generateAnswer,
+                    emptyInput,
+                    clearHistory,
+                };
+
+                setExternalActions(actions);
+
+                return React.cloneElement(child, {
+                    actions,
+                });
+            })}
         </div>
     );
 };

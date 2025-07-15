@@ -33,14 +33,14 @@ const ExerciseDetailPage = () => {
                 );
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError(`Error fetching exercise: ${errorData.message}`); // TODO: add translation
+                    setError(`Error fetching exercise: ${errorData.message}`);
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
                     console.log("Exercise data:", exerciseData);
                 }
             } catch (e) {
-                setError(`Error fetching exercise: ${e}`); // TODO: add translation
+                setError(`Error fetching exercise: ${e}`);
                 console.error("Failed to fetch exercise", e);
             }
         };
@@ -89,7 +89,6 @@ const ExerciseDetailPage = () => {
                 return null;
         }
     };
-
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start">
