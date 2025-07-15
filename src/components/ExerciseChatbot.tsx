@@ -7,6 +7,7 @@ import configExercise from "@/chatbot/configExercise";
 import ActionProviderExercise from "@/chatbot/ActionProviderExercise";
 
 import "@/chatbot/chatbot.css";
+import {CHATBOT_NAME} from "@/libs/constants";
 
 export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
     isOpen: boolean,
@@ -21,7 +22,7 @@ export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configExercise(onCloseAction)}
+                        config={configExercise(onCloseAction, t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("exerciseChatbot.tooltipClearHistory"))}
                         messageParser={MessageParser}
                         actionProvider={ActionProviderExercise}
                         headerText={t("chat.header")}

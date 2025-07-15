@@ -2,8 +2,7 @@ import {createChatBotMessage} from 'react-chatbot-kit';
 import {Repeat2, X} from 'lucide-react';
 import {CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
-
-{/* eslint-disable @typescript-eslint/no-explicit-any */}
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 let externalActions: any = null;
 
@@ -11,9 +10,10 @@ export const setExternalActions = (actions: any) => {
     externalActions = actions;
 };
 
+
 const configExercise = (
-    onClose: () => void) => ({
-    initialMessages: [createChatBotMessage(`Hey, I'm ${CHATBOT_NAME}. How can I help you today?`, {})],
+    onClose: () => void, welcomeMessage: string, toolTipContent: string) => ({
+    initialMessages: [createChatBotMessage(welcomeMessage, {})],
     botName: CHATBOT_NAME,
     customStyles: {
         chatButton: {
@@ -38,10 +38,10 @@ const configExercise = (
                     fontWeight: "bold",
                 }}
             >
-                <div style={{ justifySelf: "start" }}>{CHATBOT_NAME} AI</div>
+                <div style={{justifySelf: "start"}}>{CHATBOT_NAME} AI</div>
 
-                <div style={{ justifySelf: "center" }}>
-                    <Tooltip content="clear chat">
+                <div style={{justifySelf: "center"}}>
+                    <Tooltip content={toolTipContent}>
                         <button
                             style={{
                                 background: "none",
@@ -58,12 +58,12 @@ const configExercise = (
                                 externalActions?.clearHistory();
                             }}
                         >
-                            <Repeat2 />
+                            <Repeat2/>
                         </button>
                     </Tooltip>
                 </div>
 
-                <div style={{ justifySelf: "end" }}>
+                <div style={{justifySelf: "end"}}>
                     <button
                         style={{
                             background: "none",
@@ -78,7 +78,7 @@ const configExercise = (
                         }}
                         onClick={onClose}
                     >
-                        <X />
+                        <X/>
                     </button>
                 </div>
             </div>

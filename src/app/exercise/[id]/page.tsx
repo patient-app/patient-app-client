@@ -11,6 +11,7 @@ import {InputDTO} from "@/dto/output/exercise/InputDTO";
 import ExerciseImage from "@/components/ExerciseImage";
 import ExerciseDocument from "@/components/ExerciseDocument";
 import ExerciseTextInput from "@/components/ExerciseTextInput";
+import {useTranslation} from "react-i18next";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -18,6 +19,8 @@ const ExerciseDetailPage = () => {
 
     const [error, setError] = useState<string | null>(null);
     const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
+
+    const {t} = useTranslation();
 
     useEffect(() => {
         const getExercise = async () => {
@@ -33,14 +36,14 @@ const ExerciseDetailPage = () => {
                 );
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError(`Error fetching exercise: ${errorData.message}`);
+                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
                     console.log("Exercise data:", exerciseData);
                 }
             } catch (e) {
-                setError(`Error fetching exercise: ${e}`);
+                setError(t('exercise.error.fetchFailedIndividual'));
                 console.error("Failed to fetch exercise", e);
             }
         };
@@ -101,7 +104,7 @@ const ExerciseDetailPage = () => {
                     </div>
                 </>
             ) : (
-                <h1 className="text-3xl font-semibold text-center">No exercise available</h1> //TODO: add translation
+                <h1 className="text-3xl font-semibold text-center">{t("exercise.noExerciseIndividual")}</h1>
             )}
 
 

@@ -81,9 +81,11 @@
   "exercise": {
     "title": "Exercises",
     "error": {
-      "fetchFailed": "Failed to fetch exercises: "
+      "fetchFailed": "Failed to fetch exercises: ",
+      "fetchFailedIndividual": "Failed to fetch exercise"
     },
     "noExercises": "No exercises available at the moment.",
+    "noExerciseIndividual": "No exercise found.",
     "image": {
       "error": {
         "fetchFailed": "Failed to fetch exercise image: "
@@ -208,5 +210,24 @@
     "end": "End:",
     "location": "Location:",
     "status": "Status:"
+  },
+  "exerciseChatbot": {
+    "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
+    "tooltipClearHistory": "Clear chat history"
+  },
+  "actionProviderExercise": {
+    "error": {
+      "failedToCreateConversation": "Failed to create conversation.",
+      "failedToFetchPreviousMessages": "Failed to fetch previous messages.",
+      "failedToGenerateResponse": "Network response was not ok.",
+      "tryAgain": "I received your message but couldn't generate a proper response. Please try again later.",
+      "failedToClearHistory": "Failed to clear chat history."
+    },
+    "chatbotMessage": {
+      "errorMessage": "Sorry, I encountered an error while processing your request. Please try again later.",
+      "emptyInputMessage": "Please enter something in the input box such that I can help you."
+
+
+    }
   }
 }

@@ -4,6 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useParams} from "next/navigation";
 import {setExternalActions} from "@/chatbot/configExercise";
 import {CHATBOT_NAME} from "@/libs/constants";
+import {useTranslation} from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -11,6 +12,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
+    const {t} = useTranslation();
 
     const params = useParams();
     const exerciseId = params?.id;
@@ -28,9 +30,8 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             );
 
             if (!response.ok) {
-                throw new Error("Failed to create conversation");
+                throw new Error(t("actionProviderExercise.error.failedToCreateConversation"));
             }
-            console.log("Conversation created successfully");
 
             const data = await response.json();
             setConversationCreated(true);
@@ -55,7 +56,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             );
 
             if (!response.ok) {
-                throw new Error("Failed to fetch previous messages");
+                throw new Error(t("actionProviderExercise.error.failedToFetchPreviousMessages"));
             }
 
             const respo = await response.json();
@@ -114,14 +115,13 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             );
 
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error(t("actionProviderExercise.error.failedToGenerateResponse"));
             }
 
             const data = await response.json();
 
             const botMessage = createChatBotMessage(
-                data.responseMessage ||
-                "I received your message but couldn't generate a proper response. Please try again later."
+                data.responseMessage || t("actionProviderExercise.error.tryAgain"),
             );
 
             setState((prev: { messages: any }) => ({
@@ -133,7 +133,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             console.error("Error fetching response from backend:", error);
 
             const errorMessage = createChatBotMessage(
-                "Sorry, I encountered an error while processing your request. Please try again later."
+                t("actionProviderExercise.chatbotMessage.errorMessage")
             );
 
             setState((prev: { messages: any }) => ({
@@ -146,8 +146,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
 
     const emptyInput = () => {
         const botMessage = createChatBotMessage(
-            "Please enter something in the input box such that I can help you."
-        );
+            t("actionProviderExercise.chatbotMessage.emptyInputMessage"));
 
         setState((prev: { messages: any }) => ({
             ...prev,
@@ -168,7 +167,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             );
 
             if (!response.ok) {
-                throw new Error("Failed to clear conversation history");
+                throw new Error(t("actionProviderExercise.error.failedToClearHistory"));
             }
             const initialMessage = createChatBotMessage(`Hey, I'm ${CHATBOT_NAME}. How can I help you today?`, {})
             setState((prev: { messages: any }) => ({

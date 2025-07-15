@@ -84,8 +84,10 @@ interface Resources {
             "title": "",
             "error": {
                 "fetchFailed": ""
+                "fetchFailedIndividual": ""
             },
             "noExercises": ""
+            "noExerciseIndividual": "",
             "image": {
                 "error": {
                     "fetchFailed": ""
@@ -203,13 +205,30 @@ interface Resources {
             "tagInputPlaceholder": "",
             "createTag": ""
         },
-        "meetings":{
+        "meetings": {
             "title": "",
             "noneFound": "",
             "start": "",
             "end": "",
             "location": "",
             "status": ""
+        },
+        "exerciseChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": ""
+        },
+        "actionProviderExercise": {
+            "error": {
+                "failedToCreateConversation": "",
+                "failedToFetchPreviousMessages": "",
+                "failedToGenerateResponse": "",
+                "tryAgain": "",
+                "failedToClearHistory": ""
+            },
+            "chatbotMessage": {
+                "errorMessage": "",
+                "emptyInputMessage": ""
+            }
         }
     }
 }

@@ -81,9 +81,11 @@
   "exercise": {
     "title": "вправи",
     "error": {
-      "fetchFailed": "Не вдалося отримати вправи: "
+      "fetchFailed": "Не вдалося отримати вправи: ",
+      "fetchFailedIndividual": "Не вдалося отримати вправу"
     },
     "noExercises": "Наразі вправ немає.",
+    "noExerciseIndividual": "Вправи не знайдено.",
     "image": {
       "error": {
         "fetchFailed": "Не вдалося отримати зображення вправи: "
@@ -208,5 +210,22 @@
     "end": "Кінець:",
     "location": "Розташування:",
     "status": "Статус:"
+  },
+  "exerciseChatbot": {
+    "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
+    "tooltipClearHistory": "Очистити історію чату"
+  },
+  "actionProviderExercise": {
+    "error": {
+      "failedToCreateConversation": "Не вдалося створити розмову.",
+      "failedToFetchPreviousMessages": "Не вдалося отримати попередні повідомлення.",
+      "failedToGenerateResponse": "Реакція мережі була неналежною.",
+      "tryAgain": "Я отримав ваше повідомлення, але не зміг надати належну відповідь. Будь ласка, спробуйте пізніше.",
+      "failedToClearHistory": "Не вдалося очистити історію чату."
+    },
+    "chatbotMessage": {
+      "errorMessage": "Вибачте, під час обробки вашого запиту сталася помилка. Будь ласка, спробуйте пізніше.",
+      "emptyInputMessage": "Будь ласка, введіть щось у поле введення, щоб я міг вам допомогти."
+    }
   }
 }
