@@ -22,7 +22,7 @@ export default function Home() {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/patient", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
                     router.push("/login");
@@ -40,7 +40,7 @@ export default function Home() {
             }
         };
         fetchMyself();
-    }, [router]);
+    }, [conversations, router]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
