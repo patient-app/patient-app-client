@@ -7,9 +7,10 @@ import {useTranslation} from "react-i18next";
 
 interface SharingOptionsPopupProps {
     onClose: () => void;
+    conversationId: string;
 }
 
-const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose }) => {
+const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conversationId }) => {
     const [shareWithCoach, setShareWithCoach] = useState(false);
     const [useForMemory, setUseForMemory] = useState(false);
 
@@ -24,11 +25,14 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose }) =>
         const newValue = !shareWithCoach;
         setShareWithCoach(newValue);
         try {
-            await fetch("TODO", {
-                method: "POST",
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
+                method: "PUT",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shareWithCoach: newValue }),
+                body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: useForMemory }),
             });
+            console.log("Conv ID: " + conversationId);
+            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + useForMemory);
         } catch (err) {
             console.error("Error updating shareWithCoach", err);
             setShareWithCoach(!newValue);
@@ -39,11 +43,14 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose }) =>
         const newValue = !useForMemory;
         setUseForMemory(newValue);
         try {
-            await fetch("TODO", {
-                method: "POST",
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
+                method: "PUT",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ useForMemory: newValue }),
+                body: JSON.stringify({ shareWithCoach, shareWithAi: newValue }),
             });
+            console.log("Conv ID: " + conversationId);
+            console.log("Sharing Options changed: shareWithAi/Memory to " + newValue);
         } catch (err) {
             console.error("Error updating useForMemory", err);
             setUseForMemory(!newValue);

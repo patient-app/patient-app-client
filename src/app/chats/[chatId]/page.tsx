@@ -116,7 +116,7 @@ export default function ChatPage() {
                     ))}
                 </span>
             </button>
-            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} />}
+            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
             <div className="w-full flex justify-end px-4 py-2 desktop:w-[60%]">
                 <Trash2
                     onClick={() => setDeleteModal(true)}
