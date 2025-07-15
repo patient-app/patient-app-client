@@ -104,6 +104,7 @@ interface Resources {
             "name": "",
             "header": "",
             "placeholder": "",
+            "sharingoptions": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",
@@ -115,7 +116,15 @@ interface Resources {
             "empty": "",
             "loading": "",
             "chat": "",
-            "startNewConversation": ""
+            "startNewConversation": "",
+            "sharingoptions": {
+                "title": "",
+                "description": "",
+                "shareWithCoach": "",
+                "useForMemory": "",
+                "deleteChat": "",
+                "chatDeleted": ""
+            }
         },
         "terms": {
             "title": "",
