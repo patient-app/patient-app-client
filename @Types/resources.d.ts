@@ -71,7 +71,7 @@ interface Resources {
         },
         "home": {
             "title": "",
-            "loggedInAs": "",
+            "welcome": "",
             "error": {
                 "generic": ""
             },
