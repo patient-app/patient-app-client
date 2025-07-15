@@ -39,21 +39,7 @@
     "forgotPassword": "Forgot password?",
     "reset": "Reset",
     "submit": "Login",
-    "noAccount": "Don't have an account?",
-    "register": "Register"
-  },
-  "register": {
-    "title": "Create your account",
-    "email": "Email Address",
-    "password": "Password",
-    "submit": "Register",
-    "haveAccount": "Already have an account?",
-    "login": "Login",
-    "error": {
-      "emptyFields": "Both fields are required.",
-      "registrationFailed": "Failed to register: ",
-      "registrationTryAgain": "Failed to register, please try again."
-    }
+    "noAccount": "Don't have an account yet? Please contact your coach to receive access to the app."
   },
   "reset": {
     "title": "Reset the password",

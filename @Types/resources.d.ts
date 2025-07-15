@@ -41,21 +41,7 @@ interface Resources {
             "forgotPassword": "",
             "reset": "",
             "submit": "",
-            "noAccount": "",
-            "register": ""
-        },
-        "register": {
-            "title": "",
-            "email": "",
-            "password": "",
-            "submit": "",
-            "haveAccount": "",
-            "login": "",
-            "error": {
-                "emptyFields": "",
-                "registrationFailed": "",
-                "registrationTryAgain": ""
-            }
+            "noAccount": ""
         },
         "reset": {
             "title": "",

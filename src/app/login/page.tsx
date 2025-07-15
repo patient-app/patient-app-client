@@ -100,9 +100,7 @@ const Login = () => {
                     )}
 
                     <div className="flex gap-1 items-center text-base mt-2">
-                        <span>{t("login.noAccount")}</span>
-                        <a href="/register"
-                           className="text-emerald-600 hover:underline cursor-pointer">{t("login.register")}</a>
+                        <span className="italic">{t("login.noAccount")}</span>
                     </div>
 
 
