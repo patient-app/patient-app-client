@@ -55,7 +55,7 @@ const JournalEntryPage = () => {
         };
 
         getTags();
-    }, []);
+    }, [t]);
 
     useEffect(() => {
         const fetchEntry = async () => {
@@ -83,7 +83,7 @@ const JournalEntryPage = () => {
             }
         };
         fetchEntry();
-    }, []);
+    }, [t, id]);
 
 
     const deleteEntry = async () => {
@@ -142,10 +142,6 @@ const JournalEntryPage = () => {
         }
     };
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toISOString().slice(0, 16).replace("T", " ");
-    }
 
     const removeTag = (tagToRemove: string) => {
         setTags(prev => prev.filter(tag => tag !== tagToRemove));
@@ -195,8 +191,8 @@ const JournalEntryPage = () => {
 
             </div>
 
-            <div className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? formatDate(journalEntry.createdAt) : "—"}</div>
-            <div className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? formatDate(journalEntry.updatedAt) : "—"}</div>
+            <div className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+            <div className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
 
 
             <form onSubmit={handleSubmit} className="space-y-4">
