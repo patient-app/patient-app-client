@@ -196,7 +196,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
         };
 
         initializeConversation();
-    }, [exerciseId]);
+    }, );
 
 
     return (

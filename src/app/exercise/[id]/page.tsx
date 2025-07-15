@@ -49,7 +49,7 @@ const ExerciseDetailPage = () => {
         };
 
         getExercise();
-    }, [id]);
+    }, [id, t]);
 
 
     const renderElement = (element: ExerciseElementDTO) => {

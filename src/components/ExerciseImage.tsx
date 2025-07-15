@@ -45,11 +45,14 @@ export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Rea
     }, [exerciseId, onError, pictureId, t]);
 
     return src ? (
-        <img
-            src={src}
-            alt={alt}
-            className="my-4 max-w-full h-auto"
-        />
+        <picture>
+            <img
+                src={src}
+                alt={alt}
+                className="my-4 max-w-full h-auto"
+            />
+        </picture>
+
     ) : null;
 
 

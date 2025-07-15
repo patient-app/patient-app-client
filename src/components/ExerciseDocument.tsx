@@ -64,14 +64,14 @@ export default function ExerciseDocument({
             }
         };
 
-        //fetchDocument();
+        fetchDocument();
 
         return () => {
             if (pdfUrl) {
                 URL.revokeObjectURL(pdfUrl);
             }
         };
-    }, [exerciseId, documentId, onError]);
+    }, [exerciseId, documentId, onError, t, pdfUrl]);
 
     return (
         <div
