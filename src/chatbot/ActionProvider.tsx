@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: any) => {
+const ActionProvider = ({ createChatBotMessage, setState, children, chatId, onConversationIdChange }: any) => {
     // Add a state variable to track if a conversation has been created
     const [conversationCreated, setConversationCreated] = useState(!!chatId);
     const [conversationId, setConversationId] = useState<string | null>(chatId || null);
+
+    // Call the callback whenever conversationId changes
+    useEffect(() => {
+        if (conversationId && onConversationIdChange) {
+            onConversationIdChange(conversationId);
+        }
+    }, [conversationId, onConversationIdChange]);
 
     const createConversation = async () => {
         try {

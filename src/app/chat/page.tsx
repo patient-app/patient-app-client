@@ -9,10 +9,16 @@ import {useTranslation} from "react-i18next";
 import { MessageSquareDashed } from "lucide-react";
 import SharingOptionsPopup from "../../components/SharingOptionsPopup";
 import {useState} from "react";
+import { ComponentProps } from "react";
 
 export default function ChatPage() {
     const {t} = useTranslation();
     const [showPopup, setShowPopup] = useState(false);
+    const [conversationId, setConversationId] = useState<string | null>(null);
+
+    const handleConversationIdChange = (id: string) => {
+        setConversationId(id);
+    };
 
     return (
         <>
@@ -29,13 +35,20 @@ export default function ChatPage() {
                 </span>
             </button>
 
-            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} />}
+            {showPopup && conversationId && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={conversationId} />}
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
             <div>
                 <Chatbot
                     config={config}
                     messageParser={MessageParser}
-                    actionProvider={ActionProvider}
+                    actionProvider={(
+                        props: ComponentProps<typeof ActionProvider>
+                    ) => (
+                        <ActionProvider 
+                            {...props} 
+                            onConversationIdChange={handleConversationIdChange} 
+                        />
+                    )}
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
