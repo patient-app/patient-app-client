@@ -374,6 +374,7 @@ const Page = () => {
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
                     type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}
                 </button>
+                <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
             </div>
         </div>
     );

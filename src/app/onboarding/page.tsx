@@ -208,8 +208,7 @@ const Login = () => {
                     <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
                     <p>{t("onboarding.termsText")}</p>
                     <div className="text-gray-600 flex gap-2 justify-center z-10">
-                        <a href="/terms" target="_blank"
-                           className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                     </div>
                     <button
                         onClick={handleNext}

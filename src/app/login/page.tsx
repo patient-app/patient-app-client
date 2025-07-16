@@ -117,6 +117,7 @@ const Login = () => {
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span className="italic">{t("login.noAccount")}</span>
                     </div>
+                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline w-full text-center">{t("footer.terms")}</a>
 
 
                 </div>
