@@ -36,6 +36,7 @@ export default function Home() {
                     }
 
                     setMePatient(patient_response);
+                    console.log("Patient data fetched successfully", patient_response);
                     localStorage.setItem('lang', patient_response.language);
                     await i18n.changeLanguage(patient_response.language);
                 }
@@ -75,7 +76,7 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
-            {mePatient?.name ? <div className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 hover:bg-gray-50 transition"><p>{t("home.loggedInAs")}{mePatient.email}</p></div> : <div>{t("home.error.generic")}</div>}
+            {mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}
             <MeetingComponent />
             {lastChatId ?
             <div

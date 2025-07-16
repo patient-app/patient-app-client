@@ -1,15 +1,30 @@
 "use client";
 
 import {LoginPatientDTO} from "@/dto/input/LoginPatientDTO";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import PasswordField from "@/components/PasswordField";
 
-
 const Login = () => {
-    const {t} = useTranslation();
+    const { t, i18n } = useTranslation();
 
-    const[showPassword, setShowPassword] = useState(false);
+    const [, setLanguageReady] = useState(false);
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem("lang");
+        if (!savedLang) {
+            const browserLang = navigator.language || navigator.languages[0];
+            const preferredLang = browserLang.startsWith("uk") ? "uk" : "en";
+            localStorage.setItem("lang", preferredLang);
+            i18n.changeLanguage(preferredLang).then(() => {
+                setLanguageReady(true); // rerender when done
+            });
+        } else {
+            setLanguageReady(true); // already loaded
+        }
+    }, [i18n]);
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState<LoginPatientDTO>({
         email: "",
@@ -100,9 +115,7 @@ const Login = () => {
                     )}
 
                     <div className="flex gap-1 items-center text-base mt-2">
-                        <span>{t("login.noAccount")}</span>
-                        <a href="/register"
-                           className="text-emerald-600 hover:underline cursor-pointer">{t("login.register")}</a>
+                        <span className="italic">{t("login.noAccount")}</span>
                     </div>
 
 

@@ -48,21 +48,7 @@ interface Resources {
             "forgotPassword": "",
             "reset": "",
             "submit": "",
-            "noAccount": "",
-            "register": ""
-        },
-        "register": {
-            "title": "",
-            "email": "",
-            "password": "",
-            "submit": "",
-            "haveAccount": "",
-            "login": "",
-            "error": {
-                "emptyFields": "",
-                "registrationFailed": "",
-                "registrationTryAgain": ""
-            }
+            "noAccount": ""
         },
         "reset": {
             "title": "",
@@ -78,7 +64,7 @@ interface Resources {
         },
         "home": {
             "title": "",
-            "loggedInAs": "",
+            "welcome": "",
             "error": {
                 "generic": ""
             },
@@ -113,6 +99,8 @@ interface Resources {
             "name": "",
             "header": "",
             "placeholder": "",
+            "sharingoptions": "",
+            "deleteChat": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",
@@ -124,7 +112,15 @@ interface Resources {
             "empty": "",
             "loading": "",
             "chat": "",
-            "startNewConversation": ""
+            "startNewConversation": "",
+            "sharingoptions": {
+                "title": "",
+                "description": "",
+                "shareWithCoach": "",
+                "useForMemory": "",
+                "deleteChat": "",
+                "chatDeleted": ""
+            }
         },
         "terms": {
             "title": "",
