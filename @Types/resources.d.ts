@@ -91,6 +91,7 @@ interface Resources {
             "header": "",
             "placeholder": "",
             "sharingoptions": "",
+            "deleteChat": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",

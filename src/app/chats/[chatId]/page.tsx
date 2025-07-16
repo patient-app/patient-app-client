@@ -9,9 +9,8 @@ import ActionProvider from "@/chatbot/ActionProvider";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import { ComponentProps } from "react";
-import {Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import {MessageSquareDashed} from "lucide-react";
+import {MessageSquareDashed, Trash2} from "lucide-react";
 import SharingOptionsPopup from "../../../components/SharingOptionsPopup";
 
 export default function ChatPage() {
@@ -105,8 +104,9 @@ export default function ChatPage() {
         <div className="flex flex-col items-center">
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
+
             <button
-                className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                 onClick={() => setShowPopup(!showPopup)}
             >
                 {<MessageSquareDashed size={30} strokeWidth={1.75} />}
@@ -116,17 +116,25 @@ export default function ChatPage() {
                     ))}
                 </span>
             </button>
-            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
-            <div className="w-full flex justify-end px-4 py-2 desktop:w-[60%]">
-                <Trash2
-                    onClick={() => setDeleteModal(true)}
-                    className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
-                    size={24}
+
+            <button
+                className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                onClick={() => setDeleteModal(true)}
+            >
+                <Trash2 size={30} strokeWidth={1.75}
+                        className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
                 />
-            </div>
+                <span className="text-xs font-medium text-center">
+                    {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
+                        <div key={idx}>{word}</div>
+                    ))}
+                </span>
+            </button>
+
+            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
             <span className="italic text-center text-sm text-gray-600">
-            {t("footer.aiwarning")}
-        </span>
+                {t("footer.aiwarning")}
+            </span>
 
             {config.initialMessages.length === 0 ? (
                 <p>Loading chat...</p>
@@ -155,10 +163,10 @@ export default function ChatPage() {
                             {t("chat.modal.deleteWarning")}
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="red" onClick={deleteChat}>
+                            <Button className="cursor-pointer" color="red" onClick={deleteChat}>
                                 {t("chat.modal.deleteConfirm")}
                             </Button>
-                            <Button color="alternative" onClick={() => setDeleteModal(false)}>
+                            <Button className="cursor-pointer" color="alternative" onClick={() => setDeleteModal(false)}>
                                 {t("chat.modal.deleteCancel")}
                             </Button>
                         </div>
