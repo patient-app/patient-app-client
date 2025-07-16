@@ -24,7 +24,8 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conv
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    throw new Error("Failed to fetch conversation details");
+                    console.error("Failed to fetch conversation details");
+                    return;
                 }
                 const data = await response.json();
                 if (typeof data.shareWithCoach === "boolean") {
