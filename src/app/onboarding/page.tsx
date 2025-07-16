@@ -3,7 +3,7 @@
 import {useRouter} from "next/navigation";
 import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
-
+import Image from 'next/image';
 
 const Login = () => {
     const router = useRouter();
@@ -309,10 +309,12 @@ const Login = () => {
                                         : 'bg-white border-gray-200 hover:border-emerald-300 cursor-pointer'
                                 }`}
                             >
-                                <img
+                                <Image
                                     src={`/avatars/${avatar}.png`}
                                     alt={`${avatar} avatar`}
-                                    className="w-20 h-20 object-contain rounded-lg mx-auto"
+                                    width={80}
+                                    height={80}
+                                    className="object-contain rounded-lg mx-auto"
                                 />
                             </div>
                         ))}
