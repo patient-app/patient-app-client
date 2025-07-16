@@ -15,6 +15,44 @@ const Login = () => {
     ];
     const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
     const [error, setError] = useState<string | null>(null);
+    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+
+    const handleAvatarSelect = (avatar: string) => {
+        setSelectedAvatar(avatar);
+        setError(null);
+    };
+
+    // Add this function to handle avatar submission
+    const handleAvatarSubmit = async () => {
+        if (!selectedAvatar) {
+            setError(t("onboarding.avatarRequired"));
+            return;
+        }
+
+        try {
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                body: JSON.stringify({ avatar: selectedAvatar }),
+                headers: { "Content-Type": "application/json" },
+            };
+
+            // TODO: endpoint doesn't exist yet, waiting for backend
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", requestInit);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError((t("onboarding.avatarError") + errorData.message) || t("onboarding.avatarTryAgain"));
+                return;
+            }
+
+            await handleNext();
+        } catch (e) {
+            setError(t("onboarding.avatarTryAgain"));
+            console.error("Failed to save avatar", e);
+        }
+    };
+
 
     useEffect(() => {
         const savedLang = localStorage.getItem('lang');
@@ -24,7 +62,7 @@ const Login = () => {
         }
     }, [i18n]);
 
-    const [screen, setScreen] = useState<1 | 2 | 3 | 4 | 5>(1);
+    const [screen, setScreen] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
     const [name, setName] = useState("");
 
     useEffect(() => {
@@ -98,7 +136,7 @@ const Login = () => {
     }
 
     const handleNext = async () => {
-        if (screen < 5) {
+        if (screen < 6) {
             setScreen((prev) => (prev + 1) as 1 | 2 | 3 | 4 | 5);
         } else {
             const requestInit: RequestInit = {
@@ -160,6 +198,7 @@ const Login = () => {
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
@@ -184,6 +223,7 @@ const Login = () => {
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
@@ -197,6 +237,11 @@ const Login = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder={t("onboarding.namePlaceholder")}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && name.trim()) {
+                                    handleNameEntry();
+                                }
+                            }}
                             className="px-4 py-2 border border-gray-300 rounded-md w-full max-w-xs"
                         />
                     </div>
@@ -221,6 +266,7 @@ const Login = () => {
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
@@ -241,11 +287,65 @@ const Login = () => {
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
                     </div>
                 </div>
             )}
 
             {screen === 5 && (
+                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                    <h2 className="text-2xl font-semibold">{t("onboarding.chooseAvatarTitle")}</h2>
+                    <p>{t("onboarding.chooseAvatarText")}</p>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-xl mx-auto">
+
+                        {['animalistic', 'blob', 'crystal', 'humanistic', 'plant', 'robotic', 'neuralnetwork', 'none'].map((avatar) => (
+                            <div
+                                key={avatar}
+                                onClick={() => handleAvatarSelect(avatar)}
+                                className={`p-2 rounded-lg transition-all border-2 ${
+                                    selectedAvatar === avatar
+                                        ? 'bg-emerald-100 border-emerald-600 hover:border-emerald-600 cursor-auto'
+                                        : 'bg-white border-gray-200 hover:border-emerald-300 cursor-pointer'
+                                }`}
+                            >
+                                <img
+                                    src={`/avatars/${avatar}.png`}
+                                    alt={`${avatar} avatar`}
+                                    className="w-20 h-20 object-contain rounded-lg mx-auto"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {error && (
+                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="w-full flex justify-center">
+                        <button
+                            onClick={handleAvatarSubmit}
+                            disabled={!selectedAvatar}
+                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        >
+                            {t("onboarding.continue")}
+                        </button>
+                    </div>
+
+                    <div className="flex justify-center gap-2 mt-4">
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-white"}></div>
+                    </div>
+                </div>
+            )}
+
+            {screen === 6 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
@@ -257,12 +357,13 @@ const Login = () => {
                         <button
                             onClick={handleNext}
                             disabled={!name.trim()}
-                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition disabled:opacity-50 cursor-pointer"
+                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                         >
                             {t("onboarding.finish")}
                         </button>
                     </div>
                     <div className="flex justify-center gap-2 mt-4">
+                        <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>
                         <div className={"w-2.5 h-2.5 rounded-full border border-gray-400 bg-gray-400"}></div>

@@ -146,7 +146,12 @@ interface Resources {
             "onboardingError": "",
             "onboardingTryAgain": "",
             "onboardingErrorName": "",
-            "onboardingTryAgainName": ""
+            "onboardingTryAgainName": "",
+            "chooseAvatarTitle": "",
+            "chooseAvatarText": "",
+            "avatarRequired": "",
+            "avatarError": "",
+            "avatarTryAgain": ""
         },
         "navigation": {
             "home": "",

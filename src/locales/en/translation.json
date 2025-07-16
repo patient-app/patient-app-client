@@ -145,7 +145,12 @@
     "onboardingError": "Failed to onboard: ",
     "onboardingTryAgain": "Failed to onboard, please try again.",
     "onboardingErrorName": "Failed to set your name: ",
-    "onboardingTryAgainName": "Failed to set your name, please try again."
+    "onboardingTryAgainName": "Failed to set your name, please try again.",
+    "chooseAvatarTitle": "Let's choose an avatar!",
+    "chooseAvatarText": "You can choose how the chatbot, Lumina AI, should look like.",
+    "avatarRequired": "Please select an avatar to continue.",
+    "avatarError": "Failed to save avatar: ",
+    "avatarTryAgain": "Failed to save avatar, please try again."
   },
   "navigation": {
     "home": "Home",
