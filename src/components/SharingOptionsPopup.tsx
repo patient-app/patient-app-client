@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react";
 import { X } from 'lucide-react';
 import {useTranslation} from "react-i18next";
@@ -16,10 +16,32 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conv
 
     const {t} = useTranslation();
 
-    const handleDeleteChat = () => {
-        // TODO: implement delete chat logic
-        alert("Chat deleted");
-    };
+    useEffect(() => {
+        const fetchConversation = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/messages/${conversationId}`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch conversation details");
+                }
+                const data = await response.json();
+                if (typeof data.shareWithCoach === "boolean") {
+                    setShareWithCoach(data.shareWithCoach);
+                    console.log("shareWithCoach:", data.shareWithCoach);
+                }
+                if (typeof data.shareWithAi === "boolean") {
+                    setUseForMemory(data.shareWithAi);
+                    console.log("shareWithAi:", data.shareWithAi);
+                }
+            } catch (err) {
+                console.error("Error fetching conversation", err);
+            }
+        };
+
+        fetchConversation();
+    }, [conversationId]);
 
     const handleShareWithCoachChange = async () => {
         const newValue = !shareWithCoach;
