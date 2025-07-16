@@ -54,7 +54,6 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conv
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: useForMemory }),
             });
-            console.log("Conv ID: " + conversationId);
             console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + useForMemory);
         } catch (err) {
             console.error("Error updating shareWithCoach", err);
@@ -72,8 +71,7 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conv
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ shareWithCoach, shareWithAi: newValue }),
             });
-            console.log("Conv ID: " + conversationId);
-            console.log("Sharing Options changed: shareWithAi/Memory to " + newValue);
+            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + useForMemory);
         } catch (err) {
             console.error("Error updating useForMemory", err);
             setUseForMemory(!newValue);

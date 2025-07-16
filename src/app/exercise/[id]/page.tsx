@@ -11,6 +11,7 @@ import {InputDTO} from "@/dto/output/exercise/InputDTO";
 import ExerciseImage from "@/components/ExerciseImage";
 import ExerciseDocument from "@/components/ExerciseDocument";
 import ExerciseTextInput from "@/components/ExerciseTextInput";
+import {useTranslation} from "react-i18next";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -18,6 +19,8 @@ const ExerciseDetailPage = () => {
 
     const [error, setError] = useState<string | null>(null);
     const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
+
+    const {t} = useTranslation();
 
     useEffect(() => {
         const getExercise = async () => {
@@ -33,20 +36,20 @@ const ExerciseDetailPage = () => {
                 );
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError(`Error fetching exercise: ${errorData.message}`); // TODO: add translation
+                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
                     console.log("Exercise data:", exerciseData);
                 }
             } catch (e) {
-                setError(`Error fetching exercise: ${e}`); // TODO: add translation
+                setError(t('exercise.error.fetchFailedIndividual'));
                 console.error("Failed to fetch exercise", e);
             }
         };
 
         getExercise();
-    }, [id]);
+    }, [id, t]);
 
 
     const renderElement = (element: ExerciseElementDTO) => {
@@ -90,7 +93,6 @@ const ExerciseDetailPage = () => {
         }
     };
 
-
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start">
             {exercise ? (
@@ -98,11 +100,11 @@ const ExerciseDetailPage = () => {
                     <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
                     <p className="pt-6">{exercise.description}</p>
                     <div className="w-full max-w-2xl mt-6">
-                        {exercise.elements.map(renderElement)}
+                        {exercise.exerciseElements.map(renderElement)}
                     </div>
                 </>
             ) : (
-                <h1 className="text-3xl font-semibold text-center">No exercise available</h1> //TODO: add translation
+                <h1 className="text-3xl font-semibold text-center">{t("exercise.noExerciseIndividual")}</h1>
             )}
 
 

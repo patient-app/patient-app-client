@@ -1,43 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProvider = ({ createChatBotMessage, setState, children, chatId, onConversationIdChange }: any) => {
-    // Add a state variable to track if a conversation has been created
-    const [conversationCreated, setConversationCreated] = useState(!!chatId);
-    const [conversationId, setConversationId] = useState<string | null>(chatId || null);
-
-    // Call the callback whenever conversationId changes
-    useEffect(() => {
-        if (conversationId && onConversationIdChange) {
-            onConversationIdChange(conversationId);
-        }
-    }, [conversationId, onConversationIdChange]);
-
-    const createConversation = async () => {
-        try {
-            // Make API call to create a new conversation
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", {
-                method: 'POST',
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to create conversation');
-            }
-
-            const data = await response.json();
-            setConversationCreated(true);
-            setConversationId(data.id); // Store the conversation ID if your API returns one
-            return data.id;
-        } catch (error) {
-            console.error('Error creating conversation:', error);
-            throw error;
-        }
-    };
-
+const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: any) => {
     const generateAnswer = async (message: string) => {
         try {
             // Show loading message or state if needed
@@ -46,19 +10,6 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatId, onCo
                 loading: true,
             }));
 
-            let currentConversationId = conversationId;
-
-            // Check if this is the first message
-            if (!conversationCreated) {
-                // Create a conversation first
-                try {
-                    currentConversationId = await createConversation();
-                    console.log("Created new conversation with ID:", currentConversationId);
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                } catch (error) {
-                    throw new Error('Failed to create conversation before sending message');
-                }
-            }
 
             // Now send the message with the conversation ID
             const requestInit: RequestInit = {
@@ -69,9 +20,10 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatId, onCo
                 }),
                 headers: {"Content-Type": "application/json"},
             };
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + currentConversationId, requestInit);
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + chatId, requestInit);
 
             if (!response.ok) {
+                console.log(response)
                 throw new Error('Network response was not ok');
             }
 

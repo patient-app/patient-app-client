@@ -70,8 +70,10 @@ interface Resources {
             "title": "",
             "error": {
                 "fetchFailed": ""
+                "fetchFailedIndividual": ""
             },
             "noExercises": ""
+            "noExerciseIndividual": "",
             "image": {
                 "error": {
                     "fetchFailed": ""
@@ -198,6 +200,31 @@ interface Resources {
         "tagSelector": {
             "tagInputPlaceholder": "",
             "createTag": ""
+        },
+        "meetings": {
+            "title": "",
+            "noneFound": "",
+            "start": "",
+            "end": "",
+            "location": "",
+            "status": ""
+        },
+        "exerciseChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": ""
+        },
+        "actionProviderExercise": {
+            "error": {
+                "failedToCreateConversation": "",
+                "failedToFetchPreviousMessages": "",
+                "failedToGenerateResponse": "",
+                "tryAgain": "",
+                "failedToClearHistory": ""
+            },
+            "chatbotMessage": {
+                "errorMessage": "",
+                "emptyInputMessage": ""
+            }
         }
     }
 }

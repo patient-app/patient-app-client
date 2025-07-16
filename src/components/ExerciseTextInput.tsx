@@ -6,10 +6,10 @@ import { InputDTO } from "@/dto/output/exercise/InputDTO";
 export default function ExerciseTextInput({
                                               elementId,
                                               data,
-                                          }: {
+                                          }: Readonly<{
     elementId: string;
     data: InputDTO;
-}) {
+}>) {
     const [value, setValue] = useState("");
 
     return (

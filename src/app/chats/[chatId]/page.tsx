@@ -1,28 +1,27 @@
 "use client";
 
 import '../../../chatbot/chatbot.css';
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import { ComponentProps } from "react";
-import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
+import {ComponentProps, useEffect, useState} from "react";
 import {MessageSquareDashed, Trash2} from "lucide-react";
-import SharingOptionsPopup from "../../../components/SharingOptionsPopup";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
+import {CHATBOT_NAME} from "@/libs/constants";
+import SharingOptionsPopup from "@/components/SharingOptionsPopup";
 
 export default function ChatPage() {
     const router = useRouter();
-    const { chatId } = useParams();
+    const {chatId} = useParams();
     const {t} = useTranslation();
     const [deleteModal, setDeleteModal] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
     const [config, setConfig] = useState({
         initialMessages: [],
-        botName: "Lumina",
+        botName: CHATBOT_NAME,
         customStyles: {
             chatButton: {
                 backgroundColor: 'oklch(69.6% 0.17 162.48)',
@@ -51,6 +50,7 @@ export default function ChatPage() {
                     router.push("/chat");
                 } else {
                     const respo = await response.json();
+                    const welcomeMessage = respo.welcomeMessage;
 
                     const messagePairs = respo.messages.map((msg: MessageDTO) => ({
                         request: msg.requestMessage,
@@ -66,13 +66,13 @@ export default function ChatPage() {
                         createChatBotMessage(pair.response, {}),
                     ]);
 
+                    if (welcomeMessage) {
+                        initialBotMessages.unshift(createChatBotMessage(welcomeMessage, {}));
+                    }
                     setConfig(prev => ({
                         ...prev,
                         initialMessages: initialBotMessages,
                     }));
-
-                    console.log("Initial messages set.", initialBotMessages);
-
                 }
             } catch (e) {
                 console.error(e);
@@ -101,37 +101,39 @@ export default function ChatPage() {
     }
 
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-            <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
-
-            <button
-                className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                onClick={() => setShowPopup(!showPopup)}
-            >
-                {<MessageSquareDashed size={30} strokeWidth={1.75} />}
-                <span className="text-xs font-medium text-center">
+        <div>
+            <div className="flex flex-col items-center">
+                <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
+                <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
+                <button
+                    className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setShowPopup(!showPopup)}
+                >
+                    {<MessageSquareDashed size={30} strokeWidth={1.75} />}
+                    <span className="text-xs font-medium text-center">
                     {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
                     ))}
                 </span>
-            </button>
+                </button>
 
-            <button
-                className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                onClick={() => setDeleteModal(true)}
-            >
-                <Trash2 size={30} strokeWidth={1.75}
-                        className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
-                />
-                <span className="text-xs font-medium text-center">
+                <button
+                    className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setDeleteModal(true)}
+                >
+                    <Trash2 size={30} strokeWidth={1.75}
+                            className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                    />
+                    <span className="text-xs font-medium text-center">
                     {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
                     ))}
                 </span>
-            </button>
+                </button>
 
-            {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
+                {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
+
+            </div>
             <span className="italic text-center text-sm text-gray-600">
                 {t("footer.aiwarning")}
             </span>
@@ -139,15 +141,17 @@ export default function ChatPage() {
             {config.initialMessages.length === 0 ? (
                 <p>Loading chat...</p>
             ) : (
-                <Chatbot
-                    config={config}
-                    messageParser={MessageParser}
-                    actionProvider={(
-                        props: ComponentProps<typeof ActionProvider>
-                    ) => <ActionProvider {...props} chatId={chatId} />}
-                    headerText={t("chat.header")}
-                    placeholderText={t("chat.placeholder")}
-                />
+                <div className="chatbot-wrapper chatbot-basic">
+                    <Chatbot
+                        config={config}
+                        messageParser={MessageParser}
+                        actionProvider={(
+                            props: ComponentProps<typeof ActionProvider>
+                        ) => <ActionProvider {...props} chatId={chatId}/>}
+                        headerText={t("chat.header")}
+                        placeholderText={t("chat.placeholder")}
+                    />
+                </div>
             )}
 
             <Modal

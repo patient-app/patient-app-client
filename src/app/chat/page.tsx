@@ -1,24 +1,59 @@
 "use client";
 
-import ActionProvider from "@/chatbot/ActionProvider";
 import config from "@/chatbot/config";
-import MessageParser from "@/chatbot/MessageParser";
 import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
-import { MessageSquareDashed } from "lucide-react";
-import SharingOptionsPopup from "../../components/SharingOptionsPopup";
-import {useState} from "react";
-import { ComponentProps } from "react";
+import {useEffect, useRef, useState} from "react";
+import {MessageSquareDashed} from "lucide-react";
+import SharingOptionsPopup from "@/components/SharingOptionsPopup";
 
 export default function ChatPage() {
-    const {t} = useTranslation();
+    const hasCreatedConversation = useRef(false);
+    const { t } = useTranslation();
     const [showPopup, setShowPopup] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
+    const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
 
-    const handleConversationIdChange = (id: string) => {
-        setConversationId(id);
-    };
+    useEffect(() => {
+        if (hasCreatedConversation.current) return;
+        hasCreatedConversation.current = true;
+
+        const createConversation = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations`, {
+                    method: 'POST',
+                    credentials: "include",
+                    body: JSON.stringify({
+                        conversationName: "name", // TODO: remove
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    console.log(response)
+                    throw new Error('Failed to create conversation');
+                }
+
+                const res = await response.json();
+                setConversationId(res.id);
+                setWelcomeMessage(res.welcomeMessage);
+            } catch (error) {
+                console.error('Error creating conversation:', error);
+            }
+        };
+
+        createConversation();
+    }, []);
+
+    // If conversationId or welcomeMessage is null, show loading state
+    if (!conversationId || !welcomeMessage) {
+        return <div className="text-center py-10 text-gray-500">Loading chatbot...</div>; //TODO: translate
+    }
+
+    const createdConfig = config(conversationId, welcomeMessage);
 
     return (
         <>
@@ -37,23 +72,15 @@ export default function ChatPage() {
 
             {showPopup && conversationId && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={conversationId} />}
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
-            <div>
+            <div className="chatbot-wrapper chatbot-basic">
                 <Chatbot
-                    config={config}
-                    messageParser={MessageParser}
-                    actionProvider={(
-                        props: ComponentProps<typeof ActionProvider>
-                    ) => (
-                        <ActionProvider 
-                            {...props} 
-                            onConversationIdChange={handleConversationIdChange} 
-                        />
-                    )}
+                    config={createdConfig}
+                    messageParser={createdConfig.messageParser}
+                    actionProvider={createdConfig.actionProvider}
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
             </div>
         </>
     );
-
 };

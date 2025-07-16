@@ -48,7 +48,7 @@ export default function JournalEntryCreationPage() {
         };
 
         getTags();
-    }, []);
+    }, [t]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

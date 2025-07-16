@@ -4,5 +4,5 @@ export interface ExerciseDTO {
     id: string;
     title: string;
     description: string;
-    elements: ExerciseElementDTO[];
+    exerciseElements: ExerciseElementDTO[];
 }
