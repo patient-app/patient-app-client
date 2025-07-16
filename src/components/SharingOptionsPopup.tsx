@@ -85,13 +85,6 @@ const SharingOptionsPopup: React.FC<SharingOptionsPopupProps> = ({ onClose, conv
                     </label>
                 </div>
                 <hr className="my-4 border-t border-gray-200" />
-
-                <button
-                    onClick={handleDeleteChat}
-                    className="mx-auto bg-red-500 text-white py-2 px-6 rounded hover:bg-red-600 block"
-                >
-                    {t("chats.sharingoptions.deleteChat")}
-                </button>
             </div>
         </div>
     );
