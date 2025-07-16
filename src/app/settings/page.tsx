@@ -1,7 +1,7 @@
 "use client";
 
 import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
 import PasswordField from "@/components/PasswordField";
@@ -19,14 +19,14 @@ const rules = [
     {key: "specialChar", value: 1},
 ];
 
-const checkIcon = <Check size={16} strokeWidth={2} />;
-const crossIcon = <X size={16} strokeWidth={2} />;
-
 const Page = () => {
     const {t, i18n} = useTranslation();
     const [isClient, setIsClient] = useState(false);
     const router = useRouter();
-    const [selectedLang, setSelectedLang] = useState(i18n.language || "en");
+    const [selectedLang, setSelectedLang] = useState(i18n.language || "en")
+    const [name, setName] = useState("");
+    const [nameError, setNameError] = useState<string | null>(null);
+    const [nameSuccess, setNameSuccess] = useState(false);
     const [languageError, setLanguageError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [passwordSuccess, setPasswordSuccess] = useState(false);
@@ -71,14 +71,16 @@ const Page = () => {
     }, [formData.newPassword]);
 
     useEffect(() => {
-        if (passwordSuccess) {
+        if (passwordSuccess || nameSuccess) {
             const timer = setTimeout(() => {
                 setPasswordSuccess(false);
+                setNameSuccess(false)
             }, 5000);
 
             return () => clearTimeout(timer);
         }
-    }, [passwordSuccess]);
+    }, [passwordSuccess, nameSuccess]);
+
 
     const logout = async () => {
         const requestInit: RequestInit = {
@@ -88,6 +90,28 @@ const Page = () => {
         await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
         router.push("/login");
     };
+
+    const handleNameChange = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setNameError(null);
+        const requestInit: RequestInit = {
+            method: "PUT",
+            credentials: "include",
+            body: JSON.stringify({name}),
+            headers: {"Content-Type": "application/json"},
+        };
+        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/name", requestInit);
+        console.log(JSON.stringify({name}))
+        if (!response.ok) {
+            const errorData = await response.json();
+            setNameError((t("settings.error.nameChangeFailed") + errorData.message) || t("settings.error.nameChaneTryAgain"));
+            setNameSuccess(false)
+        } else {
+            setNameSuccess(true);
+            setName("")
+            setNameError(null);
+        }
+    }
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
@@ -182,7 +206,8 @@ const Page = () => {
             <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
                 {/* Language Selection */}
                 <div className="w-full">
-                    <label className="block font-semibold text-gray-700 mb-1" htmlFor="language">
+
+                    <label className="block text-lg font-semibold text-gray-800 mb-1" htmlFor="language">
                         {t("settings.language")}
                     </label>
                     <select
@@ -190,7 +215,7 @@ const Page = () => {
                         name="language"
                         value={selectedLang}
                         onChange={handleLanguageChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="mb-3 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     >
                         {languages.map((lang) => (
                             <option key={lang.id} value={lang.id}>
@@ -206,6 +231,47 @@ const Page = () => {
                         </div>
                     )}
                 </div>
+
+                {/* Name Change Form */}
+                <form onSubmit={handleNameChange} className="w-full space-y-2">
+
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-800 mb-1" htmlFor="nameChange">
+                            {t("settings.name.label")}
+                        </label>
+                        <input
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
+                            id="nameChange"
+                            type="text"
+                            value={name}
+                            placeholder={t("settings.name.placeholder")}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {nameError && (
+                        <div
+                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                            {nameError}
+                        </div>
+                    )}
+
+                    {nameSuccess && (
+                        <div
+                            className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
+                            {t("settings.name.success")}
+                        </div>
+                    )}
+
+                    <button
+                        className="mb-3 w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition disabled:bg-gray-300"
+                        type="submit"
+                        disabled={!name.trim()}
+                    >
+                        {t("settings.name.button")}
+                    </button>
+                </form>
 
                 {/* Password Change Form */}
                 <form onSubmit={handleConfirm} className="w-full space-y-2">
@@ -252,8 +318,8 @@ const Page = () => {
                                 >
                                     <span>
                                         {passwordRules[rule.key as keyof typeof passwordRules]
-                                            ? checkIcon
-                                            : crossIcon}
+                                            ? <Check className="w-4 h-4"/>
+                                            : <X className="w-4 h-4"/>}
                                     </span>
                                     <span>{t(`settings.password.rules.${rule.key}`, {value: rule.value})}</span>
                                 </div>

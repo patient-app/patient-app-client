@@ -11,8 +11,9 @@ interface Resources {
                 "passwordEmptyFields": "",
                 "passwordsDoNotMatch": "",
                 "passwordChangeFailed": "",
-                "passwordChangeTryAgain": ""
-
+                "passwordChangeTryAgain": "",
+                "nameChangeFailed": "",
+                "nameChangeTryAgain": ""
             },
             "password": {
                 "label": "",
@@ -27,6 +28,12 @@ interface Resources {
                     "number": "",
                     "specialChar": ""
                 }
+            },
+            "name": {
+                "label": "",
+                "success": "",
+                "button": "",
+                "placeholder": ""
             }
         },
         "login": {
@@ -69,10 +76,10 @@ interface Resources {
         "exercise": {
             "title": "",
             "error": {
-                "fetchFailed": ""
+                "fetchFailed": "",
                 "fetchFailedIndividual": ""
             },
-            "noExercises": ""
+            "noExercises": "",
             "noExerciseIndividual": "",
             "image": {
                 "error": {
@@ -126,7 +133,6 @@ interface Resources {
             "continue": "",
             "nameTitle": "",
             "namePlaceholder": "",
-            "next": "",
             "infoTitle": "",
             "infoText_1": "",
             "infoText_2": "",
@@ -141,7 +147,7 @@ interface Resources {
             "onboardingTryAgain": "",
             "onboardingErrorName": "",
             "onboardingTryAgainName": ""
-        }
+        },
         "navigation": {
             "home": "",
             "chat": "",
@@ -170,17 +176,18 @@ interface Resources {
             "error": {
                 "tagsFailed": "",
                 "savingFailed": "",
-                "savingTryAgain": "",
+                "savingTryAgain": ""
             },
             "modal": {
                 "backWarning": "",
+                "backUpdateWarning": "",
                 "backDiscard": "",
                 "backStay": "",
                 "saveError": "",
-                "saveOkay": ""
+                "saveOkay": "",
                 "deleteWarning": "",
                 "deleteConfirm": "",
-                "deleteCancel": ""
+                "deleteCancel": "",
                 "updateError": "",
                 "updateOkay": ""
             },
