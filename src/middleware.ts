@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const PUBLIC_ROUTES = ['/login', '/register', '/reset-password', '/terms'];
+const PUBLIC_ROUTES = ['/login', '/reset-password', '/terms'];
 
 function parseJwt(token: string | undefined) {
     if (!token) return null;
@@ -36,7 +36,7 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL('/login', req.nextUrl));
     }
 
-    if (isPublicRoute && isLoggedIn && (path === '/login' || path === '/register' || path === '/reset-password')) {
+    if (isPublicRoute && isLoggedIn && (path === '/login' || path === '/reset-password')) {
         return NextResponse.redirect(new URL('/', req.nextUrl));
     }
 

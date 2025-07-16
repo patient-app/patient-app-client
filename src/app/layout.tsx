@@ -14,7 +14,7 @@ const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: "Patient's Application",
+    title: "Lumina",
     description: "To support clients.",
 };
 
@@ -48,7 +48,7 @@ export default async function RootLayout({
             href="/"
             className="absolute top-4 left-4 text-2xl font-bold uppercase cursor-pointer z-10"
         >
-            <span className="text-3xl">P</span>atient&#39;s <span className="text-3xl">A</span>pp
+            <span className="text-3xl">L</span>umina
         </Link>
 
         {/* Horizontal layout: sidebar + page content: */}
