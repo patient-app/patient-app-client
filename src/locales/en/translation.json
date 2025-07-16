@@ -33,7 +33,6 @@
       "success": "Name changed successfully!",
       "button": "Change Name",
       "placeholder": "Enter a new name"
-
     }
   },
   "login": {
@@ -208,7 +207,7 @@
     "tagInputPlaceholder": "Create or select tags",
     "createTag": "Create Tag"
   },
-  "meetings":{
+  "meetings": {
     "title": "Meetings",
     "noneFound": "No meetings scheduled.",
     "start": "Start:",
@@ -231,8 +230,6 @@
     "chatbotMessage": {
       "errorMessage": "Sorry, I encountered an error while processing your request. Please try again later.",
       "emptyInputMessage": "Please enter something in the input box such that I can help you."
-
-
     }
   }
 }
