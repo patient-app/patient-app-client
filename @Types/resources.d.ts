@@ -11,8 +11,9 @@ interface Resources {
                 "passwordEmptyFields": "",
                 "passwordsDoNotMatch": "",
                 "passwordChangeFailed": "",
-                "passwordChangeTryAgain": ""
-
+                "passwordChangeTryAgain": "",
+                "nameChangeFailed": "",
+                "nameChangeTryAgain": ""
             },
             "password": {
                 "label": "",
@@ -27,6 +28,12 @@ interface Resources {
                     "number": "",
                     "specialChar": ""
                 }
+            },
+            "name": {
+                "label": "",
+                "success": "",
+                "button": "",
+                "placeholder"
             }
         },
         "login": {

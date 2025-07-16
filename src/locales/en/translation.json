@@ -1,7 +1,7 @@
 {
   "settings": {
     "title": "Settings",
-    "language": "Language",
+    "language": "Change Language",
     "logout": "Logout",
     "error": {
       "languageFailed": "Failed to change language: ",
@@ -10,7 +10,9 @@
       "passwordEmptyFields": "All fields are required.",
       "passwordsDoNotMatch": "Passwords do not match.",
       "passwordChangeFailed": "Failed to change password: ",
-      "passwordChangeTryAgain": "Failed to change the password, please try again."
+      "passwordChangeTryAgain": "Failed to change the password, please try again.",
+      "nameChangeFailed": "Failed to change name: ",
+      "nameChangeTryAgain": "Failed to change the name, please try again."
     },
     "password": {
       "label": "Change Password",
@@ -25,6 +27,13 @@
         "number": "At least {{value}} number",
         "specialChar": "At least {{value}} special character"
       }
+    },
+    "name": {
+      "label": "Change Name",
+      "success": "Name changed successfully!",
+      "button": "Change Name",
+      "placeholder": "Enter a new name"
+
     }
   },
   "login": {

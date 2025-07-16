@@ -1,7 +1,7 @@
 {
   "settings": {
     "title": "Налаштування",
-    "language": "Мова",
+    "language": "Змінити мову",
     "logout": "вийти",
     "error": {
       "languageFailed": "Не вдалося змінити мову: ",
@@ -10,7 +10,9 @@
       "passwordEmptyFields": "Усі поля є обов’язковими для заповнення.",
       "passwordsDoNotMatch": "Паролі не збігаються.",
       "passwordChangeFailed": "Не вдалося змінити пароль: ",
-      "passwordChangeTryAgain": "Не вдалося змінити пароль, повторіть спробу."
+      "passwordChangeTryAgain": "Не вдалося змінити пароль, повторіть спробу.",
+      "nameChangeFailed": "Не вдалося змінити ім'я: ",
+      "nameChangeTryAgain": "Не вдалося змінити ім'я, спробуйте ще раз."
     },
     "password": {
       "label": "Змінити пароль",
@@ -25,6 +27,12 @@
         "number": "Принаймні {{value}} число",
         "specialChar": "Принаймні {{value}} спеціальний символ"
       }
+    },
+    "name":{
+      "label": "Змінити ім'я",
+      "success": "Ім'я успішно змінено!",
+      "button": "Змінити ім'я",
+      "placeholder": "Введіть нове ім'я"
     }
   },
   "login": {
