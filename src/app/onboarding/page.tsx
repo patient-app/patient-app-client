@@ -1,9 +1,9 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
-import Image from 'next/image';
+import AvatarSelector from "@/components/AvatarSelector";
 
 const Login = () => {
     const router = useRouter();
@@ -18,6 +18,7 @@ const Login = () => {
     const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
 
     const handleAvatarSelect = (avatar: string) => {
+        if(selectedAvatar === avatar) return;
         setSelectedAvatar(avatar);
         setError(null);
     };
@@ -46,6 +47,7 @@ const Login = () => {
                 return;
             }
 
+            console.log("Avatar saved successfully: " + selectedAvatar);
             await handleNext();
         } catch (e) {
             setError(t("onboarding.avatarTryAgain"));
@@ -294,30 +296,9 @@ const Login = () => {
             {screen === 5 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.chooseAvatarTitle")}</h2>
-                    <p>{t("onboarding.chooseAvatarText")}</p>
+                    <p className="mb-6">{t("onboarding.chooseAvatarText")}</p>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-xl mx-auto">
-
-                        {['animalistic', 'blob', 'crystal', 'humanistic', 'plant', 'robotic', 'neuralnetwork', 'none'].map((avatar) => (
-                            <div
-                                key={avatar}
-                                onClick={() => handleAvatarSelect(avatar)}
-                                className={`p-2 rounded-lg transition-all border-2 ${
-                                    selectedAvatar === avatar
-                                        ? 'bg-emerald-100 border-emerald-600 hover:border-emerald-600 cursor-auto'
-                                        : 'bg-white border-gray-200 hover:border-emerald-300 cursor-pointer'
-                                }`}
-                            >
-                                <Image
-                                    src={`/avatars/${avatar}.png`}
-                                    alt={`${avatar} avatar`}
-                                    width={80}
-                                    height={80}
-                                    className="object-contain rounded-lg mx-auto"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect} />
 
                     {error && (
                         <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">

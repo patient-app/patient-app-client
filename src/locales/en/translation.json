@@ -3,6 +3,8 @@
     "title": "Settings",
     "language": "Change Language",
     "logout": "Logout",
+    "avatarSuccess": "Avatar changed.",
+    "avatarLabel": "Change Avatar",
     "error": {
       "languageFailed": "Failed to change language: ",
       "languageTryAgain": "Failed to change the language, please try again.",

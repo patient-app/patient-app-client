@@ -6,6 +6,10 @@ import {useRouter} from "next/navigation";
 import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
 import PasswordField from "@/components/PasswordField";
 import {Check, X} from "lucide-react";
+import AvatarSelector from "@/components/AvatarSelector";
+
+const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
+const hr_style = "w-full border-gray-300 border-1 my-2";
 
 const languages = [
     {id: "en", label: "English", native: "English"},
@@ -30,10 +34,66 @@ const Page = () => {
     const [languageError, setLanguageError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [passwordSuccess, setPasswordSuccess] = useState(false);
+    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+    const [avatarError, setAvatarError] = useState<string | null>(null);
+    const [avatarSuccess, setAvatarSuccess] = useState<string | null>(null);
 
     const [showOld, setShowOld] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+
+    const handleAvatarSelect = async (avatar: string) => {
+        if(selectedAvatar === avatar) return;
+        const avatarBefore = selectedAvatar;
+        setSelectedAvatar(avatar);
+        setAvatarError(null);
+        setAvatarSuccess(null);
+
+        try {
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                body: JSON.stringify({ avatar: avatar }),
+                headers: { "Content-Type": "application/json" },
+            };
+
+            // TODO: endpoint doesn't exist yet, waiting for backend
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", requestInit);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setAvatarError((t("onboarding.avatarError") + errorData.message) || t("onboarding.avatarTryAgain"));
+                setSelectedAvatar(avatarBefore);
+                return;
+            }
+
+            setAvatarSuccess(t("settings.avatarSuccess"));
+        } catch (e) {
+            setAvatarError(t("onboarding.avatarTryAgain"));
+            setSelectedAvatar(avatarBefore);
+            console.error("Failed to save avatar", e);
+        }
+    };
+
+    useEffect(() => {
+        const fetchAvatar = async () => {
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!response.ok) {
+                    setAvatarError("Failed to fetch avatar, please choose a new one.")
+                }
+                const data = await response.json();
+                setSelectedAvatar(data.avatar);
+            } catch (error) {
+                console.error("Failed to fetch avatar", error);
+                setAvatarError("Failed to fetch avatar, please choose a new one.")
+            }
+        };
+        fetchAvatar();
+    }, []);
 
     const [passwordRules, setPasswordRules] = useState({
         minLength: false,
@@ -101,7 +161,6 @@ const Page = () => {
             headers: {"Content-Type": "application/json"},
         };
         const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/name", requestInit);
-        console.log(JSON.stringify({name}))
         if (!response.ok) {
             const errorData = await response.json();
             setNameError((t("settings.error.nameChangeFailed") + errorData.message) || t("settings.error.nameChaneTryAgain"));
@@ -202,14 +261,14 @@ const Page = () => {
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
-            <h1 className="text-3xl font-semibold text-center">{t("settings.title")}</h1>
+            <h1 className="text-3xl font-semibold text-center mb-4">{t("settings.title")}</h1>
             <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
                 {/* Language Selection */}
                 <div className="w-full">
 
-                    <label className="block text-lg font-semibold text-gray-800 mb-1" htmlFor="language">
+                    <h2 className={title_style}>
                         {t("settings.language")}
-                    </label>
+                    </h2>
                     <select
                         id="language"
                         name="language"
@@ -231,14 +290,15 @@ const Page = () => {
                         </div>
                     )}
                 </div>
+                <hr className={hr_style} />
 
                 {/* Name Change Form */}
                 <form onSubmit={handleNameChange} className="w-full space-y-2">
 
                     <div>
-                        <label className="block text-lg font-semibold text-gray-800 mb-1" htmlFor="nameChange">
+                        <h2 className={title_style}>
                             {t("settings.name.label")}
-                        </label>
+                        </h2>
                         <input
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-emerald-600"
                             id="nameChange"
@@ -272,10 +332,13 @@ const Page = () => {
                         {t("settings.name.button")}
                     </button>
                 </form>
+                <hr className={hr_style} />
 
                 {/* Password Change Form */}
                 <form onSubmit={handleConfirm} className="w-full space-y-2">
-                    <h2 className="text-lg font-semibold text-gray-800">{t("settings.password.label")}</h2>
+                    <h2 className={title_style}>
+                        {t("settings.password.label")}
+                    </h2>
 
                     <div>
                         <label className="block font-semibold text-gray-700 mb-1" htmlFor="oldPassword">
@@ -363,13 +426,34 @@ const Page = () => {
                     )}
 
                     <button
-                        className="w-full px-4 py-2 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition disabled:bg-gray-300"
+                        className="w-full px-4 py-2 mb-3 mt-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition disabled:bg-gray-300"
                         type="submit"
                         disabled={!allRulesValid || passwordsMismatch || !formData.oldPassword || !formData.newPassword || !formData.confirmPassword}
                     >
                         {t("settings.password.button")}
                     </button>
                 </form>
+                <hr className={hr_style} />
+
+                {/* Avatar Selector */}
+                <h2 className={title_style}>
+                    {t("settings.avatarLabel")}
+                </h2>
+                <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect} />
+                {avatarError && (
+                    <div
+                        className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                        {avatarError}
+                    </div>
+                )}
+                {avatarSuccess && (
+                    <div
+                        className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
+                        {avatarSuccess}
+                    </div>
+                )}
+                <hr className={hr_style} />
+
                 <button
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
                     type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}

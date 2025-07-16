@@ -4,6 +4,8 @@ interface Resources {
             "title": "",
             "language": "",
             "logout": "",
+            "avatarSuccess": "",
+            "avatarLabel": "",
             "error": {
                 "languageFailed": "",
                 "languageTryAgain": "",
