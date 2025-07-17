@@ -159,7 +159,12 @@ interface Resources {
             "avatarTryAgain": ""
         },
         "questionnaires": {
-            "title": ""
+            "title": "",
+            "selection": "",
+            "completed": "",
+            "GAD-7": {
+                "name": ""
+            }
         },
         "navigation": {
             "home": "",
