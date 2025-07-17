@@ -30,7 +30,7 @@ export default function ChatPage() {
                     },
                 });
 
-                if (!response.ok) {
+                if (response.status !== 201) {
                     console.log(response)
                     throw new Error('Failed to create conversation');
                 }
@@ -58,7 +58,7 @@ export default function ChatPage() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Failed to update conversation name:", errorData);
-                throw new Error(errorData.message || "Failed to update conversation name");
+                throw new Error(errorData.message ?? "Failed to update conversation name");
             }
         } catch (error) {
             console.error("Error updating conversation name:", error);
@@ -89,9 +89,16 @@ export default function ChatPage() {
             </button>
             <input
                 type="text"
-                placeholder="conversation Name"//TODO: translate
+                placeholder={t("chat.unnamedChat")}
                 value={conversationName}
                 onChange={e => setConversationName(e.target.value)}
+                onBlur={updateConversationName}
+                onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault()
+                        updateConversationName();
+                    }
+                }}
                 className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
             />
 
