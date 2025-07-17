@@ -32,7 +32,7 @@ export default function Navigation() {
             credentials: "include",
         };
         await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
-        window.location.href = "/login";
+        router.push("/login");
     };
 
     const topNavButtons = (

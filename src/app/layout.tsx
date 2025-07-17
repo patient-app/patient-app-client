@@ -2,7 +2,6 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import 'react-chatbot-kit/build/main.css';
-import TermsLink from "../components/TermsLink";
 import Navigation from "../components/Navigation";
 import Link from "next/link";
 import React from "react";
@@ -57,8 +56,6 @@ export default async function RootLayout({
             <main className="flex-1 p-6 mt-13">{children}</main>
         </div>
 
-        {/* Terms and Conditions: */}
-        <TermsLink />
         </TranslationsProvider>
         </body>
 

@@ -14,6 +14,7 @@ export default function ChatPage() {
     const [showPopup, setShowPopup] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
+    const [avatar, setAvatar] = useState("none");
 
     useEffect(() => {
         if (hasCreatedConversation.current) return;
@@ -34,7 +35,7 @@ export default function ChatPage() {
 
                 if (!response.ok) {
                     console.log(response)
-                    throw new Error('Failed to create conversation');
+                    return;
                 }
 
                 const res = await response.json();
@@ -48,12 +49,37 @@ export default function ChatPage() {
         createConversation();
     }, []);
 
+    useEffect(() => {
+        const fetchAvatar = async () => {
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!response.ok) {
+                    console.warn("Failed to fetch avatar", response);
+                    setAvatar("none");
+                    return;
+                }
+                const data = await response.json();
+
+                setAvatar(data.chatBotAvatar.toLowerCase());
+                console.log("Avatar set to ", data.chatBotAvatar.toLowerCase());
+            } catch (error) {
+                console.error("Failed to fetch avatar", error);
+                setAvatar("none");
+                return;
+            }
+        };
+        fetchAvatar();
+    }, []);
+
     // If conversationId or welcomeMessage is null, show loading state
     if (!conversationId || !welcomeMessage) {
         return <div className="text-center py-10 text-gray-500">Loading chatbot...</div>; //TODO: translate
     }
 
-    const createdConfig = config(conversationId, welcomeMessage);
+    const createdConfig = config(conversationId, welcomeMessage, avatar);
 
     return (
         <>

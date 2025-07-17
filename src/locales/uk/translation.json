@@ -3,6 +3,8 @@
     "title": "Налаштування",
     "language": "Змінити мову",
     "logout": "вийти",
+    "avatarSuccess": "Аватар змінено.",
+    "avatarLabel": "Змінити аватар",
     "error": {
       "languageFailed": "Не вдалося змінити мову: ",
       "languageTryAgain": "Не вдалося змінити мову, будь ласка, спробуйте ще раз.",
@@ -145,7 +147,12 @@
     "onboardingError": "Не вдалося піднятися на борт: ",
     "onboardingTryAgain": "Не вдалося потрапити на борт, будь ласка, спробуйте ще раз.",
     "onboardingErrorName": "Не вдалося встановити ваше ім'я: ",
-    "onboardingTryAgainName": "Не вдалося встановити ім'я, спробуйте ще раз."
+    "onboardingTryAgainName": "Не вдалося встановити ім'я, спробуйте ще раз.",
+    "chooseAvatarTitle": "Обираємо аватарку!",
+    "chooseAvatarText": "Ви можете обрати, як виглядатиме чат-бот Lumina AI.",
+    "avatarRequired": "Будь ласка, виберіть аватар, щоб продовжити.",
+    "avatarError": "Не вдалося зберегти аватар: ",
+    "avatarTryAgain": "Не вдалося зберегти аватар, спробуйте ще раз."
   },
   "navigation": {
     "home": "Головна",
