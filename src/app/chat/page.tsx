@@ -4,7 +4,7 @@ import config from "@/chatbot/config";
 import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {MessageSquareDashed} from "lucide-react";
 import SharingOptionsPopup from "@/components/SharingOptionsPopup";
 
@@ -92,12 +92,14 @@ export default function ChatPage() {
     }
 
 
-    // If conversationId or welcomeMessage is null, show loading state
-    if (!conversationId || !welcomeMessage) {
+    const createdConfig = useMemo(() => {
+        if (!conversationId || !welcomeMessage) return null;
+        return config(conversationId, welcomeMessage, avatar);
+    }, [conversationId, welcomeMessage, avatar]);
+
+    if (!createdConfig) {
         return <div className="text-center py-10 text-gray-500">{t("chat.loadingChat")}</div>;
     }
-
-    const createdConfig = config(conversationId, welcomeMessage, avatar);
 
     return (
         <>

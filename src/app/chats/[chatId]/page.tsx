@@ -206,7 +206,7 @@ export default function ChatPage() {
                     className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setShowPopup(!showPopup)}
                 >
-                    {<MessageSquareDashed size={30} strokeWidth={1.75} />}
+                    {<MessageSquareDashed size={30} strokeWidth={1.75}/>}
                     <span className="text-xs font-medium text-center">
                     {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
@@ -228,7 +228,8 @@ export default function ChatPage() {
                 </span>
                 </button>
 
-                {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
+                {showPopup &&
+                    <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
 
             </div>
             <span className="italic text-center text-sm text-gray-600">
@@ -267,7 +268,8 @@ export default function ChatPage() {
                             <Button className="cursor-pointer" color="red" onClick={deleteChat}>
                                 {t("chat.modal.deleteConfirm")}
                             </Button>
-                            <Button className="cursor-pointer" color="alternative" onClick={() => setDeleteModal(false)}>
+                            <Button className="cursor-pointer" color="alternative"
+                                    onClick={() => setDeleteModal(false)}>
                                 {t("chat.modal.deleteCancel")}
                             </Button>
                         </div>
