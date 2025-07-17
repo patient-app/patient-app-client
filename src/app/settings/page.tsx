@@ -53,12 +53,11 @@ const Page = () => {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify({ avatar: avatar }),
+                body: JSON.stringify({ chatBotAvatar: avatar.toUpperCase() }),
                 headers: { "Content-Type": "application/json" },
             };
 
-            // TODO: endpoint doesn't exist yet, waiting for backend
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", requestInit);
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -78,7 +77,7 @@ const Page = () => {
     useEffect(() => {
         const fetchAvatar = async () => {
             try {
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -86,7 +85,7 @@ const Page = () => {
                     setAvatarError("Failed to fetch avatar, please choose a new one.")
                 }
                 const data = await response.json();
-                setSelectedAvatar(data.avatar);
+                setSelectedAvatar(data.chatBotAvatar.toLowerCase());
             } catch (error) {
                 console.error("Failed to fetch avatar", error);
                 setAvatarError("Failed to fetch avatar, please choose a new one.")

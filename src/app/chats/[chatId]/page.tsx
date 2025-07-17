@@ -24,7 +24,7 @@ export default function ChatPage() {
     useEffect(() => {
         const fetchAvatar = async () => {
             try {
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -35,8 +35,8 @@ export default function ChatPage() {
                 }
                 const data = await response.json();
 
-                setAvatar(data.avatar);
-                console.log("Avatar set to ", data.avatar);
+                setAvatar(data.chatBotAvatar.toLowerCase());
+                console.log("Avatar set to ", data.chatBotAvatar.toLowerCase());
 
                 // rebuild config with avatar
                 setConfig(prev => ({
@@ -47,8 +47,8 @@ export default function ChatPage() {
                             <div className="react-chatbot-kit-chat-bot-avatar">
                                 <div className="react-chatbot-kit-chat-bot-avatar-container">
                                     <Image
-                                        src={`/avatars/${data.avatar}.png`}
-                                        alt={`${data.avatar} avatar`}
+                                        src={`/avatars/${data.chatBotAvatar.toLowerCase()}.png`}
+                                        alt={`${data.chatBotAvatar.toLowerCase()} avatar`}
                                         width={80}
                                         height={80}
                                         className="object-contain rounded-lg mx-auto"

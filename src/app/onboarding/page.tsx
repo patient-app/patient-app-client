@@ -34,12 +34,11 @@ const Login = () => {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify({ avatar: selectedAvatar }),
+                body: JSON.stringify({ chatBotAvatar: selectedAvatar.toUpperCase() }),
                 headers: { "Content-Type": "application/json" },
             };
 
-            // TODO: endpoint doesn't exist yet, waiting for backend
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", requestInit);
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
 
             if (!response.ok) {
                 const errorData = await response.json();

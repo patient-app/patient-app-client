@@ -52,7 +52,7 @@ export default function ChatPage() {
     useEffect(() => {
         const fetchAvatar = async () => {
             try {
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/avatar", {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -63,8 +63,8 @@ export default function ChatPage() {
                 }
                 const data = await response.json();
 
-                setAvatar(data.avatar);
-                console.log("Avatar set to ", data.avatar);
+                setAvatar(data.chatBotAvatar.toLowerCase());
+                console.log("Avatar set to ", data.chatBotAvatar.toLowerCase());
             } catch (error) {
                 console.error("Failed to fetch avatar", error);
                 setAvatar("none");
