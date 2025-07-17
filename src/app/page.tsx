@@ -77,16 +77,16 @@ export default function Home() {
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
             {mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}
-            <MeetingComponent />
+            <MeetingComponent/>
             {lastChatId ?
-            <div
-                onClick={() => router.push(`/chats/${lastChatId}`)}
-                className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
-            >
-                <p>{t("home.lastChat")}</p>
-                <p className="font-bold">{lastChatName ? `Conversation ${lastChatName}` : "Unnamed conversation"}</p>
-                <p className="italic text-gray-400 text-sm">{lastChatId}</p>
-            </div>
+                <div
+                    onClick={() => router.push(`/chats/${lastChatId}`)}
+                    className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                >
+                    <p>{t("home.lastChat")}</p>
+                    <p className="font-bold">{lastChatName ? lastChatName : t("chats.unnamedConversation")}</p>
+                    <p className="italic text-gray-400 text-sm">{lastChatId}</p>
+                </div>
                 :
                 <div
                     onClick={() => router.push(`/chat`)}
@@ -96,7 +96,8 @@ export default function Home() {
                     <p className="italic text-gray-400 text-sm">{t("home.noConversationsYet")}</p>
                 </div>
             }
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex gap-2 justify-center z-10">
+            <div
+                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex gap-2 justify-center z-10">
                 <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
             </div>
         </main>

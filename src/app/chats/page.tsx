@@ -57,7 +57,7 @@ export default function Home() {
                         onClick={() => router.push(`/chats/${conv.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
-                        <p className="font-bold">{conv.name ? `Conversation ${conv.name}` : "Unnamed conversation"}</p>
+                        <p className="font-bold">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>
                         <p className="italic text-gray-400 text-sm">{conv.id}</p>
                     </div>
                 ))}

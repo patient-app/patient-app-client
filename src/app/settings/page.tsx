@@ -43,7 +43,7 @@ const Page = () => {
     const [showConfirm, setShowConfirm] = useState(false);
 
     const handleAvatarSelect = async (avatar: string) => {
-        if(selectedAvatar === avatar) return;
+        if (selectedAvatar === avatar) return;
         const avatarBefore = selectedAvatar;
         setSelectedAvatar(avatar);
         setAvatarError(null);
@@ -53,8 +53,8 @@ const Page = () => {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify({ chatBotAvatar: avatar.toUpperCase() }),
-                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({chatBotAvatar: avatar.toUpperCase()}),
+                headers: {"Content-Type": "application/json"},
             };
 
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
@@ -130,15 +130,16 @@ const Page = () => {
     }, [formData.newPassword]);
 
     useEffect(() => {
-        if (passwordSuccess || nameSuccess) {
+        if (passwordSuccess || nameSuccess || avatarSuccess) {
             const timer = setTimeout(() => {
                 setPasswordSuccess(false);
                 setNameSuccess(false)
+                setAvatarSuccess(null)
             }, 5000);
 
             return () => clearTimeout(timer);
         }
-    }, [passwordSuccess, nameSuccess]);
+    }, [passwordSuccess, nameSuccess, avatarSuccess]);
 
 
     const logout = async () => {
@@ -289,7 +290,7 @@ const Page = () => {
                         </div>
                     )}
                 </div>
-                <hr className={hr_style} />
+                <hr className={hr_style}/>
 
                 {/* Name Change Form */}
                 <form onSubmit={handleNameChange} className="w-full space-y-2">
@@ -331,7 +332,7 @@ const Page = () => {
                         {t("settings.name.button")}
                     </button>
                 </form>
-                <hr className={hr_style} />
+                <hr className={hr_style}/>
 
                 {/* Password Change Form */}
                 <form onSubmit={handleConfirm} className="w-full space-y-2">
@@ -432,13 +433,13 @@ const Page = () => {
                         {t("settings.password.button")}
                     </button>
                 </form>
-                <hr className={hr_style} />
+                <hr className={hr_style}/>
 
                 {/* Avatar Selector */}
                 <h2 className={title_style}>
                     {t("settings.avatarLabel")}
                 </h2>
-                <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect} />
+                <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect}/>
                 {avatarError && (
                     <div
                         className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
@@ -451,7 +452,7 @@ const Page = () => {
                         {avatarSuccess}
                     </div>
                 )}
-                <hr className={hr_style} />
+                <hr className={hr_style}/>
 
                 <button
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"

@@ -19,6 +19,8 @@ export default function ChatPage() {
     const {t} = useTranslation();
     const [deleteModal, setDeleteModal] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [conversationName, setConversationName] = useState<string>("");
+
     const [avatar, setAvatar] = useState("none");
 
     useEffect(() => {
@@ -114,6 +116,7 @@ export default function ChatPage() {
                 } else {
                     const respo = await response.json();
                     const welcomeMessage = respo.welcomeMessage;
+                    setConversationName(respo.name || "");
 
                     const messagePairs = respo.messages.map((msg: MessageDTO) => ({
                         request: msg.requestMessage,
@@ -162,17 +165,48 @@ export default function ChatPage() {
             console.error("Failed delete conversation:", e);
         }
     }
+    const updateConversationName = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "PUT",
+                credentials: "include",
+                body: JSON.stringify({conversationName}),
+                headers: {"Content-Type": "application/json"}
+            }
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}/conversation-name`, requestInit);
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Failed to update conversation name:", errorData);
+                throw new Error("Failed to update conversation name");
+            }
+        } catch (error) {
+            console.error("Error updating conversation name:", error);
+        }
+    }
 
     return (
         <div>
             <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-                <h2 className="text-lg font-semibold text-center">{t("chats.chat")} {chatId}</h2>
+                <input
+                    type="text"
+                    placeholder={t("chat.unnamedChat")}
+                    value={conversationName}
+                    onChange={e => setConversationName(e.target.value)}
+                    onBlur={updateConversationName}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault()
+                            updateConversationName();
+                        }
+                    }}
+                    className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
+                />
                 <button
                     className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setShowPopup(!showPopup)}
                 >
-                    {<MessageSquareDashed size={30} strokeWidth={1.75} />}
+                    {<MessageSquareDashed size={30} strokeWidth={1.75}/>}
                     <span className="text-xs font-medium text-center">
                     {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
@@ -194,7 +228,8 @@ export default function ChatPage() {
                 </span>
                 </button>
 
-                {showPopup && <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
+                {showPopup &&
+                    <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
 
             </div>
             <span className="italic text-center text-sm text-gray-600">
@@ -233,7 +268,8 @@ export default function ChatPage() {
                             <Button className="cursor-pointer" color="red" onClick={deleteChat}>
                                 {t("chat.modal.deleteConfirm")}
                             </Button>
-                            <Button className="cursor-pointer" color="alternative" onClick={() => setDeleteModal(false)}>
+                            <Button className="cursor-pointer" color="alternative"
+                                    onClick={() => setDeleteModal(false)}>
                                 {t("chat.modal.deleteCancel")}
                             </Button>
                         </div>

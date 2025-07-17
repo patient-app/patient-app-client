@@ -103,6 +103,8 @@ interface Resources {
             "placeholder": "",
             "sharingoptions": "",
             "deleteChat": "",
+            "loadingChat": "",
+            "unnamedChat": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",
@@ -115,6 +117,7 @@ interface Resources {
             "loading": "",
             "chat": "",
             "startNewConversation": "",
+            "unnamedConversation": "",
             "sharingoptions": {
                 "title": "",
                 "description": "",
