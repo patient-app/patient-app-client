@@ -148,6 +148,13 @@
     top: 13px;
 }
 
+/* Hide user avatar */
+.react-chatbot-kit-user-avatar-container,
+.react-chatbot-kit-user-avatar-icon,
+.react-chatbot-kit-user-avatar {
+    display: none !important;
+}
+
 .react-chatbot-kit-chat-bot-loading-icon-container {
 }
 

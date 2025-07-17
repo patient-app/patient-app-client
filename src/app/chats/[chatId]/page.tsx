@@ -11,6 +11,7 @@ import {MessageSquareDashed, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {CHATBOT_NAME} from "@/libs/constants";
 import SharingOptionsPopup from "@/components/SharingOptionsPopup";
+import Image from "next/image";
 
 export default function ChatPage() {
     const router = useRouter();
@@ -20,6 +21,53 @@ export default function ChatPage() {
     const [showPopup, setShowPopup] = useState(false);
     const [conversationName, setConversationName] = useState<string>("");
 
+    const [avatar, setAvatar] = useState("none");
+
+    useEffect(() => {
+        const fetchAvatar = async () => {
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!response.ok) {
+                    console.warn("Failed to fetch avatar", response);
+                    setAvatar("none");
+                    return;
+                }
+                const data = await response.json();
+
+                setAvatar(data.chatBotAvatar.toLowerCase());
+                console.log("Avatar set to ", data.chatBotAvatar.toLowerCase());
+
+                // rebuild config with avatar
+                setConfig(prev => ({
+                    ...prev,
+                    customComponents: {
+                        ...prev.customComponents,
+                        botAvatar: () => (
+                            <div className="react-chatbot-kit-chat-bot-avatar">
+                                <div className="react-chatbot-kit-chat-bot-avatar-container">
+                                    <Image
+                                        src={`/avatars/${data.chatBotAvatar.toLowerCase()}.png`}
+                                        alt={`${data.chatBotAvatar.toLowerCase()} avatar`}
+                                        width={80}
+                                        height={80}
+                                        className="object-contain rounded-lg mx-auto"
+                                    />
+                                </div>
+                            </div>
+                        )
+                    }
+                }));
+            } catch (error) {
+                console.error("Failed to fetch avatar", error);
+                setAvatar("none");
+                return;
+            }
+        };
+        fetchAvatar();
+    }, []);
 
     const [config, setConfig] = useState({
         initialMessages: [],
@@ -29,6 +77,21 @@ export default function ChatPage() {
                 backgroundColor: 'oklch(69.6% 0.17 162.48)',
             },
         },
+        customComponents: {
+            botAvatar: () =>
+                <div className="react-chatbot-kit-chat-bot-avatar">
+                    <div className="react-chatbot-kit-chat-bot-avatar-container">
+                        <Image
+                            src={`/avatars/${avatar}.png`}
+                            alt={`${avatar} avatar`}
+                            width={80}
+                            height={80}
+                            className="object-contain rounded-lg mx-auto"
+                        />
+
+                    </div>
+                </div>
+        }
     });
 
     type MessageDTO = {
