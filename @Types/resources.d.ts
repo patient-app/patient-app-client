@@ -158,6 +158,9 @@ interface Resources {
             "avatarError": "",
             "avatarTryAgain": ""
         },
+        "questionnaires": {
+            "title": ""
+        },
         "navigation": {
             "home": "",
             "chat": "",
@@ -165,7 +168,8 @@ interface Resources {
             "settings": "",
             "logout": "",
             "exercise": "",
-            "journal": ""
+            "journal": "",
+            "questionnaires": ""
         },
         "footer": {
             "terms": "",

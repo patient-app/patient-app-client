@@ -157,6 +157,9 @@
     "avatarError": "Failed to save avatar: ",
     "avatarTryAgain": "Failed to save avatar, please try again."
   },
+  "questionnaires": {
+    "title": "Questionnaires"
+  },
   "navigation": {
     "home": "Home",
     "chat": "New Chat",
@@ -164,7 +167,8 @@
     "settings": "Settings",
     "logout": "Log out",
     "exercise": "Exercises",
-    "journal": "Journal"
+    "journal": "Journal",
+    "questionnaires": "Questionnaires"
   },
   "footer": {
     "terms": "Terms of Use",

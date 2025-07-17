@@ -5,7 +5,7 @@ import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import AvatarSelector from "@/components/AvatarSelector";
 
-const Login = () => {
+const Onboarding = () => {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
@@ -363,4 +363,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Onboarding;

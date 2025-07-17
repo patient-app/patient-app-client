@@ -157,6 +157,9 @@
     "avatarError": "Не вдалося зберегти аватар: ",
     "avatarTryAgain": "Не вдалося зберегти аватар, спробуйте ще раз."
   },
+  "questionnaires": {
+    "title": "Анкети"
+  },
   "navigation": {
     "home": "Головна",
     "chat": "Новий чат",
@@ -164,7 +167,8 @@
     "settings": "Налаштування",
     "logout": "Вийти",
     "exercise": "вправи",
-    "journal": "Журнал"
+    "journal": "Журнал",
+    "questionnaires": "Анкети"
   },
   "footer": {
     "terms": "Умови використання",

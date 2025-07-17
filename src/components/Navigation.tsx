@@ -69,6 +69,14 @@ export default function Navigation() {
                 label={t("navigation.journal")}
                 showOnMobile={true}
             />
+            <NavigationButton
+                isMobile={isMobile}
+                href="/questionnaires"
+                onClick={() => router.push("/questionnaires")}
+                icon={<NotebookPen size={24} strokeWidth={2} />}
+                label={t("navigation.questionnaires")}
+                showOnMobile={true}
+            />
         </>
     );
 
