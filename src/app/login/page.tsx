@@ -4,6 +4,7 @@ import {LoginPatientDTO} from "@/dto/input/LoginPatientDTO";
 import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import PasswordField from "@/components/PasswordField";
+import {useRouter} from "next/navigation";
 
 const Login = () => {
     const { t, i18n } = useTranslation();
@@ -32,6 +33,8 @@ const Login = () => {
     });
     const [error, setError] = useState<string | null>(null);
 
+    const router = useRouter();
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
@@ -54,7 +57,7 @@ const Login = () => {
             } else {
                 await response.json();
                 setShowPassword(false)
-                window.location.href = "/"
+                router.push("/");
             }
         } catch (e) {
             setError(`t("login.error.loginTryAgain")`);
