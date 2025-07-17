@@ -1,7 +1,7 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 
@@ -54,9 +54,13 @@ const Login = () => {
         fetchPatientData();
     }, [router]);
 
-    const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
-        const formData = {language: lang};
+        setSelectedLang(lang);
+    }
+
+    const sendLanguageChange = async () => {
+        const formData = {language: selectedLang};
         setError(null)
         try {
             const requestInit: RequestInit = {
@@ -70,9 +74,8 @@ const Login = () => {
                 const errorData = await response.json();
                 setError((t("settings.error.languageFailed") + errorData.message) || t("settings.error.languageTryAgain"));
             } else {
-                localStorage.setItem('lang', lang);
-                await i18n.changeLanguage(lang);
-                setSelectedLang(lang);
+                localStorage.setItem('lang', selectedLang);
+                await i18n.changeLanguage(selectedLang);
             }
         } catch (e) {
             setError(t("settings.error.languageTryAgain"));
@@ -98,6 +101,9 @@ const Login = () => {
     }
 
     const handleNext = async () => {
+        if (screen == 1) {
+            await sendLanguageChange()
+        }
         if (screen < 5) {
             setScreen((prev) => (prev + 1) as 1 | 2 | 3 | 4 | 5);
         } else {
