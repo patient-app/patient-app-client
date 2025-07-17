@@ -35,7 +35,7 @@ export default function ChatPage() {
 
                 if (!response.ok) {
                     console.log(response)
-                    throw new Error('Failed to create conversation');
+                    return;
                 }
 
                 const res = await response.json();
