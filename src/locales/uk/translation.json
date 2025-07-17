@@ -160,10 +160,7 @@
   "questionnaires": {
     "title": "Анкети",
     "selection": "Яку анкету/тест ви хочете пройти?",
-    "completed": "Заповнені анкети:",
-    "GAD-7": {
-      "name": "GAD-7"
-    }
+    "completed": "Заповнені анкети:"
   },
   "navigation": {
     "home": "Головна",

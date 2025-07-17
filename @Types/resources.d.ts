@@ -161,10 +161,7 @@ interface Resources {
         "questionnaires": {
             "title": "",
             "selection": "",
-            "completed": "",
-            "GAD-7": {
-                "name": ""
-            }
+            "completed": ""
         },
         "navigation": {
             "home": "",

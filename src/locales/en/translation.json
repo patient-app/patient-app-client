@@ -160,10 +160,7 @@
   "questionnaires": {
     "title": "Questionnaires",
     "selection": "Which questionnaire/test do you want to complete?",
-    "completed": "Completed questionnaires:",
-    "GAD-7": {
-      "name": "GAD-7"
-    }
+    "completed": "Completed questionnaires:"
   },
   "navigation": {
     "home": "Home",
