@@ -9,7 +9,6 @@ import {JournalTag} from "@/components/JournalTag";
 import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
-import ExerciseChatbot from "@/components/ExerciseChatbot";
 import JournalChatbot from "@/components/JournalChatbot";
 
 export default function JournalEntryCreationPage() {
@@ -181,9 +180,11 @@ export default function JournalEntryCreationPage() {
             </form>
             <HelpButton chatbot={<JournalChatbot
                 isOpen={false}
-                onCloseAction={() => {
+                onCloseAction={() => {}
                 }
-                }/>
+                title={title}
+                content={content}
+                />
             }/>
             <Modal
                 show={backModal}

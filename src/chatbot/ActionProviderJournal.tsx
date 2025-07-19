@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProviderJournal = ({createChatBotMessage, setState, children}: any) => {
+const ActionProviderJournal = ({createChatBotMessage, setState, children, title, content}: any) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
@@ -113,7 +113,11 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: any) 
             const requestInit: RequestInit = {
                 method: "POST",
                 credentials: "include",
-                body: JSON.stringify({message}),
+                body: JSON.stringify({
+                    message,
+                    journalTitle: title,
+                    journalContent: content,
+                }),
                 headers: {"Content-Type": "application/json"},
             };
 

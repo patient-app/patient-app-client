@@ -10,9 +10,11 @@ import configJournal from "@/chatbot/configJournal";
 import ActionProviderJournal from "@/chatbot/ActionProviderJournal";
 
 
-export default function JournalChatbot({isOpen, onCloseAction}: Readonly<{
+export default function JournalChatbot({isOpen, onCloseAction, title, content}: Readonly<{
     isOpen: boolean,
     onCloseAction: () => void,
+    title: string,
+    content: string
 }>) {
     const {t} = useTranslation();
 
@@ -25,7 +27,9 @@ export default function JournalChatbot({isOpen, onCloseAction}: Readonly<{
                     <Chatbot
                         config={configJournal(onCloseAction, t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("journalChatbot.tooltipClearHistory"))}
                         messageParser={MessageParser}
-                        actionProvider={ActionProviderJournal}
+                        actionProvider={(props: any) => (
+                            <ActionProviderJournal {...props} title={title} content={content}/>
+                        )}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}
                     />
