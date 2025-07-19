@@ -165,7 +165,8 @@ interface Resources {
             "settings": "",
             "logout": "",
             "exercise": "",
-            "journal": ""
+            "journal": "",
+            "documents": ""
         },
         "footer": {
             "terms": "",
@@ -241,6 +242,12 @@ interface Resources {
             "chatbotMessage": {
                 "errorMessage": "",
                 "emptyInputMessage": ""
+            }
+        },
+        "documents": {
+            "error": {
+                "fetchFailed": "",
+                "fetchFailedTryAgain": ""
             }
         }
     }
