@@ -235,6 +235,10 @@
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
     "tooltipClearHistory": "Clear chat history"
   },
+  "journalChatbot": {
+    "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your journaling?",
+    "tooltipClearHistory": "Clear chat history"
+  },
   "actionProvider": {
     "error": {
       "failedToCreateConversation": "Failed to create conversation.",

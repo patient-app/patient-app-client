@@ -236,6 +236,10 @@ interface Resources {
             "welcomeMessage": "",
             "tooltipClearHistory": ""
         },
+        "journalChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": ""
+        },
         "actionProvider": {
             "error": {
                 "failedToCreateConversation": "",

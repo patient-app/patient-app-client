@@ -8,6 +8,9 @@ import {CoachShareOff} from "@/components/CoachShareOff";
 import {JournalTag} from "@/components/JournalTag";
 import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
+import HelpButton from "@/components/HelpButton";
+import ExerciseChatbot from "@/components/ExerciseChatbot";
+import JournalChatbot from "@/components/JournalChatbot";
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
@@ -167,7 +170,7 @@ export default function JournalEntryCreationPage() {
                     </div>
                 )}
 
-                <div className="flex justify-end mt-4">
+                <div className="flex justify-center mt-4">
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -176,6 +179,12 @@ export default function JournalEntryCreationPage() {
                     </button>
                 </div>
             </form>
+            <HelpButton chatbot={<JournalChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }/>
+            }/>
             <Modal
                 show={backModal}
                 onClose={() => setBackModal(false)}

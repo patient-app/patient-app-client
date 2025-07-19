@@ -39,7 +39,15 @@ const ActionProviderDocument = ({createChatBotMessage, setState, children}: any)
             return data.id;
         } catch (error) {
             console.error("Error creating conversation:", error);
-            throw error;
+            const errorMessage = createChatBotMessage(
+                t("actionProvider.chatbotMessage.errorMessage")
+            );
+
+            setState((prev: { messages: any }) => ({
+                ...prev,
+                messages: [...prev.messages, errorMessage],
+                loading: false,
+            }));
         }
     };
 

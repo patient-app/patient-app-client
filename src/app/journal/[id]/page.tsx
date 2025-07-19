@@ -232,7 +232,7 @@ const JournalEntryPage = () => {
                     </div>
                 )}
 
-                <div className="flex justify-end mt-4">
+                <div className="flex justify-center mt-4">
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"

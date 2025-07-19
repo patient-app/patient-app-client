@@ -235,6 +235,10 @@
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
     "tooltipClearHistory": "Очистити історію чату"
   },
+  "journalChatbot": {
+    "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з веденням щоденника?",
+    "tooltipClearHistory": "Очистити історію чату"
+  },
   "actionProvider": {
     "error": {
       "failedToCreateConversation": "Не вдалося створити розмову.",
