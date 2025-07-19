@@ -24,7 +24,7 @@ const DocumentsPage = () => {
                         process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/documents", requestInit);
                     if (!response.ok) {
                         const errorData = await response.json();
-                        setError(t("documents.error.fetchFailed") + errorData.message); //TODO: verify it displays
+                        setError(t("documents.error.fetchFailed") + errorData.message);
                     } else {
                         const documentResponse = await response.json();
                         setDocuments(documentResponse);
@@ -39,10 +39,11 @@ const DocumentsPage = () => {
 
         }, []
     );
+
+    //TODO: add loading state and no documents state
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-2xl font-bold mb-4">Documents Page</h1>
-            <p className="text-gray-600">This is the documents page.</p>
+        <>
+            <h1 className="text-3xl font-semibold text-center">{t("documents.title")}</h1>
             {error && (
                 <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
                     {error}
@@ -58,7 +59,7 @@ const DocumentsPage = () => {
                 </button>
             ))}
 
-        </div>
+        </>
     );
 };
 

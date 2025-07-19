@@ -245,10 +245,14 @@ interface Resources {
             }
         },
         "documents": {
+            "title": "",
             "error": {
                 "fetchFailed": "",
                 "fetchFailedTryAgain": ""
             }
+        },
+        "individualDocument": {
+            "download": ""
         }
     }
 }

@@ -241,12 +241,16 @@
     "chatbotMessage": {
       "errorMessage": "Sorry, I encountered an error while processing your request. Please try again later.",
       "emptyInputMessage": "Please enter something in the input box such that I can help you."
-    },
-    "documents": {
-      "error": {
-        "fetchFailed": "Failed to fetch documents: ",
-        "fetchFailedTryAgain": "Failed to fetch documents, please try again."
-      }
     }
+  },
+  "documents": {
+    "title": "Documents",
+    "error": {
+      "fetchFailed": "Failed to fetch documents: ",
+      "fetchFailedTryAgain": "Failed to fetch documents, please try again."
+    }
+  },
+  "individualDocument": {
+    "download": "Download {{documentName}}"
   }
 }
