@@ -164,7 +164,8 @@
     "settings": "Налаштування",
     "logout": "Вийти",
     "exercise": "вправи",
-    "journal": "Журнал"
+    "journal": "Журнал",
+    "documents": "Документи"
   },
   "footer": {
     "terms": "Умови використання",
@@ -225,11 +226,16 @@
     "location": "Розташування:",
     "status": "Статус:"
   },
+  "documentChatbot": {
+    "welcomeMessage": "Привіт, я {{chatbotName}}. Як я можу допомогти вам зрозуміти документ?",
+    "tooltipClearHistory": "Очистити історію чату",
+    "tooltipChatbotInfo": "Чат-бот працює на основі завантаженого документа."
+  },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
     "tooltipClearHistory": "Очистити історію чату"
   },
-  "actionProviderExercise": {
+  "actionProvider": {
     "error": {
       "failedToCreateConversation": "Не вдалося створити розмову.",
       "failedToFetchPreviousMessages": "Не вдалося отримати попередні повідомлення.",
@@ -241,5 +247,16 @@
       "errorMessage": "Вибачте, під час обробки вашого запиту сталася помилка. Будь ласка, спробуйте пізніше.",
       "emptyInputMessage": "Будь ласка, введіть щось у поле введення, щоб я міг вам допомогти."
     }
+  },
+  "documents": {
+    "title": "Документи",
+    "noDocuments": "На даний момент документи недоступні.",
+    "error": {
+      "fetchFailed": "Не вдалося отримати документи: ",
+      "fetchFailedTryAgain": "Не вдалося отримати документи, спробуйте ще раз."
+    }
+  },
+  "individualDocument": {
+    "download": "Завантажити {{documentName}}"
   }
 }

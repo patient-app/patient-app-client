@@ -1,17 +1,11 @@
 "use client";
 
 import {useParams} from "next/navigation";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {ExerciseDTO} from "@/dto/output/ExerciseDTO";
-import {ExerciseElementDTO} from "@/dto/output/exercise/ExerciseElementDTO";
-import {ImageDTO} from "@/dto/output/exercise/ImageDTO";
-import {PdfDTO} from "@/dto/output/exercise/PdfDTO";
-import {InputDTO} from "@/dto/output/exercise/InputDTO";
-import ExerciseImage from "@/components/ExerciseImage";
-import ExerciseDocument from "@/components/ExerciseDocument";
-import ExerciseTextInput from "@/components/ExerciseTextInput";
 import {useTranslation} from "react-i18next";
+import ExerciseChatbot from "@/components/ExerciseChatbot";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -52,7 +46,7 @@ const ExerciseDetailPage = () => {
     }, [id, t]);
 
 
-    const renderElement = (element: ExerciseElementDTO) => {
+    /**const renderElement = (element: ExerciseElementDTO) => {
         switch (element.type) {
             case "IMAGE": {
                 const data = element.data as ImageDTO;
@@ -91,7 +85,7 @@ const ExerciseDetailPage = () => {
             default:
                 return null;
         }
-    };
+    }; **/
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start">
@@ -100,7 +94,7 @@ const ExerciseDetailPage = () => {
                     <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
                     <p className="pt-6">{exercise.description}</p>
                     <div className="w-full max-w-2xl mt-6">
-                        {exercise.exerciseElements.map(renderElement)}
+                        {/*exercise.exerciseElements.map(renderElement)*/}
                     </div>
                 </>
             ) : (
@@ -115,7 +109,12 @@ const ExerciseDetailPage = () => {
                 </div>
             )}
 
-            <HelpButton/>
+            <HelpButton chatbot={<ExerciseChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }/>
+            }/>
         </div>
     );
 };

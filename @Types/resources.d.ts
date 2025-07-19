@@ -165,7 +165,8 @@ interface Resources {
             "settings": "",
             "logout": "",
             "exercise": "",
-            "journal": ""
+            "journal": "",
+            "documents": ""
         },
         "footer": {
             "terms": "",
@@ -226,11 +227,16 @@ interface Resources {
             "location": "",
             "status": ""
         },
+        "documentChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": ""
+        }
         "exerciseChatbot": {
             "welcomeMessage": "",
             "tooltipClearHistory": ""
         },
-        "actionProviderExercise": {
+        "actionProvider": {
             "error": {
                 "failedToCreateConversation": "",
                 "failedToFetchPreviousMessages": "",
@@ -242,6 +248,17 @@ interface Resources {
                 "errorMessage": "",
                 "emptyInputMessage": ""
             }
+        },
+        "documents": {
+            "title": "",
+            "noDocuments": "",
+            "error": {
+                "fetchFailed": "",
+                "fetchFailedTryAgain": ""
+            }
+        },
+        "individualDocument": {
+            "download": ""
         }
     }
 }
