@@ -53,7 +53,7 @@ export default async function RootLayout({
         {/* Horizontal layout: sidebar + page content: */}
         <div className="flex min-h-screen">
             <Navigation />
-            <main className="flex-1 p-6 mt-13">{children}</main>
+            <main className="flex-1 pt-15 px-6 pb-6 h-screen overflow-y-auto">{children}</main>
         </div>
 
         </TranslationsProvider>
