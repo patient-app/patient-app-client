@@ -4,13 +4,6 @@ import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {ExerciseDTO} from "@/dto/output/ExerciseDTO";
-import {ExerciseElementDTO} from "@/dto/output/exercise/ExerciseElementDTO";
-import {ImageDTO} from "@/dto/output/exercise/ImageDTO";
-import {PdfDTO} from "@/dto/output/exercise/PdfDTO";
-import {InputDTO} from "@/dto/output/exercise/InputDTO";
-import ExerciseImage from "@/components/ExerciseImage";
-import ExerciseDocument from "@/components/ExerciseDocument";
-import ExerciseTextInput from "@/components/ExerciseTextInput";
 import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/components/ExerciseChatbot";
 
@@ -53,7 +46,7 @@ const ExerciseDetailPage = () => {
     }, [id, t]);
 
 
-    const renderElement = (element: ExerciseElementDTO) => {
+    /**const renderElement = (element: ExerciseElementDTO) => {
         switch (element.type) {
             case "IMAGE": {
                 const data = element.data as ImageDTO;
@@ -92,7 +85,7 @@ const ExerciseDetailPage = () => {
             default:
                 return null;
         }
-    };
+    }; **/
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start">

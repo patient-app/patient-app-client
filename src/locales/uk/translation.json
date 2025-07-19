@@ -229,7 +229,7 @@
   "documentChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Як я можу допомогти вам зрозуміти документ?",
     "tooltipClearHistory": "Очистити історію чату",
-    "tooltipChatbotInfo": "Чат-бот базується на документі, завантаженому вашим тренером."
+    "tooltipChatbotInfo": "Чат-бот працює на основі завантаженого документа."
   },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
@@ -250,6 +250,7 @@
   },
   "documents": {
     "title": "Документи",
+    "noDocuments": "На даний момент документи недоступні.",
     "error": {
       "fetchFailed": "Не вдалося отримати документи: ",
       "fetchFailedTryAgain": "Не вдалося отримати документи, спробуйте ще раз."

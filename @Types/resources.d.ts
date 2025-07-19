@@ -251,6 +251,7 @@ interface Resources {
         },
         "documents": {
             "title": "",
+            "noDocuments": "",
             "error": {
                 "fetchFailed": "",
                 "fetchFailedTryAgain": ""
