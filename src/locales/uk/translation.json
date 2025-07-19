@@ -228,7 +228,8 @@
   },
   "documentChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Як я можу допомогти вам зрозуміти документ?",
-    "tooltipClearHistory": "Очистити історію чату"
+    "tooltipClearHistory": "Очистити історію чату",
+    "tooltipChatbotInfo": "Чат-бот базується на документі, завантаженому вашим тренером."
   },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",

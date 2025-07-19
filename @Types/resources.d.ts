@@ -229,7 +229,8 @@ interface Resources {
         },
         "documentChatbot": {
             "welcomeMessage": "",
-            "tooltipClearHistory": ""
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": ""
         }
         "exerciseChatbot": {
             "welcomeMessage": "",

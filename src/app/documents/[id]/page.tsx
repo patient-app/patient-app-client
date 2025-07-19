@@ -45,7 +45,7 @@ const IndividualDocumentPage = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center">{fileName}</h1>
+            <h1 className="text-3xl font-semibold text-center mb-10">{fileName}</h1>
             {downloadUrl && (
                 <div className="text-center mt-4">
                     <a

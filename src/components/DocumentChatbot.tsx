@@ -3,11 +3,10 @@
 import Chatbot from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import {useTranslation} from "react-i18next";
-import configExercise from "@/chatbot/configExercise";
-
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
 import ActionProviderDocument from "@/chatbot/ActionProviderDocument";
+import configDocument from "@/chatbot/configDocument";
 
 export default function DocumentChatbot({isOpen, onCloseAction}: Readonly<{
     isOpen: boolean,
@@ -22,7 +21,10 @@ export default function DocumentChatbot({isOpen, onCloseAction}: Readonly<{
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configExercise(onCloseAction, t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("documentChatbot.tooltipClearHistory"))}
+                        config={configDocument(onCloseAction,
+                            t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}),
+                            t("documentChatbot.tooltipClearHistory"),
+                            t("documentChatbot.tooltipChatbotInfo"))}
                         messageParser={MessageParser}
                         actionProvider={ActionProviderDocument}
                         headerText={t("chat.header")}

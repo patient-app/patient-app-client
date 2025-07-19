@@ -228,7 +228,8 @@
   },
   "documentChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I assist you with understanding the document?",
-    "tooltipClearHistory": "Clear chat history"
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on the uploaded document by your coach."
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",

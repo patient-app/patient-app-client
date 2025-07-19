@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {DocumentDTO} from "@/dto/output/DocumentDTO";
 import {useRouter} from "next/navigation";
+import {File} from 'lucide-react';
 
 const DocumentsPage = () => {
     const {t} = useTranslation();
@@ -42,24 +43,30 @@ const DocumentsPage = () => {
 
     //TODO: add loading state and no documents state
     return (
-        <>
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold text-center">{t("documents.title")}</h1>
             {error && (
                 <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
                     {error}
                 </div>
             )}
-            {documents.map((individualDocument) => (
-                <button
-                    key={individualDocument.id}
-                    onClick={() => router.push(`/documents/${individualDocument.id}`)}
-                    className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
-                >
-                    <p className="font-bold">{individualDocument.filename}</p>
-                </button>
-            ))}
+            <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
 
-        </>
+                {documents.map((individualDocument) => (
+                    <button
+                        key={individualDocument.id}
+                        onClick={() => router.push(`/documents/${individualDocument.id}`)}
+                        className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                    >
+                        <div className="flex items-center gap-2">
+                            <File/>
+                            <p className="font-bold">{individualDocument.filename}</p>
+                        </div>
+                    </button>
+                ))}
+            </div>
+
+        </main>
     );
 };
 

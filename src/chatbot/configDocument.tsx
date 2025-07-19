@@ -1,5 +1,5 @@
 import {createChatBotMessage} from 'react-chatbot-kit';
-import {Repeat2, X} from 'lucide-react';
+import {Info, Repeat2, X} from 'lucide-react';
 import {CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -11,8 +11,8 @@ export const setExternalActions = (actions: any) => {
 };
 
 
-const configExercise = (
-    onClose: () => void, welcomeMessage: string, toolTipContent: string) => ({
+const configDocument = (
+    onClose: () => void, welcomeMessage: string, toolTipContent: string, toolTipChatbot: string) => ({
     initialMessages: [createChatBotMessage(welcomeMessage, {})],
     botName: CHATBOT_NAME,
     customStyles: {
@@ -40,7 +40,22 @@ const configExercise = (
             >
                 <div>{CHATBOT_NAME} AI</div>
 
-                <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Tooltip content={toolTipChatbot}>
+                        <button
+                            style={{
+                                background: "none",
+                                border: "none",
+                                color: "#514f4f",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                padding: "0 4px",
+                            }}
+                        >
+                            <Info />
+                        </button>
+                    </Tooltip>
 
                     <Tooltip content={toolTipContent}>
                         <button
@@ -55,7 +70,7 @@ const configExercise = (
                                 padding: "0 4px",
                             }}
                         >
-                            <Repeat2/>
+                            <Repeat2 />
                         </button>
                     </Tooltip>
 
@@ -71,14 +86,13 @@ const configExercise = (
                             padding: "0 4px",
                         }}
                     >
-                        <X/>
+                        <X />
                     </button>
                 </div>
             </div>
         )
-
     }
 });
 
-export default configExercise;
+export default configDocument;
 
