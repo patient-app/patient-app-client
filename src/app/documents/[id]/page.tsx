@@ -4,7 +4,6 @@ import {useTranslation} from "react-i18next";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
-import ExerciseChatbot from "@/components/ExerciseChatbot";
 import DocumentChatbot from "@/components/DocumentChatbot";
 
 const IndividualDocumentPage = () => {
@@ -29,9 +28,9 @@ const IndividualDocumentPage = () => {
                     const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
                     setDownloadUrl(url);
-                    const contentDisposition = response.headers.get("content-disposition");
-                    const match = contentDisposition?.match(/filename="(.+)"/);
-                    const extractedFileName = match?.[1] ?? "downloaded_file.docx"; //TODO: nofilename handling
+                    const disposition = response.headers.get('Content-Disposition');
+                    const match = disposition?.match(/filename="(.+)"/);
+                    const extractedFileName = match?.[1] ?? "File";
                     setFileName(extractedFileName);
                 } catch (e) {
                     console.error("Failed to fetch document: ", e);
