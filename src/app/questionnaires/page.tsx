@@ -168,6 +168,7 @@ const Questionnaires = () => {
             <h1 className="text-3xl font-semibold text-center">
                 {t("questionnaires.title")}
             </h1>
+            <p className="w-full max-w-xl text-sm text-gray-600 text-center mt-1 italic">{t("questionnaires.disclaimer")}</p>
 
             <h2 className="text-xl font-semibold text-gray-800 w-full mb-2 text-center">
                 {t("questionnaires.selection")}

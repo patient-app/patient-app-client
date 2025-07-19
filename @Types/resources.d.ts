@@ -160,6 +160,7 @@ interface Resources {
         },
         "questionnaires": {
             "title": "",
+            "disclaimer": "",
             "selection": "",
             "completed": "",
             "noTests": "",

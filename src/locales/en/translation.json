@@ -159,6 +159,7 @@
   },
   "questionnaires": {
     "title": "Questionnaires",
+    "disclaimer": "Disclaimer: These questionnaires support self-reflection but are not diagnostic tools. Please consult your coach for professional guidance.",
     "selection": "Which questionnaire/test do you want to complete?",
     "completed": "Completed questionnaires:",
     "noTests": "No questionnaires completed yet.",
