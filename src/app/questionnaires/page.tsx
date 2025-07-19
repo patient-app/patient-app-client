@@ -4,28 +4,26 @@ import { useTranslation } from "react-i18next";
 import React, {useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import {ListCheck, Play} from "lucide-react";
+import {Modal, ModalBody, ModalHeader} from "flowbite-react";
 
-interface Test {
-    name: string | "unnamed test";
+interface TestResult {
+    name: string;
+    description: string;
+    patientId: string;
+    completedAt: string;
+    questions: {
+        question: string;
+        score: number;
+    }[];
 }
-
-// interface TestResult {
-//     name: string | "unnamed test";
-//     description: string | "";
-//     patientId: number;
-//     completedAt: string;
-//     questions: [{
-//         question: string;
-//         score: number;
-//     }]
-// }
 
 const Questionnaires = () => {
     const { t } = useTranslation();
     const router = useRouter();
-    const [tests, setTests] = useState<Test[]>([]);
+    const [tests, setTests] = useState<string[]>([]);
     const [patientId, setPatientId] = useState<number | null>(null);
-    // const [testResults, setTestResults] = useState<TestResult[]>([]);
+    const [testModal, setTestModal] = useState(false);
+    const [selectedTestName, setSelectedTestName] = useState<string | null>(null);
 
     {/* 1. Fetch patientId */}
     useEffect(() => {
@@ -64,7 +62,7 @@ const Questionnaires = () => {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/coach/patients/"+ patientId + "/psychological-tests", requestInit); // TODO: insert patient's ID
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/coach/patients/"+ patientId + "/psychological-tests", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data:");
                     return;
@@ -72,7 +70,9 @@ const Questionnaires = () => {
 
                 const respo = await response.json();
                 console.log(respo);
-                // TODO: setTests(respo);
+
+                const names = (respo as { name: string }[]).map(test => test.name);
+                setTests(names);
             } catch (e) {
                 console.error(e);
                 return;
@@ -82,30 +82,96 @@ const Questionnaires = () => {
         fetchTests();
     }, [patientId]);
 
-    // TODO: Remove
+    // TODO: Remove if above API call works
     useEffect(() => {
-        setTests([
-            {
-                "name": "Example Test"
-            },
-            {
-                "name": "Example Test 2"
-            },
+
+        const response = [
             {
                 "name": "GAD-7"
+            },
+            {
+                "name": "GAD-7A"
             }
-        ]);
+        ];
+        const names = response.map(test => test.name);
+        setTests(names);
+
     }, []);
 
-    {/* 3. Loop through all tests and load the results */}
-    useEffect(() => {
-        if (!tests) return;
-        for (const test of tests) {
-            console.log("Test completed:", test.name);
-            // TODO: Create box for each test
-            // TODO: Store each result
+    const renderContent = () => {
+        if(!tests) {
+            return (
+                <div className="w-full text-center text-gray-500">
+                    {t("questionnaires.noTests")}
+                        </div>)
         }
-    }, [tests]);
+        return tests.map((test) => (
+            <div
+                key={test}
+                className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
+            >
+                <div>
+                    <p className="font-bold text-lg">{test}</p>
+                    <p className="text-sm text-gray-500">Click to view Results</p>
+                </div>
+                <button
+                    onClick={() => viewTestResults(test)}
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 transition flex items-center gap-2 cursor-pointer"
+                >
+                    {t("questionnaires.viewResults")} <ListCheck size={16} />
+                </button>
+            </div>
+        ));
+
+    }
+
+    const viewTestResults = (testName: string) => {
+        setSelectedTestName(testName);
+        setTestModal(true);
+    }
+
+    const loadTestResults = (testName: string) => {
+        // TODO: API Call
+        console.log("Loading", testName);
+        const response = [{"name":"GAD-7","description":"Over the last 2 weeks, how often have you been bothered by the following problems?","patientId":"1234512","completedAt":"2025-07-19T07:09:29.651210Z","questions":[{"question":"Feeling nervous, anxious or on edge","score":2},{"question":"Not being able to stop or control worrying","score":3},{"question":"Worrying too much about different things","score":2},{"question":"Trouble relaxing","score":0},{"question":"Being so restless that it is hard to sit still ","score":2},{"question":"Becoming easily annoyed or irritable","score":3},{"question":"Feeling afraid as if something awful might happen","score":3}]},{"name":"GAD-7","description":"Over the last 2 weeks, how often have you been bothered by the following problems?","patientId":"1234512","completedAt":"2025-07-19T07:09:47.539295Z","questions":[{"question":"Feeling nervous, anxious or on edge","score":3},{"question":"Not being able to stop or control worrying","score":3},{"question":"Worrying too much about different things","score":3},{"question":"Trouble relaxing","score":3},{"question":"Being so restless that it is hard to sit still ","score":3},{"question":"Becoming easily annoyed or irritable","score":3},{"question":"Feeling afraid as if something awful might happen","score":3}]}];
+
+        return response.map((test) => {
+            console.log("Rendering test:", test);
+            return (
+                <div
+                    key={`${test.name}-${test.completedAt}`}
+                    className="w-full p-4 border-t border-b border-gray-300 text-left"
+                >
+                    <p className="font-semibold text-lg text-center">
+                        {new Date(test.completedAt).toLocaleString("de-CH", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                        })}
+                    </p>
+                    <p className="text-base text-gray-700">{test.description}</p>
+                    <div>
+                        <ul className="list-disc ml-4 space-y-1 text-sm text-gray-800">
+                            {test.questions.map((q, index) => (
+                                <li key={index}>
+                                    <span className="font-medium">{q.question}</span>: {q.score}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <p className="text-base text-black mt-2 font-semibold">
+                        {t("questionnaires.totalScore")}
+                        <span className="text-black">
+                            {test.questions.reduce((sum, q) => sum + q.score, 0)}
+                        </span>
+                    </p>
+                </div>
+            );
+        });
+    }
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
@@ -139,20 +205,26 @@ const Questionnaires = () => {
                 {t("questionnaires.completed")}
             </h2>
 
-            <div
-                className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
+            {renderContent()}
+
+            <Modal
+                show={testModal}
+                onClose={() => setTestModal(false)}
+                size="3xl"
+                popup
             >
-                <div>
-                    <p className="font-bold text-lg">GAD-7</p>
-                    <p className="text-sm text-gray-500">Generalized Anxiety Disorder 7-item scale</p>
-                </div>
-                <button
-                    onClick={() => console.log("clicked GAD-7")}
-                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 transition flex items-center gap-2 cursor-pointer"
-                >
-                    View Results <ListCheck size={16} />
-                </button>
-            </div>
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="text-xl font-bold text-black w-full mb-2 text-center">
+                            {selectedTestName || t("questionnaires.loadingResults")}
+                        </h3>
+
+                        {selectedTestName && loadTestResults(selectedTestName)}
+
+                    </div>
+                </ModalBody>
+            </Modal>
 
         </main>
     );

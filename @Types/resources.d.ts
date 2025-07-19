@@ -161,7 +161,11 @@ interface Resources {
         "questionnaires": {
             "title": "",
             "selection": "",
-            "completed": ""
+            "completed": "",
+            "noTests": "",
+            "viewResults": "",
+            "loadingResults": "",
+            "totalScore": ""
         },
         "navigation": {
             "home": "",

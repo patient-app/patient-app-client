@@ -160,7 +160,11 @@
   "questionnaires": {
     "title": "Questionnaires",
     "selection": "Which questionnaire/test do you want to complete?",
-    "completed": "Completed questionnaires:"
+    "completed": "Completed questionnaires:",
+    "noTests": "No questionnaires completed yet.",
+    "viewResults": "View Results",
+    "loadingResults": "Loading test results...",
+    "totalScore": "Total Score: "
   },
   "navigation": {
     "home": "Home",
