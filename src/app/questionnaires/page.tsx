@@ -6,17 +6,6 @@ import { useRouter } from "next/navigation";
 import {ListCheck, Play} from "lucide-react";
 import {Modal, ModalBody, ModalHeader} from "flowbite-react";
 
-interface TestResult {
-    name: string;
-    description: string;
-    patientId: string;
-    completedAt: string;
-    questions: {
-        question: string;
-        score: number;
-    }[];
-}
-
 const Questionnaires = () => {
     const { t } = useTranslation();
     const router = useRouter();
