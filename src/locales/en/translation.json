@@ -226,11 +226,15 @@
     "location": "Location:",
     "status": "Status:"
   },
+  "documentChatbot": {
+    "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I assist you with understanding the document?",
+    "tooltipClearHistory": "Clear chat history"
+  },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
     "tooltipClearHistory": "Clear chat history"
   },
-  "actionProviderExercise": {
+  "actionProvider": {
     "error": {
       "failedToCreateConversation": "Failed to create conversation.",
       "failedToFetchPreviousMessages": "Failed to fetch previous messages.",

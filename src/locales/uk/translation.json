@@ -226,11 +226,15 @@
     "location": "Розташування:",
     "status": "Статус:"
   },
+  "documentChatbot": {
+    "welcomeMessage": "Привіт, я {{chatbotName}}. Як я можу допомогти вам зрозуміти документ?",
+    "tooltipClearHistory": "Очистити історію чату"
+  },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
     "tooltipClearHistory": "Очистити історію чату"
   },
-  "actionProviderExercise": {
+  "actionProvider": {
     "error": {
       "failedToCreateConversation": "Не вдалося створити розмову.",
       "failedToFetchPreviousMessages": "Не вдалося отримати попередні повідомлення.",

@@ -227,11 +227,15 @@ interface Resources {
             "location": "",
             "status": ""
         },
+        "documentChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": ""
+        }
         "exerciseChatbot": {
             "welcomeMessage": "",
             "tooltipClearHistory": ""
         },
-        "actionProviderExercise": {
+        "actionProvider": {
             "error": {
                 "failedToCreateConversation": "",
                 "failedToFetchPreviousMessages": "",

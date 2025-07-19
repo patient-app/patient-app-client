@@ -1,7 +1,7 @@
 "use client";
 
 import {useParams} from "next/navigation";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {ExerciseDTO} from "@/dto/output/ExerciseDTO";
 import {ExerciseElementDTO} from "@/dto/output/exercise/ExerciseElementDTO";
@@ -12,6 +12,7 @@ import ExerciseImage from "@/components/ExerciseImage";
 import ExerciseDocument from "@/components/ExerciseDocument";
 import ExerciseTextInput from "@/components/ExerciseTextInput";
 import {useTranslation} from "react-i18next";
+import ExerciseChatbot from "@/components/ExerciseChatbot";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -100,7 +101,7 @@ const ExerciseDetailPage = () => {
                     <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
                     <p className="pt-6">{exercise.description}</p>
                     <div className="w-full max-w-2xl mt-6">
-                        {exercise.exerciseElements.map(renderElement)}
+                        {/*exercise.exerciseElements.map(renderElement)*/}
                     </div>
                 </>
             ) : (
@@ -115,7 +116,12 @@ const ExerciseDetailPage = () => {
                 </div>
             )}
 
-            <HelpButton/>
+            <HelpButton chatbot={<ExerciseChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }/>
+            }/>
         </div>
     );
 };

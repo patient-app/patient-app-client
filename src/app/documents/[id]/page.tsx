@@ -3,6 +3,9 @@
 import {useTranslation} from "react-i18next";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
+import HelpButton from "@/components/HelpButton";
+import ExerciseChatbot from "@/components/ExerciseChatbot";
+import DocumentChatbot from "@/components/DocumentChatbot";
 
 const IndividualDocumentPage = () => {
     const {t} = useTranslation();
@@ -55,6 +58,12 @@ const IndividualDocumentPage = () => {
                     </a>
                 </div>
             )}
+            <HelpButton chatbot={<DocumentChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }/>
+            }/>
         </>
     );
 };
