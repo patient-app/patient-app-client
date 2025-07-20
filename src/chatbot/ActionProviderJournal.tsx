@@ -8,10 +8,11 @@ import {useTranslation} from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProviderJournal = ({createChatBotMessage, setState, children, title, content}: any) => {
+const ActionProviderJournal = ({createChatBotMessage, setState, children, getEntryData}: any) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
+    const hasPreviousMessages = useRef(false);
     const {t} = useTranslation();
 
     const params = useParams();
@@ -52,6 +53,8 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, title,
     };
 
     const fetchPreviousMessages = async (conversationId: string | null) => {
+        hasPreviousMessages.current = true;
+
         try {
             const requestInit: RequestInit = {
                 method: "GET",
@@ -109,6 +112,9 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, title,
                     return;
                 }
             }
+
+            const { title, content } = getEntryData();
+
 
             const requestInit: RequestInit = {
                 method: "POST",
@@ -196,11 +202,12 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, title,
         const initializeConversation = async () => {
             if (hasInitialized.current) return; // <- this blocks repeated calls
             hasInitialized.current = true;
-
             if (!conversationCreated && !conversationId && entryId) {
                 try {
                     const newConversationId = await createConversation();
-                    await fetchPreviousMessages(newConversationId);
+                    if(!hasPreviousMessages.current) {
+                        await fetchPreviousMessages(newConversationId);
+                    }
                 } catch (error) {
                     console.error("Failed to initialize conversation:", error);
                 }

@@ -9,6 +9,8 @@ import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
 import {CoachShareOff} from "@/components/CoachShareOff";
 import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";
+import JournalChatbot from "@/components/JournalChatbot";
+import HelpButton from "@/components/HelpButton";
 
 const JournalEntryPage = () => {
     const router = useRouter();
@@ -191,8 +193,10 @@ const JournalEntryPage = () => {
 
             </div>
 
-            <div className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
-            <div className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+            <div
+                className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+            <div
+                className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
 
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -241,6 +245,14 @@ const JournalEntryPage = () => {
                     </button>
                 </div>
             </form>
+            <HelpButton chatbot={<JournalChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }
+                getEntryData={() => ({title, content})}
+            />
+            }/>
             <Modal
                 show={backModal}
                 onClose={() => setBackModal(false)}
