@@ -1,8 +1,11 @@
-import { ImageDTO } from "./ImageDTO";
-import { InputDTO } from "./InputDTO";
-import { PdfDTO } from "./PdfDTO";
+import {TextDTO} from "@/dto/output/exercise/TextDTO";
+import { InputFieldPrivateDTO } from "./InputFieldPrivateDTO";
+import {InputFieldSharedDTO} from "@/dto/output/exercise/InputFieldSharedDTO";
+import {FileDTO} from "@/dto/output/exercise/FileDTO";
+import {ImageDTO} from "@/dto/output/exercise/ImageDTO";
+import {YoutubeDTO} from "@/dto/output/exercise/YoutubeDTO";
 
-type ElementData = ImageDTO | InputDTO | PdfDTO;
+type ElementData = TextDTO | InputFieldPrivateDTO | InputFieldSharedDTO | FileDTO | ImageDTO |YoutubeDTO;
 
 export interface ExerciseElementDTO {
     id: string;
