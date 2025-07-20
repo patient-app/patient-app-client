@@ -19,7 +19,7 @@ const documentIcon = (
     </svg>
 );
 
-export default function ExerciseDocument({
+export default function ExerciseFile({
                                              exerciseId,
                                              documentId,
                                              name,

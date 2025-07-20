@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { InputDTO } from "@/dto/output/exercise/InputDTO";
+import {useState} from "react";
 
-export default function ExerciseTextInput({
-                                              elementId,
-                                              data,
-                                          }: Readonly<{
+/*export default function ExerciseInputField({
+                                               elementId,
+                                               data,
+                                           }: Readonly<{
     elementId: string;
     data: InputDTO;
 }>) {
@@ -35,4 +34,4 @@ export default function ExerciseTextInput({
             />
         </div>
     );
-}
+}*/
