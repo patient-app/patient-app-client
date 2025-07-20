@@ -5,8 +5,10 @@ import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
 import {useEffect, useMemo, useRef, useState} from "react";
-import {MessageSquareDashed} from "lucide-react";
+import {ArrowLeft, MessageSquareDashed} from "lucide-react";
 import SharingOptionsPopup from "@/components/SharingOptionsPopup";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 export default function ChatPage() {
     const hasCreatedConversation = useRef(false);
@@ -16,6 +18,7 @@ export default function ChatPage() {
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
     const [avatar, setAvatar] = useState("none");
+    const router = useRouter();
 
     useEffect(() => {
         if (hasCreatedConversation.current) return;
@@ -103,6 +106,10 @@ export default function ChatPage() {
 
     return (
         <>
+            <ArrowLeft
+                onClick={() => router.back()}
+                className="text-gray-500 text-xl cursor-pointer"
+            />
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
             <button
                 className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"

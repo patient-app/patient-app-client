@@ -7,7 +7,7 @@ import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
-import {MessageSquareDashed, Trash2} from "lucide-react";
+import {ArrowLeft, MessageSquareDashed, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {CHATBOT_NAME} from "@/libs/constants";
 import SharingOptionsPopup from "@/components/SharingOptionsPopup";
@@ -186,6 +186,10 @@ export default function ChatPage() {
 
     return (
         <div>
+            <ArrowLeft
+                onClick={() => router.back()}
+                className="text-gray-500 text-xl cursor-pointer"
+            />
             <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
                 <input

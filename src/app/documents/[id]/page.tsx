@@ -1,13 +1,15 @@
 "use client";
 
 import {useTranslation} from "react-i18next";
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import DocumentChatbot from "@/components/DocumentChatbot";
+import {ArrowLeft} from "lucide-react";
 
 const IndividualDocumentPage = () => {
     const {t} = useTranslation();
+    const router = useRouter();
 
     const params = useParams();
     const id = params.id;
@@ -45,6 +47,10 @@ const IndividualDocumentPage = () => {
 
     return (
         <>
+            <ArrowLeft
+            onClick={() => router.back()}
+            className="text-gray-500 text-xl cursor-pointer"
+        />
             <h1 className="text-3xl font-semibold text-center mb-10">{fileName}</h1>
             {downloadUrl && (
                 <div className="text-center mt-4">
