@@ -74,10 +74,10 @@ const Exercise = () => {
             return exercises.map((exercise) => (
                 <button
                     key={exercise.id}
-                    className="w-26 h-24 bg-blue-figma shadow-md rounded-[20px] hover:bg-medium-blue-figma transition cursor-pointer p-2"
+                    className="w-26 h-24 border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     onClick={() => handleExerciseClick(exercise.id)}
                 >
-                    <p className="font-semibold line-clamp-3">{exercise.name}</p>
+                    <p className="font-semibold line-clamp-3">{exercise.exerciseTitle}</p>
                 </button>
             ));
         }
