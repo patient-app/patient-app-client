@@ -4,9 +4,8 @@ import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
-import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2, UsersRound} from "lucide-react";
-import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
-import {CoachShareOff} from "@/components/CoachShareOff";
+import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";
 
@@ -25,7 +24,6 @@ const JournalEntryPage = () => {
     const [content, setContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
-    const [aiAccessAllowed, setAiAccessAllowed] = useState(false);
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
     const [updateModal, setUpdateModal] = useState(false);
     const [backModal, setBackModal] = useState(false);
@@ -73,7 +71,6 @@ const JournalEntryPage = () => {
                     setJournalEntry(entryResponse);
                     setTitle(entryResponse.title ?? "");
                     setContent(entryResponse.content ?? "");
-                    setAiAccessAllowed(entryResponse.aiAccessAllowed ?? false);
                     setSharedWithTherapist(entryResponse.sharedWithTherapist ?? false);
                     setTags(entryResponse.tags ?? []);
                 }
@@ -113,7 +110,6 @@ const JournalEntryPage = () => {
             content,
             tags,
             sharedWithTherapist,
-            aiAccessAllowed,
         };
 
         if (!formData.title || !formData.content) {
@@ -148,7 +144,7 @@ const JournalEntryPage = () => {
     };
 
     const handleBack = () => {
-        if (title != journalEntry?.title || content != journalEntry?.content || tags != journalEntry?.tags || sharedWithTherapist != journalEntry?.sharedWithTherapist || aiAccessAllowed != journalEntry?.aiAccessAllowed) {
+        if (title != journalEntry?.title || content != journalEntry?.content || tags != journalEntry?.tags || sharedWithTherapist != journalEntry?.sharedWithTherapist) {
             setBackModal(true);
         } else {
             router.back();
@@ -162,18 +158,6 @@ const JournalEntryPage = () => {
                     onClick={handleBack}
                     className="text-gray-500 text-xl cursor-pointer"
                 />
-
-                <button
-                    className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                    onClick={() => setAiAccessAllowed(prev => !prev)}
-                >
-                    {aiAccessAllowed ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
-                    <span className="text-xs font-medium text-center">
-                        {((aiAccessAllowed) ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")).split(" ").map((word: string, idx: number) => (
-                            <div key={idx}>{word}</div>
-                        ))}
-                    </span>
-                </button>
 
                 <button
                     className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"

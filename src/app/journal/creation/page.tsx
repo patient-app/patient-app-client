@@ -3,10 +3,9 @@
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {ArrowLeft, Bot, BotOff, Eye, EyeOff, UsersRound} from "lucide-react";
-import {CoachShareOff} from "@/components/CoachShareOff";
+import {ArrowLeft, Bot, BotOff, Eye, EyeOff} from "lucide-react";
 import {JournalTag} from "@/components/JournalTag";
-import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 
 export default function JournalEntryCreationPage() {
@@ -18,7 +17,6 @@ export default function JournalEntryCreationPage() {
     const [content, setContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
-    const [aiAccessAllowed, setAiAccessAllowed] = useState(false);
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
     const [saveModal, setSaveModal] = useState(false);
     const [backModal, setBackModal] = useState(false);
@@ -58,7 +56,6 @@ export default function JournalEntryCreationPage() {
             content,
             tags,
             sharedWithTherapist,
-            aiAccessAllowed,
         };
 
         if (!formData.title || !formData.content) {
@@ -107,17 +104,6 @@ export default function JournalEntryCreationPage() {
                     onClick={handleBack}
                     className="text-gray-500 text-xl cursor-pointer"
                 />
-                <button
-                    className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                    onClick={() => setAiAccessAllowed(prev => !prev)}
-                >
-                    {aiAccessAllowed ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
-                    <span className="text-xs font-medium text-center">
-                    {((aiAccessAllowed) ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")).split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
-                </button>
 
                 <button
                     className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
