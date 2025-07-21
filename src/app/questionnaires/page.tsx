@@ -1,10 +1,21 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import {ListCheck, Play} from "lucide-react";
 import {Modal, ModalBody, ModalHeader} from "flowbite-react";
+
+interface PsychologicalTest {
+    name: string;
+    description: string;
+    patientId: string;
+    completedAt: string;
+    questions: {
+        question: string;
+        score: number;
+    }[];
+}
 
 const Questionnaires = () => {
     const { t } = useTranslation();
@@ -13,6 +24,7 @@ const Questionnaires = () => {
     const [patientId, setPatientId] = useState<number | null>(null);
     const [testModal, setTestModal] = useState(false);
     const [selectedTestName, setSelectedTestName] = useState<string | null>(null);
+    const [testResults, setTestResults] = useState<JSX.Element[] | null>(null);
 
     {/* 1. Fetch patientId */}
     useEffect(() => {
@@ -29,7 +41,6 @@ const Questionnaires = () => {
                 }
                 const patient_response = await response.json();
                 if (patient_response.id) {
-                    console.log("PatientId: " + patient_response.id);
                     setPatientId(patient_response.id);
                 }
             } catch (error) {
@@ -51,14 +62,13 @@ const Questionnaires = () => {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/coach/patients/"+ patientId + "/psychological-tests", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/"+ patientId + "/psychological-tests", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data:");
                     return;
                 }
 
                 const respo = await response.json();
-                console.log(respo);
 
                 const names = (respo as { name: string }[]).map(test => test.name);
                 setTests(names);
@@ -70,22 +80,6 @@ const Questionnaires = () => {
 
         fetchTests();
     }, [patientId]);
-
-    // TODO: Remove if above API call works
-    useEffect(() => {
-
-        const response = [
-            {
-                "name": "GAD-7"
-            },
-            {
-                "name": "GAD-7A"
-            }
-        ];
-        const names = response.map(test => test.name);
-        setTests(names);
-
-    }, []);
 
     const renderContent = () => {
         if(!tests) {
@@ -119,48 +113,77 @@ const Questionnaires = () => {
         setTestModal(true);
     }
 
-    const loadTestResults = (testName: string) => {
-        // TODO: API Call
-        console.log("Loading", testName);
-        const response = [{"name":"GAD-7","description":"Over the last 2 weeks, how often have you been bothered by the following problems?","patientId":"1234512","completedAt":"2025-07-19T07:09:29.651210Z","questions":[{"question":"Feeling nervous, anxious or on edge","score":2},{"question":"Not being able to stop or control worrying","score":3},{"question":"Worrying too much about different things","score":2},{"question":"Trouble relaxing","score":0},{"question":"Being so restless that it is hard to sit still ","score":2},{"question":"Becoming easily annoyed or irritable","score":3},{"question":"Feeling afraid as if something awful might happen","score":3}]},{"name":"GAD-7","description":"Over the last 2 weeks, how often have you been bothered by the following problems?","patientId":"1234512","completedAt":"2025-07-19T07:09:47.539295Z","questions":[{"question":"Feeling nervous, anxious or on edge","score":3},{"question":"Not being able to stop or control worrying","score":3},{"question":"Worrying too much about different things","score":3},{"question":"Trouble relaxing","score":3},{"question":"Being so restless that it is hard to sit still ","score":3},{"question":"Becoming easily annoyed or irritable","score":3},{"question":"Feeling afraid as if something awful might happen","score":3}]}];
+    const loadTestResults = React.useCallback(async (testName: string) => {
 
-        return response.map((test) => {
-            console.log("Rendering test:", test);
-            return (
-                <div
-                    key={`${test.name}-${test.completedAt}`}
-                    className="w-full p-4 border-t border-b border-gray-300 text-left"
-                >
-                    <p className="font-semibold text-lg text-center">
-                        {new Date(test.completedAt).toLocaleString("de-CH", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: false,
-                        })}
-                    </p>
-                    <p className="text-base text-gray-700">{test.description}</p>
-                    <div>
-                        <ul className="list-disc ml-4 space-y-1 text-sm text-gray-800">
-                            {test.questions.map((q, index) => (
-                                <li key={index}>
-                                    <span className="font-medium">{q.question}</span>: {q.score}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <p className="text-base text-black mt-2 font-semibold">
-                        {t("questionnaires.totalScore")}
-                        <span className="text-black">
+        try {
+            const requestInit: RequestInit = {
+                method: "GET",
+                credentials: "include",
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/"+ patientId + "/psychological-tests/" + testName, requestInit);
+            if (!response.ok) {
+                console.warn("Failed to fetch data:");
+                return;
+            }
+
+            const respo = await response.json();
+
+            return (respo as PsychologicalTest[]).slice().reverse().map((test: PsychologicalTest) => {
+                return (
+                    <div
+                        key={`${test.name}-${test.completedAt}`}
+                        className="w-full p-4 border-t border-b border-gray-300 text-left"
+                    >
+                        <p className="font-semibold text-lg text-center">
+                            {new Date(test.completedAt).toLocaleString("de-CH", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: false,
+                            })}
+                        </p>
+                        <p className="text-base text-gray-700">{test.description}</p>
+                        <div>
+                            <ul className="list-disc ml-4 space-y-1 text-sm text-gray-800">
+                                {test.questions.map((q, index) => (
+                                    <li key={index}>
+                                        <span className="font-medium">{q.question}</span>: {q.score}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <p className="text-base text-black mt-2 font-semibold">
+                            {t("questionnaires.totalScore")}
+                            <span className="text-black">
                             {test.questions.reduce((sum, q) => sum + q.score, 0)}
                         </span>
-                    </p>
-                </div>
-            );
-        });
-    }
+                        </p>
+                    </div>
+                );
+            });
+        } catch (e) {
+            console.error(e);
+            return;
+        }
+
+    }, [patientId, t]);
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            if (!selectedTestName) {
+                setTestResults(null);
+                return;
+            }
+            const results = await loadTestResults(selectedTestName);
+            setTestResults(results ?? null);
+        };
+
+        if (testModal && selectedTestName) {
+            fetchResults();
+        }
+    }, [testModal, selectedTestName, patientId, loadTestResults]);
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
@@ -210,7 +233,7 @@ const Questionnaires = () => {
                             {selectedTestName || t("questionnaires.loadingResults")}
                         </h3>
 
-                        {selectedTestName && loadTestResults(selectedTestName)}
+                        {testResults}
 
                     </div>
                 </ModalBody>
