@@ -15,10 +15,27 @@ export default function MoodTracker() {
     const {t} = useTranslation();
     const [selected, setSelected] = useState<number>(3); // Default to "Okay"
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (selected) {
-            // TODO: API Call
             console.log("Mood:", selected);
+            // TODO: Real Backend API Call
+            try {
+                const requestInit: RequestInit = {
+                    method: "PUT",
+                    credentials: "include",
+                    body: JSON.stringify({
+                        mood: selected,
+                        exercise: "asd"
+                    }),
+                    headers: {"Content-Type": "application/json"},
+                };
+
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
+
+                console.log(response);
+            } catch (e) {
+                console.error("Failed to save the mood:", e);
+            }
         }
     };
 
@@ -40,7 +57,7 @@ export default function MoodTracker() {
                         max={5}
                         value={selected}
                         onChange={(e) => setSelected(Number(e.target.value))}
-                        className="w-sm"
+                        className="w-sm cursor-pointer"
                         aria-valuemin={1}
                         aria-valuemax={5}
                         aria-valuenow={selected}
