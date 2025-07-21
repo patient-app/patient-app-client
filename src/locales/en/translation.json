@@ -93,6 +93,15 @@
       "error": {
         "fetchFailed": "Error fetching document: "
       }
+    },
+    "moodtracking": {
+      "title": "How do you feel right now?",
+      "very_unpleasant": "very unpleasant",
+      "unpleasant": "unpleasant",
+      "neutral": "neutral",
+      "pleasant": "pleasant",
+      "very_pleasant": "very pleasant",
+      "save": "Save"
     }
   },
   "chat": {

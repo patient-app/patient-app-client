@@ -93,6 +93,15 @@
       "error": {
         "fetchFailed": "Помилка отримання документа: "
       }
+    },
+    "moodtracking": {
+      "title": "Як ви почуваєтеся зараз?",
+      "very_unpleasant": "дуже неприємно",
+      "unpleasant": "неприємний",
+      "neutral": "нейтральний",
+      "pleasant": "приємний",
+      "very_pleasant": "дуже приємно",
+      "save": "Зберегти"
     }
   },
   "chat": {

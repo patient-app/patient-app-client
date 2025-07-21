@@ -94,6 +94,15 @@ interface Resources {
                 "error": {
                     "fetchFailed": ""
                 }
+            },
+            "moodtracking": {
+                "title": "",
+                "very_unpleasant": "",
+                "unpleasant": "",
+                "neutral": "",
+                "pleasant": "",
+                "very_pleasant": "",
+                "save": ""
             }
         },
         "chat": {
