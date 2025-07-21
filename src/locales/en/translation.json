@@ -118,12 +118,10 @@
     "startNewConversation": "+ Start a new conversation",
     "unnamedConversation": "Unnamed Conversation",
     "sharingoptions": {
-      "title": "Sharing Options",
-      "description": "Here you can manage what data is stored and used by the application.",
-      "shareWithCoach": "Share with Coach",
-      "useForMemory": "Use for Memory",
-      "deleteChat": "Delete Conversation",
-      "chatDeleted": "Conversation Deleted"
+      "shareWithCoach_on": "Coach Sharing on",
+      "shareWithCoach_off": "Coach Sharing off",
+      "useForAIMemory_on": "AI Memory on",
+      "useForAIMemory_off": "AI Memory off"
     }
   },
   "terms": {

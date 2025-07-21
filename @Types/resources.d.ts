@@ -119,12 +119,10 @@ interface Resources {
             "startNewConversation": "",
             "unnamedConversation": "",
             "sharingoptions": {
-                "title": "",
-                "description": "",
-                "shareWithCoach": "",
-                "useForMemory": "",
-                "deleteChat": "",
-                "chatDeleted": ""
+                "shareWithCoach_on": "",
+                "shareWithCoach_off": "",
+                "useForAIMemory_on": "",
+                "useForAIMemory_off": ""
             }
         },
         "terms": {

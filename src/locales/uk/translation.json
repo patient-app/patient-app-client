@@ -118,12 +118,10 @@
     "startNewConversation": "+ Почніть нову розмову",
     "unnamedConversation": "Розмова без назви",
     "sharingoptions": {
-      "title": "Варіанти спільного використання",
-      "description": "Тут ви можете керувати тим, які дані зберігаються і використовуються програмою.",
-      "shareWithCoach": "Поділіться з тренером",
-      "useForMemory": "Використання для пам'яті",
-      "deleteChat": "Видалити розмову",
-      "chatDeleted": "Бесіду видалено"
+      "shareWithCoach_on": "Тренер ділиться досвідом",
+      "shareWithCoach_off": "Тренер ділиться досвідом",
+      "useForAIMemory_on": "Пам'ять штучного інтелекту ввімкнена",
+      "useForAIMemory_off": "Пам'ять штучного інтелекту ввімкнена"
     }
   },
   "terms": {
