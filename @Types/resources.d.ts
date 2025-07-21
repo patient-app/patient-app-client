@@ -105,6 +105,7 @@ interface Resources {
             "deleteChat": "",
             "loadingChat": "",
             "unnamedChat": "",
+            "awaitingAnswer": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",

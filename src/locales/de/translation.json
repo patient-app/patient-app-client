@@ -104,6 +104,7 @@
     "deleteChat": "Chat löschen",
     "loadingChat": "Chat wird geladen...",
     "unnamedChat": "Unbenannte Konversation",
+    "awaitingAnswer": "Warte auf Antwort...",
     "modal": {
       "deleteWarning": "Sind Sie sicher, dass Sie diesen Chat löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
       "deleteConfirm": "Löschen bestätigen",
