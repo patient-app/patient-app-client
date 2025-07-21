@@ -178,7 +178,8 @@
     },
     "newEntry": "+ Створити новий запис у журналі",
     "searchPlaceholder": "Пошук за назвою",
-    "resetFilters": "Скинути фільтри"
+    "resetFilters": "Скинути фільтри",
+    "deleteButton": "Видалити запис"
   },
   "journalCreationEditing": {
     "error": {

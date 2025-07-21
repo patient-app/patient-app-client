@@ -4,7 +4,7 @@ import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
-import {ArrowLeft, Bot, BotOff, Trash2, UsersRound} from "lucide-react";
+import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2, UsersRound} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
 import {CoachShareOff} from "@/components/CoachShareOff";
 import {TagSelector} from "@/components/TagSelector";
@@ -156,38 +156,50 @@ const JournalEntryPage = () => {
     };
 
     return (
-        <main className="px-4 py-2 rounded-md min-h-screen">
+        <main className="px-4 py-2 rounded-md h-[100%]">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={handleBack}
                     className="text-gray-500 text-xl cursor-pointer"
                 />
-                <Trash2
-                    onClick={() => setDeleteModal(true)}
-                    className="text-red-500 hover:text-red-700 transition duration-200"
-                    size={24}
-                />
-                <div className="flex gap-3 text-gray-500">
-                    <Tooltip
-                        content={aiAccessAllowed ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")}>
-                        <button
-                            onClick={() => setAiAccessAllowed(prev => !prev)}
-                            className="cursor-pointer"
-                        >
-                            {aiAccessAllowed ? <Bot/> : <BotOff/>}
-                        </button>
-                    </Tooltip>
 
-                    <Tooltip
-                        content={sharedWithTherapist ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")}>
-                        <button
-                            onClick={() => setSharedWithTherapist(prev => !prev)}
-                            className="cursor-pointer"
-                        >
-                            {sharedWithTherapist ? <UsersRound/> : <CoachShareOff/>}
-                        </button>
-                    </Tooltip>
-                </div>
+                <button
+                    className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setAiAccessAllowed(prev => !prev)}
+                >
+                    {aiAccessAllowed ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
+                    <span className="text-xs font-medium text-center">
+                        {((aiAccessAllowed) ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")).split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
+                </button>
+
+                <button
+                    className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setSharedWithTherapist(prev => !prev)}
+                >
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                    <span className="text-xs font-medium text-center">
+                        {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
+                </button>
+
+                <button
+                    className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setDeleteModal(true)}
+                >
+                    <Trash2 size={30} strokeWidth={1.75}
+                            className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                    />
+                    <span className="text-xs font-medium text-center">
+                    {t("journal.deleteButton").split(" ").map((word: string, idx: number) => (
+                        <div key={idx}>{word}</div>
+                    ))}
+                </span>
+                </button>
 
             </div>
 
@@ -224,7 +236,7 @@ const JournalEntryPage = () => {
                     placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
-                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                    className="w-full h-[50vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">

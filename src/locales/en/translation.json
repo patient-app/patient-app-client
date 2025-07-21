@@ -178,7 +178,8 @@
     },
     "newEntry": "+ Create a new journal entry",
     "searchPlaceholder": "Search by title",
-    "resetFilters": "Reset Filters"
+    "resetFilters": "Reset Filters",
+    "deleteButton": "Delete Entry"
   },
   "journalCreationEditing": {
     "error": {
@@ -200,10 +201,10 @@
       "updateOkay": "Okay"
     },
     "tooltip": {
-      "aiAccessEnabled": "AI access is enabled.",
-      "aiAccessDisabled": "AI access is disabled.",
-      "therapistShareEnabled": "Therapist sharing is enabled.",
-      "therapistShareDisabled": "Therapist sharing is disabled."
+      "aiAccessEnabled": "AI Memory on",
+      "aiAccessDisabled": "AI Memory off",
+      "therapistShareEnabled": "Coach Sharing on",
+      "therapistShareDisabled": "Coach Sharing off"
     },
     "title": "Title",
     "note": "Note",

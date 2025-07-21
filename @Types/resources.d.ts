@@ -179,7 +179,8 @@ interface Resources {
             },
             "newEntry": "",
             "searchPlaceholder": "",
-            "resetFilters": ""
+            "resetFilters": "",
+            "deleteButton": ""
         },
         "journalCreationEditing": {
             "error": {
