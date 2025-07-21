@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import NavigationButton from "@/components/NavigationButton";
 import {MOBILE_BREAKPOINT} from "@/libs/constants";
-import {Home, MessageSquareText, Settings, Dumbbell, NotebookPen, ClipboardPen} from 'lucide-react';
+import {Home, MessageSquareText, Settings, Dumbbell, NotebookPen, File, ClipboardPen} from 'lucide-react';
 
 export default function Navigation() {
     const pathname = usePathname();
@@ -75,6 +75,14 @@ export default function Navigation() {
                 onClick={() => router.push("/questionnaires")}
                 icon={<ClipboardPen size={24} strokeWidth={2} />}
                 label={t("navigation.questionnaires")}
+                showOnMobile={true}
+            />
+            <NavigationButton
+                isMobile={isMobile}
+                href="/documents"
+                onClick={() => router.push("/documents")}
+                icon={<File size={24} strokeWidth={2} />}
+                label={t("navigation.documents")}
                 showOnMobile={true}
             />
         </>

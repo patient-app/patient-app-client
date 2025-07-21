@@ -175,7 +175,8 @@
     "logout": "Log out",
     "exercise": "Exercises",
     "journal": "Journal",
-    "questionnaires": "Questionnaires"
+    "questionnaires": "Questionnaires",
+    "documents": "Documents"
   },
   "footer": {
     "terms": "Terms of Use",
@@ -236,11 +237,16 @@
     "location": "Location:",
     "status": "Status:"
   },
+  "documentChatbot": {
+    "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I assist you with understanding the document?",
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on the uploaded document."
+  },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
     "tooltipClearHistory": "Clear chat history"
   },
-  "actionProviderExercise": {
+  "actionProvider": {
     "error": {
       "failedToCreateConversation": "Failed to create conversation.",
       "failedToFetchPreviousMessages": "Failed to fetch previous messages.",
@@ -252,5 +258,16 @@
       "errorMessage": "Sorry, I encountered an error while processing your request. Please try again later.",
       "emptyInputMessage": "Please enter something in the input box such that I can help you."
     }
+  },
+  "documents": {
+    "title": "Documents",
+    "noDocuments": "No documents available at the moment.",
+    "error": {
+      "fetchFailed": "Failed to fetch documents: ",
+      "fetchFailedTryAgain": "Failed to fetch documents, please try again."
+    }
+  },
+  "individualDocument": {
+    "download": "Download {{documentName}}"
   }
 }

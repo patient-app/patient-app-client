@@ -1,12 +1,20 @@
 "use client";
 
 
-import {useRef, useState} from "react";
-import ExerciseChatbot from "@/components/ExerciseChatbot";
+import React, {ReactElement, useRef, useState} from "react";
 import {BotMessageSquare} from "lucide-react";
 
+type ChatbotProps = {
+    isOpen: boolean;
+    onCloseAction: () => void;
+    [key: string]: unknown;
+};
 
-export default function HelpButton() {
+type HelpButtonProps = {
+    chatbot: ReactElement<ChatbotProps>;
+};
+
+export default function HelpButton({chatbot}: Readonly<HelpButtonProps>) {
     const helpRef = useRef(null);
     const [isChatbotVisible, setIsChatbotVisible] = useState(false);
 
@@ -20,7 +28,11 @@ export default function HelpButton() {
                     <BotMessageSquare className="w-11 h-11 desktop:w-13 desktop:h-13 text-white stroke-2"/>
                 </button>
             </div>
-            <ExerciseChatbot isOpen={isChatbotVisible} onCloseAction={() => setIsChatbotVisible(false)}/>
+            {isChatbotVisible &&
+                React.cloneElement(chatbot, {
+                    isOpen: true,
+                    onCloseAction : () => setIsChatbotVisible(false),
+                })}
         </div>
     )
 }
