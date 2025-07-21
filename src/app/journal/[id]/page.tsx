@@ -4,7 +4,7 @@ import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
-import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";

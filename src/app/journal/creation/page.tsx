@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {ArrowLeft, Bot, BotOff, Eye, EyeOff} from "lucide-react";
+import {ArrowLeft, Eye, EyeOff} from "lucide-react";
 import {JournalTag} from "@/components/JournalTag";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
