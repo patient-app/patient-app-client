@@ -5,17 +5,59 @@ import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
 import {useEffect, useMemo, useRef, useState} from "react";
-import {MessageSquareDashed} from "lucide-react";
-import SharingOptionsPopup from "@/components/SharingOptionsPopup";
+import {Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
+import {useRouter} from "next/navigation";
 
 export default function ChatPage() {
+    const router = useRouter();
     const hasCreatedConversation = useRef(false);
     const {t} = useTranslation();
+    const [deleteModal, setDeleteModal] = useState(false);
     const [conversationName, setConversationName] = useState<string>("");
-    const [showPopup, setShowPopup] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
     const [avatar, setAvatar] = useState("none");
+    const [shareWithCoach, setShareWithCoach] = useState(false);
+    const [aiMemory, setAIMemory] = useState(false);
+
+    const toggleCoachSharing = async () => {
+        if(!conversationId) return;
+        const newValue = !shareWithCoach;
+        setShareWithCoach(newValue);
+
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: aiMemory }),
+            });
+            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + aiMemory);
+        } catch (err) {
+            console.error("Error updating shareWithCoach", err);
+            setShareWithCoach(!newValue);
+        }
+    }
+
+    const toggleAIMemory = async () => {
+        if(!conversationId) return;
+        const newValue = !aiMemory;
+        setAIMemory(newValue);
+
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ shareWithCoach: shareWithCoach, shareWithAi: newValue }),
+            });
+            console.log("Sharing Options changed: shareWithCoach to " + shareWithCoach + " useForMemory:" + newValue);
+        } catch (err) {
+            console.error("Error updating aiMemory", err);
+            setAIMemory(!newValue);
+        }
+    }
 
     useEffect(() => {
         if (hasCreatedConversation.current) return;
@@ -31,8 +73,11 @@ export default function ChatPage() {
                     },
                 });
 
+                setAIMemory(true);
+                setShareWithCoach(true);
+
                 if (response.status !== 201) {
-                    console.log(response)
+                    console.log(response);
                     return;
                 }
 
@@ -72,6 +117,25 @@ export default function ChatPage() {
         fetchAvatar();
     }, []);
 
+    const deleteChat = async () => {
+        if(!conversationId) return;
+        try {
+            const requestInit: RequestInit = {
+                method: "DELETE",
+                credentials: "include"
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/conversations/${conversationId}`, requestInit);
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.warn("Failed to delete chat:", errorData);
+            } else {
+                router.push("/chats");
+            }
+        } catch (e) {
+            console.error("Failed delete conversation:", e);
+        }
+    }
+
     const updateConversationName = async () => {
         try {
             const requestInit: RequestInit = {
@@ -104,17 +168,51 @@ export default function ChatPage() {
     return (
         <>
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-            <button
+
+            {conversationId &&
+                <button
+                    className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => toggleAIMemory()}
+                >
+                    {aiMemory ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
+                    <span className="text-xs font-medium text-center">
+                            {((aiMemory) ? t("chats.sharingoptions.useForAIMemory_on") : t("chats.sharingoptions.useForAIMemory_off")).split(" ").map((word: string, idx: number) => (
+                                <div key={idx}>{word}</div>
+                            ))}
+                        </span>
+                </button>
+            }
+
+            {conversationId &&
+                <button
+                    className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => toggleCoachSharing()}
+                >
+                    {shareWithCoach ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                    <span className="text-xs font-medium text-center">
+                            {((shareWithCoach) ? t("chats.sharingoptions.shareWithCoach_on") : t("chats.sharingoptions.shareWithCoach_off")).split(" ").map((word: string, idx: number) => (
+                                <div key={idx}>{word}</div>
+                            ))}
+                        </span>
+                </button>
+            }
+
+
+            {conversationId && <button
                 className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                onClick={() => setShowPopup(!showPopup)}
+                onClick={() => setDeleteModal(true)}
             >
-                <MessageSquareDashed size={30} strokeWidth={1.75}/>
+                <Trash2 size={30} strokeWidth={1.75}
+                        className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                />
                 <span className="text-xs font-medium text-center">
-                    {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
+                    {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
                     ))}
                 </span>
             </button>
+            }
+
             <input
                 type="text"
                 placeholder={t("chat.unnamedChat")}
@@ -130,8 +228,6 @@ export default function ChatPage() {
                 className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
             />
 
-            {showPopup && conversationId &&
-                <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={conversationId}/>}
             <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
             <div className="chatbot-wrapper chatbot-basic">
                 <Chatbot
@@ -141,6 +237,31 @@ export default function ChatPage() {
                     headerText={t("chat.header")}
                     placeholderText={t("chat.placeholder")}
                 />
+
+                <Modal
+                    show={deleteModal}
+                    onClose={() => setDeleteModal(false)}
+                    size="md"
+                    popup
+                >
+                    <ModalHeader/>
+                    <ModalBody>
+                        <div className="text-center">
+                            <h3 className="mb-5 text-lg font-normal text-gray-700">
+                                {t("chat.modal.deleteWarning")}
+                            </h3>
+                            <div className="flex justify-center gap-4">
+                                <Button className="cursor-pointer" color="red" onClick={deleteChat}>
+                                    {t("chat.modal.deleteConfirm")}
+                                </Button>
+                                <Button className="cursor-pointer" color="alternative"
+                                        onClick={() => setDeleteModal(false)}>
+                                    {t("chat.modal.deleteCancel")}
+                                </Button>
+                            </div>
+                        </div>
+                    </ModalBody>
+                </Modal>
             </div>
         </>
     );

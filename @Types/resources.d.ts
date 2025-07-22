@@ -105,6 +105,7 @@ interface Resources {
             "deleteChat": "",
             "loadingChat": "",
             "unnamedChat": "",
+            "awaitingAnswer": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",
@@ -119,12 +120,10 @@ interface Resources {
             "startNewConversation": "",
             "unnamedConversation": "",
             "sharingoptions": {
-                "title": "",
-                "description": "",
-                "shareWithCoach": "",
-                "useForMemory": "",
-                "deleteChat": "",
-                "chatDeleted": ""
+                "shareWithCoach_on": "",
+                "shareWithCoach_off": "",
+                "useForAIMemory_on": "",
+                "useForAIMemory_off": ""
             }
         },
         "terms": {
@@ -181,7 +180,8 @@ interface Resources {
             },
             "newEntry": "",
             "searchPlaceholder": "",
-            "resetFilters": ""
+            "resetFilters": "",
+            "deleteButton": ""
         },
         "journalCreationEditing": {
             "error": {
