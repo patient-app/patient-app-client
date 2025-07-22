@@ -156,6 +156,16 @@
     "avatarError": "Avatar konnte nicht gespeichert werden: ",
     "avatarTryAgain": "Avatar konnte nicht gespeichert werden, bitte versuchen Sie es erneut."
   },
+  "questionnaires": {
+    "title": "Questionnaires",
+    "disclaimer": "Disclaimer: These questionnaires support self-reflection but are not diagnostic tools. Please consult your coach for professional guidance.",
+    "selection": "Which questionnaire/test do you want to complete?",
+    "completed": "Completed questionnaires:",
+    "noTests": "No questionnaires completed yet.",
+    "viewResults": "View Results",
+    "loadingResults": "Loading test results...",
+    "totalScore": "Total Score: "
+  },
   "navigation": {
     "home": "Home",
     "chat": "Neuer Chat",
@@ -164,6 +174,7 @@
     "logout": "Log out",
     "exercise": "Übungen",
     "journal": "Journal",
+    "questionnaires": "Questionnaires",
     "documents": "Dokumente"
   },
   "footer": {
