@@ -82,7 +82,7 @@ const Questionnaires = () => {
     }, [patientId]);
 
     const renderContent = () => {
-        if(!tests) {
+        if(!tests || tests.length === 0) {
             return (
                 <div className="w-full text-center text-gray-500">
                     {t("questionnaires.noTests")}
