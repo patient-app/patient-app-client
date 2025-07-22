@@ -65,7 +65,7 @@
   },
   "home": {
     "title": "Home",
-    "welcome": "Welcome back",
+    "welcome": "Welcome",
     "error": {
       "generic": "Something went wrong"
     },
@@ -75,12 +75,30 @@
     "noConversationsYet": "No conversations yet.",
     "continueConversation": "Continue",
     "yourInformation": {
-      "title": "Your Information",
       "name": "Name: ",
       "email": "Email: ",
       "language": "Language: ",
       "avatar": "Avatar: ",
       "id": "ID: "
+    },
+    "quickJournal": {
+      "title": "Quick Journal",
+      "save": "Save",
+      "placeholder": "Write here..."
+    },
+    "lastJournal": {
+      "title": "Last Journal",
+      "noEntriesYet": "No entries yet.",
+      "newEntry": "New Entry",
+      "unnamedJournal": "Unnamed",
+      "openLast": "Open",
+      "emptyJournal": "Entry empty"
+    },
+    "exercises": {
+      "title": "Exercises"
+    },
+    "questionnaires": {
+      "title": "Questionnaires"
     }
   },
   "exercise": {

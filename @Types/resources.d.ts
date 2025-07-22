@@ -76,12 +76,30 @@ interface Resources {
             "noConversationsYet": "",
             "continueConversation": "",
             "yourInformation": {
-                "title": "",
                 "name": "",
                 "email": "",
                 "language": "",
                 "avatar": "",
                 "id": ""
+            },
+            "quickJournal": {
+                "title": "",
+                "save": "",
+                "placeholder": ""
+            },
+            "lastJournal": {
+                "title": "",
+                "noEntriesYet": "",
+                "newEntry": "",
+                "unnamedJournal": "",
+                "openLast": "",
+                "emptyJournal": ""
+            },
+            "exercises": {
+                "title": ""
+            },
+            "questionnaires": {
+                "title": ""
             }
         },
         "exercise": {

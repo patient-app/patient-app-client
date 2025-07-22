@@ -5,7 +5,8 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
-import {CircleArrowRight, MessageSquarePlus} from "lucide-react";
+import {BookPlus, CircleArrowRight, MessageSquarePlus, Save} from "lucide-react";
+import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
@@ -18,6 +19,11 @@ export default function Home() {
 
     const [lastChatId, setLastChatId] = useState<string | null>(null);
     const [lastChatName, setLastChatName] = useState<string | null>(null);
+
+    const [journalEntries, setJournalEntries] = useState<JournalEntryDTO[]>([]);
+    const [lastJournalText, setLastJournalText] = useState<string>("");
+
+    const [quickJournalContent, setQuickJournalContent] = useState<string>("");
 
     useEffect(() => {
         const fetchMyself = async () => {
@@ -77,10 +83,84 @@ export default function Home() {
         fetchMyself();
     }, [i18n, router]);
 
+    useEffect(() => {
+        const fetchJournalEntries = async () => {
+            try {
+                const requestInit: RequestInit = {
+                    method: "GET",
+                    credentials: "include"
+                };
+                const response = await fetch(
+                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries",
+                    requestInit
+                );
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Failed to fetch journal entries:", errorData.message);
+                } else {
+                    const journalResponse = await response.json();
+                    setJournalEntries(journalResponse);
+
+                    if(journalResponse.length > 0) {
+                        const requestInit2: RequestInit = {
+                            method: "GET",
+                            credentials: "include"
+                        };
+                        const lastResponse = await fetch(
+                            process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries/" + journalResponse[0].id,
+                            requestInit2
+                        );
+                        if (!lastResponse.ok) {
+                            const errorData = await response.json();
+                            console.error("Failed to fetch last journal entry:", errorData.message);
+                            return;
+                        }
+                        const lastJournalResponse = await lastResponse.json();
+                        setLastJournalText(lastJournalResponse.content);
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to fetch journal entries:", e);
+            }
+        };
+        fetchJournalEntries();
+    }, []);
+
+    const saveQuickJournal = async () => {
+        if(quickJournalContent.trim().length === 0) return;
+
+        try {
+            const requestInit: RequestInit = {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify({
+                    "title": t("home.quickJournal.title"),
+                    "content": quickJournalContent,
+                    "tags": [],
+                    "sharedWithTherapist": false
+                }),
+                headers: {"Content-Type": "application/json"},
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries", requestInit);
+            if (response.status !== 201) {
+                const errorData = await response.json();
+                console.log(errorData)
+                alert((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
+                return;
+            }
+
+            console.log("Quick Journal saved successfully");
+            router.push("/journal");
+
+        } catch (e) {
+            console.error("Failed to save the journal entry: ", e);
+        }
+
+    }
+
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
-            {mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}
 
             <MeetingComponent/>
 
@@ -89,7 +169,7 @@ export default function Home() {
 
                 {/* Tile: Your Information */}
                 <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.yourInformation.title")}</h2>
+                    <h2 className={header_class}>{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h2>
                     <div className="flex-grow flex flex-col gap-2">
                         <p><strong>{t("home.yourInformation.name")}</strong> {mePatient?.name || "unknown"}</p>
                         <p><strong>{t("home.yourInformation.email")}</strong> {mePatient?.email || "unknown"}</p>
@@ -135,11 +215,86 @@ export default function Home() {
                     </button>
                 </div>
 
+                {/* Tile: Quick Journal */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.quickJournal.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+                        <textarea
+                            placeholder={t("home.quickJournal.placeholder")}
+                            value={quickJournalContent}
+                            onChange={e => setQuickJournalContent(e.target.value)}
+                            className="w-full h-[100%] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                        />
+
+                        <button
+                            onClick={() => saveQuickJournal()}
+                            className={
+                                "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 mt-auto" +
+                                (quickJournalContent.trim().length === 0 ? " opacity-50 cursor-default" : " cursor-pointer")
+                            }
+                            disabled={quickJournalContent.trim().length === 0}
+                        >
+                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2} />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Tile: Last Journal */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.lastJournal.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+                        {journalEntries.length > 0 ?
+                            <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
+                                <p className="font-bold">{journalEntries[0].title ? journalEntries[0].title : t("home.lastJournal.unnamedJournal")}</p>
+                                <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
+                                <button
+                                    onClick={() => router.push(`/journal/${journalEntries[0].id}`)}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+                                >
+                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2} />
+                                </button>
+                            </div>
+                            :
+                            <p className="italic text-gray-500">{t("home.lastJournal.noEntriesYet")}</p>
+                        }
+                    </div>
+                    <button
+                        onClick={() => router.push('/journal/creation')}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                    >
+                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2} />
+                    </button>
+                </div>
+
+                {/* Tile: Exercises */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.exercises.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+
+
+                    </div>
+                </div>
+
+                {/* Tile: Questionnaires */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.questionnaires.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+
+
+                    </div>
+                </div>
+
+                <div
+                    className="text-sm text-gray-600 flex gap-2 justify-center">
+                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                </div>
+
             </div>
-            <div
-                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-600 flex gap-2 justify-center z-10">
-                <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
-            </div>
+
         </main>
     );
 }
