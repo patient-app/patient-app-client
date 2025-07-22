@@ -65,14 +65,45 @@
   },
   "home": {
     "title": "Home",
-    "welcome": "Willkommen zurück",
+    "welcome": "Willkommen",
     "error": {
       "generic": "Etwas ist schief gelaufen"
     },
     "logout": "Logout",
-    "lastChat": "Letzte Unterhaltung fortsetzen: ",
-    "startNewConversation": "+ Eine neue Unterhaltung beginnen",
-    "noConversationsYet": "noch keine Unterhaltungen"
+    "lastChat": "Letzte Unterhaltung",
+    "startNewConversation": "Neue Unterhaltung",
+    "noConversationsYet": "Noch keine Unterhaltungen.",
+    "continueConversation": "Fortsetzen",
+    "yourInformation": {
+      "name": "Name: ",
+      "email": "E-Mail: ",
+      "language": "Sprache: ",
+      "avatar": "Avatar: ",
+      "id": "ID: "
+    },
+    "quickJournal": {
+      "title": "Quick Journal",
+      "save": "Speichern",
+      "placeholder": "Hier schreiben..."
+    },
+    "lastJournal": {
+      "title": "Letztes Journal",
+      "noEntriesYet": "Noch keine Einträge.",
+      "newEntry": "Neuer Eintrag",
+      "unnamedJournal": "Unbenannt",
+      "openLast": "Öffnen",
+      "emptyJournal": "Eintrag leer"
+    },
+    "exercises": {
+      "title": "Übungen",
+      "noExercises": "Noch keine Übungen.",
+      "showAll": "Alle anzeigen",
+      "open": "Start"
+    },
+    "questionnaires": {
+      "title": "Questionnaires",
+      "showAll": "Alle anzeigen"
+    }
   },
   "exercise": {
     "title": "Übungen",
@@ -228,7 +259,7 @@
       "saveError": "Vergewissern Sie sich, dass Sie einen Titel und eine Notiz haben.",
       "saveOkay": "Okay",
       "deleteWarning": "Sind Sie sicher, dass Sie diesen Journaleintrag löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
-      "deleteConfirm": "Löschen Bestätigen",
+      "deleteConfirm": "Löschen bestätigen",
       "deleteCancel": "Abbrechen",
       "updateError": "Vergewissern Sie sich, dass Sie einen Titel und eine Notiz haben.",
       "updateOkay": "Okay"

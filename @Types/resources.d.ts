@@ -73,7 +73,38 @@ interface Resources {
             "logout": "",
             "lastChat": "",
             "startNewConversation": "",
-            "noConversationsYet": ""
+            "noConversationsYet": "",
+            "continueConversation": "",
+            "yourInformation": {
+                "name": "",
+                "email": "",
+                "language": "",
+                "avatar": "",
+                "id": ""
+            },
+            "quickJournal": {
+                "title": "",
+                "save": "",
+                "placeholder": ""
+            },
+            "lastJournal": {
+                "title": "",
+                "noEntriesYet": "",
+                "newEntry": "",
+                "unnamedJournal": "",
+                "openLast": "",
+                "emptyJournal": ""
+            },
+            "exercises": {
+                "title": "",
+                "noExercises": "",
+                "showAll": "",
+                "open": ""
+            },
+            "questionnaires": {
+                "title": "",
+                "showAll": ""
+            }
         },
         "exercise": {
             "title": "",
