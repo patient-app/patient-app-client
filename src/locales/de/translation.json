@@ -208,7 +208,7 @@
     "noEntries": "Noch keine Journaleinträge",
     "error": {
       "fetchFailed": "Journaleinträge konnten nicht abgerufen werden: ",
-      "failedToDelete": "Journaleintrag konnte nicht gelöscht werden: ",
+      "failedToDelete": "Journaleintrag konnte nicht gelöscht werden: "
     },
     "newEntry": "+ Neuen Journaleintrag erstellen",
     "searchPlaceholder": "Nach Titel suchen",
