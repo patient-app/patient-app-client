@@ -171,7 +171,7 @@ export default function Home() {
                 body: JSON.stringify({
                     "title": t("home.quickJournal.title"),
                     "content": quickJournalContent,
-                    "tags": [],
+                    "tags": ["QuickJournal"],
                     "sharedWithTherapist": false
                 }),
                 headers: {"Content-Type": "application/json"},
