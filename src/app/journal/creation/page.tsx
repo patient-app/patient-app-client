@@ -3,10 +3,9 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {ArrowLeft, Bot, BotOff, UsersRound} from "lucide-react";
-import {CoachShareOff} from "@/components/CoachShareOff";
+import {ArrowLeft, Eye, EyeOff} from "lucide-react";
 import {JournalTag} from "@/components/JournalTag";
-import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
@@ -23,7 +22,6 @@ export default function JournalEntryCreationPage() {
     const [chatbotContent, setChatbotContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
-    const [aiAccessAllowed, setAiAccessAllowed] = useState(false);
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
     const [saveModal, setSaveModal] = useState(false);
     const [backModal, setBackModal] = useState(false);
@@ -66,7 +64,6 @@ export default function JournalEntryCreationPage() {
                 content,
                 tags,
                 sharedWithTherapist,
-                aiAccessAllowed,
             };
 
             try {
@@ -102,7 +99,6 @@ export default function JournalEntryCreationPage() {
             content,
             tags,
             sharedWithTherapist,
-            aiAccessAllowed,
         };
 
         if (!formData.title || !formData.content) {
@@ -171,33 +167,24 @@ export default function JournalEntryCreationPage() {
     }, [chatbotTitle, chatbotContent]);
 
     return (
-        <main className="px-4 py-2 rounded-md min-h-screen">
+        <main className="px-4 py-2 rounded-md h-[100%]">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={handleBack}
                     className="text-gray-500 text-xl cursor-pointer"
                 />
-                <div className="flex gap-3 text-gray-500">
-                    <Tooltip
-                        content={aiAccessAllowed ? t("journalCreationEditing.tooltip.aiAccessEnabled") : t("journalCreationEditing.tooltip.aiAccessDisabled")}>
-                        <button
-                            onClick={() => setAiAccessAllowed(prev => !prev)}
-                            className="cursor-pointer"
-                        >
-                            {aiAccessAllowed ? <Bot/> : <BotOff/>}
-                        </button>
-                    </Tooltip>
 
-                    <Tooltip
-                        content={sharedWithTherapist ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")}>
-                        <button
-                            onClick={() => setSharedWithTherapist(prev => !prev)}
-                            className="cursor-pointer"
-                        >
-                            {sharedWithTherapist ? <UsersRound/> : <CoachShareOff/>}
-                        </button>
-                    </Tooltip>
-                </div>
+                <button
+                    className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setSharedWithTherapist(prev => !prev)}
+                >
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                    <span className="text-xs font-medium text-center">
+                    {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
+                        <div key={idx}>{word}</div>
+                    ))}
+                </span>
+                </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -231,7 +218,7 @@ export default function JournalEntryCreationPage() {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                    className="w-full h-[50vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">

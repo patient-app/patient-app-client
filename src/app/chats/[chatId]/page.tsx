@@ -7,10 +7,9 @@ import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
-import {ArrowLeft, MessageSquareDashed, Trash2} from "lucide-react";
+import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {CHATBOT_NAME} from "@/libs/constants";
-import SharingOptionsPopup from "@/components/SharingOptionsPopup";
 import Image from "next/image";
 
 export default function ChatPage() {
@@ -18,10 +17,49 @@ export default function ChatPage() {
     const {chatId} = useParams();
     const {t} = useTranslation();
     const [deleteModal, setDeleteModal] = useState(false);
-    const [showPopup, setShowPopup] = useState(false);
     const [conversationName, setConversationName] = useState<string>("");
+    const [shareWithCoach, setShareWithCoach] = useState(false);
+    const [aiMemory, setAIMemory] = useState(false);
 
     const [avatar, setAvatar] = useState("none");
+
+    const toggleCoachSharing = async () => {
+        if (!chatId) return;
+        const newValue = !shareWithCoach;
+        setShareWithCoach(newValue);
+
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: aiMemory}),
+            });
+            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + aiMemory);
+        } catch (err) {
+            console.error("Error updating shareWithCoach", err);
+            setShareWithCoach(!newValue);
+        }
+    }
+
+    const toggleAIMemory = async () => {
+        if (!chatId) return;
+        const newValue = !aiMemory;
+        setAIMemory(newValue);
+
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({shareWithCoach: shareWithCoach, shareWithAi: newValue}),
+            });
+            console.log("Sharing Options changed: shareWithCoach to " + shareWithCoach + " useForMemory:" + newValue);
+        } catch (err) {
+            console.error("Error updating aiMemory", err);
+            setAIMemory(!newValue);
+        }
+    }
 
     useEffect(() => {
         const fetchAvatar = async () => {
@@ -118,6 +156,15 @@ export default function ChatPage() {
                     const welcomeMessage = respo.welcomeMessage;
                     setConversationName(respo.name || "");
 
+                    if (typeof respo.shareWithCoach === "boolean") {
+                        setShareWithCoach(respo.shareWithCoach);
+                        console.log("shareWithCoach:", respo.shareWithCoach);
+                    }
+                    if (typeof respo.shareWithAi === "boolean") {
+                        setAIMemory(respo.shareWithAi);
+                        console.log("shareWithAi:", respo.shareWithAi);
+                    }
+
                     const messagePairs = respo.messages.map((msg: MessageDTO) => ({
                         request: msg.requestMessage,
                         response: msg.responseMessage,
@@ -206,17 +253,35 @@ export default function ChatPage() {
                     }}
                     className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
                 />
-                <button
-                    className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                    onClick={() => setShowPopup(!showPopup)}
-                >
-                    {<MessageSquareDashed size={30} strokeWidth={1.75}/>}
-                    <span className="text-xs font-medium text-center">
-                    {t("chat.sharingoptions").split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
-                </button>
+
+                {chatId &&
+                    <button
+                        className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                        onClick={() => toggleAIMemory()}
+                    >
+                        {aiMemory ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
+                        <span className="text-xs font-medium text-center">
+                            {((aiMemory) ? t("chats.sharingoptions.useForAIMemory_on") : t("chats.sharingoptions.useForAIMemory_off")).split(" ").map((word: string, idx: number) => (
+                                <div key={idx}>{word}</div>
+                            ))}
+                        </span>
+                    </button>
+                }
+
+                {chatId &&
+                    <button
+                        className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                        onClick={() => toggleCoachSharing()}
+                    >
+                        {shareWithCoach ? (<Eye size={30} strokeWidth={1.75}/>) : (
+                            <EyeOff size={30} strokeWidth={1.75}/>)}
+                        <span className="text-xs font-medium text-center">
+                            {((shareWithCoach) ? t("chats.sharingoptions.shareWithCoach_on") : t("chats.sharingoptions.shareWithCoach_off")).split(" ").map((word: string, idx: number) => (
+                                <div key={idx}>{word}</div>
+                            ))}
+                        </span>
+                    </button>
+                }
 
                 <button
                     className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
@@ -231,9 +296,6 @@ export default function ChatPage() {
                     ))}
                 </span>
                 </button>
-
-                {showPopup &&
-                    <SharingOptionsPopup onClose={() => setShowPopup(false)} conversationId={chatId as string}/>}
 
             </div>
             <span className="italic text-center text-sm text-gray-600">

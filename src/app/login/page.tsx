@@ -15,7 +15,8 @@ const Login = () => {
         const savedLang = localStorage.getItem("lang");
         if (!savedLang) {
             const browserLang = navigator.language || navigator.languages[0];
-            const preferredLang = browserLang.startsWith("uk") ? "uk" : "en";
+            let preferredLang = browserLang.startsWith("uk") ? "uk" : "en";
+            if(browserLang.startsWith("de")) preferredLang = "de";
             localStorage.setItem("lang", preferredLang);
             i18n.changeLanguage(preferredLang).then(() => {
                 setLanguageReady(true); // rerender when done
