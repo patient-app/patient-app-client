@@ -2,7 +2,7 @@
 
 import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 import {ArrowLeft, Bot, BotOff, Trash2, UsersRound} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
@@ -157,6 +157,20 @@ const JournalEntryPage = () => {
         }
     };
 
+    const titleRef = useRef(title);
+    const contentRef = useRef(content);
+
+    useEffect(() => {
+        titleRef.current = title;
+        contentRef.current = content;
+    }, [title, content]);
+
+    const getEntryData = useCallback(() => {
+        return {
+            title: titleRef.current,
+            content: contentRef.current,
+        };
+    }, []);
     return (
         <main className="px-4 py-2 rounded-md min-h-screen">
             <div className="flex justify-between items-center mb-4">
@@ -250,7 +264,7 @@ const JournalEntryPage = () => {
                 onCloseAction={() => {
                 }
                 }
-                getEntryData={() => ({title, content})}
+                getEntryData={getEntryData}
             />
             }/>
             <Modal

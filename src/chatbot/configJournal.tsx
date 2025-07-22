@@ -54,7 +54,7 @@ const configJournal = (
                                 padding: "0 4px",
                             }}
                         >
-                            <Repeat2 />
+                            <Repeat2/>
                         </button>
                     </Tooltip>
 

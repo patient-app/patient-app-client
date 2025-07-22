@@ -2,13 +2,13 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {useParams} from "next/navigation";
-import {setExternalActions} from "@/chatbot/configExercise";
+import {setExternalActions} from "@/chatbot/configJournal";
 import {CHATBOT_NAME} from "@/libs/constants";
 import {useTranslation} from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProviderJournal = ({createChatBotMessage, setState, children, getEntryData}: any) => {
+const ActionProviderJournal = ({createChatBotMessage, setState, children}: any) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
@@ -94,7 +94,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, getEnt
         }
     };
 
-    const generateAnswer = async (message: string) => {
+    const generateAnswer = async (message: string, title: string, content: string) => {
         try {
             setState((prev: { messages: any }) => ({
                 ...prev,
@@ -112,9 +112,6 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, getEnt
                     return;
                 }
             }
-
-            const { title, content } = getEntryData();
-
 
             const requestInit: RequestInit = {
                 method: "POST",
@@ -173,6 +170,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, getEnt
     };
 
     const clearHistory = async () => {
+        console.log("Clearing history for conversation ID:", conversationId);
         try {
             const requestInit: RequestInit = {
                 method: "DELETE",

@@ -1,7 +1,6 @@
 "use client";
 
 import Chatbot from "react-chatbot-kit";
-import MessageParser from "@/chatbot/MessageParser";
 import {useTranslation} from "react-i18next";
 
 import "@/chatbot/chatbot.css";
@@ -10,13 +9,15 @@ import configJournal from "@/chatbot/configJournal";
 import ActionProviderJournal from "@/chatbot/ActionProviderJournal";
 import {ComponentProps} from "react";
 import ActionProvider from "@/chatbot/ActionProvider";
+import React from "react";
+import MessageParserJournal from "@/chatbot/MessageParserJournal";
 
 
-export default function JournalChatbot({isOpen, onCloseAction, getEntryData}: Readonly<{
+const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readonly<{
     isOpen: boolean,
     onCloseAction: () => void,
     getEntryData?: () => { title: string; content: string }
-}>) {
+}>) => {
     const {t} = useTranslation();
 
     if (!isOpen) return null;
@@ -27,10 +28,10 @@ export default function JournalChatbot({isOpen, onCloseAction, getEntryData}: Re
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
                         config={configJournal(onCloseAction, t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("journalChatbot.tooltipClearHistory"))}
-                        messageParser={MessageParser}
-                        actionProvider={(props: ComponentProps<typeof ActionProvider>) => (
-                            <ActionProviderJournal {...props} getEntryData={getEntryData} />
+                        messageParser={(props: ComponentProps<typeof MessageParserJournal>) => (
+                            <MessageParserJournal {...props} getEntryData={getEntryData}/>
                         )}
+                        actionProvider={ActionProviderJournal}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}
                     />
@@ -38,4 +39,7 @@ export default function JournalChatbot({isOpen, onCloseAction, getEntryData}: Re
             </div>
         </div>
     );
-}
+});
+
+JournalChatbot.displayName = "JournalChatbot";
+export default JournalChatbot;
