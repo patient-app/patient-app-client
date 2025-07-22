@@ -70,9 +70,18 @@
       "generic": "Etwas ist schief gelaufen"
     },
     "logout": "Logout",
-    "lastChat": "Letzte Unterhaltung fortsetzen: ",
-    "startNewConversation": "+ Eine neue Unterhaltung beginnen",
-    "noConversationsYet": "noch keine Unterhaltungen"
+    "lastChat": "Letzte Unterhaltung",
+    "startNewConversation": "Neue Unterhaltung",
+    "noConversationsYet": "Noch keine Unterhaltungen.",
+    "continueConversation": "Fortsetzen",
+    "yourInformation": {
+      "title": "Ihre Informationen",
+      "name": "Name: ",
+      "email": "E-Mail: ",
+      "language": "Sprache: ",
+      "avatar": "Avatar: ",
+      "id": "ID: "
+    }
   },
   "exercise": {
     "title": "Übungen",

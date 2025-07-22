@@ -73,7 +73,16 @@ interface Resources {
             "logout": "",
             "lastChat": "",
             "startNewConversation": "",
-            "noConversationsYet": ""
+            "noConversationsYet": "",
+            "continueConversation": "",
+            "yourInformation": {
+                "title": "",
+                "name": "",
+                "email": "",
+                "language": "",
+                "avatar": "",
+                "id": ""
+            }
         },
         "exercise": {
             "title": "",

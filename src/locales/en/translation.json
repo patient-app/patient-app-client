@@ -70,9 +70,18 @@
       "generic": "Something went wrong"
     },
     "logout": "Logout",
-    "lastChat": "Continue last chat: ",
-    "startNewConversation": "+ Start a new conversation",
-    "noConversationsYet": "no conversations yet"
+    "lastChat": "Last Conversation",
+    "startNewConversation": "New Conversation",
+    "noConversationsYet": "No conversations yet.",
+    "continueConversation": "Continue",
+    "yourInformation": {
+      "title": "Your Information",
+      "name": "Name: ",
+      "email": "Email: ",
+      "language": "Language: ",
+      "avatar": "Avatar: ",
+      "id": "ID: "
+    }
   },
   "exercise": {
     "title": "Exercises",

@@ -70,9 +70,18 @@
       "generic": "Щось пішло не так"
     },
     "logout": "вийти",
-    "lastChat": "Продовження останньої розмови: ",
-    "startNewConversation": "+ Почніть нову розмову",
-    "noConversationsYet": "розмов ще не було"
+    "lastChat": "Остання розмова",
+    "startNewConversation": "Нова розмова",
+    "noConversationsYet": "Поки що ніяких розмов.",
+    "continueConversation": "Продовжуйте",
+    "yourInformation": {
+      "title": "Ваша інформація",
+      "name": "Ім'я: ",
+      "email": "Електронна пошта: ",
+      "language": "Мова: ",
+      "avatar": "Аватар: ",
+      "id": "ID: "
+    }
   },
   "exercise": {
     "title": "вправи",

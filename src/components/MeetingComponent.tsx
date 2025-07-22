@@ -35,11 +35,11 @@ const MeetingComponent = () => {
 
     return (
         <div
-            className="w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 hover:bg-gray-50 transition">
-            <h1 className="text-2xl font-semibold mb-2">{t("meetings.title")}</h1>
+            className="w-[90%] lg:w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4">
+            <h2 className="text-xl font-semibold mb-2">{t("meetings.title")}</h2>
 
             {meetings.length === 0 && (
-                <p className="text-gray-500">{t("meetings.noneFound")}</p>
+                <p className="text-gray-500 italic">{t("meetings.noneFound")}</p>
             )}
 
             {meetings
