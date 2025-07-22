@@ -84,7 +84,7 @@ const Exercise = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center">{t("exercise.title")}</h1>
+            <h1 className="text-3xl font-semibold text-center p-5">{t("exercise.title")}</h1>
             <div className="gap-4 p-4 flex flex-wrap justify-start">
                 {renderContent()}
             </div>

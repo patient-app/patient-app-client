@@ -73,7 +73,38 @@ interface Resources {
             "logout": "",
             "lastChat": "",
             "startNewConversation": "",
-            "noConversationsYet": ""
+            "noConversationsYet": "",
+            "continueConversation": "",
+            "yourInformation": {
+                "name": "",
+                "email": "",
+                "language": "",
+                "avatar": "",
+                "id": ""
+            },
+            "quickJournal": {
+                "title": "",
+                "save": "",
+                "placeholder": ""
+            },
+            "lastJournal": {
+                "title": "",
+                "noEntriesYet": "",
+                "newEntry": "",
+                "unnamedJournal": "",
+                "openLast": "",
+                "emptyJournal": ""
+            },
+            "exercises": {
+                "title": "",
+                "noExercises": "",
+                "showAll": "",
+                "open": ""
+            },
+            "questionnaires": {
+                "title": "",
+                "showAll": ""
+            }
         },
         "exercise": {
             "title": "",
@@ -105,6 +136,7 @@ interface Resources {
             "deleteChat": "",
             "loadingChat": "",
             "unnamedChat": "",
+            "awaitingAnswer": "",
             "modal": {
                 "deleteWarning": "",
                 "deleteConfirm": "",
@@ -119,12 +151,10 @@ interface Resources {
             "startNewConversation": "",
             "unnamedConversation": "",
             "sharingoptions": {
-                "title": "",
-                "description": "",
-                "shareWithCoach": "",
-                "useForMemory": "",
-                "deleteChat": "",
-                "chatDeleted": ""
+                "shareWithCoach_on": "",
+                "shareWithCoach_off": "",
+                "useForAIMemory_on": "",
+                "useForAIMemory_off": ""
             }
         },
         "terms": {
@@ -158,6 +188,37 @@ interface Resources {
             "avatarError": "",
             "avatarTryAgain": ""
         },
+        "questionnaires": {
+            "title": "",
+            "disclaimer": "",
+            "selection": "",
+            "completed": "",
+            "submit": "",
+            "noTests": "",
+            "viewResults": "",
+            "loadingResults": "",
+            "totalScore": "",
+            "GAD-7": {
+                "title": "",
+                "explanation": "",
+                "description": "",
+                "questions": [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "answers": [
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            }
+        },
         "navigation": {
             "home": "",
             "chat": "",
@@ -166,6 +227,7 @@ interface Resources {
             "logout": "",
             "exercise": "",
             "journal": "",
+            "questionnaires": "",
             "documents": ""
         },
         "footer": {
@@ -181,7 +243,8 @@ interface Resources {
             },
             "newEntry": "",
             "searchPlaceholder": "",
-            "resetFilters": ""
+            "resetFilters": "",
+            "deleteButton": ""
         },
         "journalCreationEditing": {
             "error": {

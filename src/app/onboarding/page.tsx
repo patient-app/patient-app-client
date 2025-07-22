@@ -5,13 +5,14 @@ import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import AvatarSelector from "@/components/AvatarSelector";
 
-const Login = () => {
+const Onboarding = () => {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
     const languages = [
         {id: "en", label: "English", native: "English"},
         {id: "uk", label: "Ukrainian", native: "Українська"},
+        {id: "de", label: "German", native: "Deutsch"},
     ];
     const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
     const [error, setError] = useState<string | null>(null);
@@ -213,7 +214,7 @@ const Login = () => {
             {screen === 2 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
-                    <p>{t("onboarding.termsText")}</p>
+                    <p className="max-w-[50%] text-center mx-auto">{t("onboarding.termsText")}</p>
                     <div className="text-gray-600 flex gap-2 justify-center z-10">
                     <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                     </div>
@@ -336,9 +337,6 @@ const Login = () => {
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
-                    <p><b>Role:</b> buddy<br/>
-                        <b>Gender:</b> female<br/>
-                        <b>Exercises:</b> journaling, breathing</p>
 
                     <div className="w-full flex justify-center">
                         <button
@@ -363,4 +361,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Onboarding;

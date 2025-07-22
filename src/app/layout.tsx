@@ -9,8 +9,8 @@ import TranslationsProvider from "@/libs/provider/translation-provider";
 import {ReactNode} from "react";
 import initTranslations, {i18nNamespaces} from "@/libs/i18n/i18n";
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
-const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'], preload: false });
+const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'], preload: false });
 
 export const metadata: Metadata = {
     title: "Lumina",
@@ -53,7 +53,7 @@ export default async function RootLayout({
         {/* Horizontal layout: sidebar + page content: */}
         <div className="flex min-h-screen">
             <Navigation />
-            <main className="flex-1 p-6 mt-13">{children}</main>
+            <main className="flex-1 pt-15 px-6 pb-6 h-screen overflow-y-auto">{children}</main>
         </div>
 
         </TranslationsProvider>

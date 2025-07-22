@@ -14,6 +14,7 @@ const hr_style = "w-full border-gray-300 border-1 my-2";
 const languages = [
     {id: "en", label: "English", native: "English"},
     {id: "uk", label: "Ukrainian", native: "Українська"},
+    {id: "de", label: "German", native: "Deutsch"},
 ];
 
 const rules = [
