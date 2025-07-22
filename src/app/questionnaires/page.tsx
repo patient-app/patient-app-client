@@ -95,7 +95,7 @@ const Questionnaires = () => {
             >
                 <div>
                     <p className="font-bold text-lg">{test}</p>
-                    <p className="text-sm text-gray-500">Click to view Results</p>
+                    <p className="text-sm text-gray-500">{t("questionnaires.viewResults")}</p>
                 </div>
                 <button
                     onClick={() => viewTestResults(test)}
@@ -201,8 +201,8 @@ const Questionnaires = () => {
                 className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
             >
                 <div>
-                    <p className="font-bold text-lg">GAD-7</p>
-                    <p className="text-sm text-gray-500">Generalized Anxiety Disorder 7-item scale</p>
+                    <p className="font-bold text-lg">{t("questionnaires.GAD-7.title")}</p>
+                    <p className="text-sm text-gray-500">{t("questionnaires.GAD-7.explanation")}</p>
                 </div>
                 <button
                     onClick={() => router.push("/questionnaires/GAD-7")}

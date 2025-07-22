@@ -1,16 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {Check} from "lucide-react";
 import {useRouter} from "next/navigation";
+import {useTranslation} from "react-i18next";
 
 const question_style = "block text-gray-700 mb-1 font-semibold"
 
-const title = "GAD-7"
-const description = "Over the last 2 weeks, how often have you been bothered by the following problems?"
-const questions: string[] = ["Feeling nervous, anxious or on edge", "Not being able to stop or control worrying", "Worrying too much about different things", "Trouble relaxing", "Being so restless that it is hard to sit still", "Becoming easily annoyed or irritable", "Feeling afraid as if something awful might happen"];
-
 const Questionnaires = () => {
+    const { t } = useTranslation();
+    const questions: string[] = t("questionnaires.GAD-7.questions", { returnObjects: true });
+    const answers: string[] = t("questionnaires.GAD-7.answers", { returnObjects: true });
+
     const router = useRouter();
     const [selections, setSelections] = useState<number[]>(Array(questions.length).fill(-1));
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -41,8 +42,8 @@ const Questionnaires = () => {
             method: "POST",
             credentials: "include",
             body: JSON.stringify({
-                name: title,
-                description: description,
+                name: t("questionnaires.GAD-7.title"),
+                description: t("questionnaires.GAD-7.description"),
                 questions: questions_and_scores
             }),
             headers: {"Content-Type": "application/json"},
@@ -56,11 +57,11 @@ const Questionnaires = () => {
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold text-center">
-                {title}
+                {t("questionnaires.GAD-7.title")}
             </h1>
 
             <p className="block font-semibold text-gray-700 mb-1">
-                {description}
+                {t("questionnaires.GAD-7.description")}
             </p>
 
             <hr className="w-[50%] border-gray-300 border-1 my-2" />
@@ -81,7 +82,7 @@ const Questionnaires = () => {
                                 onChange={() => handleSelection(index, 0)}
                                 className="accent-blue-500 w-5 h-5 cursor-pointer"
                             />
-                            Not at all
+                            {answers[0] || ""}
                         </label>
                         <label className="flex flex-col items-center gap-1 text-sm cursor-pointer">
                             <input
@@ -92,7 +93,7 @@ const Questionnaires = () => {
                                 onChange={() => handleSelection(index, 1)}
                                 className="accent-blue-500 w-5 h-5 cursor-pointer"
                             />
-                            Several days
+                            {answers[1] || ""}
                         </label>
                         <label className="flex flex-col items-center gap-1 text-sm cursor-pointer">
                             <input
@@ -103,7 +104,7 @@ const Questionnaires = () => {
                                 onChange={() => handleSelection(index, 2)}
                                 className="accent-blue-500 w-5 h-5 cursor-pointer"
                             />
-                            More than half the days
+                            {answers[2] || ""}
                         </label>
                         <label className="flex flex-col items-center gap-1 text-sm cursor-pointer">
                             <input
@@ -114,7 +115,7 @@ const Questionnaires = () => {
                                 onChange={() => handleSelection(index, 3)}
                                 className="accent-blue-500 w-5 h-5 cursor-pointer"
                             />
-                            Nearly every day
+                            {answers[3] || ""}
                         </label>
                     </div>
 
@@ -132,7 +133,7 @@ const Questionnaires = () => {
                 onClick={() => submitTest()}
                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
-                Submit <Check size={16} strokeWidth={3} />
+                {t("questionnaires.submit")} <Check size={16} strokeWidth={3} />
             </button>
 
         </main>

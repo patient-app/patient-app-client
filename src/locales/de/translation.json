@@ -158,13 +158,34 @@
   },
   "questionnaires": {
     "title": "Questionnaires",
-    "disclaimer": "Disclaimer: These questionnaires support self-reflection but are not diagnostic tools. Please consult your coach for professional guidance.",
-    "selection": "Which questionnaire/test do you want to complete?",
-    "completed": "Completed questionnaires:",
-    "noTests": "No questionnaires completed yet.",
-    "viewResults": "View Results",
-    "loadingResults": "Loading test results...",
-    "totalScore": "Total Score: "
+    "disclaimer": "Disclaimer: Diese Fragebögen unterstützen die Selbstreflexion, sind aber keine Diagnoseinstrumente. Bitte konsultieren Sie Ihren Coach für eine professionelle Beratung.",
+    "selection": "Welchen Fragebogen/Test möchten Sie ausfüllen?",
+    "completed": "Ausgefüllte Fragebögen:",
+    "submit": "Speichern",
+    "noTests": "Bisher wurden keine Fragebögen ausgefüllt.",
+    "viewResults": "Ergebnisse anzeigen",
+    "loadingResults": "Ergebnisse werden geladen...",
+    "totalScore": "Gesamtpunktzahl: ",
+    "GAD-7": {
+      "title": "GAD-7",
+      "explanation": "Generalisierte Angststörungsskala 7 Fragebogen",
+      "description": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+      "questions": [
+        "Nervosität, Ängstlichkeit oder Anspannung",
+        "Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren",
+        "Übermäßige Sorgen bezüglich verschiedener Angelegenheiten",
+        "Schwierigkeiten zu entspannen",
+        "Rastlosigkeit, so dass Stillsitzen schwer fällt",
+        "Schnelle Verärgerung oder Gereiztheit",
+        "Gefühl der Angst, so als würde etwas Schlimmes passieren"
+      ],
+      "answers": [
+        "Überhaupt nicht",
+        "An einzelnen Tagen",
+        "An mehr als der Hälfte der Tage",
+        "Beinahe jeden Tag"
+      ]
+    }
   },
   "navigation": {
     "home": "Home",

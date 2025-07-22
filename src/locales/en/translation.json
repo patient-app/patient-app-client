@@ -161,10 +161,31 @@
     "disclaimer": "Disclaimer: These questionnaires support self-reflection but are not diagnostic tools. Please consult your coach for professional guidance.",
     "selection": "Which questionnaire/test do you want to complete?",
     "completed": "Completed questionnaires:",
+    "submit": "Submit",
     "noTests": "No questionnaires completed yet.",
     "viewResults": "View Results",
     "loadingResults": "Loading test results...",
-    "totalScore": "Total Score: "
+    "totalScore": "Total Score: ",
+    "GAD-7": {
+      "title": "GAD-7",
+      "explanation": "Generalized Anxiety Disorder 7 Questionnaire",
+      "description": "Over the last 2 weeks, how often have you been bothered by the following problems?",
+      "questions": [
+        "Feeling nervous, anxious or on edge",
+        "Not being able to stop or control worrying",
+        "Worrying too much about different things",
+        "Trouble relaxing",
+        "Being so restless that it is hard to sit still",
+        "Becoming easily annoyed or irritable",
+        "Feeling afraid as if something awful might happen"
+      ],
+      "answers": [
+        "Not at all",
+        "Several days",
+        "More than half the days",
+        "Nearly every day"
+      ]
+    }
   },
   "navigation": {
     "home": "Home",

@@ -162,10 +162,31 @@ interface Resources {
             "disclaimer": "",
             "selection": "",
             "completed": "",
+            "submit": "",
             "noTests": "",
             "viewResults": "",
             "loadingResults": "",
-            "totalScore": ""
+            "totalScore": "",
+            "GAD-7": {
+                "title": "",
+                "explanation": "",
+                "description": "",
+                "questions": [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "answers": [
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            }
         },
         "navigation": {
             "home": "",
