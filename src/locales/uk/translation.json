@@ -101,7 +101,8 @@
       "open": "Старт"
     },
     "questionnaires": {
-      "title": "Анкети"
+      "title": "Анкети",
+      "showAll": "Показати всі"
     }
   },
   "exercise": {

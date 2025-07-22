@@ -101,7 +101,8 @@
       "open": "Start"
     },
     "questionnaires": {
-      "title": "Questionnaires"
+      "title": "Questionnaires",
+      "showAll": "Show all"
     }
   },
   "exercise": {

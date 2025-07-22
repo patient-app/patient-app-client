@@ -349,7 +349,12 @@ export default function Home() {
                                 Start <Play size={16} />
                             </button>
                         </div>
-
+                        <button
+                            onClick={() => router.push('/questionnaires')}
+                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                        >
+                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                        </button>
                     </div>
                 </div>
 

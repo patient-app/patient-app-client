@@ -102,7 +102,8 @@ interface Resources {
                 "open": ""
             },
             "questionnaires": {
-                "title": ""
+                "title": "",
+                "showAll": ""
             }
         },
         "exercise": {
