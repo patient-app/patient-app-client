@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
-import {BookPlus, CircleArrowRight, MessageSquarePlus, Save} from "lucide-react";
+import {BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
@@ -283,7 +283,20 @@ export default function Home() {
                     <h2 className={header_class}>{t("home.questionnaires.title")}</h2>
                     <div className="flex-grow flex flex-col gap-2">
 
-
+                        <div
+                            className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
+                        >
+                            <div>
+                                <p className="font-bold text-lg">{t("questionnaires.GAD-7.title")}</p>
+                                <p className="text-sm text-gray-500">{t("questionnaires.GAD-7.explanation")}</p>
+                            </div>
+                            <button
+                                onClick={() => router.push("/questionnaires/GAD-7")}
+                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                            >
+                                Start <Play size={16} />
+                            </button>
+                        </div>
 
                     </div>
                 </div>
