@@ -95,7 +95,10 @@
       "emptyJournal": "Запис порожній"
     },
     "exercises": {
-      "title": "Вправи"
+      "title": "Вправи",
+      "noExercises": "Поки що ніяких вправ.",
+      "showAll": "Показати всі",
+      "open": "Відкрито"
     },
     "questionnaires": {
       "title": "Анкети"

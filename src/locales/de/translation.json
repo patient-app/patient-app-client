@@ -95,7 +95,10 @@
       "emptyJournal": "Eintrag leer"
     },
     "exercises": {
-      "title": "Übungen"
+      "title": "Übungen",
+      "noExercises": "Noch keine Übungen.",
+      "showAll": "Alle anzeigen",
+      "open": "Öffnen"
     },
     "questionnaires": {
       "title": "Questionnaires"

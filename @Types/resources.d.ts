@@ -96,7 +96,10 @@ interface Resources {
                 "emptyJournal": ""
             },
             "exercises": {
-                "title": ""
+                "title": "",
+                "noExercises": "",
+                "showAll": "",
+                "open": ""
             },
             "questionnaires": {
                 "title": ""

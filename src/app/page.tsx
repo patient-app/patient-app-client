@@ -25,6 +25,14 @@ export default function Home() {
 
     const [quickJournalContent, setQuickJournalContent] = useState<string>("");
 
+    interface ExerciseDTO {
+        id: string;
+        exerciseTitle: string;
+        exerciseDescription: string;
+    }
+
+    const [exercises, setExercises] = useState<ExerciseDTO[]>([])
+
     useEffect(() => {
         const fetchMyself = async () => {
             try {
@@ -124,6 +132,33 @@ export default function Home() {
             }
         };
         fetchJournalEntries();
+    }, []);
+
+    useEffect(() => {
+        const fetchExercises = async () => {
+            try {
+                const requestInit: RequestInit = {
+                    method: "GET",
+                    credentials: "include"
+                };
+                const response = await fetch(
+                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/exercises",
+                    requestInit
+                );
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Failed to fetch exercises:", errorData.message);
+                    return;
+                }
+
+                const exerciseResponse = await response.json();
+                setExercises(exerciseResponse);
+
+            } catch (e) {
+                console.error("Failed to fetch journal entries:", e);
+            }
+        }
+            fetchExercises();
     }, []);
 
     const saveQuickJournal = async () => {
@@ -271,11 +306,29 @@ export default function Home() {
                 {/* Tile: Exercises */}
                 <div className={tile_class}>
                     <h2 className={header_class}>{t("home.exercises.title")}</h2>
-                    <div className="flex-grow flex flex-col gap-2">
-
-
-
+                    <div className="flex-grow flex flex-col mb-1 overflow-y-auto gap-2">
+                        {exercises.length > 0 ? (
+                            exercises.map((exercise) => (
+                                <div key={exercise.id} className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
+                                    <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
+                                    <button
+                                        onClick={() => router.push("/exercise/" + exercise.id)}
+                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                                    >
+                                        {t("home.exercises.open")} <CircleArrowRight size={16} />
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="italic text-gray-500">{t("home.exercises.noExercises")}</p>
+                        )}
                     </div>
+                    <button
+                        onClick={() => router.push('/exercise')}
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                    >
+                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                    </button>
                 </div>
 
                 {/* Tile: Questionnaires */}
