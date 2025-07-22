@@ -1,8 +1,8 @@
-import { ExerciseElementDTO } from './exercise/ExerciseElementDTO';
+import { ExerciseComponentsDTO } from './ExerciseComponentsDTO';
 
 export interface ExerciseDTO {
     exerciseExecutionId: string;
     exerciseTitle: string;
     exerciseDescription: string;
-    exerciseElements: ExerciseElementDTO[];
+    exerciseElements: ExerciseComponentsDTO[];
 }

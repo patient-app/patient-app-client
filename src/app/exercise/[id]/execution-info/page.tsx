@@ -1,22 +1,18 @@
 "use client";
 
-import {useParams, useSearchParams} from "next/navigation";
+import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {ExerciseDTO} from "@/dto/output/exercise/ExerciseDTO";
 import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/components/ExerciseChatbot";
-import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
 
-const ExerciseDetailPage = () => {
+const ExerciseExecutionInfoPage = () => {
     const params = useParams();
-    const searchParams = useSearchParams();
-
     const id = params?.id;
-    const title = searchParams.get('title');
 
     const [error, setError] = useState<string | null>(null);
-    const [exercise, setExercise] = useState<IndividualExerciseOverviewDTO | null>(null);
+    const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
 
     const {t} = useTranslation();
 
@@ -36,7 +32,7 @@ const ExerciseDetailPage = () => {
                     const errorData = await response.json();
                     setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
-                    const exerciseData: IndividualExerciseOverviewDTO = await response.json();
+                    const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
                     console.log("Exercise data:", exerciseData);
                 }
@@ -49,12 +45,61 @@ const ExerciseDetailPage = () => {
         getExercise();
     }, [id, t]);
 
+
+    /**const renderElement = (element: ExerciseComponentsDTO) => {
+     switch (element.type) {
+     case "IMAGE": {
+     const data = element.data as ImageDTO;
+     return (
+     <ExerciseImage
+     key={element.id}
+     pictureId={element.id}
+     exerciseId={id as string}
+     alt={data.alt}
+     onError={(msg) => setError(msg)}
+     />
+     );
+     }
+     case "FILE": {
+     const data = element.data as PdfDTO;
+     return (
+     <ExerciseDocument
+     key={element.id}
+     exerciseId={id as string}
+     documentId={element.id}
+     name={data.name}
+     onError={(msg) => setError(msg)}
+     />
+     );
+     }
+     case "TEXT_INPUT": {
+     const data = element.data as InputDTO;
+     return (
+     <ExerciseTextInput
+     key={element.id}
+     elementId={element.id}
+     data={data}
+     />
+     );
+     }
+     default:
+     return null;
+     }
+     }; **/
+
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start">
-            <h1 className="text-3xl font-semibold text-center">{title}</h1>
-
-            <button> </button>
-
+            {exercise ? (
+                <>
+                    <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
+                    <p className="pt-6">{exercise.description}</p>
+                    <div className="w-full max-w-2xl mt-6">
+                        {/*exercise.exerciseElements.map(renderElement)*/}
+                    </div>
+                </>
+            ) : (
+                <h1 className="text-3xl font-semibold text-center">{t("exercise.noExerciseIndividual")}</h1>
+            )}
 
 
             {error && (
@@ -74,4 +119,4 @@ const ExerciseDetailPage = () => {
     );
 };
 
-export default ExerciseDetailPage;
+export default ExerciseExecutionInfoPage;
