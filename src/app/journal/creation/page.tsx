@@ -182,8 +182,7 @@ export default function JournalEntryCreationPage() {
                 isOpen={false}
                 onCloseAction={() => {}
                 }
-                title={title}
-                content={content}
+                getEntryData={() => ({title, content})}
                 />
             }/>
             <Modal

@@ -5,20 +5,32 @@ import {useTranslation} from "react-i18next";
 
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
-import configJournal from "@/chatbot/configJournal";
-import ActionProviderJournal from "@/chatbot/ActionProviderJournal";
-import {ComponentProps} from "react";
-import ActionProvider from "@/chatbot/ActionProvider";
-import React from "react";
-import MessageParserJournal from "@/chatbot/MessageParserJournal";
+import configJournal from "@/chatbot/journal/configJournal";
+import ActionProviderJournal from "@/chatbot/journal/ActionProviderJournal";
+import React, {ComponentProps, useMemo} from "react";
+import MessageParserJournal from "@/chatbot/journal/MessageParserJournal";
 
+type Props = {
+    isOpen: boolean;
+    onCloseAction: () => void;
+    getEntryData: () => { title: string; content: string };
+};
 
-const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readonly<{
-    isOpen: boolean,
-    onCloseAction: () => void,
-    getEntryData?: () => { title: string; content: string }
-}>) => {
+const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readonly<Props>) => {
     const {t} = useTranslation();
+
+    const welcomeMessage = t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME});
+    const clearHistoryTooltip = t("journalChatbot.tooltipClearHistory");
+
+    const messageParser = useMemo(() => {
+        const WrappedMessageParser = (parserProps: ComponentProps<typeof MessageParserJournal>) => (
+            <MessageParserJournal {...parserProps} getEntryData={getEntryData}/>
+        );
+
+        WrappedMessageParser.displayName = "WrappedMessageParserJournal";
+
+        return WrappedMessageParser;
+    }, [getEntryData]);
 
     if (!isOpen) return null;
 
@@ -27,10 +39,8 @@ const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readon
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configJournal(onCloseAction, t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("journalChatbot.tooltipClearHistory"))}
-                        messageParser={(props: ComponentProps<typeof MessageParserJournal>) => (
-                            <MessageParserJournal {...props} getEntryData={getEntryData}/>
-                        )}
+                        config={configJournal(onCloseAction, welcomeMessage, clearHistoryTooltip)}
+                        messageParser={messageParser}
                         actionProvider={ActionProviderJournal}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}

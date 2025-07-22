@@ -3,8 +3,8 @@
 import Chatbot from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import {useTranslation} from "react-i18next";
-import configExercise from "@/chatbot/configExercise";
-import ActionProviderExercise from "@/chatbot/ActionProviderExercise";
+import configExercise from "@/chatbot/exercise/configExercise";
+import ActionProviderExercise from "@/chatbot/exercise/ActionProviderExercise";
 
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";

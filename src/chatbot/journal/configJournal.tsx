@@ -2,6 +2,7 @@ import {createChatBotMessage} from 'react-chatbot-kit';
 import {Repeat2, X} from 'lucide-react';
 import {CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 let externalActions: any = null;

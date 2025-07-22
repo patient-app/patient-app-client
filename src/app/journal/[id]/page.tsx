@@ -2,7 +2,7 @@
 
 import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 import {ArrowLeft, Bot, BotOff, Trash2, UsersRound} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
@@ -24,7 +24,9 @@ const JournalEntryPage = () => {
 
 
     const [title, setTitle] = useState("");
+    const [chatbotTitle, setChatbotTitle] = useState("");
     const [content, setContent] = useState("");
+    const [chatbotContent, setChatbotContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
     const [aiAccessAllowed, setAiAccessAllowed] = useState(false);
@@ -74,7 +76,9 @@ const JournalEntryPage = () => {
                     const entryResponse = await response.json();
                     setJournalEntry(entryResponse);
                     setTitle(entryResponse.title ?? "");
+                    setChatbotTitle(entryResponse.title ?? "")
                     setContent(entryResponse.content ?? "");
+                    setChatbotContent(entryResponse.content ?? "")
                     setAiAccessAllowed(entryResponse.aiAccessAllowed ?? false);
                     setSharedWithTherapist(entryResponse.sharedWithTherapist ?? false);
                     setTags(entryResponse.tags ?? []);
@@ -157,20 +161,14 @@ const JournalEntryPage = () => {
         }
     };
 
-    const titleRef = useRef(title);
-    const contentRef = useRef(content);
-
-    useEffect(() => {
-        titleRef.current = title;
-        contentRef.current = content;
-    }, [title, content]);
-
     const getEntryData = useCallback(() => {
         return {
-            title: titleRef.current,
-            content: contentRef.current,
+            title: chatbotTitle,
+            content: chatbotContent,
         };
-    }, []);
+    }, [chatbotTitle, chatbotContent]);
+
+
     return (
         <main className="px-4 py-2 rounded-md min-h-screen">
             <div className="flex justify-between items-center mb-4">
@@ -219,6 +217,7 @@ const JournalEntryPage = () => {
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
                     onChange={e => setTitle(e.target.value)}
+                    onBlur={() => setChatbotTitle(title)}
                     className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
                 />
 
@@ -242,6 +241,8 @@ const JournalEntryPage = () => {
                     placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
+                    onBlur={() => setChatbotContent(content)}
+
                     className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (

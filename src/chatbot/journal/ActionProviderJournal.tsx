@@ -2,20 +2,21 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {useParams} from "next/navigation";
-import {setExternalActions} from "@/chatbot/configExercise";
+import {setExternalActions} from "@/chatbot/journal/configJournal";
 import {CHATBOT_NAME} from "@/libs/constants";
 import {useTranslation} from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProviderExercise = ({createChatBotMessage, setState, children}: any) => {
+const ActionProviderJournal = ({createChatBotMessage, setState, children}: any) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
+    const hasPreviousMessages = useRef(false);
     const {t} = useTranslation();
 
     const params = useParams();
-    const exerciseId = params?.id;
+    const entryId = params?.id;
 
     const createConversation = async () => {
         try {
@@ -25,7 +26,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
                 headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/chatbot`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entries/${entryId}/chatbot`,
                 requestInit
             );
 
@@ -52,6 +53,8 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
     };
 
     const fetchPreviousMessages = async (conversationId: string | null) => {
+        hasPreviousMessages.current = true;
+
         try {
             const requestInit: RequestInit = {
                 method: "GET",
@@ -59,7 +62,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
                 headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercise-conversation/${conversationId}/messages`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entry-conversation/${conversationId}/messages`,
                 requestInit
             );
 
@@ -91,7 +94,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
         }
     };
 
-    const generateAnswer = async (message: string) => {
+    const generateAnswer = async (message: string, title: string, content: string) => {
         try {
             setState((prev: { messages: any }) => ({
                 ...prev,
@@ -113,12 +116,16 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
             const requestInit: RequestInit = {
                 method: "POST",
                 credentials: "include",
-                body: JSON.stringify({message}),
+                body: JSON.stringify({
+                    message,
+                    journalTitle: title,
+                    journalContent: content,
+                }),
                 headers: {"Content-Type": "application/json"},
             };
 
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercise-conversation/${currentConversationId}/messages`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entry-conversation/${currentConversationId}/messages`,
                 requestInit
             );
 
@@ -163,6 +170,7 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
     };
 
     const clearHistory = async () => {
+        console.log("Clearing history for conversation ID:", conversationId);
         try {
             const requestInit: RequestInit = {
                 method: "DELETE",
@@ -170,14 +178,14 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
                 headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercise-conversation/${conversationId}`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entry-conversation/${conversationId}`,
                 requestInit
             );
 
             if (!response.ok) {
                 throw new Error(t("actionProvider.error.failedToClearHistory"));
             }
-            const initialMessage = createChatBotMessage(t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), {})
+            const initialMessage = createChatBotMessage(t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), {})
             setState((prev: { messages: any }) => ({
                 ...prev,
                 messages: [initialMessage],
@@ -192,11 +200,12 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
         const initializeConversation = async () => {
             if (hasInitialized.current) return; // <- this blocks repeated calls
             hasInitialized.current = true;
-
-            if (!conversationCreated && !conversationId && exerciseId) {
+            if (!conversationCreated && !conversationId && entryId) {
                 try {
                     const newConversationId = await createConversation();
-                    await fetchPreviousMessages(newConversationId);
+                    if(!hasPreviousMessages.current) {
+                        await fetchPreviousMessages(newConversationId);
+                    }
                 } catch (error) {
                     console.error("Failed to initialize conversation:", error);
                 }
@@ -226,4 +235,4 @@ const ActionProviderExercise = ({createChatBotMessage, setState, children}: any)
     );
 };
 
-export default ActionProviderExercise;
+export default ActionProviderJournal;

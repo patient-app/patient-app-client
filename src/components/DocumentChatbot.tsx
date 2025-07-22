@@ -5,8 +5,8 @@ import MessageParser from "@/chatbot/MessageParser";
 import {useTranslation} from "react-i18next";
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
-import ActionProviderDocument from "@/chatbot/ActionProviderDocument";
-import configDocument from "@/chatbot/configDocument";
+import ActionProviderDocument from "@/chatbot/document/ActionProviderDocument";
+import configDocument from "@/chatbot/document/configDocument";
 
 export default function DocumentChatbot({isOpen, onCloseAction}: Readonly<{
     isOpen: boolean,
