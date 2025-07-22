@@ -140,7 +140,7 @@
     "infoText_1": "Lassen Sie uns gemeinsam an einer besseren Gesundheit arbeiten.",
     "infoText_2": "Lumina AI unterstützt Ihr Wohlbefinden und führt Sie durch personalisierte Übungen.",
     "configuredTitle": "Ihr Coach hat bereits einige Dinge für Sie festgelegt.",
-    "configuredText": "Lumina ist auf Ihre individuellen Bedürfnisse zugeschnitten. Sie können mit Ihrem Coach sprechen, um sie zu ändern. So wurde es konfiguriert:",
+    "configuredText": "Lumina ist auf Ihre individuellen Bedürfnisse zugeschnitten. Sie können mit Ihrem Coach sprechen, um sie zu ändern, und in der gesamten App Anpassungen vornehmen.",
     "finish": "Los geht's!",
     "languageSelection": "Welche Sprache möchten Sie verwenden??",
     "termsTitle": "Zuerst etwas Technisches.",
@@ -156,6 +156,37 @@
     "avatarError": "Avatar konnte nicht gespeichert werden: ",
     "avatarTryAgain": "Avatar konnte nicht gespeichert werden, bitte versuchen Sie es erneut."
   },
+  "questionnaires": {
+    "title": "Questionnaires",
+    "disclaimer": "Disclaimer: Diese Fragebögen unterstützen die Selbstreflexion, sind aber keine Diagnoseinstrumente. Bitte konsultieren Sie Ihren Coach für eine professionelle Beratung.",
+    "selection": "Welchen Fragebogen/Test möchten Sie ausfüllen?",
+    "completed": "Ausgefüllte Fragebögen:",
+    "submit": "Speichern",
+    "noTests": "Bisher wurden keine Fragebögen ausgefüllt.",
+    "viewResults": "Ergebnisse anzeigen",
+    "loadingResults": "Ergebnisse werden geladen...",
+    "totalScore": "Gesamtpunktzahl: ",
+    "GAD-7": {
+      "title": "GAD-7",
+      "explanation": "Generalisierte Angststörungsskala 7 Fragebogen",
+      "description": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+      "questions": [
+        "Nervosität, Ängstlichkeit oder Anspannung",
+        "Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren",
+        "Übermäßige Sorgen bezüglich verschiedener Angelegenheiten",
+        "Schwierigkeiten zu entspannen",
+        "Rastlosigkeit, so dass Stillsitzen schwer fällt",
+        "Schnelle Verärgerung oder Gereiztheit",
+        "Gefühl der Angst, so als würde etwas Schlimmes passieren"
+      ],
+      "answers": [
+        "Überhaupt nicht",
+        "An einzelnen Tagen",
+        "An mehr als der Hälfte der Tage",
+        "Beinahe jeden Tag"
+      ]
+    }
+  },
   "navigation": {
     "home": "Home",
     "chat": "Neuer Chat",
@@ -164,6 +195,7 @@
     "logout": "Log out",
     "exercise": "Übungen",
     "journal": "Journal",
+    "questionnaires": "Questionnaires",
     "documents": "Dokumente"
   },
   "footer": {

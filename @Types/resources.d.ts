@@ -157,6 +157,37 @@ interface Resources {
             "avatarError": "",
             "avatarTryAgain": ""
         },
+        "questionnaires": {
+            "title": "",
+            "disclaimer": "",
+            "selection": "",
+            "completed": "",
+            "submit": "",
+            "noTests": "",
+            "viewResults": "",
+            "loadingResults": "",
+            "totalScore": "",
+            "GAD-7": {
+                "title": "",
+                "explanation": "",
+                "description": "",
+                "questions": [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "answers": [
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            }
+        },
         "navigation": {
             "home": "",
             "chat": "",
@@ -165,6 +196,7 @@ interface Resources {
             "logout": "",
             "exercise": "",
             "journal": "",
+            "questionnaires": "",
             "documents": ""
         },
         "footer": {
