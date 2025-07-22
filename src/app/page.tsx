@@ -228,12 +228,11 @@ export default function Home() {
                     <h2 className={header_class}>{t("home.lastChat")}</h2>
                     <div className="flex-grow">
                         {lastChatId ?
-                            <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
+                            <div className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                 <p className="font-bold">{lastChatName ? lastChatName : t("chats.unnamedConversation")}</p>
-                                <p className="italic text-gray-400 text-sm text-center">{lastChatId}</p>
                                 <button
                                     onClick={() => router.push(`/chats/${lastChatId}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
                                 >
                                     {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2} />
                                 </button>
@@ -315,7 +314,7 @@ export default function Home() {
                                         onClick={() => router.push("/exercise/" + exercise.id)}
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
-                                        {t("home.exercises.open")} <CircleArrowRight size={16} />
+                                        {t("home.exercises.open")} <Play size={16} />
                                     </button>
                                 </div>
                             ))
