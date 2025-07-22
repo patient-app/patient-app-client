@@ -7,7 +7,6 @@ import {useTranslation} from "react-i18next";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {ArrowLeft, MessageSquareDashed} from "lucide-react";
 import SharingOptionsPopup from "@/components/SharingOptionsPopup";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 
 export default function ChatPage() {

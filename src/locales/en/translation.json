@@ -176,7 +176,8 @@
     "title": "Journal",
     "noEntries": "No journal entries yet",
     "error": {
-      "fetchFailed": "Failed to fetch journal entries: "
+      "fetchFailed": "Failed to fetch journal entries: ",
+      "failedToDelete": "Failed to delete journal entry: "
     },
     "newEntry": "+ Create a new journal entry",
     "searchPlaceholder": "Search by title",

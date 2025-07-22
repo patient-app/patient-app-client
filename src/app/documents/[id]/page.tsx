@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useParams, useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
-import DocumentChatbot from "@/components/DocumentChatbot";
+import DocumentChatbot from "@/chatbot/document/DocumentChatbot";
 import {ArrowLeft} from "lucide-react";
 
 const IndividualDocumentPage = () => {

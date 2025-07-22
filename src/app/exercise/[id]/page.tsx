@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {ExerciseDTO} from "@/dto/output/ExerciseDTO";
 import {useTranslation} from "react-i18next";
-import ExerciseChatbot from "@/components/ExerciseChatbot";
+import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {ArrowLeft} from "lucide-react";
 
 const ExerciseDetailPage = () => {

@@ -9,7 +9,7 @@ import {Button, Modal, ModalBody, ModalHeader, Tooltip} from "flowbite-react";
 import {CoachShareOff} from "@/components/CoachShareOff";
 import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";
-import JournalChatbot from "@/components/JournalChatbot";
+import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 import HelpButton from "@/components/HelpButton";
 
 const JournalEntryPage = () => {
@@ -84,7 +84,7 @@ const JournalEntryPage = () => {
                     setTags(entryResponse.tags ?? []);
                 }
             } catch (e) {
-                setError(t(""));
+                setError(t('journal.error.fetchFailed'));
                 console.error("Failed to fetch journal entry:", e);
             }
         };
@@ -106,8 +106,8 @@ const JournalEntryPage = () => {
                 router.push("/journal");
             }
         } catch (e) {
-            setError(t('journal.error.fetchFailed'));
-            console.error("Failed to fetch journal entries:", e);
+            setError(t('journal.error.failedToDelete'));
+            console.error("Failed to delete journal entries:", e);
         }
     }
 
@@ -242,7 +242,6 @@ const JournalEntryPage = () => {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-
                     className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (

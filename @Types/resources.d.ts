@@ -177,7 +177,8 @@ interface Resources {
             "title": "",
             "noEntries": "",
             "error": {
-                "fetchFailed": ""
+                "fetchFailed": "",
+                "failedToDelete": ""
             },
             "newEntry": "",
             "searchPlaceholder": "",
