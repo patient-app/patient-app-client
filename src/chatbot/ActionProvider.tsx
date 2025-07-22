@@ -1,7 +1,10 @@
 import React from 'react';
+import {useTranslation} from "react-i18next";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: any) => {
+    const {t} = useTranslation();
+
     const generateAnswer = async (message: string) => {
         try {
             // Show loading message or state if needed
@@ -51,6 +54,13 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: an
                 messages: [...prev.messages, errorMessage],
                 loading: false,
             }));
+        }
+
+        // Enable the input field once an answer is generated
+        const inputFields = document.querySelectorAll('.react-chatbot-kit-chat-input');
+        if(inputFields.length === 1) {
+            inputFields[0].removeAttribute('disabled');
+            inputFields[0].setAttribute('placeholder', t("chat.placeholder"));
         }
     };
 

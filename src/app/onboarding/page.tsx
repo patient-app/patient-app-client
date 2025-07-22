@@ -12,6 +12,7 @@ const Onboarding = () => {
     const languages = [
         {id: "en", label: "English", native: "English"},
         {id: "uk", label: "Ukrainian", native: "Українська"},
+        {id: "de", label: "German", native: "Deutsch"},
     ];
     const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
     const [error, setError] = useState<string | null>(null);

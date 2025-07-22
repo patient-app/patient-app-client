@@ -104,6 +104,7 @@
     "deleteChat": "Delete Chat",
     "loadingChat": "Loading chat...",
     "unnamedChat": "Unnamed Conversation",
+    "awaitingAnswer": "Generating answer...",
     "modal": {
       "deleteWarning": "Are you sure you want to delete this chat? This action cannot be undone.",
       "deleteConfirm": "Confirm Delete",
@@ -118,12 +119,10 @@
     "startNewConversation": "+ Start a new conversation",
     "unnamedConversation": "Unnamed Conversation",
     "sharingoptions": {
-      "title": "Sharing Options",
-      "description": "Here you can manage what data is stored and used by the application.",
-      "shareWithCoach": "Share with Coach",
-      "useForMemory": "Use for Memory",
-      "deleteChat": "Delete Conversation",
-      "chatDeleted": "Conversation Deleted"
+      "shareWithCoach_on": "Coach Sharing on",
+      "shareWithCoach_off": "Coach Sharing off",
+      "useForAIMemory_on": "AI Memory on",
+      "useForAIMemory_off": "AI Memory off"
     }
   },
   "terms": {
@@ -191,7 +190,8 @@
     },
     "newEntry": "+ Create a new journal entry",
     "searchPlaceholder": "Search by title",
-    "resetFilters": "Reset Filters"
+    "resetFilters": "Reset Filters",
+    "deleteButton": "Delete Entry"
   },
   "journalCreationEditing": {
     "error": {
@@ -213,10 +213,10 @@
       "updateOkay": "Okay"
     },
     "tooltip": {
-      "aiAccessEnabled": "AI access is enabled.",
-      "aiAccessDisabled": "AI access is disabled.",
-      "therapistShareEnabled": "Therapist sharing is enabled.",
-      "therapistShareDisabled": "Therapist sharing is disabled."
+      "aiAccessEnabled": "AI Memory on",
+      "aiAccessDisabled": "AI Memory off",
+      "therapistShareEnabled": "Coach Sharing on",
+      "therapistShareDisabled": "Coach Sharing off"
     },
     "title": "Title",
     "note": "Note",
