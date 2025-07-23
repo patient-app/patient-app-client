@@ -1,109 +1,79 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-
-const documentIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="32"
-         height="32"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         strokeWidth="2"
-         strokeLinecap="round"
-         strokeLinejoin="round"
-         className="lucide lucide-file-icon lucide-file">
-        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
-        <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
-    </svg>
-);
+import { ExerciseComponentsDTO } from "@/dto/output/exercise/ExerciseComponentsDTO";
 
 export default function ExerciseFile({
-                                             exerciseId,
-                                             documentId,
-                                             name,
-                                             onError,
-                                         }: Readonly<{
-    exerciseId: string;
-    documentId: string;
-    name: string;
+                                         component,
+                                         onError,
+                                     }: Readonly<{
+    component: ExerciseComponentsDTO;
     onError?: (error: string) => void;
 }>) {
-    const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-    const {t} = useTranslation();
 
-    useEffect(() => {
-        const fetchDocument = async () => {
-            try {
-                const requestInit: RequestInit = {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {"Content-Type": "application/pdf"},
-                };
-                const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/documents/${documentId}`,
-                    requestInit
-                );
+    if (!component.fileData || !component.fileType || !component.fileName) {
+        onError?.("Invalid file data");
+        return null;
+    }
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    const msg = t("exercise.document.error.fetchFailed") + errorData.message;
-                    onError?.(msg);
-                    console.error(msg);
-                    return;
-                }
+    const fileSrc = `data:${component.fileType};base64,${component.fileData}`;
 
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                setPdfUrl(url);
-            } catch (e) {
-                const msg = t("exercise.document.error.fetchFailed") + e;
-                onError?.(msg);
-                console.error(msg);
-            }
-        };
+    const handleDownload = () => {
+        const blob = b64toBlob(component.fileData!, component.fileType!);
+        const url = URL.createObjectURL(blob);
 
-        fetchDocument();
-
-        return () => {
-            if (pdfUrl) {
-                URL.revokeObjectURL(pdfUrl);
-            }
-        };
-    }, [exerciseId, documentId, onError, t, pdfUrl]);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = component.fileName!;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
     return (
-        <div
-            className="w-full flex items-center space-x-4 p-4 border border-gray-200 rounded-md shadow-sm mt-4">
-            <div className="mr-4">
-                {documentIcon}
-            </div>
-            <div className="flex-1">
-                <p>
-                    {name}
+        <div className="my-4 w-full">
+            {component.exerciseComponentDescription && (
+                <p className="text-lg text-gray-700 mb-2">
+                    {component.exerciseComponentDescription}
                 </p>
-                {pdfUrl ? (
-                    <div className="flex space-x-4 mt-1">
-                        <a
-                            href={pdfUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600"
-                        >
-                            {t("exercise.document.view")}
-                        </a>
-                        <a
-                            href={pdfUrl}
-                            download={name}
-                            className="text-blue-600"
-                        >
-                            {t("exercise.document.download")}
-                        </a>
-                    </div>
-                ) : null
-                }
-            </div>
+            )}
+
+            {component.fileType === "application/pdf" ? (
+                <iframe
+                    src={fileSrc}
+                    className="w-full h-[500px] rounded border"
+                    title={component.fileName}
+                />
+            ) : (
+                <p className="text-gray-500 mb-2">
+                    Preview not available for this file type.
+                </p>
+            )}
+
+            <button
+                onClick={handleDownload}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+                Download {component.fileName}
+            </button>
         </div>
     );
+}
+
+// Helper: Convert base64 to Blob
+function b64toBlob(b64Data: string, contentType = "", sliceSize = 512): Blob {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+        const byteNumbers = new Array(slice.length);
+
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
 }

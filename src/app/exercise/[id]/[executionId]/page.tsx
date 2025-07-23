@@ -12,6 +12,9 @@ import {MoodDTO} from "@/dto/input/MoodDTO";
 import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 import ExerciseText from "@/components/exerciseComponents/ExerciseText";
 import ExerciseInputField from "@/components/exerciseComponents/ExerciseInputField";
+import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
+import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
+import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -128,6 +131,30 @@ const ExerciseExecutionInfoPage = () => {
                         onError={handleComponentError}
                     />
                 );
+            }
+            case "IMAGE": {
+                return (
+                    <ExerciseImage
+                        component={element}
+                        onError={handleComponentError}
+                    />
+                );
+            }
+            case "YOUTUBE_VIDEO": {
+                return (
+                    <ExerciseYoutube
+                        component={element}
+                    />
+                )
+            }
+            case "FILE": {
+                return (
+                    <ExerciseFile
+                        component={element}
+                        onError={handleComponentError}
+                    />
+                )
+
             }
             default:
                 return null;

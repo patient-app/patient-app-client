@@ -1,18 +1,23 @@
-import {YoutubeDTO} from "@/dto/output/exercise/YoutubeDTO";
+import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 
 export default function ExerciseYoutube({
-                                              elementId,
-                                              data,
-                                          }: Readonly<{
-    elementId: string;
-    data: YoutubeDTO;
+                                            component,
+                                        }: Readonly<{
+    component: ExerciseComponentsDTO;
 }>) {
+    //TODO: add actual video URL from data
 
     return (
-        <div className="my-4 w-full">
+        <div className="my-4 w-full flex flex-col items-center gap-2">
+            {component.exerciseComponentDescription && (
+                <p className="text-lg text-gray-700 text-center">
+                    {component.exerciseComponentDescription}
+                </p>
+            )}
             <iframe
-            src="https://www.youtube.com/embed/tgbNymZ7vqY"> //TODO: add actual video URL from data
-
+                title={component.exerciseComponentDescription}
+                src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                className="w-full aspect-video">
             </iframe>
         </div>
     );

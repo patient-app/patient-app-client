@@ -6,5 +6,4 @@ export interface ExerciseComponentsDTO {
     fileType?: string;
     fileData?: string;
     orderNumber: number;
-
 }

@@ -1,59 +1,38 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 import {useTranslation} from "react-i18next";
 
-export default function ExerciseImage({exerciseId, pictureId, alt, onError}: Readonly<{
-    exerciseId: string,
-    pictureId: string,
-    alt: string,
-    onError?: (error: string) => void
+export default function ExerciseImage({component, onError}: Readonly<{
+    component: ExerciseComponentsDTO;
+    onError: (error: string) => void
 }>) {
-    const [src, setSrc] = useState<string | null>(null);
     const {t} = useTranslation();
 
+    if (!component.fileData || !component.fileType) {
+        onError(t("exercise.error.imageMissing") || "Image data is missing");
+        return null;
+    }
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            try {
-                const requestInit: RequestInit = {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {"Content-Type": "image/png"},
-                }
-                const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/${pictureId}`,
-                    requestInit
-                )
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    const msg = t("exercise.image.error.fetchFailed") + errorData.message;
-                    onError?.(msg);
-                    console.error(msg);
-                } else {
-                    const imageBlob = await response.blob();
-                    const imageURL = URL.createObjectURL(imageBlob);
-                    setSrc(imageURL)
-                }
-            } catch (e) {
-                const msg = t("exercise.image.error.fetchFailed") + e;
-                onError?.(msg);
-                console.error(msg);
-            }
-        }
-        fetchImage();
-    }, [exerciseId, onError, pictureId, t]);
 
-    return src ? (
-        <picture>
+    const imageSrc = `data:${component.fileType};base64,${component.fileData}`;
+
+    return (
+        <div className="my-4 w-full flex flex-col items-center gap-2">
+            {component.exerciseComponentDescription && (
+                <p className="text-lg text-gray-700 text-center">
+                    {component.exerciseComponentDescription}
+                </p>
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src={src}
-                alt={alt}
-                className="my-4 max-w-full h-auto"
+                src={imageSrc}
+                alt={component.exerciseComponentDescription || "Exercise Image"}
+                className="max-w-full h-auto"
+                onError={() => onError(t("exercise.error.imageLoadFailed") || "Failed to load image")}
             />
-        </picture>
-
-    ) : null;
+        </div>
+    );
 
 
 }
