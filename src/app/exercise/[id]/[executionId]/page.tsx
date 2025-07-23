@@ -16,6 +16,7 @@ import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
+import MoodTracker from "@/components/MoodTracker";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -25,16 +26,18 @@ const ExerciseExecutionInfoPage = () => {
     const executionId = params.executionId as string;
     const [backModal, setBackModal] = useState(false);
     const [feedbackModal, setFeedbackModal] = useState(false);
+    const [moodBeforeModal, setMoodBeforeModal] = useState(true);
+    const [moodAfterModal, setMoodAfterModal] = useState(false);
 
     const [error, setError] = useState<string | null>(null);
     const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
     const [moodBefore, setMoodBefore] = useState<MoodDTO>({
         moodName: "neutral",
-        moodScore: 0,
+        moodScore: 3,
     });
     const [moodAfter, setMoodAfter] = useState<MoodDTO>({
         moodName: "neutral",
-        moodScore: 0,
+        moodScore: 3,
     });
     const [feedback, setFeedback] = useState<string>("");
 
@@ -72,23 +75,15 @@ const ExerciseExecutionInfoPage = () => {
         getExercise();
     }, [id, t]);
 
-    const endExercise = async () => {
+    const endExercise = async (finalMood?: MoodDTO) => {
         //TODO: remove hardcoded mood values
-        setMoodBefore({
-            moodName: "neutral",
-            moodScore: 0
-        })
-        setMoodAfter({
-            moodName: "happy",
-            moodScore: 5
-        })
         const completionInformation: ExerciseCompletionDTO = {
             exerciseExecutionId: executionId,
             startTime: new Date().toISOString(),
             endTime: new Date().toISOString(),
             feedback: feedback,
             moodsBefore: [moodBefore],
-            moodsAfter: [moodAfter]
+            moodsAfter: [finalMood ?? moodAfter]
         };
 
 
@@ -177,7 +172,7 @@ const ExerciseExecutionInfoPage = () => {
                     className="absolute top-0 right-0 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setFeedbackModal(true)}
                 >
-                    <MessageSquareShare size={30} strokeWidth={1.75} />
+                    <MessageSquareShare size={30} strokeWidth={1.75}/>
                     <div className="text-xs font-medium text-center leading-tight">
                         {("feedback for coach").split(" ").map((word: string, idx: number) => (
                             <span key={idx} className="block">{word}</span>
@@ -207,7 +202,7 @@ const ExerciseExecutionInfoPage = () => {
             )}
 
             <button
-                onClick={endExercise}
+                onClick={setMoodAfterModal}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
                 Complete Exercise
@@ -245,8 +240,10 @@ const ExerciseExecutionInfoPage = () => {
             </Modal>
             <Modal
                 show={feedbackModal}
-                onClose={() => {setFeedback("");
-                    setFeedbackModal(false)}}
+                onClose={() => {
+                    setFeedback("");
+                    setFeedbackModal(false)
+                }}
                 size="md"
                 popup
             >
@@ -263,17 +260,41 @@ const ExerciseExecutionInfoPage = () => {
                             onChange={(e) => setFeedback(e.target.value)}
                         />
                         <div className="flex justify-center gap-4">
-                            <Button className="bg-blue-600"  onClick={() => setFeedbackModal(false)}>
+                            <Button className="bg-blue-600" onClick={() => setFeedbackModal(false)}>
                                 Save
                             </Button>
                             <Button color="alternative" onClick={() => {
                                 setFeedback("");
-                                setFeedbackModal(false)}}>
+                                setFeedbackModal(false)
+                            }}>
                                 Cancel
                             </Button>
                         </div>
                     </div>
                 </ModalBody>
+            </Modal>
+            <Modal
+                show={moodBeforeModal}
+                size="md"
+                popup
+            >
+                <MoodTracker
+                    moodAction={(mood) => setMoodBefore(mood)}
+                    closeAction={() => setMoodBeforeModal(false)}
+                />
+            </Modal>
+            <Modal
+                show={moodAfterModal}
+                size="md"
+                popup
+            >
+                <MoodTracker
+                    moodAction={(mood) => {
+                        setMoodAfter(mood);
+                        endExercise(mood);
+                    }}
+                    closeAction={() => setMoodAfterModal(false)}
+                />
             </Modal>
         </div>
     );

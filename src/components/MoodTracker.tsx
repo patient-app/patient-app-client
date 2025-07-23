@@ -11,33 +11,13 @@ const moods = [
     { value: 5, icon: "🤩", label: "very_pleasant", color: "#FED29F" },
 ];
 
-export default function MoodTracker() {
+export default function MoodTracker({moodAction, closeAction}: Readonly<{
+    moodAction: (mood: { moodName: string; moodScore: number }) => void,
+    closeAction: () => void,}>){
+
     const {t} = useTranslation();
     const [selected, setSelected] = useState<number>(3); // Default to "Okay"
 
-    const handleSubmit = async () => {
-        if (selected) {
-            console.log("Mood:", selected);
-            // TODO: Real Backend API Call
-            try {
-                const requestInit: RequestInit = {
-                    method: "PUT",
-                    credentials: "include",
-                    body: JSON.stringify({
-                        mood: selected,
-                        exercise: "asd"
-                    }),
-                    headers: {"Content-Type": "application/json"},
-                };
-
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
-
-                console.log(response);
-            } catch (e) {
-                console.error("Failed to save the mood:", e);
-            }
-        }
-    };
 
     return (
         <div
@@ -70,7 +50,11 @@ export default function MoodTracker() {
                 </div>
                 <button
                     type="submit"
-                    onClick={handleSubmit}
+                    onClick={() => {
+                        const mood = moods[selected - 1];
+                        moodAction({ moodName: mood.label, moodScore: mood.value });
+                        closeAction();
+                    }}
                     className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
                 >
                     {t("exercise.moodtracking.save")}
