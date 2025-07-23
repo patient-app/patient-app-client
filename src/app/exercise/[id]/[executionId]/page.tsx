@@ -15,6 +15,7 @@ import ExerciseInputField from "@/components/exerciseComponents/ExerciseInputFie
 import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
+import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -22,6 +23,7 @@ const ExerciseExecutionInfoPage = () => {
     const params = useParams();
     const id = params.id as string;
     const executionId = params.executionId as string;
+    const [backModal, setBackModal] = useState(false);
 
     const [error, setError] = useState<string | null>(null);
     const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
@@ -160,11 +162,12 @@ const ExerciseExecutionInfoPage = () => {
         }
     }
 
+
     return (
         <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
             <div className="relative w-full flex items-center justify-center">
                 <ArrowLeft
-                    onClick={() => router.back()}
+                    onClick={() => setBackModal(true)}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
                 <h1 className="text-3xl font-semibold text-center">SOME HEADER</h1>
@@ -203,6 +206,29 @@ const ExerciseExecutionInfoPage = () => {
                     }}
                 />
             }/>
+            <Modal
+                show={backModal}
+                onClose={() => setBackModal(false)}
+                size="md"
+                popup
+            >
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">
+                            Some text here about leaving the page
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="red" onClick={() => router.back()}>
+                                Leave Page
+                            </Button>
+                            <Button color="alternative" onClick={() => setBackModal(false)}>
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
         </div>
     );
 
