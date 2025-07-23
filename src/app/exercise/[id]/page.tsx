@@ -4,7 +4,7 @@ import {useParams, useRouter, useSearchParams} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import {useTranslation} from "react-i18next";
-import ExerciseChatbot from "@/components/ExerciseChatbot";
+import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
 import {ArrowLeft, Play} from "lucide-react";
 
