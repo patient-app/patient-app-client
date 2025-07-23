@@ -3,13 +3,12 @@
 import Chatbot from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import {useTranslation} from "react-i18next";
-import configExercise from "@/chatbot/configExercise";
-import ActionProviderExercise from "@/chatbot/ActionProviderExercise";
-
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
+import ActionProviderDocument from "@/chatbot/document/ActionProviderDocument";
+import configDocument from "@/chatbot/document/configDocument";
 
-export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
+export default function DocumentChatbot({isOpen, onCloseAction}: Readonly<{
     isOpen: boolean,
     onCloseAction: () => void,
 }>) {
@@ -22,9 +21,12 @@ export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configExercise(onCloseAction, t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("exerciseChatbot.tooltipClearHistory"))}
+                        config={configDocument(onCloseAction,
+                            t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}),
+                            t("documentChatbot.tooltipClearHistory"),
+                            t("documentChatbot.tooltipChatbotInfo"))}
                         messageParser={MessageParser}
-                        actionProvider={ActionProviderExercise}
+                        actionProvider={ActionProviderDocument}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}
                     />

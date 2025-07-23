@@ -56,6 +56,7 @@
     "email": "Email Address",
     "submit": "Reset",
     "success": "Password reset successfully!",
+    "spamInformation": "Please also check your spam/junk folder if you don't receive the email within a few minutes.",
     "error": {
       "resetFailed": "Failed to reset password: ",
       "resetTryAgain": "Failed to reset the password, please try again."
@@ -238,7 +239,8 @@
     "title": "Journal",
     "noEntries": "No journal entries yet",
     "error": {
-      "fetchFailed": "Failed to fetch journal entries: "
+      "fetchFailed": "Failed to fetch journal entries: ",
+      "failedToDelete": "Failed to delete journal entry: "
     },
     "newEntry": "+ Create a new journal entry",
     "searchPlaceholder": "Search by title",
@@ -296,6 +298,10 @@
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
+    "tooltipClearHistory": "Clear chat history"
+  },
+  "journalChatbot": {
+    "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your journaling?",
     "tooltipClearHistory": "Clear chat history"
   },
   "actionProvider": {

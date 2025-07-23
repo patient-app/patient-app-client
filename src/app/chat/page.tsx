@@ -5,6 +5,7 @@ import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
 import {useEffect, useMemo, useRef, useState} from "react";
+import {ArrowLeft} from "lucide-react";
 import {Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {useRouter} from "next/navigation";
@@ -167,6 +168,10 @@ export default function ChatPage() {
 
     return (
         <>
+            <ArrowLeft
+                onClick={() => router.back()}
+                className="text-gray-500 text-xl cursor-pointer"
+            />
             <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
 
             {conversationId &&

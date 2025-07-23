@@ -16,7 +16,7 @@ type HelpButtonProps = {
 
 export default function HelpButton({chatbot}: Readonly<HelpButtonProps>) {
     const helpRef = useRef(null);
-    const [isChatbotVisible, setIsChatbotVisible] = useState(false);
+    const [isChatbotVisible, setIsChatbotVisible] = useState(true);
 
     return (
         <div className="fixed right-4 bottom-25 desktop:bottom-10 desktop:right-10"
@@ -31,7 +31,7 @@ export default function HelpButton({chatbot}: Readonly<HelpButtonProps>) {
             {isChatbotVisible &&
                 React.cloneElement(chatbot, {
                     isOpen: true,
-                    onCloseAction : () => setIsChatbotVisible(false),
+                    onCloseAction: () => setIsChatbotVisible(false),
                 })}
         </div>
     )

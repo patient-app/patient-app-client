@@ -1,13 +1,11 @@
 "use client";
 
 import {ResetPasswordPatientDTO} from "@/dto/input/ResetPasswordPatientDTO";
-import {useRouter} from "next/navigation";
 import {useState} from "react";
 import { useTranslation } from "react-i18next";
 
 
 const Page = () => {
-    const router = useRouter();
     const { t } = useTranslation();
 
     const [formData, setFormData] = useState<ResetPasswordPatientDTO>({
@@ -38,8 +36,7 @@ const Page = () => {
                 setError(( t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
             } else {
                 setSuccess(t("reset.success"));
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                router.push("/login");
+                setFormData({ email: "" });
             }
         } catch (e) {
             setError(t("reset.error.resetTryAgain"));
@@ -82,10 +79,17 @@ const Page = () => {
                         )}
 
                         {success && (
-                            <div className="w-full mt-2 px-4 py-2 bg-emerald-100 text-bg-emerald-600 border border-emerald-300 rounded-md text-sm">
-                                {success}
-                            </div>
-                        )}
+                            <>
+                                <div
+                                    className="w-full mt-2 px-4 py-2 bg-emerald-100 text-bg-emerald-600 border border-emerald-300 rounded-md text-sm">
+                                    {success}
+                                </div>
+                                <div
+                                    className="w-full mt-2 px-4 py-2 bg-yellow-100 text-yellow-900 border border-yellow-300 rounded-md text-sm">
+                                    {t("reset.spamInformation")}
+                                </div>
+                            </>
+                    )}
 
                         <div className="flex gap-1 items-center text-base mt-2">
                             <span>{t("reset.backToLogin")} </span>

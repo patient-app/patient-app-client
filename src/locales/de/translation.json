@@ -56,6 +56,7 @@
     "email": "E-Mail-Adresse",
     "submit": "Zurücksetzen",
     "success": "Passwort erfolgreich zurückgesetzt!",
+    "spamInformation": "Bitte überprüfen Sie auch Ihren Spam-/Junk-Ordner, wenn Sie die E-Mail nicht innerhalb weniger Minuten erhalten.",
     "error": {
       "resetFailed": "Passwort konnte nicht zurückgesetzt werden: ",
       "resetTryAgain": "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut."
@@ -238,7 +239,8 @@
     "title": "Journal",
     "noEntries": "Noch keine Journaleinträge",
     "error": {
-      "fetchFailed": "Journaleinträge konnten nicht abgerufen werden: "
+      "fetchFailed": "Journaleinträge konnten nicht abgerufen werden: ",
+      "failedToDelete": "Journaleintrag konnte nicht gelöscht werden: "
     },
     "newEntry": "+ Neuen Journaleintrag erstellen",
     "searchPlaceholder": "Nach Titel suchen",
@@ -296,6 +298,10 @@
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Training helfen?",
+    "tooltipClearHistory": "Chat-Verlauf löschen"
+  },
+  "journalChatbot": {
+    "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Journal helfen?",
     "tooltipClearHistory": "Chat-Verlauf löschen"
   },
   "actionProvider": {
