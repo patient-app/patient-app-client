@@ -7,7 +7,7 @@ import {ExerciseDTO} from "@/dto/output/exercise/ExerciseDTO";
 import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {ExerciseCompletionDTO} from "@/dto/input/ExerciseCompletionDTO";
-import {ArrowLeft} from "lucide-react";
+import {ArrowLeft, MessageSquareShare} from "lucide-react";
 import {MoodDTO} from "@/dto/input/MoodDTO";
 import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 import ExerciseText from "@/components/exerciseComponents/ExerciseText";
@@ -24,6 +24,7 @@ const ExerciseExecutionInfoPage = () => {
     const id = params.id as string;
     const executionId = params.executionId as string;
     const [backModal, setBackModal] = useState(false);
+    const [feedbackModal, setFeedbackModal] = useState(false);
 
     const [error, setError] = useState<string | null>(null);
     const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
@@ -35,6 +36,7 @@ const ExerciseExecutionInfoPage = () => {
         moodName: "neutral",
         moodScore: 0,
     });
+    const [feedback, setFeedback] = useState<string>("");
 
     const {t} = useTranslation();
 
@@ -84,7 +86,7 @@ const ExerciseExecutionInfoPage = () => {
             exerciseExecutionId: executionId,
             startTime: new Date().toISOString(),
             endTime: new Date().toISOString(),
-            feedback: "Great exercise!",
+            feedback: feedback,
             moodsBefore: [moodBefore],
             moodsAfter: [moodAfter]
         };
@@ -165,13 +167,25 @@ const ExerciseExecutionInfoPage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
-            <div className="relative w-full flex items-center justify-center">
+            <div className="relative w-full flex items-center justify-center mb-3">
                 <ArrowLeft
                     onClick={() => setBackModal(true)}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
                 <h1 className="text-3xl font-semibold text-center">SOME HEADER</h1>
+                <button
+                    className="absolute top-0 right-0 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
+                    onClick={() => setFeedbackModal(true)}
+                >
+                    <MessageSquareShare size={30} strokeWidth={1.75} />
+                    <div className="text-xs font-medium text-center leading-tight">
+                        {("feedback for coach").split(" ").map((word: string, idx: number) => (
+                            <span key={idx} className="block">{word}</span>
+                        ))}
+                    </div>
+                </button>
             </div>
+
 
             {exercise && exercise.exerciseComponents && (
                 <div className="w-full flex flex-col gap-4">
@@ -223,6 +237,38 @@ const ExerciseExecutionInfoPage = () => {
                                 Leave Page
                             </Button>
                             <Button color="alternative" onClick={() => setBackModal(false)}>
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
+            <Modal
+                show={feedbackModal}
+                onClose={() => {setFeedback("");
+                    setFeedbackModal(false)}}
+                size="md"
+                popup
+            >
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">
+                            Some text here about leaving the page
+                        </h3>
+                        <input
+                            className="w-full p-2 border border-gray-300 rounded"
+                            placeholder="Please provide your feedback here..."
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                        />
+                        <div className="flex justify-center gap-4">
+                            <Button className="bg-blue-600"  onClick={() => setFeedbackModal(false)}>
+                                Save
+                            </Button>
+                            <Button color="alternative" onClick={() => {
+                                setFeedback("");
+                                setFeedbackModal(false)}}>
                                 Cancel
                             </Button>
                         </div>
