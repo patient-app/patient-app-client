@@ -1,22 +1,23 @@
 "use client";
 
-import {useParams, useSearchParams} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
+import React, {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
-import {ExerciseDTO} from "@/dto/output/exercise/ExerciseDTO";
 import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/components/ExerciseChatbot";
 import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
+import {ArrowLeft, Play} from "lucide-react";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     const id = params?.id;
     const title = searchParams.get('title');
 
     const [error, setError] = useState<string | null>(null);
-    const [exercise, setExercise] = useState<IndividualExerciseOverviewDTO | null>(null);
+    const [exercises, setExercises] = useState<IndividualExerciseOverviewDTO[]>([]);
 
     const {t} = useTranslation();
 
@@ -36,9 +37,9 @@ const ExerciseDetailPage = () => {
                     const errorData = await response.json();
                     setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
-                    const exerciseData: IndividualExerciseOverviewDTO = await response.json();
-                    setExercise(exerciseData);
-                    console.log("Exercise data:", exerciseData);
+                    const exercisesResponse = await response.json();
+                    setExercises(exercisesResponse);
+                    console.log("Exercise data:", exercisesResponse);
                 }
             } catch (e) {
                 setError(t('exercise.error.fetchFailedIndividual'));
@@ -49,12 +50,61 @@ const ExerciseDetailPage = () => {
         getExercise();
     }, [id, t]);
 
+    const startExercise = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "POST",
+                credentials: "include",
+            };
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}/start`,
+                requestInit
+            );
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`); //TODO: correct error message
+            } else {
+                const res = await response.json();
+                const exerciseExecutionId = res.exerciseExecutionId;
+                router.push(`/exercise/${id}/${exerciseExecutionId}`);
+            }
+        } catch (e) {
+            setError(t('exercise.error.fetchFailedIndividual')); //TODO: correct error message
+            console.error("Failed to start exercise", e);
+        }
+    }
+
     return (
-        <div className="min-h-screen w-full flex flex-col items-center justify-start">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5">
+            <div className="relative w-full flex items-center justify-center">
+                <ArrowLeft
+                    onClick={() => router.back()}
+                    className="absolute left-0 text-gray-500 text-xl cursor-pointer"
+                />
+                <h1 className="text-3xl font-semibold text-center">{title}</h1>
+            </div>
             <h1 className="text-3xl font-semibold text-center">{title}</h1>
+            <button
+                onClick={startExercise}
+                className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+            >
+                Start <Play size={16}/>
+            </button>
+            <hr className="w-[50%] border-gray-300 border-1 my-2"/>
+            <h2 className="text-xl font-semibold text-gray-800 w-full mb-2 text-center">
+                TODO: Add translation key for Exercise Executions
+            </h2>
 
-            <button> </button>
-
+            {exercises.map(exercise => (
+                <button
+                    key={exercise.exerciseExecutionId}
+                    onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}`)}
+                    className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                >
+                    <p className="font-bold">{exercise.executionTitle}</p>
+                    <p className="italic text-gray-400 text-sm">{exercise.exerciseExecutionId}</p>
+                </button>
+            ))}
 
 
             {error && (
