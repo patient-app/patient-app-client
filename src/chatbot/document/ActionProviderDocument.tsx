@@ -2,7 +2,7 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {useParams} from "next/navigation";
-import {setExternalActions} from "@/chatbot/configExercise";
+import {setExternalActions} from "@/chatbot/exercise/configExercise";
 import {CHATBOT_NAME} from "@/libs/constants";
 import {useTranslation} from "react-i18next";
 
@@ -39,7 +39,15 @@ const ActionProviderDocument = ({createChatBotMessage, setState, children}: any)
             return data.id;
         } catch (error) {
             console.error("Error creating conversation:", error);
-            throw error;
+            const errorMessage = createChatBotMessage(
+                t("actionProvider.chatbotMessage.errorMessage")
+            );
+
+            setState((prev: { messages: any }) => ({
+                ...prev,
+                messages: [...prev.messages, errorMessage],
+                loading: false,
+            }));
         }
     };
 

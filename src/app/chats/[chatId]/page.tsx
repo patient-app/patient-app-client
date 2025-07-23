@@ -7,7 +7,7 @@ import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
-import {Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {CHATBOT_NAME} from "@/libs/constants";
 import Image from "next/image";
@@ -24,7 +24,7 @@ export default function ChatPage() {
     const [avatar, setAvatar] = useState("none");
 
     const toggleCoachSharing = async () => {
-        if(!chatId) return;
+        if (!chatId) return;
         const newValue = !shareWithCoach;
         setShareWithCoach(newValue);
 
@@ -32,8 +32,8 @@ export default function ChatPage() {
             await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
                 method: "PUT",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: aiMemory }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: aiMemory}),
             });
             console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + aiMemory);
         } catch (err) {
@@ -43,7 +43,7 @@ export default function ChatPage() {
     }
 
     const toggleAIMemory = async () => {
-        if(!chatId) return;
+        if (!chatId) return;
         const newValue = !aiMemory;
         setAIMemory(newValue);
 
@@ -51,8 +51,8 @@ export default function ChatPage() {
             await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
                 method: "PUT",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shareWithCoach: shareWithCoach, shareWithAi: newValue }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({shareWithCoach: shareWithCoach, shareWithAi: newValue}),
             });
             console.log("Sharing Options changed: shareWithCoach to " + shareWithCoach + " useForMemory:" + newValue);
         } catch (err) {
@@ -233,6 +233,10 @@ export default function ChatPage() {
 
     return (
         <div>
+            <ArrowLeft
+                onClick={() => router.back()}
+                className="text-gray-500 text-xl cursor-pointer"
+            />
             <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
                 <input
@@ -269,7 +273,8 @@ export default function ChatPage() {
                         className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                         onClick={() => toggleCoachSharing()}
                     >
-                        {shareWithCoach ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                        {shareWithCoach ? (<Eye size={30} strokeWidth={1.75}/>) : (
+                            <EyeOff size={30} strokeWidth={1.75}/>)}
                         <span className="text-xs font-medium text-center">
                             {((shareWithCoach) ? t("chats.sharingoptions.shareWithCoach_on") : t("chats.sharingoptions.shareWithCoach_off")).split(" ").map((word: string, idx: number) => (
                                 <div key={idx}>{word}</div>

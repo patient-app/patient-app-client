@@ -239,7 +239,8 @@
     "title": "Journal",
     "noEntries": "Noch keine Journaleinträge",
     "error": {
-      "fetchFailed": "Journaleinträge konnten nicht abgerufen werden: "
+      "fetchFailed": "Journaleinträge konnten nicht abgerufen werden: ",
+      "failedToDelete": "Journaleintrag konnte nicht gelöscht werden: "
     },
     "newEntry": "+ Neuen Journaleintrag erstellen",
     "searchPlaceholder": "Nach Titel suchen",
@@ -297,6 +298,10 @@
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Training helfen?",
+    "tooltipClearHistory": "Chat-Verlauf löschen"
+  },
+  "journalChatbot": {
+    "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Journal helfen?",
     "tooltipClearHistory": "Chat-Verlauf löschen"
   },
   "actionProvider": {

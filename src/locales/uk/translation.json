@@ -239,7 +239,8 @@
     "title": "Журнал",
     "noEntries": "Записів у журналі ще немає",
     "error": {
-      "fetchFailed": "Не вдалося отримати записи журналу: "
+      "fetchFailed": "Не вдалося отримати записи журналу: ",
+      "failedToDelete": "Не вдалося видалити запис у журналі: "
     },
     "newEntry": "+ Створити новий запис у журналі",
     "searchPlaceholder": "Пошук за назвою",
@@ -297,6 +298,10 @@
   },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
+    "tooltipClearHistory": "Очистити історію чату"
+  },
+  "journalChatbot": {
+    "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з веденням щоденника?",
     "tooltipClearHistory": "Очистити історію чату"
   },
   "actionProvider": {

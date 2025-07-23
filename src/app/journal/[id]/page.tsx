@@ -2,12 +2,14 @@
 
 import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";
+import JournalChatbot from "@/chatbot/journal/JournalChatbot";
+import HelpButton from "@/components/HelpButton";
 
 const JournalEntryPage = () => {
     const router = useRouter();
@@ -21,7 +23,9 @@ const JournalEntryPage = () => {
 
 
     const [title, setTitle] = useState("");
+    const [chatbotTitle, setChatbotTitle] = useState("");
     const [content, setContent] = useState("");
+    const [chatbotContent, setChatbotContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
@@ -70,12 +74,14 @@ const JournalEntryPage = () => {
                     const entryResponse = await response.json();
                     setJournalEntry(entryResponse);
                     setTitle(entryResponse.title ?? "");
+                    setChatbotTitle(entryResponse.title ?? "")
                     setContent(entryResponse.content ?? "");
+                    setChatbotContent(entryResponse.content ?? "")
                     setSharedWithTherapist(entryResponse.sharedWithTherapist ?? false);
                     setTags(entryResponse.tags ?? []);
                 }
             } catch (e) {
-                setError(t(""));
+                setError(t('journal.error.fetchFailed'));
                 console.error("Failed to fetch journal entry:", e);
             }
         };
@@ -97,8 +103,8 @@ const JournalEntryPage = () => {
                 router.push("/journal");
             }
         } catch (e) {
-            setError(t('journal.error.fetchFailed'));
-            console.error("Failed to fetch journal entries:", e);
+            setError(t('journal.error.failedToDelete'));
+            console.error("Failed to delete journal entries:", e);
         }
     }
 
@@ -134,7 +140,7 @@ const JournalEntryPage = () => {
             }
         } catch (e) {
             setError(t("journalCreationEditing.error.savingTryAgain"));
-            console.error("Failed to save the journal entry: ", e);
+            console.error("Failed to update the journal entry: ", e);
         }
     };
 
@@ -150,6 +156,14 @@ const JournalEntryPage = () => {
             router.back();
         }
     };
+
+    const getEntryData = useCallback(() => {
+        return {
+            title: chatbotTitle,
+            content: chatbotContent,
+        };
+    }, [chatbotTitle, chatbotContent]);
+
 
     return (
         <main className="px-4 py-2 rounded-md h-[100%]">
@@ -187,8 +201,10 @@ const JournalEntryPage = () => {
 
             </div>
 
-            <div className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
-            <div className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+            <div
+                className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+            <div
+                className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
 
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -197,6 +213,7 @@ const JournalEntryPage = () => {
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
                     onChange={e => setTitle(e.target.value)}
+                    onBlur={() => setChatbotTitle(title)}
                     className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
                 />
 
@@ -220,7 +237,8 @@ const JournalEntryPage = () => {
                     placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
-                    className="w-full h-[50vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                    onBlur={() => setChatbotContent(content)}
+                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
@@ -228,7 +246,7 @@ const JournalEntryPage = () => {
                     </div>
                 )}
 
-                <div className="flex justify-end mt-4">
+                <div className="flex justify-center mt-4">
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -237,6 +255,14 @@ const JournalEntryPage = () => {
                     </button>
                 </div>
             </form>
+            <HelpButton chatbot={<JournalChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }
+                getEntryData={getEntryData}
+            />
+            }/>
             <Modal
                 show={backModal}
                 onClose={() => setBackModal(false)}

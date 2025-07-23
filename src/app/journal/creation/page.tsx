@@ -1,25 +1,31 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {ArrowLeft, Eye, EyeOff} from "lucide-react";
 import {JournalTag} from "@/components/JournalTag";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
+import HelpButton from "@/components/HelpButton";
+import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
+    const [journalId, setJournalId] = useState<string>("");
 
     const [title, setTitle] = useState("");
+    const [chatbotTitle, setChatbotTitle] = useState("");
     const [content, setContent] = useState("");
+    const [chatbotContent, setChatbotContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [sharedWithTherapist, setSharedWithTherapist] = useState(false);
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
     const [saveModal, setSaveModal] = useState(false);
     const [backModal, setBackModal] = useState(false);
+    const hasCreatedEntry = useRef(false);
 
 
     useEffect(() => {
@@ -48,6 +54,43 @@ export default function JournalEntryCreationPage() {
         getTags();
     }, [t]);
 
+    useEffect(() => {
+        if (hasCreatedEntry.current) return;
+        hasCreatedEntry.current = true;
+
+        const createEntry = async () => {
+            const formData = {
+                title,
+                content,
+                tags,
+                sharedWithTherapist,
+            };
+
+            try {
+                const requestInit: RequestInit = {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify(formData),
+                    headers: {"Content-Type": "application/json"},
+                };
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries", requestInit);
+                if (response.status !== 201) {
+                    const errorData = await response.json();
+                    console.log(errorData)
+                    setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
+                } else {
+                    const res = await response.json();
+                    setJournalId(res.id);
+                }
+            } catch (e) {
+                setError(t("journalCreationEditing.error.savingTryAgain"));
+                console.error("Failed to create journal entry: ", e);
+            }
+        };
+
+        createEntry();
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -65,13 +108,13 @@ export default function JournalEntryCreationPage() {
 
         try {
             const requestInit: RequestInit = {
-                method: "POST",
+                method: "PUT",
                 credentials: "include",
                 body: JSON.stringify(formData),
                 headers: {"Content-Type": "application/json"},
             };
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries", requestInit);
-            if (response.status !== 201) {
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${journalId}`, requestInit);
+            if (!response.ok) {
                 const errorData = await response.json();
                 console.log(errorData)
                 setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
@@ -89,13 +132,39 @@ export default function JournalEntryCreationPage() {
         setTags(prev => prev.filter(tag => tag !== tagToRemove));
     };
 
+    const deleteEntry = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "DELETE",
+                credentials: "include"
+            };
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${journalId}`, requestInit);
+            if (response.status !== 204) {
+                const errorData = await response.json();
+                setError((t("") + errorData.message));
+            } else {
+                router.push("/journal");
+            }
+        } catch (e) {
+            setError(t('journal.error.failedToDelete'));
+            console.error("Failed to delete journal entries:", e);
+        }
+    }
+
     const handleBack = () => {
         if (title || content || tags.length > 0) {
             setBackModal(true);
         } else {
-            router.back();
+            deleteEntry()
         }
     };
+
+    const getEntryData = useCallback(() => {
+        return {
+            title: chatbotTitle,
+            content: chatbotContent,
+        };
+    }, [chatbotTitle, chatbotContent]);
 
     return (
         <main className="px-4 py-2 rounded-md h-[100%]">
@@ -124,6 +193,7 @@ export default function JournalEntryCreationPage() {
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
                     onChange={e => setTitle(e.target.value)}
+                    onBlur={() => setChatbotTitle(title)}
                     className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
                 />
 
@@ -147,7 +217,8 @@ export default function JournalEntryCreationPage() {
                     placeholder={t("journalCreationEditing.note")}
                     value={content}
                     onChange={e => setContent(e.target.value)}
-                    className="w-full h-[50vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                    onBlur={() => setChatbotContent(content)}
+                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
                 />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
@@ -155,7 +226,7 @@ export default function JournalEntryCreationPage() {
                     </div>
                 )}
 
-                <div className="flex justify-end mt-4">
+                <div className="flex justify-center mt-4">
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -164,6 +235,19 @@ export default function JournalEntryCreationPage() {
                     </button>
                 </div>
             </form>
+            {journalId && (
+                <HelpButton
+                    chatbot={
+                        <JournalChatbot
+                            isOpen={false}
+                            onCloseAction={() => {
+                            }}
+                            getEntryData={getEntryData}
+                            propEntryId={journalId}
+                        />
+                    }
+                />
+            )}
             <Modal
                 show={backModal}
                 onClose={() => setBackModal(false)}

@@ -240,7 +240,8 @@ interface Resources {
             "title": "",
             "noEntries": "",
             "error": {
-                "fetchFailed": ""
+                "fetchFailed": "",
+                "failedToDelete": ""
             },
             "newEntry": "",
             "searchPlaceholder": "",
@@ -297,6 +298,10 @@ interface Resources {
             "tooltipChatbotInfo": ""
         }
         "exerciseChatbot": {
+            "welcomeMessage": "",
+            "tooltipClearHistory": ""
+        },
+        "journalChatbot": {
             "welcomeMessage": "",
             "tooltipClearHistory": ""
         },
