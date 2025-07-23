@@ -4,5 +4,5 @@ export interface ExerciseDTO {
     exerciseExecutionId: string;
     exerciseTitle: string;
     exerciseDescription: string;
-    exerciseElements: ExerciseComponentsDTO[];
+    exerciseComponents: ExerciseComponentsDTO[];
 }

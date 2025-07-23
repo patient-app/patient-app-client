@@ -9,12 +9,15 @@ import ExerciseChatbot from "@/components/ExerciseChatbot";
 import {ExerciseCompletionDTO} from "@/dto/input/ExerciseCompletionDTO";
 import {ArrowLeft} from "lucide-react";
 import {MoodDTO} from "@/dto/input/MoodDTO";
+import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
+import ExerciseText from "@/components/exerciseComponents/ExerciseText";
+import ExerciseInputField from "@/components/exerciseComponents/ExerciseInputField";
 
 
 const ExerciseExecutionInfoPage = () => {
     const router = useRouter();
     const params = useParams();
-    const id = params?.id;
+    const id = params.id as string;
     const executionId = params.executionId as string;
 
     const [error, setError] = useState<string | null>(null);
@@ -30,21 +33,24 @@ const ExerciseExecutionInfoPage = () => {
 
     const {t} = useTranslation();
 
+    const handleComponentError = (message: string) => {
+        setError(message);
+    };
+
     useEffect(() => {
         const getExercise = async () => {
             try {
                 const requestInit: RequestInit = {
                     method: "GET",
-                    credentials: "include",
-                    headers: {"Content-Type": "application/json"},
+                    credentials: "include"
                 };
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}/execution-information/${executionId}`,
                     requestInit
                 );
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
+                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`); //TODO
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
@@ -102,64 +108,61 @@ const ExerciseExecutionInfoPage = () => {
             console.error("Failed to start exercise", e);
         }
     }
-
-
-    /**const renderElement = (element: ExerciseComponentsDTO) => {
-     switch (element.type) {
-     case "IMAGE": {
-     const data = element.data as ImageDTO;
-     return (
-     <ExerciseImage
-     key={element.id}
-     pictureId={element.id}
-     exerciseId={id as string}
-     alt={data.alt}
-     onError={(msg) => setError(msg)}
-     />
-     );
-     }
-     case "FILE": {
-     const data = element.data as PdfDTO;
-     return (
-     <ExerciseDocument
-     key={element.id}
-     exerciseId={id as string}
-     documentId={element.id}
-     name={data.name}
-     onError={(msg) => setError(msg)}
-     />
-     );
-     }
-     case "TEXT_INPUT": {
-     const data = element.data as InputDTO;
-     return (
-     <ExerciseTextInput
-     key={element.id}
-     elementId={element.id}
-     data={data}
-     />
-     );
-     }
-     default:
-     return null;
-     }
-     }; **/
+    const renderElement = (element: ExerciseComponentsDTO) => {
+        switch (element.exerciseComponentType) {
+            case "TEXT": {
+                return (
+                    <ExerciseText
+                        elementId={element.id}
+                        description={{text: element.exerciseComponentDescription ?? ""}}/>
+                )
+            }
+            case "INPUT_FIELD_SHARED":
+            case "INPUT_FIELD_PRIVATE": {
+                return (
+                    <ExerciseInputField
+                        exerciseId={id}
+                        exerciseExecutionId={executionId}
+                        elementId={element.id}
+                        component={element}
+                        onError={handleComponentError}
+                    />
+                );
+            }
+            default:
+                return null;
+        }
+    }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
             <div className="relative w-full flex items-center justify-center">
                 <ArrowLeft
                     onClick={() => router.back()}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
-                <h1 className="text-3xl font-semibold text-center"></h1>
+                <h1 className="text-3xl font-semibold text-center">SOME HEADER</h1>
             </div>
+
+            {exercise && exercise.exerciseComponents && (
+                <div className="w-full flex flex-col gap-4">
+                    {exercise.exerciseComponents
+                        .slice()
+                        .sort((a, b) => a.orderNumber - b.orderNumber)
+                        .map((component) => (
+                            <React.Fragment key={component.id}>
+                                {renderElement(component)}
+                            </React.Fragment>
+                        ))}
+                </div>
+            )}
+
             {error && (
-                <div
-                    className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
                     {error}
                 </div>
             )}
+
             <button
                 onClick={endExercise}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
@@ -167,14 +170,16 @@ const ExerciseExecutionInfoPage = () => {
                 Complete Exercise
             </button>
 
-            <HelpButton chatbot={<ExerciseChatbot
-                isOpen={false}
-                onCloseAction={() => {
-                }
-                }/>
+            <HelpButton chatbot={
+                <ExerciseChatbot
+                    isOpen={false}
+                    onCloseAction={() => {
+                    }}
+                />
             }/>
         </div>
     );
+
 };
 
 export default ExerciseExecutionInfoPage;

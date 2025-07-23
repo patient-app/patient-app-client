@@ -1,17 +1,15 @@
 export default function ExerciseText({
                                          elementId,
-                                         data,
+                                         description,
                                      }: Readonly<{
     elementId: string;
-    data: { text: string };
+    description: { text: string };
 }>) {
     return (
         <div className="my-4 w-full">
-            <p
-                id={elementId}
-                className="text-blue-figma"
-                dangerouslySetInnerHTML={{__html: data.text}}
-            />
+            <p className="text-lg text-gray-700">
+                {description.text}
+            </p>
         </div>
     );
 };

@@ -83,7 +83,6 @@ const ExerciseDetailPage = () => {
                 />
                 <h1 className="text-3xl font-semibold text-center">{title}</h1>
             </div>
-            <h1 className="text-3xl font-semibold text-center">{title}</h1>
             <button
                 onClick={startExercise}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
