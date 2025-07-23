@@ -65,14 +65,45 @@
   },
   "home": {
     "title": "Головна",
-    "welcome": "Ласкаво просимо назад",
+    "welcome": "Ласкаво просимо",
     "error": {
       "generic": "Щось пішло не так"
     },
     "logout": "вийти",
-    "lastChat": "Продовження останньої розмови: ",
-    "startNewConversation": "+ Почніть нову розмову",
-    "noConversationsYet": "розмов ще не було"
+    "lastChat": "Остання розмова",
+    "startNewConversation": "Нова розмова",
+    "noConversationsYet": "Поки що ніяких розмов.",
+    "continueConversation": "Продовжуйте",
+    "yourInformation": {
+      "name": "Ім'я: ",
+      "email": "Електронна пошта: ",
+      "language": "Мова: ",
+      "avatar": "Аватар: ",
+      "id": "ID: "
+    },
+    "quickJournal": {
+      "title": "Швидкий журнал",
+      "save": "Зберегти",
+      "placeholder": "Пишіть сюди..."
+    },
+    "lastJournal": {
+      "title": "Останній журнал",
+      "noEntriesYet": "Ще немає заявок.",
+      "newEntry": "Новий запис",
+      "unnamedJournal": "Безіменний.",
+      "openLast": "Відкрито",
+      "emptyJournal": "Запис порожній"
+    },
+    "exercises": {
+      "title": "Вправи",
+      "noExercises": "Поки що ніяких вправ.",
+      "showAll": "Показати всі",
+      "open": "Старт"
+    },
+    "questionnaires": {
+      "title": "Анкети",
+      "showAll": "Показати всі"
+    }
   },
   "exercise": {
     "title": "вправи",
