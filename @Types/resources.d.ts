@@ -57,6 +57,7 @@ interface Resources {
             "email": "",
             "submit": "",
             "success": "",
+            "spamInformation": "",
             "error": {
                 "resetFailed": "",
                 "resetTryAgain": ""

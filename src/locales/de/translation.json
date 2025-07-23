@@ -56,6 +56,7 @@
     "email": "E-Mail-Adresse",
     "submit": "Zurücksetzen",
     "success": "Passwort erfolgreich zurückgesetzt!",
+    "spamInformation": "Bitte überprüfen Sie auch Ihren Spam-/Junk-Ordner, wenn Sie die E-Mail nicht innerhalb weniger Minuten erhalten.",
     "error": {
       "resetFailed": "Passwort konnte nicht zurückgesetzt werden: ",
       "resetTryAgain": "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut."
