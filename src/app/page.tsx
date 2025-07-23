@@ -7,9 +7,139 @@ import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
 import {BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
+import { subscribeUser, unsubscribeUser, sendNotification } from './actions'
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
+
+function urlBase64ToUint8Array(base64String: string) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+
+    const rawData = window.atob(base64)
+    const outputArray = new Uint8Array(rawData.length)
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i)
+    }
+    return outputArray
+}
+
+function PushNotificationManager() {
+    const [isSupported, setIsSupported] = useState(false)
+    const [subscription, setSubscription] = useState<PushSubscription | null>(
+        null
+    )
+    const [message, setMessage] = useState('')
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            setIsSupported(true)
+            registerServiceWorker()
+        }
+    }, [])
+
+    async function registerServiceWorker() {
+        const registration = await navigator.serviceWorker.register('/sw.js', {
+            scope: '/',
+            updateViaCache: 'none',
+        })
+        const sub = await registration.pushManager.getSubscription()
+        setSubscription(sub)
+    }
+
+    async function subscribeToPush() {
+        const registration = await navigator.serviceWorker.ready
+        const sub = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(
+                process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
+            ),
+        })
+        setSubscription(sub)
+        const serializedSub = JSON.parse(JSON.stringify(sub))
+        await subscribeUser(serializedSub)
+    }
+
+    async function unsubscribeFromPush() {
+        await subscription?.unsubscribe()
+        setSubscription(null)
+        await unsubscribeUser()
+    }
+
+    async function sendTestNotification() {
+        if (subscription) {
+            await sendNotification(message)
+            setMessage('')
+        }
+    }
+
+    if (!isSupported) {
+        return <p>Push notifications are not supported in this browser.</p>
+    }
+
+    return (
+        <div>
+            <h3>Push Notifications</h3>
+            {subscription ? (
+                <>
+                    <p>You are subscribed to push notifications.</p>
+                    <button onClick={unsubscribeFromPush}>Unsubscribe</button>
+                    <input
+                        type="text"
+                        placeholder="Enter notification message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <button onClick={sendTestNotification}>Send Test</button>
+                </>
+            ) : (
+                <>
+                    <p>You are not subscribed to push notifications.</p>
+                    <button onClick={subscribeToPush}>Subscribe</button>
+                </>
+            )}
+        </div>
+    )
+}
+
+function InstallPrompt() {
+    const [isIOS, setIsIOS] = useState(false)
+    const [isStandalone, setIsStandalone] = useState(false)
+
+    useEffect(() => {
+        setIsIOS(
+            /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as Window & { MSStream?: unknown }).MSStream
+        )
+
+        setIsStandalone(window.matchMedia('(display-mode: standalone)').matches)
+    }, [])
+
+    if (isStandalone) {
+        return null // Don't show install button if already installed
+    }
+
+    return (
+        <div>
+            <h3>Install App</h3>
+            <button>Add to Home Screen</button>
+            {isIOS && (
+                <p>
+                    To install this app on your iOS device, tap the share button
+                    <span role="img" aria-label="share icon">
+            {' '}
+                        ⎋{' '}
+          </span>
+                    and then add to Home screen
+                    <span role="img" aria-label="plus icon">
+            {' '}
+                        ➕{' '}
+          </span>.
+                </p>
+            )}
+        </div>
+    )
+}
 
 export default function Home() {
     const router = useRouter();
@@ -196,6 +326,9 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
+
+            <PushNotificationManager />
+            <InstallPrompt />
 
             <MeetingComponent/>
 
