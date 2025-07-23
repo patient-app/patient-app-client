@@ -21,9 +21,6 @@ type Props = {
 const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData, propEntryId}: Readonly<Props>) => {
     const {t} = useTranslation();
 
-    const welcomeMessage = t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME});
-    const clearHistoryTooltip = t("journalChatbot.tooltipClearHistory");
-
     const messageParser = useMemo(() => {
         const WrappedMessageParser = (parserProps: ComponentProps<typeof MessageParserJournal>) => (
             <MessageParserJournal {...parserProps} getEntryData={getEntryData}/>
@@ -42,7 +39,7 @@ const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData, propEnt
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configJournal(onCloseAction, welcomeMessage, clearHistoryTooltip)}
+                        config={configJournal(onCloseAction, t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("journalChatbot.tooltipClearHistory"))}
                         messageParser={messageParser}
                         actionProvider={(props: ComponentProps<typeof ActionProvider>) => (
                             <ActionProviderJournal {...props} propEntryId={propEntryId}/>)}
