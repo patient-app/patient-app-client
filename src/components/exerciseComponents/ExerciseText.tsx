@@ -1,8 +1,6 @@
 export default function ExerciseText({
-                                         elementId,
                                          description,
                                      }: Readonly<{
-    elementId: string;
     description: { text: string };
 }>) {
     return (

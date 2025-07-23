@@ -116,7 +116,6 @@ const ExerciseExecutionInfoPage = () => {
             case "TEXT": {
                 return (
                     <ExerciseText
-                        elementId={element.id}
                         description={{text: element.exerciseComponentDescription ?? ""}}/>
                 )
             }
