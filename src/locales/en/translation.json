@@ -131,7 +131,8 @@
       "timeUpText": "Your timer has completed.",
       "saveButton": "Save",
       "cancelButton": "Cancel",
-      "okButton": "Okay"
+      "okButton": "Okay",
+      "buttonText": "Feedback for Coach"
     },
     "completedExercise": "Completed Exercise",
     "completeExecution": "Complete Exercise",

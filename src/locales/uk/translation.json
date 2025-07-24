@@ -131,7 +131,8 @@
       "timeUpText": "Ваш таймер завершив роботу.",
       "saveButton": "Зберегти",
       "cancelButton": "Скасувати",
-      "okButton": "Гаразд"
+      "okButton": "Гаразд",
+      "buttonText": "Зворотній зв'язок для тренера"
     },
     "completedExercise": "Виконана вправа",
     "completeExecution": "Виконайте вправу",

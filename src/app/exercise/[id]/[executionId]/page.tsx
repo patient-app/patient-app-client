@@ -200,7 +200,7 @@ const ExerciseExecutionInfoPage = () => {
                 >
                     <MessageSquareShare size={30} strokeWidth={1.75}/>
                     <div className="text-xs font-medium text-center leading-tight">
-                        {("feedback for coach").split(" ").map((word: string, idx: number) => (
+                        {t("exercise.modal.buttonText").split(" ").map((word: string, idx: number) => (
                             <span key={idx} className="block">{word}</span>
                         ))}
                     </div>

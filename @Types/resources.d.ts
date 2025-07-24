@@ -132,7 +132,8 @@ interface Resources {
                 "timeUpText": "",
                 "saveButton": "",
                 "cancelButton": "",
-                "okButton": ""
+                "okButton": "",
+                "buttonText": ""
             },
             "completedExercise": "",
             "completeExecution": "",

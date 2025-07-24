@@ -131,7 +131,8 @@
       "timeUpText": "Dein Timer ist abgelaufen.",
       "saveButton": "Speichern",
       "cancelButton": "Abbrechen",
-      "okButton": "Okay"
+      "okButton": "Okay",
+      "buttonText": "Feedback für Coach"
     },
     "completedExercise": "Abgeschlossene Übungen",
     "completeExecution": "Übung abschliessen",
