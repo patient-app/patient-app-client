@@ -114,18 +114,6 @@
     },
     "noExercises": "Наразі вправ немає.",
     "noExerciseIndividual": "Вправи не знайдено.",
-    "image": {
-      "error": {
-        "fetchFailed": "Не вдалося отримати зображення вправи: "
-      }
-    },
-    "document": {
-      "view": "Переглянути",
-      "download": "Завантажити",
-      "error": {
-        "fetchFailed": "Помилка отримання документа: "
-      }
-    },
     "moodtracking": {
       "title": "Як ви почуваєтеся зараз?",
       "very_unpleasant": "дуже неприємно",
@@ -134,6 +122,11 @@
       "pleasant": "приємний",
       "very_pleasant": "дуже приємно",
       "save": "Зберегти"
+    },
+    "modal": {
+      "feedbackText": "Поділіться своїми думками щодо цієї вправи зі своїм тренером.",
+      "saveButton": "Зберегти",
+      "cancelButton": "Скасувати"
     }
   },
   "chat": {

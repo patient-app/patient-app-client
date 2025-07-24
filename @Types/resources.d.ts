@@ -115,18 +115,6 @@ interface Resources {
             },
             "noExercises": "",
             "noExerciseIndividual": "",
-            "image": {
-                "error": {
-                    "fetchFailed": ""
-                }
-            },
-            "document": {
-                "view": "",
-                "download": "",
-                "error": {
-                    "fetchFailed": ""
-                }
-            },
             "moodtracking": {
                 "title": "",
                 "very_unpleasant": "",
@@ -135,6 +123,11 @@ interface Resources {
                 "pleasant": "",
                 "very_pleasant": "",
                 "save": ""
+            },
+            "modal":{
+                "feedbackText":"",
+                "saveButton": "",
+                "cancelButton": ""
             }
         },
         "chat": {

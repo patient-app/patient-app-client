@@ -2,6 +2,7 @@ import {createChatBotMessage} from 'react-chatbot-kit';
 import {Repeat2, X} from 'lucide-react';
 import {CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
+import Image from "next/image";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -75,7 +76,20 @@ const configJournal = (
                     </button>
                 </div>
             </div>
-        )
+        ),
+        botAvatar: () => (
+            <div className="react-chatbot-kit-chat-bot-avatar">
+                <div className="react-chatbot-kit-chat-bot-avatar-container">
+                    <Image
+                        src={`/avatars/animalistic.png`} //TODO: replace with actual avatar
+                        alt={`animalistic avatar`}//TODO: replace with actual avatar
+                        width={80}
+                        height={80}
+                        className="object-contain rounded-lg mx-auto"
+                    />
+
+                </div>
+            </div>)
     }
 });
 

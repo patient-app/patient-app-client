@@ -345,23 +345,23 @@ const ExerciseExecutionInfoPage = () => {
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
-                            Some text here about leaving the page
+                            {t('exercise.modal.feedbackText')}
                         </h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="Please provide your feedback here..."
+                            placeholder="Please provide your feedback here..." //TODO
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
                         />
                         <div className="flex justify-center gap-4">
                             <Button className="bg-blue-600" onClick={() => setFeedbackModal(false)}>
-                                Save
+                                {t('exercise.modal.saveButton')}
                             </Button>
                             <Button color="alternative" onClick={() => {
                                 setFeedback("");
                                 setFeedbackModal(false)
                             }}>
-                                Cancel
+                                {t('exercise.modal.cancelButton')}
                             </Button>
                         </div>
                     </div>

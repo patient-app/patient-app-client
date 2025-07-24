@@ -114,17 +114,20 @@
     },
     "noExercises": "Zurzeit keine Übungen verfügbar.",
     "noExerciseIndividual": "Keine Übung gefunden.",
-    "image": {
-      "error": {
-        "fetchFailed": "Übungsbild konnte nicht abgerufen werden: "
-      }
+    "moodtracking": {
+      "title": "Wie fühlst du dich gerade?",
+      "very_unpleasant": "sehr unangenehm",
+      "unpleasant": "unangenehm",
+      "neutral": "neutral",
+      "pleasant": "angenehm",
+      "very_pleasant": "sehr angenehm",
+      "save": "Speichern"
     },
-    "document": {
-      "view": "Anschauen",
-      "download": "Herunterladen",
-      "error": {
-        "fetchFailed": "Fehler beim Abrufen des Dokuments: "
-      }
+    "modal":{
+      "feedbackText":"Teile deine Gedanken zu dieser Übung mit deinem Coach.",
+      "saveButton": "Speichern",
+      "cancelButton": "Abbrechen"
+
     }
   },
   "chat": {

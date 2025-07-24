@@ -114,18 +114,6 @@
     },
     "noExercises": "No exercises available at the moment.",
     "noExerciseIndividual": "No exercise found.",
-    "image": {
-      "error": {
-        "fetchFailed": "Failed to fetch exercise image: "
-      }
-    },
-    "document": {
-      "view": "View",
-      "download": "Download",
-      "error": {
-        "fetchFailed": "Error fetching document: "
-      }
-    },
     "moodtracking": {
       "title": "How do you feel right now?",
       "very_unpleasant": "very unpleasant",
@@ -134,6 +122,11 @@
       "pleasant": "pleasant",
       "very_pleasant": "very pleasant",
       "save": "Save"
+    },
+    "modal":{
+      "feedbackText":"Share your thoughts on this exercise with your coach.",
+      "saveButton": "Save",
+      "cancelButton": "Cancel"
     }
   },
   "chat": {
