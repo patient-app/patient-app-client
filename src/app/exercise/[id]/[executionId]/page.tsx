@@ -66,7 +66,7 @@ const ExerciseExecutionInfoPage = () => {
                 );
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`); //TODO
+                    setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
@@ -102,8 +102,6 @@ const ExerciseExecutionInfoPage = () => {
     }, [isTimerRunning, timeLeft]);
 
 
-
-
     const endExercise = async (finalMood?: MoodDTO) => {
         const completionInformation: ExerciseCompletionDTO = {
             exerciseExecutionId: executionId,
@@ -128,14 +126,14 @@ const ExerciseExecutionInfoPage = () => {
             );
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`); //TODO: correct error message
+                setError(t('exercise.error.endFailed') + `: ${errorData.message}`);
                 console.log(errorData.message)
             } else {
                 router.push(`/exercise/${id}`);
             }
         } catch (e) {
-            setError(t('exercise.error.fetchFailedIndividual')); //TODO: correct error message
-            console.error("Failed to start exercise", e);
+            setError(t('exercise.error.endFailed'));
+            console.error("Failed to end exercise", e);
         }
     }
     const renderElement = (element: ExerciseComponentsDTO) => {
@@ -209,7 +207,9 @@ const ExerciseExecutionInfoPage = () => {
                 </button>
             </div>
 
-            <TimerComponent onFinish={() => setTimerFinishedModal(true)} />
+            <TimerComponent onFinish={() => setTimerFinishedModal(true)}/>
+            <hr className="w-[100%] border-gray-300 border-1 my-2"/>
+
 
             {exercise && exercise.exerciseComponents && (
                 <div className="w-full flex flex-col gap-4">
@@ -219,6 +219,7 @@ const ExerciseExecutionInfoPage = () => {
                         .map((component) => (
                             <React.Fragment key={component.id}>
                                 {renderElement(component)}
+                                <hr className="w-[100%] border-gray-300 border-1 my-2"/>
                             </React.Fragment>
                         ))}
                 </div>
@@ -234,7 +235,7 @@ const ExerciseExecutionInfoPage = () => {
                 onClick={() => setMoodAfterModal(prev => !prev)}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
-                Complete Exercise
+                {t('exercise.completeExecution')}
             </button>
 
             <HelpButton chatbot={
@@ -332,7 +333,7 @@ const ExerciseExecutionInfoPage = () => {
                 size="md"
                 popup
             >
-                <ModalHeader />
+                <ModalHeader/>
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-semibold text-gray-700">

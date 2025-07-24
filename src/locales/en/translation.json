@@ -110,7 +110,9 @@
     "title": "Exercises",
     "error": {
       "fetchFailed": "Failed to fetch exercises: ",
-      "fetchFailedIndividual": "Failed to fetch exercise"
+      "fetchFailedIndividual": "Failed to fetch exercise",
+      "startFailed": "Failed to start exercise",
+      "endFailed": "Failed to end exercise"
     },
     "noExercises": "No exercises available at the moment.",
     "noExerciseIndividual": "No exercise found.",
@@ -123,15 +125,41 @@
       "very_pleasant": "very pleasant",
       "save": "Save"
     },
-    "modal":{
-      "feedbackText":"Share your thoughts on this exercise with your coach.",
-      "feedbackPlaceholder":"Please provide your feedback here...",
-      "timeUpText":"Your timer has completed.",
+    "modal": {
+      "feedbackText": "Share your thoughts on this exercise with your coach.",
+      "feedbackPlaceholder": "Please provide your feedback here...",
+      "timeUpText": "Your timer has completed.",
       "saveButton": "Save",
       "cancelButton": "Cancel",
       "okButton": "Okay"
-
+    },
+    "completedExercise": "Completed Exercise",
+    "completeExecution": "Complete Exercise",
+    "start":"Start"
+  },
+  "exerciseInput": {
+    "error": {
+      "failedToUpdate": "Failed to save your input"
+    },
+    "placeholder": "Please enter your response here...",
+    "tooltip": {
+      "sharedWithCoach": "Your response will be shared with your coach.",
+      "private": "Your response will not be shared with your coach."
     }
+  },
+  "exerciseImage": {
+    "error": {
+      "imageMissing": "Image data is missing",
+      "imageLoadFailed": "Failed to load image"
+    },
+    "exerciseComponentDescription": "Exercise Image"
+  },
+  "exerciseFile": {
+    "error": {
+      "dataMissing": "Invalid file data"
+    },
+    "download": "Download",
+    "noPreview": "Preview not available for this file type."
   },
   "timer": {
     "title": "Set a timer:",
@@ -345,6 +373,10 @@
     }
   },
   "individualDocument": {
-    "download": "Download {{documentName}}"
+    "download": "Download {{documentName}}",
+    "noPreview": "Preview not available for this file type.",
+    "error": {
+      "fetchFailed": "Failed to fetch document"
+    }
   }
 }

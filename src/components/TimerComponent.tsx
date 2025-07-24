@@ -76,7 +76,7 @@ const TimerComponent = ({onFinish}:
             }}
             className="max-w-xs mx-auto"
         >
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label className="block font-medium mb-2">
                 {t("timer.title")}
             </label>
 

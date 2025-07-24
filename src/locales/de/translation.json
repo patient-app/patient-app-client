@@ -110,7 +110,9 @@
     "title": "Übungen",
     "error": {
       "fetchFailed": "Übungen konnten nicht abgerufen werden: ",
-      "fetchFailedIndividual": "Übung konnte nicht abgerufen werden"
+      "fetchFailedIndividual": "Übung konnte nicht abgerufen werden",
+      "startFailed": "Übung konnte nicht gestartet werden",
+      "endFailed": "Übung konnte nicht beendet werden"
     },
     "noExercises": "Zurzeit keine Übungen verfügbar.",
     "noExerciseIndividual": "Keine Übung gefunden.",
@@ -130,8 +132,34 @@
       "saveButton": "Speichern",
       "cancelButton": "Abbrechen",
       "okButton": "Okay"
-
+    },
+    "completedExercise": "Abgeschlossene Übungen",
+    "completeExecution": "Übung abschliessen",
+    "start":"Start"
+  },
+  "exerciseInput":{
+    "error":{
+      "failedToUpdate": "Deine Eingabe konnte nicht gespeichert werden"
+    },
+    "placeholder": "Gib hier deine Antwort ein...",
+    "tooltip": {
+      "sharedWithCoach": "Deine Antwort wird mit deinem Coach geteilt.",
+      "private": "Deine Antwort ist privat und wird nicht geteilt."
     }
+  },
+  "exerciseImage":{
+    "error": {
+      "imageMissing": "Bilddaten fehlen",
+      "imageLoadFailed": "Bild konnte nicht geladen werden"
+    },
+    "exerciseComponentDescription": "Übungsbild"
+  },
+  "exerciseFile":{
+    "error": {
+      "dataMissing": "Ungültige Dateidaten"
+    },
+    "download": "Herunterladen",
+    "noPreview": "Vorschau für diesen Dateityp nicht verfügbar."
   },
   "timer": {
     "title":"Stelle einen Timer ein:",
@@ -345,6 +373,10 @@
     }
   },
   "individualDocument": {
-    "download": "{{documentName}} herunterladen"
+    "download": "{{documentName}} herunterladen",
+    "noPreview": "Vorschau für diesen Dateityp nicht verfügbar.",
+    "error": {
+      "fetchFailed": "Dokument konnte nicht abgerufen werden"
+    }
   }
 }

@@ -10,7 +10,7 @@ export default function ExerciseImage({component, onError}: Readonly<{
     const {t} = useTranslation();
 
     if (!component.fileData || !component.fileType) {
-        onError(t("exercise.error.imageMissing") || "Image data is missing");
+        onError(t("exercise.error.imageMissing"));
         return null;
     }
 
@@ -20,16 +20,16 @@ export default function ExerciseImage({component, onError}: Readonly<{
     return (
         <div className="my-4 w-full flex flex-col items-center gap-2">
             {component.exerciseComponentDescription && (
-                <p className="text-lg text-gray-700 text-center">
+                <p className="text-lg text-center">
                     {component.exerciseComponentDescription}
                 </p>
             )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 src={imageSrc}
-                alt={component.exerciseComponentDescription || "Exercise Image"}
+                alt={component.exerciseComponentDescription ?? t("exerciseImage.exerciseComponentDescription")}
                 className="max-w-full h-auto"
-                onError={() => onError(t("exercise.error.imageLoadFailed") || "Failed to load image")}
+                onError={() => onError(t("exercise.error.imageLoadFailed"))}
             />
         </div>
     );

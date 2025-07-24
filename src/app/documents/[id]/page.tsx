@@ -32,8 +32,8 @@ const IndividualDocumentPage = () => {
                 );
 
                 if (!response.ok) {
-                    console.log("error fetching document: ", response.statusText); //TODO: handle error
-                    setError("Failed to fetch document. Please try again later."); //TODO: translation
+                    console.log("Error fetching document: ", response.statusText);
+                    setError("individualDocument.error.fetchFailed");
                 }
 
                 const blob = await response.blob();
@@ -77,7 +77,7 @@ const IndividualDocumentPage = () => {
         } else {
             return (
                 <p className="text-center text-gray-500 my-6">
-                    {t("individualDocument.noPreview", {documentName: fileName})} //TODO: translation
+                    {t("individualDocument.noPreview")}
                 </p>
             );
         }

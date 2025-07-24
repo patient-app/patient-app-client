@@ -43,13 +43,13 @@ export default function ExerciseInputField({
             );
             if (!response.ok) {
                 const errorData = await response.json();
-                const errorMsg = t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`; //TODO: error message
+                const errorMsg = t('exerciseInput.error.failedToUpdate') + `: ${errorData.message}`;
                 onError?.(errorMsg);
             }
         } catch (e) {
-            const errorMsg = t('exercise.error.fetchFailedIndividual');
-            onError?.(errorMsg);  //TODO: correct error message
-            console.error("Failed to start exercise", e);
+            const errorMsg = t('exerciseInput.error.failedToUpdate');
+            onError?.(errorMsg);
+            console.error("Failed to update exercise", e);
         }
     }
 
@@ -68,21 +68,21 @@ export default function ExerciseInputField({
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onBlur={updateExerciseComponent}
-                    placeholder={`Please enter your response here...`} //TODO: translate
+                    placeholder={t('exerciseInput.placeholder')}
                     required={true}
                     rows={2}
                     onInput={(e) => {
                         e.currentTarget.style.height = "auto";
                         e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
                     }}
-                    className="block w-full resize-none overflow-hidden bg-blue-figma rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2 pr-10"
+                    className="block w-full resize-none overflow-hidden bg-green-100 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2 pr-10"
                 />
                 <div className="absolute top-2 right-2">
                     <Tooltip
                         content={
                             component.exerciseComponentType === "INPUT_FIELD_SHARED"
-                                ? "Shared with Therapist"
-                                : "Private Input Field"
+                                ? t('exerciseInput.tooltip.sharedWithCoach')
+                                : t('exerciseInput.tooltip.private')
                         }
                         placement="top"
                     >

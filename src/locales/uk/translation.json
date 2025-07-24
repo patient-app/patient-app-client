@@ -110,7 +110,9 @@
     "title": "вправи",
     "error": {
       "fetchFailed": "Не вдалося отримати вправи: ",
-      "fetchFailedIndividual": "Не вдалося отримати вправу"
+      "fetchFailedIndividual": "Не вдалося отримати вправу",
+      "startFailed": "Не вдалося почати вправу",
+      "endFailed": "Не вдалося завершити вправу"
     },
     "noExercises": "Наразі вправ немає.",
     "noExerciseIndividual": "Вправи не знайдено.",
@@ -130,7 +132,34 @@
       "saveButton": "Зберегти",
       "cancelButton": "Скасувати",
       "okButton": "Гаразд"
+    },
+    "completedExercise": "Виконана вправа",
+    "completeExecution": "Виконайте вправу",
+    "start": "початок"
+  },
+  "exerciseInput":{
+    "error":{
+      "failedToUpdate": "Не вдалося зберегти введені дані"
+    },
+    "placeholder": "Будь ласка, введіть свою відповідь тут...",
+    "tooltip": {
+      "sharedWithCoach": "Вашу відповідь буде передано вашому тренеру.",
+      "private": "Ваша відповідь не буде передана вашому тренеру."
     }
+  },
+  "exerciseImage":{
+    "error": {
+      "imageMissing": "Дані зображення відсутні",
+      "imageLoadFailed": "Не вдалося завантажити зображення"
+    },
+    "exerciseComponentDescription": "Зображення вправи"
+  },
+  "exerciseFile":{
+    "error": {
+      "dataMissing": "Недійсні дані файлу"
+    },
+    "download": "Завантажити",
+    "noPreview": "Попередній перегляд для цього типу файлів недоступний."
   },
   "timer": {
     "title": "Встановіть таймер",
@@ -344,6 +373,10 @@
     }
   },
   "individualDocument": {
-    "download": "Завантажити {{documentName}}"
+    "download": "Завантажити {{documentName}}",
+    "noPreview": "Попередній перегляд для цього типу файлів недоступний.",
+    "error": {
+      "fetchFailed": "Не вдалося отримати документ"
+    }
   }
 }

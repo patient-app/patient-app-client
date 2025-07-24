@@ -62,14 +62,14 @@ const ExerciseDetailPage = () => {
             );
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`); //TODO: correct error message
+                setError(t('exercise.error.startFailed') + `: ${errorData.message}`);
             } else {
                 const res = await response.json();
                 const exerciseExecutionId = res.exerciseExecutionId;
                 router.push(`/exercise/${id}/${exerciseExecutionId}`);
             }
         } catch (e) {
-            setError(t('exercise.error.fetchFailedIndividual')); //TODO: correct error message
+            setError(t('exercise.error.startFailed'));
             console.error("Failed to start exercise", e);
         }
     }
@@ -87,11 +87,11 @@ const ExerciseDetailPage = () => {
                 onClick={startExercise}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
-                Start <Play size={16}/>
+                {t('exercise.start')} <Play size={16}/>
             </button>
             <hr className="w-[50%] border-gray-300 border-1 my-2"/>
             <h2 className="text-xl font-semibold text-gray-800 w-full mb-2 text-center">
-                TODO: Add translation key for Exercise Executions
+                {t('exercise.completedExercise')}
             </h2>
 
             {exercises.map(exercise => (

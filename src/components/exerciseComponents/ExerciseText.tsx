@@ -5,7 +5,7 @@ export default function ExerciseText({
 }>) {
     return (
         <div className="my-4 w-full">
-            <p className="text-lg text-gray-700">
+            <p className="text-lg">
                 {description.text}
             </p>
         </div>

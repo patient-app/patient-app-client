@@ -1,6 +1,7 @@
 "use client";
 
 import { ExerciseComponentsDTO } from "@/dto/output/exercise/ExerciseComponentsDTO";
+import {useTranslation} from "react-i18next";
 
 export default function ExerciseFile({
                                          component,
@@ -9,9 +10,10 @@ export default function ExerciseFile({
     component: ExerciseComponentsDTO;
     onError?: (error: string) => void;
 }>) {
+    const { t } = useTranslation();
 
     if (!component.fileData || !component.fileType || !component.fileName) {
-        onError?.("Invalid file data");
+        onError?.(t("exerciseFile.error.dataMissing"));
         return null;
     }
 
@@ -31,7 +33,7 @@ export default function ExerciseFile({
     return (
         <div className="my-4 w-full">
             {component.exerciseComponentDescription && (
-                <p className="text-lg text-gray-700 mb-2">
+                <p className="text-lg text-center">
                     {component.exerciseComponentDescription}
                 </p>
             )}
@@ -39,21 +41,23 @@ export default function ExerciseFile({
             {component.fileType === "application/pdf" ? (
                 <iframe
                     src={fileSrc}
-                    className="w-full h-[500px] rounded border"
+                    className="w-full h-[400px] desktop:h-[600px] my-6"
                     title={component.fileName}
                 />
             ) : (
-                <p className="text-gray-500 mb-2">
-                    Preview not available for this file type.
+                <p className="text-gray-500 text-center mb-2">
+                    {t('exerciseFile.noPreview')}
                 </p>
             )}
 
-            <button
-                onClick={handleDownload}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-                Download {component.fileName}
-            </button>
+            <div className="flex justify-center mt-4">
+                <button
+                    onClick={handleDownload}
+                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
+                >
+                    {t("exerciseFile.download")} {component.fileName}
+                </button>
+            </div>
         </div>
     );
 }

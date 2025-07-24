@@ -111,7 +111,9 @@ interface Resources {
             "title": "",
             "error": {
                 "fetchFailed": "",
-                "fetchFailedIndividual": ""
+                "fetchFailedIndividual": "",
+                "startFailed": "",
+                "endFailed": ""
             },
             "noExercises": "",
             "noExerciseIndividual": "",
@@ -124,16 +126,43 @@ interface Resources {
                 "very_pleasant": "",
                 "save": ""
             },
-            "modal":{
-                "feedbackText":"",
-                "feedbackPlaceholder":"",
-                "timeUpText":"",
+            "modal": {
+                "feedbackText": "",
+                "feedbackPlaceholder": "",
+                "timeUpText": "",
                 "saveButton": "",
                 "cancelButton": "",
                 "okButton": ""
+            },
+            "completedExercise": "",
+            "completeExecution": "",
+            "start":""
+        },
+        "exerciseInput": {
+            "error": {
+                "failedToUpdate": ""
+            },
+            "placeholder": "",
+            "tooltip": {
+                "sharedWithCoach": "",
+                "private": ""
             }
         },
-        "timer":{
+        "exerciseImage": {
+            "error": {
+                "imageMissing": "",
+                "imageLoadFailed": ""
+            },
+            "exerciseComponentDescription": ""
+        },
+        "exerciseFile": {
+            "error": {
+                "dataMissing": ""
+            },
+            "download": "",
+            "noPreview": ""
+        },
+        "timer": {
             "title": "",
             "units": {
                 "hours": "Hours",
@@ -345,7 +374,11 @@ interface Resources {
             }
         },
         "individualDocument": {
-            "download": ""
+            "download": "",
+            "noPreview": "",
+            "error": {
+                "fetchFailed": ""
+            }
         }
     }
 }
