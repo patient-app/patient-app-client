@@ -89,7 +89,7 @@ const DocumentsPage = () => {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-20 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center">{t("documents.title")}</h1>
             <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                 {renderContent()}
