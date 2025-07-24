@@ -24,6 +24,8 @@ const ExerciseExecutionInfoPage = () => {
     const params = useParams();
     const id = params.id as string;
     const executionId = params.executionId as string;
+    const {t} = useTranslation();
+
     const [backModal, setBackModal] = useState(false);
     const [feedbackModal, setFeedbackModal] = useState(false);
     const [moodBeforeModal, setMoodBeforeModal] = useState(true);
@@ -40,8 +42,14 @@ const ExerciseExecutionInfoPage = () => {
         moodScore: 3,
     });
     const [feedback, setFeedback] = useState<string>("");
+    const [startTime, setStartTime] = useState<string>("");
 
-    const {t} = useTranslation();
+    const [timerHours, setTimerHours] = useState(0);
+    const [timerMinutes, setTimerMinutes] = useState(0);
+    const [timerSeconds, setTimerSeconds] = useState(0);
+    const [timeLeft, setTimeLeft] = useState<number | null>(null);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+    const [timerFinishedModal, setTimerFinishedModal] = useState(false)
 
     const handleComponentError = (message: string) => {
         setError(message);
@@ -75,11 +83,33 @@ const ExerciseExecutionInfoPage = () => {
         getExercise();
     }, [id, t]);
 
+    useEffect(() => {
+        setStartTime(new Date().toISOString());
+    }, []);
+
+    useEffect(() => {
+        if (!isTimerRunning || timeLeft === null) return;
+
+        if (timeLeft <= 0) {
+            setIsTimerRunning(false);
+            setTimerFinishedModal(true);
+            return;
+        }
+
+        const interval = setInterval(() => {
+            setTimeLeft((prev) => (prev !== null ? prev - 1 : null));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [isTimerRunning, timeLeft]);
+
+
+
+
     const endExercise = async (finalMood?: MoodDTO) => {
-        //TODO: remove hardcoded mood values
         const completionInformation: ExerciseCompletionDTO = {
             exerciseExecutionId: executionId,
-            startTime: new Date().toISOString(),
+            startTime: startTime,
             endTime: new Date().toISOString(),
             feedback: feedback,
             moodsBefore: [moodBefore],
@@ -181,6 +211,70 @@ const ExerciseExecutionInfoPage = () => {
                 </button>
             </div>
 
+            <div className="w-full flex flex-col gap-2 mt-4">
+                <label className="text-sm font-medium text-gray-700">Set Timer:</label>
+                <div className="flex gap-2">
+                    <input
+                        type="number"
+                        min="0"
+                        value={timerHours}
+                        onChange={(e) => setTimerHours(parseInt(e.target.value))}
+                        className="w-16 p-2 border border-gray-300 rounded text-center"
+                        placeholder="HH"
+                    />
+                    <span className="self-center">:</span>
+                    <input
+                        type="number"
+                        min="0"
+                        max="59"
+                        value={timerMinutes}
+                        onChange={(e) => setTimerMinutes(parseInt(e.target.value))}
+                        className="w-16 p-2 border border-gray-300 rounded text-center"
+                        placeholder="MM"
+                    />
+                    <span className="self-center">:</span>
+                    <input
+                        type="number"
+                        min="0"
+                        max="59"
+                        value={timerSeconds}
+                        onChange={(e) => setTimerSeconds(parseInt(e.target.value))}
+                        className="w-16 p-2 border border-gray-300 rounded text-center"
+                        placeholder="SS"
+                    />
+                    <Button
+                        className="ml-4"
+                        disabled={isTimerRunning}
+                        onClick={() => {
+                            const totalSeconds =
+                                timerHours * 3600 + timerMinutes * 60 + timerSeconds;
+                            if (totalSeconds > 0) {
+                                setTimeLeft(totalSeconds);
+                                setIsTimerRunning(true);
+                            }
+                        }}
+                    >
+                        Start
+                    </Button>
+                </div>
+                {isTimerRunning && (
+                    <div className="mt-2 text-green-700 font-semibold">
+                        Time left: {Math.floor(timeLeft! / 3600)
+                        .toString()
+                        .padStart(2, '0')}
+                        :
+                        {Math.floor((timeLeft! % 3600) / 60)
+                            .toString()
+                            .padStart(2, '0')}
+                        :
+                        {(timeLeft! % 60)
+                            .toString()
+                            .padStart(2, '0')}
+                    </div>
+                )}
+            </div>
+
+
 
             {exercise && exercise.exerciseComponents && (
                 <div className="w-full flex flex-col gap-4">
@@ -202,7 +296,7 @@ const ExerciseExecutionInfoPage = () => {
             )}
 
             <button
-                onClick={setMoodAfterModal}
+                onClick={() => setMoodAfterModal(prev => !prev)}
                 className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
                 Complete Exercise
@@ -296,6 +390,30 @@ const ExerciseExecutionInfoPage = () => {
                     closeAction={() => setMoodAfterModal(false)}
                 />
             </Modal>
+            <Modal
+                show={timerFinishedModal}
+                onClose={() => setTimerFinishedModal(false)}
+                size="md"
+                popup
+            >
+                <ModalHeader />
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-semibold text-gray-700">
+                            Times up!
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-4">
+                            Your timer has completed.
+                        </p>
+                        <div className="flex justify-center">
+                            <Button onClick={() => setTimerFinishedModal(false)}>
+                                OK
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
+
         </div>
     );
 
