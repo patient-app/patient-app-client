@@ -64,7 +64,7 @@ export default function MoodTracker({
                         moodAction({ moodName: mood.label, moodScore: mood.value });
                         closeAction();
                     }}
-                    className="w-full desktop:max-w-sm px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition text-sm desktop:text-base"
+                    className="w-full desktop:max-w-sm px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition text-sm cursor-pointer desktop:text-base"
                 >
                     {t("exercise.moodtracking.save")}
                 </button>
