@@ -5,7 +5,6 @@ export default function ExerciseYoutube({
                                         }: Readonly<{
     component: ExerciseComponentsDTO;
 }>) {
-    //TODO: add actual video URL from data
 
     return (
         <div className="my-4 w-full flex flex-col items-center gap-2">

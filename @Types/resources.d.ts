@@ -126,10 +126,26 @@ interface Resources {
             },
             "modal":{
                 "feedbackText":"",
+                "feedbackPlaceholder":"",
+                "timeUpText":"",
                 "saveButton": "",
-                "cancelButton": ""
+                "cancelButton": "",
+                "okButton": ""
             }
         },
+        "timer":{
+            "title": "",
+            "units": {
+                "hours": "Hours",
+                "minutes": "Minutes",
+                "seconds": "Seconds"
+            },
+            "start": "",
+            "resume": "",
+            "pause": "",
+            "reset": "",
+            "timeleft": ""
+        }
         "chat": {
             "title": "",
             "name": "",

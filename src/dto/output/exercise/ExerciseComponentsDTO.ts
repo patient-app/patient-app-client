@@ -4,6 +4,7 @@ export interface ExerciseComponentsDTO {
     exerciseComponentDescription?: string;
     fileName?: string;
     fileType?: string;
+    youtubeUrl?: string;
     fileData?: string;
     orderNumber: number;
 }

@@ -125,10 +125,26 @@
     },
     "modal":{
       "feedbackText":"Teile deine Gedanken zu dieser Übung mit deinem Coach.",
+      "feedbackPlaceholder": "Gib hier dein Feedback ein...",
+      "timeUpText": "Dein Timer ist abgelaufen.",
       "saveButton": "Speichern",
-      "cancelButton": "Abbrechen"
+      "cancelButton": "Abbrechen",
+      "okButton": "Okay"
 
     }
+  },
+  "timer": {
+    "title":"Stelle einen Timer ein:",
+    "units": {
+      "hours": "Stunden",
+      "minutes": "Minuten",
+      "seconds": "Sekunden"
+    },
+    "start": "Timer starten",
+    "resume": "Timer fortsetzen",
+    "pause": "Timer pausieren",
+    "reset": "Timer zurücksetzen",
+    "timeleft": "Verbleibende Zeit: "
   },
   "chat": {
     "title": "Lumina AI",

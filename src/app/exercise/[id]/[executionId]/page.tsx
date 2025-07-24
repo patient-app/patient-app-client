@@ -17,6 +17,7 @@ import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import MoodTracker from "@/components/MoodTracker";
+import TimerComponent from "@/components/TimerComponent";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -44,9 +45,6 @@ const ExerciseExecutionInfoPage = () => {
     const [feedback, setFeedback] = useState<string>("");
     const [startTime, setStartTime] = useState<string>("");
 
-    const [timerHours, setTimerHours] = useState(0);
-    const [timerMinutes, setTimerMinutes] = useState(0);
-    const [timerSeconds, setTimerSeconds] = useState(0);
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [timerFinishedModal, setTimerFinishedModal] = useState(false)
@@ -197,7 +195,7 @@ const ExerciseExecutionInfoPage = () => {
                     onClick={() => setBackModal(true)}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
-                <h1 className="text-3xl font-semibold text-center">SOME HEADER</h1>
+                <h1 className="text-3xl font-semibold text-center">{exercise?.exerciseTitle}</h1>
                 <button
                     className="absolute top-0 right-0 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setFeedbackModal(true)}
@@ -211,70 +209,7 @@ const ExerciseExecutionInfoPage = () => {
                 </button>
             </div>
 
-            <div className="w-full flex flex-col gap-2 mt-4">
-                <label className="text-sm font-medium text-gray-700">Set Timer:</label>
-                <div className="flex gap-2">
-                    <input
-                        type="number"
-                        min="0"
-                        value={timerHours}
-                        onChange={(e) => setTimerHours(parseInt(e.target.value))}
-                        className="w-16 p-2 border border-gray-300 rounded text-center"
-                        placeholder="HH"
-                    />
-                    <span className="self-center">:</span>
-                    <input
-                        type="number"
-                        min="0"
-                        max="59"
-                        value={timerMinutes}
-                        onChange={(e) => setTimerMinutes(parseInt(e.target.value))}
-                        className="w-16 p-2 border border-gray-300 rounded text-center"
-                        placeholder="MM"
-                    />
-                    <span className="self-center">:</span>
-                    <input
-                        type="number"
-                        min="0"
-                        max="59"
-                        value={timerSeconds}
-                        onChange={(e) => setTimerSeconds(parseInt(e.target.value))}
-                        className="w-16 p-2 border border-gray-300 rounded text-center"
-                        placeholder="SS"
-                    />
-                    <Button
-                        className="ml-4"
-                        disabled={isTimerRunning}
-                        onClick={() => {
-                            const totalSeconds =
-                                timerHours * 3600 + timerMinutes * 60 + timerSeconds;
-                            if (totalSeconds > 0) {
-                                setTimeLeft(totalSeconds);
-                                setIsTimerRunning(true);
-                            }
-                        }}
-                    >
-                        Start
-                    </Button>
-                </div>
-                {isTimerRunning && (
-                    <div className="mt-2 text-green-700 font-semibold">
-                        Time left: {Math.floor(timeLeft! / 3600)
-                        .toString()
-                        .padStart(2, '0')}
-                        :
-                        {Math.floor((timeLeft! % 3600) / 60)
-                            .toString()
-                            .padStart(2, '0')}
-                        :
-                        {(timeLeft! % 60)
-                            .toString()
-                            .padStart(2, '0')}
-                    </div>
-                )}
-            </div>
-
-
+            <TimerComponent onFinish={() => setTimerFinishedModal(true)} />
 
             {exercise && exercise.exerciseComponents && (
                 <div className="w-full flex flex-col gap-4">
@@ -347,13 +282,14 @@ const ExerciseExecutionInfoPage = () => {
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
                             {t('exercise.modal.feedbackText')}
                         </h3>
-                        <input
+                        <textarea
                             className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="Please provide your feedback here..." //TODO
+                            placeholder={t('exercise.modal.feedbackPlaceholder')}
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
+                            rows={2}
                         />
-                        <div className="flex justify-center gap-4">
+                        <div className="flex justify-center gap-4 mt-4">
                             <Button className="bg-blue-600" onClick={() => setFeedbackModal(false)}>
                                 {t('exercise.modal.saveButton')}
                             </Button>
@@ -400,14 +336,11 @@ const ExerciseExecutionInfoPage = () => {
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-semibold text-gray-700">
-                            Times up!
+                            {t('exercise.modal.timeUpText')}
                         </h3>
-                        <p className="text-sm text-gray-600 mb-4">
-                            Your timer has completed.
-                        </p>
-                        <div className="flex justify-center">
+                        <div className="flex justify-center gap-4">
                             <Button onClick={() => setTimerFinishedModal(false)}>
-                                OK
+                                {t('exercise.modal.okButton')}
                             </Button>
                         </div>
                     </div>

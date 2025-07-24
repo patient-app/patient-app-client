@@ -125,9 +125,26 @@
     },
     "modal":{
       "feedbackText":"Share your thoughts on this exercise with your coach.",
+      "feedbackPlaceholder":"Please provide your feedback here...",
+      "timeUpText":"Your timer has completed.",
       "saveButton": "Save",
-      "cancelButton": "Cancel"
+      "cancelButton": "Cancel",
+      "okButton": "Okay"
+
     }
+  },
+  "timer": {
+    "title": "Set a timer:",
+    "units": {
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "start": "Start Timer",
+    "resume": "Resume",
+    "pause": "Pause",
+    "reset": "Reset",
+    "timeleft": "Time left"
   },
   "chat": {
     "title": "Lumina AI",
