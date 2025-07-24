@@ -97,7 +97,7 @@ const ExerciseDetailPage = () => {
             {exercises.map(exercise => (
                 <button
                     key={exercise.exerciseExecutionId}
-                    onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}`)}
+                    onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
                     className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <p className="font-bold">{exercise.executionTitle}</p>

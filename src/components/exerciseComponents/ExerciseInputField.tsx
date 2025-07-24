@@ -12,17 +12,21 @@ export default function ExerciseInputField({
                                                elementId,
                                                component,
                                                onError,
+                                               readonly = false,
                                            }: Readonly<{
     exerciseId: string;
     exerciseExecutionId: string;
     elementId: string;
     component: ExerciseComponentsDTO;
     onError?: (errorMessage: string) => void;
+    readonly?: boolean;
 }>) {
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(component.userInput ?? "");
     const {t} = useTranslation();
 
     const updateExerciseComponent = async () => {
+        if (readonly) return;
+
         try {
             const requestInit: RequestInit = {
                 method: "PUT",
@@ -30,17 +34,17 @@ export default function ExerciseInputField({
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(
-                    {
-                        exerciseExecutionId: exerciseExecutionId,
-                        userInput: input,
-                    }
-                )
+                body: JSON.stringify({
+                    exerciseExecutionId: exerciseExecutionId,
+                    userInput: input,
+                }),
             };
+
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${exerciseId}/exercise-components/${elementId}`,
                 requestInit
             );
+
             if (!response.ok) {
                 const errorData = await response.json();
                 const errorMsg = t('exerciseInput.error.failedToUpdate') + `: ${errorData.message}`;
@@ -51,31 +55,30 @@ export default function ExerciseInputField({
             onError?.(errorMsg);
             console.error("Failed to update exercise", e);
         }
-    }
-
+    };
 
     return (
         <div className="my-4 w-full">
-            <label
-                htmlFor={elementId}
-                className="block font-medium mb-1"
-            >
+            <label htmlFor={elementId} className="block font-medium mb-1">
                 {component.exerciseComponentDescription}
             </label>
             <div className="relative w-full">
                 <textarea
                     id={elementId}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onBlur={updateExerciseComponent}
+                    value={readonly ? (component.userInput ?? " ") : input}
+                    onChange={(e) => !readonly && setInput(e.target.value)}
+                    onBlur={!readonly ? updateExerciseComponent : undefined}
                     placeholder={t('exerciseInput.placeholder')}
-                    required={true}
+                    disabled={readonly}
+                    required={!readonly}
                     rows={2}
                     onInput={(e) => {
                         e.currentTarget.style.height = "auto";
                         e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
                     }}
-                    className="block w-full resize-none overflow-hidden bg-green-100 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2 pr-10"
+                    className={`block w-full resize-none overflow-hidden ${
+                        readonly ? "bg-gray-100 text-gray-600" : "bg-green-100"
+                    } rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2 pr-10`}
                 />
                 <div className="absolute top-2 right-2">
                     <Tooltip
@@ -93,7 +96,6 @@ export default function ExerciseInputField({
                         )}
                     </Tooltip>
                 </div>
-
             </div>
         </div>
     );
