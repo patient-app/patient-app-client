@@ -100,8 +100,7 @@ const ExerciseDetailPage = () => {
                     onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
                     className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
-                    <p className="font-bold">{exercise.executionTitle}</p>
-                    <p className="italic text-gray-400 text-sm">{exercise.exerciseExecutionId}</p>
+                    <p className="font-bold">{new Date(exercise.executionTitle).toLocaleString()}</p>
                 </button>
             ))}
 
