@@ -111,23 +111,71 @@ interface Resources {
             "title": "",
             "error": {
                 "fetchFailed": "",
-                "fetchFailedIndividual": ""
+                "fetchFailedIndividual": "",
+                "startFailed": "",
+                "endFailed": ""
             },
             "noExercises": "",
             "noExerciseIndividual": "",
-            "image": {
-                "error": {
-                    "fetchFailed": ""
-                }
+            "moodtracking": {
+                "title": "",
+                "very_unpleasant": "",
+                "unpleasant": "",
+                "neutral": "",
+                "pleasant": "",
+                "very_pleasant": "",
+                "save": ""
             },
-            "document": {
-                "view": "",
-                "download": "",
-                "error": {
-                    "fetchFailed": ""
-                }
+            "modal": {
+                "feedbackText": "",
+                "feedbackPlaceholder": "",
+                "timeUpText": "",
+                "saveButton": "",
+                "cancelButton": "",
+                "okButton": "",
+                "buttonText": ""
+            },
+            "completedExercise": "",
+            "completeExecution": "",
+            "start":""
+        },
+        "exerciseInput": {
+            "error": {
+                "failedToUpdate": ""
+            },
+            "placeholder": "",
+            "tooltip": {
+                "sharedWithCoach": "",
+                "private": ""
             }
         },
+        "exerciseImage": {
+            "error": {
+                "imageMissing": "",
+                "imageLoadFailed": ""
+            },
+            "exerciseComponentDescription": ""
+        },
+        "exerciseFile": {
+            "error": {
+                "dataMissing": ""
+            },
+            "download": "",
+            "noPreview": ""
+        },
+        "timer": {
+            "title": "",
+            "units": {
+                "hours": "Hours",
+                "minutes": "Minutes",
+                "seconds": "Seconds"
+            },
+            "start": "",
+            "resume": "",
+            "pause": "",
+            "reset": "",
+            "timeleft": ""
+        }
         "chat": {
             "title": "",
             "name": "",
@@ -327,7 +375,11 @@ interface Resources {
             }
         },
         "individualDocument": {
-            "download": ""
+            "download": "",
+            "noPreview": "",
+            "error": {
+                "fetchFailed": ""
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ import {createChatBotMessage} from 'react-chatbot-kit';
 import {Info, Repeat2, X} from 'lucide-react';
 import {CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
+import Image from "next/image";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 let externalActions: any = null;
@@ -40,7 +41,7 @@ const configDocument = (
             >
                 <div>{CHATBOT_NAME} AI</div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
                     <Tooltip content={toolTipChatbot}>
                         <button
                             style={{
@@ -53,7 +54,7 @@ const configDocument = (
                                 padding: "0 4px",
                             }}
                         >
-                            <Info />
+                            <Info/>
                         </button>
                     </Tooltip>
 
@@ -70,7 +71,7 @@ const configDocument = (
                                 padding: "0 4px",
                             }}
                         >
-                            <Repeat2 />
+                            <Repeat2/>
                         </button>
                     </Tooltip>
 
@@ -86,11 +87,25 @@ const configDocument = (
                             padding: "0 4px",
                         }}
                     >
-                        <X />
+                        <X/>
                     </button>
                 </div>
             </div>
-        )
+        ),
+        botAvatar: () => (
+            <div className="react-chatbot-kit-chat-bot-avatar">
+                <div className="react-chatbot-kit-chat-bot-avatar-container">
+                    <Image
+                        src={`/avatars/animalistic.png`} //TODO: replace with actual avatar
+                        alt={`animalistic avatar`}//TODO: replace with actual avatar
+                        width={80}
+                        height={80}
+                        className="object-contain rounded-lg mx-auto"
+                    />
+
+                </div>
+            </div>)
+
     }
 });
 

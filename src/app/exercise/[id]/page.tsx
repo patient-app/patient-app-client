@@ -1,20 +1,23 @@
 "use client";
 
-import {useParams, useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
+import React, {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
-import {ExerciseDTO} from "@/dto/output/ExerciseDTO";
 import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
-import {ArrowLeft} from "lucide-react";
+import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
+import {ArrowLeft, Play} from "lucide-react";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
-    const id = params?.id;
+    const searchParams = useSearchParams();
     const router = useRouter();
 
+    const id = params?.id;
+    const title = searchParams.get('title');
+
     const [error, setError] = useState<string | null>(null);
-    const [exercise, setExercise] = useState<ExerciseDTO | null>(null);
+    const [exercises, setExercises] = useState<IndividualExerciseOverviewDTO[]>([]);
 
     const {t} = useTranslation();
 
@@ -34,9 +37,9 @@ const ExerciseDetailPage = () => {
                     const errorData = await response.json();
                     setError(t('exercise.error.fetchFailedIndividual') + `: ${errorData.message}`);
                 } else {
-                    const exerciseData: ExerciseDTO = await response.json();
-                    setExercise(exerciseData);
-                    console.log("Exercise data:", exerciseData);
+                    const exercisesResponse = await response.json();
+                    setExercises(exercisesResponse);
+                    console.log("Exercise data:", exercisesResponse);
                 }
             } catch (e) {
                 setError(t('exercise.error.fetchFailedIndividual'));
@@ -47,83 +50,75 @@ const ExerciseDetailPage = () => {
         getExercise();
     }, [id, t]);
 
-
-    /**const renderElement = (element: ExerciseElementDTO) => {
-     switch (element.type) {
-     case "IMAGE": {
-     const data = element.data as ImageDTO;
-     return (
-     <ExerciseImage
-     key={element.id}
-     pictureId={element.id}
-     exerciseId={id as string}
-     alt={data.alt}
-     onError={(msg) => setError(msg)}
-     />
-     );
-     }
-     case "FILE": {
-     const data = element.data as PdfDTO;
-     return (
-     <ExerciseDocument
-     key={element.id}
-     exerciseId={id as string}
-     documentId={element.id}
-     name={data.name}
-     onError={(msg) => setError(msg)}
-     />
-     );
-     }
-     case "TEXT_INPUT": {
-     const data = element.data as InputDTO;
-     return (
-     <ExerciseTextInput
-     key={element.id}
-     elementId={element.id}
-     data={data}
-     />
-     );
-     }
-     default:
-     return null;
-     }
-     }; **/
+    const startExercise = async () => {
+        try {
+            const requestInit: RequestInit = {
+                method: "POST",
+                credentials: "include",
+            };
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/exercises/${id}/start`,
+                requestInit
+            );
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError(t('exercise.error.startFailed') + `: ${errorData.message}`);
+            } else {
+                const res = await response.json();
+                const exerciseExecutionId = res.exerciseExecutionId;
+                router.push(`/exercise/${id}/${exerciseExecutionId}`);
+            }
+        } catch (e) {
+            setError(t('exercise.error.startFailed'));
+            console.error("Failed to start exercise", e);
+        }
+    }
 
     return (
-        <>
-            <ArrowLeft
-                onClick={() => router.back()}
-                className="text-gray-500 text-xl cursor-pointer"
-            />
-            <div className="min-h-screen w-full flex flex-col items-center justify-start">
-                {exercise ? (
-                    <>
-                        <h1 className="text-3xl font-semibold text-center">{exercise.title}</h1>
-                        <p className="pt-6">{exercise.description}</p>
-                        <div className="w-full max-w-2xl mt-6">
-                            {/*exercise.exerciseElements.map(renderElement)*/}
-                        </div>
-                    </>
-                ) : (
-                    <h1 className="text-3xl font-semibold text-center">{t("exercise.noExerciseIndividual")}</h1>
-                )}
-
-
-                {error && (
-                    <div
-                        className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                        {error}
-                    </div>
-                )}
-
-                <HelpButton chatbot={<ExerciseChatbot
-                    isOpen={false}
-                    onCloseAction={() => {
-                    }
-                    }/>
-                }/>
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5">
+            <div className="relative w-full flex items-center justify-center">
+                <ArrowLeft
+                    onClick={() => router.back()}
+                    className="absolute left-0 text-gray-500 text-xl cursor-pointer"
+                />
+                <h1 className="text-3xl font-semibold text-center">{title}</h1>
             </div>
-        </>
+            <button
+                onClick={startExercise}
+                className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+            >
+                {t('exercise.start')} <Play size={16}/>
+            </button>
+            <hr className="w-[50%] border-gray-300 border-1 my-2"/>
+            <h2 className="text-xl font-semibold text-gray-800 w-full mb-2 text-center">
+                {t('exercise.completedExercise')}
+            </h2>
+
+            {exercises.map(exercise => (
+                <button
+                    key={exercise.exerciseExecutionId}
+                    onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
+                    className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                >
+                    <p className="font-bold">{new Date(exercise.executionTitle).toLocaleString()}</p>
+                </button>
+            ))}
+
+
+            {error && (
+                <div
+                    className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
+                    {error}
+                </div>
+            )}
+
+            <HelpButton chatbot={<ExerciseChatbot
+                isOpen={false}
+                onCloseAction={() => {
+                }
+                }/>
+            }/>
+        </div>
     );
 };
 

@@ -3,17 +3,17 @@
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {ExerciseOutputDTO} from "@/dto/output/ExerciseOutputDTO";
+import {ExerciseOverviewDTO} from "@/dto/output/exercise/ExerciseOverviewDTO";
 
 const Exercise = () => {
     const router = useRouter();
     const {t} = useTranslation();
     const [error, setError] = useState<string | null>(null);
-    const [exercises, setExercises] = useState<ExerciseOutputDTO[]>([]);
+    const [exercises, setExercises] = useState<ExerciseOverviewDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const handleExerciseClick = (exerciseId: string) => {
-        router.push('/exercise/' + exerciseId);
+    const handleExerciseClick = (exerciseId: string, title: string) => {
+        router.push(`/exercise/${exerciseId}?title=${encodeURIComponent(title)}`);
     }
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Exercise = () => {
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/exercises", requestInit);
                 if (!response.ok) {
                     const errorData = await response.json();
-                    setError((t("exercise.error.fetchFailed") + errorData.message));
+                    console.error(errorData.message)
                 } else {
                     const exercisesResponse = await response.json();
                     setExercises(exercisesResponse);
@@ -74,10 +74,9 @@ const Exercise = () => {
             return exercises.map((exercise) => (
                 <button
                     key={exercise.id}
-                    className="w-26 h-24 bg-blue-figma shadow-md rounded-[20px] hover:bg-medium-blue-figma transition cursor-pointer p-2"
-                    onClick={() => handleExerciseClick(exercise.id)}
-                >
-                    <p className="font-semibold line-clamp-3">{exercise.name}</p>
+                    className="w-26 h-24 border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                    onClick={() => handleExerciseClick(exercise.id, exercise.exerciseTitle)}>
+                    <p className="font-semibold line-clamp-3">{exercise.exerciseTitle}</p>
                 </button>
             ));
         }

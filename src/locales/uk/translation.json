@@ -99,7 +99,7 @@
       "title": "Вправи",
       "noExercises": "Поки що ніяких вправ.",
       "showAll": "Показати всі",
-      "open": "Старт"
+      "open": "Вигляд"
     },
     "questionnaires": {
       "title": "Анкети",
@@ -110,22 +110,70 @@
     "title": "вправи",
     "error": {
       "fetchFailed": "Не вдалося отримати вправи: ",
-      "fetchFailedIndividual": "Не вдалося отримати вправу"
+      "fetchFailedIndividual": "Не вдалося отримати вправу",
+      "startFailed": "Не вдалося почати вправу",
+      "endFailed": "Не вдалося завершити вправу"
     },
     "noExercises": "Наразі вправ немає.",
     "noExerciseIndividual": "Вправи не знайдено.",
-    "image": {
-      "error": {
-        "fetchFailed": "Не вдалося отримати зображення вправи: "
-      }
+    "moodtracking": {
+      "title": "Як ви почуваєтеся зараз?",
+      "very_unpleasant": "дуже неприємно",
+      "unpleasant": "неприємний",
+      "neutral": "нейтральний",
+      "pleasant": "приємний",
+      "very_pleasant": "дуже приємно",
+      "save": "Зберегти"
     },
-    "document": {
-      "view": "Переглянути",
-      "download": "Завантажити",
-      "error": {
-        "fetchFailed": "Помилка отримання документа: "
-      }
+    "modal": {
+      "feedbackText": "Поділіться своїми думками щодо цієї вправи зі своїм тренером.",
+      "feedbackPlaceholder": "Будь ласка, залиште тут свій відгук...",
+      "timeUpText": "Ваш таймер завершив роботу.",
+      "saveButton": "Зберегти",
+      "cancelButton": "Скасувати",
+      "okButton": "Гаразд",
+      "buttonText": "Зворотній зв'язок для тренера"
+    },
+    "completedExercise": "Виконана вправа",
+    "completeExecution": "Виконайте вправу",
+    "start": "початок"
+  },
+  "exerciseInput":{
+    "error":{
+      "failedToUpdate": "Не вдалося зберегти введені дані"
+    },
+    "placeholder": "Будь ласка, введіть свою відповідь тут...",
+    "tooltip": {
+      "sharedWithCoach": "Вашу відповідь буде передано вашому тренеру.",
+      "private": "Ваша відповідь не буде передана вашому тренеру."
     }
+  },
+  "exerciseImage":{
+    "error": {
+      "imageMissing": "Дані зображення відсутні",
+      "imageLoadFailed": "Не вдалося завантажити зображення"
+    },
+    "exerciseComponentDescription": "Зображення вправи"
+  },
+  "exerciseFile":{
+    "error": {
+      "dataMissing": "Недійсні дані файлу"
+    },
+    "download": "Завантажити",
+    "noPreview": "Попередній перегляд для цього типу файлів недоступний."
+  },
+  "timer": {
+    "title": "Встановіть таймер",
+    "units": {
+      "hours": "Години",
+      "minutes": "Хвилини",
+      "seconds": "Секунди"
+    },
+    "start": "Запустити таймер",
+    "resume": "Продовжити",
+    "pause": "Пауза",
+    "reset": "Скинути",
+    "timeleft": "Залишилося часу"
   },
   "chat": {
     "title": "Люміна ШІ",
@@ -326,6 +374,10 @@
     }
   },
   "individualDocument": {
-    "download": "Завантажити {{documentName}}"
+    "download": "Завантажити {{documentName}}",
+    "noPreview": "Попередній перегляд для цього типу файлів недоступний.",
+    "error": {
+      "fetchFailed": "Не вдалося отримати документ"
+    }
   }
 }

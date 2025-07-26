@@ -99,7 +99,7 @@
       "title": "Exercises",
       "noExercises": "No exercises yet.",
       "showAll": "Show all",
-      "open": "Start"
+      "open": "View"
     },
     "questionnaires": {
       "title": "Questionnaires",
@@ -110,22 +110,70 @@
     "title": "Exercises",
     "error": {
       "fetchFailed": "Failed to fetch exercises: ",
-      "fetchFailedIndividual": "Failed to fetch exercise"
+      "fetchFailedIndividual": "Failed to fetch exercise",
+      "startFailed": "Failed to start exercise",
+      "endFailed": "Failed to end exercise"
     },
     "noExercises": "No exercises available at the moment.",
     "noExerciseIndividual": "No exercise found.",
-    "image": {
-      "error": {
-        "fetchFailed": "Failed to fetch exercise image: "
-      }
+    "moodtracking": {
+      "title": "How do you feel right now?",
+      "very_unpleasant": "very unpleasant",
+      "unpleasant": "unpleasant",
+      "neutral": "neutral",
+      "pleasant": "pleasant",
+      "very_pleasant": "very pleasant",
+      "save": "Save"
     },
-    "document": {
-      "view": "View",
-      "download": "Download",
-      "error": {
-        "fetchFailed": "Error fetching document: "
-      }
+    "modal": {
+      "feedbackText": "Share your thoughts on this exercise with your coach.",
+      "feedbackPlaceholder": "Please provide your feedback here...",
+      "timeUpText": "Your timer has completed.",
+      "saveButton": "Save",
+      "cancelButton": "Cancel",
+      "okButton": "Okay",
+      "buttonText": "Feedback for Coach"
+    },
+    "completedExercise": "Completed Exercise",
+    "completeExecution": "Complete Exercise",
+    "start":"Start"
+  },
+  "exerciseInput": {
+    "error": {
+      "failedToUpdate": "Failed to save your input"
+    },
+    "placeholder": "Please enter your response here...",
+    "tooltip": {
+      "sharedWithCoach": "Your response will be shared with your coach.",
+      "private": "Your response will not be shared with your coach."
     }
+  },
+  "exerciseImage": {
+    "error": {
+      "imageMissing": "Image data is missing",
+      "imageLoadFailed": "Failed to load image"
+    },
+    "exerciseComponentDescription": "Exercise Image"
+  },
+  "exerciseFile": {
+    "error": {
+      "dataMissing": "Invalid file data"
+    },
+    "download": "Download",
+    "noPreview": "Preview not available for this file type."
+  },
+  "timer": {
+    "title": "Set a timer:",
+    "units": {
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "start": "Start Timer",
+    "resume": "Resume",
+    "pause": "Pause",
+    "reset": "Reset",
+    "timeleft": "Time left"
   },
   "chat": {
     "title": "Lumina AI",
@@ -326,6 +374,10 @@
     }
   },
   "individualDocument": {
-    "download": "Download {{documentName}}"
+    "download": "Download {{documentName}}",
+    "noPreview": "Preview not available for this file type.",
+    "error": {
+      "fetchFailed": "Failed to fetch document"
+    }
   }
 }
