@@ -5,6 +5,7 @@ import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import PasswordField from "@/components/PasswordField";
 import {useRouter} from "next/navigation";
+import {BASE_PATH} from "@/libs/constants";
 
 const Login = () => {
     const { t, i18n } = useTranslation();
@@ -101,7 +102,7 @@ const Login = () => {
                     />
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span>{t("login.forgotPassword")}</span>
-                        <a href="/reset-password"
+                        <a href={`${BASE_PATH}/reset-password`}
                            className="text-emerald-600 hover:underline cursor-pointer">{t("login.reset")}</a>
                     </div>
 
@@ -121,7 +122,7 @@ const Login = () => {
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span className="italic">{t("login.noAccount")}</span>
                     </div>
-                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline w-full text-center">{t("footer.terms")}</a>
+                    <a   href={`${BASE_PATH}/terms`}  target="_blank" className="text-emerald-600 hover:underline w-full text-center">{t("footer.terms")}</a>
 
 
                 </div>
