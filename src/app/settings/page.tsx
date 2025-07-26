@@ -124,9 +124,9 @@ const Page = () => {
         const newPassword = formData.newPassword;
         setPasswordRules({
             minLength: newPassword.length >= 8,
-            uppercase: /[A-Z]/.test(newPassword),
+            uppercase: /\p{Lu}/u.test(newPassword),
             number: /\d/.test(newPassword),
-            specialChar: /[^A-Za-z0-9]/.test(newPassword),
+            specialChar: /[^\p{L}\d]/u.test(newPassword),
         });
     }, [formData.newPassword]);
 

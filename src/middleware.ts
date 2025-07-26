@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { BASE_PATH } from '@/libs/constants';
 
 const PUBLIC_ROUTES = ['/login', '/reset-password', '/terms'];
 
@@ -17,7 +18,9 @@ function parseJwt(token: string | undefined) {
 
 export default async function middleware(req: NextRequest) {
     const path = req.nextUrl.pathname;
-    const isPublicRoute = PUBLIC_ROUTES.includes(path);
+
+    const relativePath = path.startsWith(BASE_PATH) ? path.slice(BASE_PATH.length) || '/' : path;
+    const isPublicRoute = PUBLIC_ROUTES.includes(relativePath);
 
     const token = req.cookies.get('auth')?.value;
     const session = parseJwt(token);
@@ -28,16 +31,16 @@ export default async function middleware(req: NextRequest) {
         const isExpired = now >= session.exp;
 
         if (isExpired) {
-            return NextResponse.redirect(new URL('/login', req.nextUrl));
+            return NextResponse.redirect(new URL('{BASE_PATH}/login', req.nextUrl));
         }
     }
 
     if (!isPublicRoute && !isLoggedIn) {
-        return NextResponse.redirect(new URL('/login', req.nextUrl));
+        return NextResponse.redirect(new URL(`${BASE_PATH}/login`, req.nextUrl));
     }
 
     if (isPublicRoute && isLoggedIn && (path === '/login' || path === '/reset-password')) {
-        return NextResponse.redirect(new URL('/', req.nextUrl));
+        return NextResponse.redirect(new URL(`${BASE_PATH}`, req.nextUrl));
     }
 
     return NextResponse.next();
