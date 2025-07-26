@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
 import {BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
+import {BASE_PATH} from "@/libs/constants";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
@@ -109,7 +110,7 @@ export default function Home() {
                     const journalResponse = await response.json();
                     setJournalEntries(journalResponse);
 
-                    if(journalResponse.length > 0) {
+                    if (journalResponse.length > 0) {
                         const requestInit2: RequestInit = {
                             method: "GET",
                             credentials: "include"
@@ -158,11 +159,11 @@ export default function Home() {
                 console.error("Failed to fetch journal entries:", e);
             }
         }
-            fetchExercises();
+        fetchExercises();
     }, []);
 
     const saveQuickJournal = async () => {
-        if(quickJournalContent.trim().length === 0) return;
+        if (quickJournalContent.trim().length === 0) return;
 
         try {
             const requestInit: RequestInit = {
@@ -213,12 +214,14 @@ export default function Home() {
                             {mePatient?.language === "en"
                                 ? "English"
                                 : mePatient?.language === "de"
-                                ? "German"
-                                : mePatient?.language === "uk"
-                                ? "Ukrainian"
-                                : mePatient?.language || "unknown"}
+                                    ? "German"
+                                    : mePatient?.language === "uk"
+                                        ? "Ukrainian"
+                                        : mePatient?.language || "unknown"}
                         </p>
-                        <p><strong>{t("home.yourInformation.avatar")}</strong> {mePatient?.chatBotAvatar ? mePatient.chatBotAvatar.charAt(0).toUpperCase() + mePatient.chatBotAvatar.slice(1).toLowerCase() : "unknown"}</p>
+                        <p>
+                            <strong>{t("home.yourInformation.avatar")}</strong> {mePatient?.chatBotAvatar ? mePatient.chatBotAvatar.charAt(0).toUpperCase() + mePatient.chatBotAvatar.slice(1).toLowerCase() : "unknown"}
+                        </p>
                         <p><strong>{t("home.yourInformation.id")}</strong> {mePatient?.id || "unknown"}</p>
                     </div>
                 </div>
@@ -228,13 +231,14 @@ export default function Home() {
                     <h2 className={header_class}>{t("home.lastChat")}</h2>
                     <div className="flex-grow">
                         {lastChatId ?
-                            <div className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
+                            <div
+                                className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                 <p className="font-bold">{lastChatName ? lastChatName : t("chats.unnamedConversation")}</p>
                                 <button
                                     onClick={() => router.push(`/chats/${lastChatId}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
                                 >
-                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2} />
+                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
                             </div>
                             :
@@ -245,7 +249,7 @@ export default function Home() {
                         onClick={() => router.push('/chat')}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2} />
+                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -269,7 +273,7 @@ export default function Home() {
                             }
                             disabled={quickJournalContent.trim().length === 0}
                         >
-                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2} />
+                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2}/>
                         </button>
                     </div>
                 </div>
@@ -287,7 +291,7 @@ export default function Home() {
                                     onClick={() => router.push(`/journal/${journalEntries[0].id}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
-                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2} />
+                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
                             </div>
                             :
@@ -298,7 +302,7 @@ export default function Home() {
                         onClick={() => router.push('/journal/creation')}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2} />
+                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -308,13 +312,14 @@ export default function Home() {
                     <div className="flex-grow flex flex-col mb-1 overflow-y-auto gap-2">
                         {exercises.length > 0 ? (
                             exercises.map((exercise) => (
-                                <div key={exercise.id} className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
+                                <div key={exercise.id}
+                                     className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                     <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
                                     <button
                                         onClick={() => router.push("/exercise/" + exercise.id)}
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
-                                        {t("home.exercises.open")} <Play size={16} />
+                                        {t("home.exercises.open")} <Play size={16}/>
                                     </button>
                                 </div>
                             ))
@@ -326,7 +331,7 @@ export default function Home() {
                         onClick={() => router.push('/exercise')}
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -346,21 +351,22 @@ export default function Home() {
                                 onClick={() => router.push("/questionnaires/GAD-7")}
                                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                             >
-                                Start <Play size={16} />
+                                Start <Play size={16}/>
                             </button>
                         </div>
                         <button
                             onClick={() => router.push('/questionnaires')}
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                         >
-                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                         </button>
                     </div>
                 </div>
 
                 <div
                     className="text-sm text-gray-600 flex gap-2 justify-center">
-                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                    <a href={`${BASE_PATH}/terms`} target="_blank"
+                       className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                 </div>
 
             </div>

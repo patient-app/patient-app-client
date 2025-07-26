@@ -7,6 +7,7 @@ import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
 import PasswordField from "@/components/PasswordField";
 import {Check, X} from "lucide-react";
 import AvatarSelector from "@/components/AvatarSelector";
+import {BASE_PATH} from "@/libs/constants";
 
 const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
 const hr_style = "w-full border-gray-300 border-1 my-2";
@@ -459,7 +460,8 @@ const Page = () => {
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
                     type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}
                 </button>
-                <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                <a href={`${BASE_PATH}/terms`} target="_blank"
+                   className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
             </div>
         </div>
     );

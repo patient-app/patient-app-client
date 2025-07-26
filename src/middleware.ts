@@ -31,7 +31,7 @@ export default async function middleware(req: NextRequest) {
         const isExpired = now >= session.exp;
 
         if (isExpired) {
-            return NextResponse.redirect(new URL('{BASE_PATH}/login', req.nextUrl));
+            return NextResponse.redirect(new URL(`${BASE_PATH}/login`, req.nextUrl));
         }
     }
 
@@ -39,7 +39,7 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL(`${BASE_PATH}/login`, req.nextUrl));
     }
 
-    if (isPublicRoute && isLoggedIn && (path === '/login' || path === '/reset-password')) {
+    if (isPublicRoute && isLoggedIn && [`${BASE_PATH}/login`, `${BASE_PATH}/reset-password`].includes(path)) {
         return NextResponse.redirect(new URL(`${BASE_PATH}`, req.nextUrl));
     }
 
