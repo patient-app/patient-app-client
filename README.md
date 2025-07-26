@@ -17,7 +17,7 @@
 ###  Main Environment
 
 - The "main" environment shows the latest changes on the main branch
-- <https://patient-app-main.jonas-blum.ch/>
+- <https://patient-app-main.jonas-blum.ch/client>
 
 ###  Production Environment
 
