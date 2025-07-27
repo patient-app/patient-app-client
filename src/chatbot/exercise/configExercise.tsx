@@ -11,6 +11,25 @@ export const setExternalActions = (actions: any) => {
     externalActions = actions;
 };
 
+const BotAvatar = () => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+    return (
+        <div className="react-chatbot-kit-chat-bot-avatar">
+            <div className="react-chatbot-kit-chat-bot-avatar-container">
+                <Image
+                    src={`${basePath}/avatars/animalistic.png`}
+                    alt="animalistic avatar"
+                    width={80}
+                    height={80}
+                    className="object-contain rounded-lg mx-auto"
+                />
+            </div>
+        </div>
+    );
+};
+
+
 
 const configExercise = (
     onClose: () => void, welcomeMessage: string, toolTipContent: string) => ({
@@ -77,19 +96,7 @@ const configExercise = (
                 </div>
             </div>
         ),
-        botAvatar: () => (
-            <div className="react-chatbot-kit-chat-bot-avatar">
-                <div className="react-chatbot-kit-chat-bot-avatar-container">
-                    <Image
-                        src={`/avatars/animalistic.png`} //TODO: replace with actual avatar
-                        alt={`animalistic avatar`}//TODO: replace with actual avatar
-                        width={80}
-                        height={80}
-                        className="object-contain rounded-lg mx-auto"
-                    />
-
-                </div>
-            </div>)
+        botAvatar: BotAvatar,
 
     }
 });

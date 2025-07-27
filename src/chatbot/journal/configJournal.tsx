@@ -1,7 +1,7 @@
-import {createChatBotMessage} from 'react-chatbot-kit';
-import {Repeat2, X} from 'lucide-react';
-import {CHATBOT_NAME} from "@/libs/constants";
-import {Tooltip} from "flowbite-react";
+import { createChatBotMessage } from 'react-chatbot-kit';
+import { Repeat2, X } from 'lucide-react';
+import { CHATBOT_NAME } from "@/libs/constants";
+import { Tooltip } from "flowbite-react";
 import Image from "next/image";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -12,9 +12,29 @@ export const setExternalActions = (actions: any) => {
     externalActions = actions;
 };
 
+const BotAvatar = () => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+    return (
+        <div className="react-chatbot-kit-chat-bot-avatar">
+            <div className="react-chatbot-kit-chat-bot-avatar-container">
+                <Image
+                    src={`${basePath}/avatars/animalistic.png`}
+                    alt="animalistic avatar"
+                    width={80}
+                    height={80}
+                    className="object-contain rounded-lg mx-auto"
+                />
+            </div>
+        </div>
+    );
+};
 
 const configJournal = (
-    onClose: () => void, welcomeMessage: string, toolTipContent: string) => ({
+    onClose: () => void,
+    welcomeMessage: string,
+    toolTipContent: string
+) => ({
     initialMessages: [createChatBotMessage(welcomeMessage, {})],
     botName: CHATBOT_NAME,
     customStyles: {
@@ -56,7 +76,7 @@ const configJournal = (
                                 padding: "0 4px",
                             }}
                         >
-                            <Repeat2/>
+                            <Repeat2 />
                         </button>
                     </Tooltip>
 
@@ -77,21 +97,8 @@ const configJournal = (
                 </div>
             </div>
         ),
-        botAvatar: () => (
-            <div className="react-chatbot-kit-chat-bot-avatar">
-                <div className="react-chatbot-kit-chat-bot-avatar-container">
-                    <Image
-                        src={`/avatars/animalistic.png`} //TODO: replace with actual avatar
-                        alt={`animalistic avatar`}//TODO: replace with actual avatar
-                        width={80}
-                        height={80}
-                        className="object-contain rounded-lg mx-auto"
-                    />
-
-                </div>
-            </div>)
-    }
+        botAvatar: BotAvatar,
+    },
 });
 
 export default configJournal;
-
