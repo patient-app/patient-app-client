@@ -5,12 +5,221 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
-import {BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
+import {Bell, BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
 import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 import {BASE_PATH} from "@/libs/constants";
+import {sendNotification, subscribeUser} from "@/app/actions";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
+
+function urlBase64ToUint8Array(base64String: string) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+
+    const rawData = window.atob(base64)
+    const outputArray = new Uint8Array(rawData.length)
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i)
+    }
+    return outputArray
+}
+
+function PushNotificationManager() {
+    const [isSupported, setIsSupported] = useState(false);
+    const [subscription, setSubscription] = useState<PushSubscription | null>(null);
+    const [testMessage, setTestMessage] = useState<string>("Test notification message");
+    const [sendingStatus, setSendingStatus] = useState<string>("");
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            setIsSupported(true);
+            registerServiceWorker();
+        }
+    }, []);
+
+    async function registerServiceWorker() {
+        try {
+            console.log('Registering service worker...');
+            const registration = await navigator.serviceWorker.register('/sw.js', {
+                scope: '/',
+                updateViaCache: 'none',
+            });
+            console.log('Service worker registered successfully:', registration);
+
+            // Check if service worker is active
+            if (registration.active) {
+                console.log('Service worker is active');
+            } else {
+                console.log('Service worker is not active yet');
+            }
+
+            // Get existing subscription if any
+            const sub = await registration.pushManager.getSubscription();
+            console.log('Existing push subscription:', sub);
+            setSubscription(sub);
+
+            // Log service worker state changes
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                console.log('Service worker controller changed');
+            });
+
+            return registration;
+        } catch (error) {
+            console.error('Error registering service worker:', error);
+            throw error;
+        }
+    }
+
+    async function subscribeToPush() {
+        try {
+            console.log('Waiting for service worker to be ready...');
+            const registration = await navigator.serviceWorker.ready;
+            console.log('Service worker is ready:', registration);
+
+            console.log('VAPID public key:', process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
+
+            // NEW
+
+            // Get VAPID public key from environment variable
+            const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+            if (!vapidPublicKey) {
+                throw new Error('VAPID public key is not defined in environment variables');
+            }
+
+            console.log('Using VAPID public key:', vapidPublicKey);
+
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
+            });
+            setSubscription(subscription);
+            const subscriptionJSON: PushSubscriptionJSON = subscription.toJSON();
+
+            // Log the final subscription object before sending to backend
+            console.log('Final subscription object:', JSON.stringify(subscriptionJSON, null, 2));
+            const result = await subscribeUser(subscriptionJSON);
+
+            console.log('Subscription sent to backend, result:', result);
+
+            if (!result.success) {
+                throw new Error(result.error || 'Failed to subscribe to push notifications');
+            }
+
+            return subscription;
+        } catch (error) {
+            console.error('Error subscribing to push notifications:', error);
+            throw error;
+        }
+    }
+
+    async function sendNotificationClientSide(message: string) {
+        try {
+            console.log('Sending notification with message:', message);
+
+            // Use the server action to send the notification
+            const result = await sendNotification(message);
+
+            console.log('Notification result:', result);
+
+            return result;
+        } catch (error) {
+            console.error('Error sending push notification:', error);
+            return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+        }
+    }
+
+    async function handleSendTestNotification() {
+        try {
+            setSendingStatus("Sending notification...");
+            console.log('Sending test notification with message:', testMessage);
+            const result = await sendNotificationClientSide(testMessage);
+            console.log('Test notification result:', result);
+
+            if (result.success) {
+                setSendingStatus("Notification sent successfully! Check your browser notifications.");
+            } else {
+                setSendingStatus(`Failed to send notification: ${result.error}`);
+            }
+        } catch (error) {
+            console.error('Error sending test notification:', error);
+            setSendingStatus(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+    }
+
+    if (!isSupported) {
+        return <div className="mb-3 px-4 py-2 bg-red-300 text-black border border-red-500 rounded-md text-sm">
+            Push notifications are not supported in your browser.
+        </div>
+    }
+
+    return (
+        <div className="border border-gray-300 rounded-md p-4 mb-4 w-full">
+            <h3 className="text-lg font-semibold mb-2">Push Notification Manager</h3>
+
+            {subscription ? (
+                <div className="mb-3 px-4 py-2 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-md text-sm">
+                    You are subscribed to push notifications.
+                </div>
+            ) : (
+                <div className="mb-3 px-4 py-2 bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-md text-sm">
+                    You are not subscribed to push notifications.
+                </div>
+            )}
+
+            <div className="flex flex-col gap-3">
+                {!subscription && (
+                    <button
+                        onClick={subscribeToPush}
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2"
+                    >
+                        Subscribe to Push Notifications
+                    </button>
+                )}
+
+                {subscription && (
+                    <div className="border border-gray-200 rounded-md p-3">
+                        <h4 className="font-medium mb-2">Test Push Notification</h4>
+                        <div className="flex flex-col gap-2">
+                            <input
+                                type="text"
+                                value={testMessage}
+                                onChange={(e) => setTestMessage(e.target.value)}
+                                placeholder="Enter test message"
+                                className="border border-gray-300 rounded px-3 py-2"
+                            />
+                            <button
+                                onClick={handleSendTestNotification}
+                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2"
+                            >
+                                Send Test Notification <Bell size={16} />
+                            </button>
+
+                            {sendingStatus && (
+                                <div className={`mt-2 px-3 py-2 rounded text-sm ${
+                                    sendingStatus.includes("successfully")
+                                        ? "bg-green-100 text-green-800 border border-green-300"
+                                        : sendingStatus.includes("Failed") || sendingStatus.includes("Error")
+                                            ? "bg-red-100 text-red-800 border border-red-300"
+                                            : "bg-blue-100 text-blue-800 border border-blue-300"
+                                }`}>
+                                    {sendingStatus}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+            </div>
+            <button
+                onClick={subscribeToPush}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2"
+            >
+                Subscribe to Push Notifications ANYWAYS
+            </button>
+        </div>
+    )
+}
 
 export default function Home() {
     const router = useRouter();
@@ -197,6 +406,8 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
+
+            <PushNotificationManager />
 
             <MeetingComponent/>
 
