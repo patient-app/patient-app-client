@@ -25,7 +25,7 @@ jobs:
 
             echo "BRANCH=production" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-production:latest" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BASE_PATH=https://vllm-imrg.ifi.uzh.ch/client" >> $GITHUB_ENV
+            echo "NEXT_PUBLIC_BASE_PATH=/client" >> $GITHUB_ENV
             echo "NEXT_PUBLIC_BACKEND_URL=https://vllm-imrg.ifi.uzh.ch/client-backend" >> $GITHUB_ENV
 
           fi

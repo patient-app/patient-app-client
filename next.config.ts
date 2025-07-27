@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 import withFlowbiteReact from "flowbite-react/plugin/nextjs";
 
-const ASSET_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  assetPrefix: ASSET_PREFIX,
-  basePath: "/client",
+  assetPrefix: BASE_PATH,
+  basePath: BASE_PATH,
 };
 
 export default withFlowbiteReact(nextConfig);
