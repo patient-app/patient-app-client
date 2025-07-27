@@ -20,14 +20,12 @@ jobs:
 
             echo "BRANCH=main" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-main:latest" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BASE_PATH=/client" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BACKEND_URL=https://backend-patient-app-main.jonas-blum.ch" >> $GITHUB_ENV
 
           elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then
 
             echo "BRANCH=production" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-production:latest" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BASE_PATH=/client" >> $GITHUB_ENV
+            echo "NEXT_PUBLIC_BASE_PATH=https://vllm-imrg.ifi.uzh.ch/client" >> $GITHUB_ENV
             echo "NEXT_PUBLIC_BACKEND_URL=https://vllm-imrg.ifi.uzh.ch/client-backend" >> $GITHUB_ENV
 
           fi
