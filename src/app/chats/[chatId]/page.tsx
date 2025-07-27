@@ -20,6 +20,7 @@ export default function ChatPage() {
     const [conversationName, setConversationName] = useState<string>("");
     const [shareWithCoach, setShareWithCoach] = useState(false);
     const [aiMemory, setAIMemory] = useState(false);
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
     const [avatar, setAvatar] = useState("none");
 
@@ -120,7 +121,7 @@ export default function ChatPage() {
                 <div className="react-chatbot-kit-chat-bot-avatar">
                     <div className="react-chatbot-kit-chat-bot-avatar-container">
                         <Image
-                            src={`/avatars/${avatar}.png`}
+                            src={`${basePath}/avatars/${avatar}.png`}
                             alt={`${avatar} avatar`}
                             width={80}
                             height={80}
