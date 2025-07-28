@@ -30,7 +30,7 @@ const AvatarSelector = ({ selectedAvatar, onSelect }: AvatarSelectorProps) => {
                 >
                     <Image
                         loader={customLoader}
-                        src={`${basePath}/avatars/${avatar}.png`}
+                        src={`/avatars/${avatar}.png`}
                         alt={`${avatar} avatar`}
                         width={80}
                         height={80}
