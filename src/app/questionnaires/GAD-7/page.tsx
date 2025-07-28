@@ -50,7 +50,7 @@ const Questionnaires = () => {
             headers: {"Content-Type": "application/json"},
         };
 
-        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/tests", requestInit);
+        await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/tests", requestInit);
         router.push(`${BASE_PATH}/questionnaires`);
     }
 

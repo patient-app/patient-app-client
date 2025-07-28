@@ -90,7 +90,7 @@ export default function JournalEntryCreationPage() {
         };
 
         createEntry();
-    }, []);
+    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

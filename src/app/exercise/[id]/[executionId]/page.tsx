@@ -80,7 +80,7 @@ const ExerciseExecutionInfoPage = () => {
         };
 
         getExercise();
-    }, [id, t]);
+    });
 
     useEffect(() => {
         setStartTime(new Date().toISOString());
