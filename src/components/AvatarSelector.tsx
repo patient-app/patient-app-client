@@ -1,4 +1,5 @@
 import Image from 'next/image';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface AvatarSelectorProps {
     selectedAvatar: string | null;
@@ -8,6 +9,12 @@ interface AvatarSelectorProps {
 const AvatarSelector = ({ selectedAvatar, onSelect }: AvatarSelectorProps) => {
     const avatars = ['animalistic', 'blob', 'crystal', 'humanistic', 'plant', 'robotic', 'neuralnetwork', 'none'];
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+
+    console.log("AvatarSelector basePath:", basePath);
+    const customLoader = ({ src, width, quality }: any) => {
+        const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+        return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
+    };
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
@@ -22,6 +29,7 @@ const AvatarSelector = ({ selectedAvatar, onSelect }: AvatarSelectorProps) => {
                     }`}
                 >
                     <Image
+                        loader={customLoader}
                         src={`${basePath}/avatars/${avatar}.png`}
                         alt={`${avatar} avatar`}
                         width={80}
