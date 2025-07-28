@@ -1,32 +1,35 @@
 "use client";
 
-import {useTranslation} from "react-i18next";
-import React, {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import {ChangePasswordPatientDTO} from "@/dto/input/ChangePasswordPatientDTO";
+import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ChangePasswordPatientDTO } from "@/dto/input/ChangePasswordPatientDTO";
 import PasswordField from "@/components/PasswordField";
-import {Check, X} from "lucide-react";
+import { Check, X } from "lucide-react";
 import AvatarSelector from "@/components/AvatarSelector";
-import {BASE_PATH} from "@/libs/constants";
+
+
 
 const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
 const hr_style = "w-full border-gray-300 border-1 my-2";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const languages = [
-    {id: "en", label: "English", native: "English"},
-    {id: "uk", label: "Ukrainian", native: "Українська"},
-    {id: "de", label: "German", native: "Deutsch"},
+    { id: "en", label: "English", native: "English" },
+    { id: "uk", label: "Ukrainian", native: "Українська" },
+    { id: "de", label: "German", native: "Deutsch" },
 ];
 
 const rules = [
-    {key: "minLength", value: 8},
-    {key: "uppercase", value: 1},
-    {key: "number", value: 1},
-    {key: "specialChar", value: 1},
+    { key: "minLength", value: 8 },
+    { key: "uppercase", value: 1 },
+    { key: "number", value: 1 },
+    { key: "specialChar", value: 1 },
 ];
 
 const Page = () => {
-    const {t, i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isClient, setIsClient] = useState(false);
     const router = useRouter();
     const [selectedLang, setSelectedLang] = useState(i18n.language || "en")
@@ -55,8 +58,8 @@ const Page = () => {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify({chatBotAvatar: avatar.toUpperCase()}),
-                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ chatBotAvatar: avatar.toUpperCase() }),
+                headers: { "Content-Type": "application/json" },
             };
 
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/chat-bot-avatar", requestInit);
@@ -159,8 +162,8 @@ const Page = () => {
         const requestInit: RequestInit = {
             method: "PUT",
             credentials: "include",
-            body: JSON.stringify({name}),
-            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ name }),
+            headers: { "Content-Type": "application/json" },
         };
         const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/name", requestInit);
         if (!response.ok) {
@@ -176,14 +179,14 @@ const Page = () => {
 
     const handleLanguageChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
-        const formData = {language: lang};
+        const formData = { language: lang };
         setLanguageError(null);
         try {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
                 body: JSON.stringify(formData),
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/language", requestInit);
             if (!response.ok) {
@@ -221,7 +224,7 @@ const Page = () => {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     currentPassword: formData.oldPassword,
                     newPassword: formData.newPassword,
@@ -255,7 +258,7 @@ const Page = () => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
 
@@ -264,7 +267,7 @@ const Page = () => {
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
             <h1 className="text-3xl font-semibold text-center mb-4">{t("settings.title")}</h1>
-            <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
+            <div className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
                 {/* Language Selection */}
                 <div className="w-full">
 
@@ -292,7 +295,7 @@ const Page = () => {
                         </div>
                     )}
                 </div>
-                <hr className={hr_style}/>
+                <hr className={hr_style} />
 
                 {/* Name Change Form */}
                 <form onSubmit={handleNameChange} className="w-full space-y-2">
@@ -334,7 +337,7 @@ const Page = () => {
                         {t("settings.name.button")}
                     </button>
                 </form>
-                <hr className={hr_style}/>
+                <hr className={hr_style} />
 
                 {/* Password Change Form */}
                 <form onSubmit={handleConfirm} className="w-full space-y-2">
@@ -375,18 +378,17 @@ const Page = () => {
                             {rules.map((rule) => (
                                 <div
                                     key={rule.key}
-                                    className={`flex items-center gap-2 ${
-                                        passwordRules[rule.key as keyof typeof passwordRules]
+                                    className={`flex items-center gap-2 ${passwordRules[rule.key as keyof typeof passwordRules]
                                             ? "text-green-600"
                                             : "text-gray-400"
-                                    }`}
+                                        }`}
                                 >
                                     <span>
                                         {passwordRules[rule.key as keyof typeof passwordRules]
-                                            ? <Check className="w-4 h-4"/>
-                                            : <X className="w-4 h-4"/>}
+                                            ? <Check className="w-4 h-4" />
+                                            : <X className="w-4 h-4" />}
                                     </span>
-                                    <span>{t(`settings.password.rules.${rule.key}`, {value: rule.value})}</span>
+                                    <span>{t(`settings.password.rules.${rule.key}`, { value: rule.value })}</span>
                                 </div>
                             ))}
                         </div>
@@ -435,13 +437,13 @@ const Page = () => {
                         {t("settings.password.button")}
                     </button>
                 </form>
-                <hr className={hr_style}/>
+                <hr className={hr_style} />
 
                 {/* Avatar Selector */}
                 <h2 className={title_style}>
                     {t("settings.avatarLabel")}
                 </h2>
-                <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect}/>
+                <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect} />
                 {avatarError && (
                     <div
                         className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
@@ -454,14 +456,14 @@ const Page = () => {
                         {avatarSuccess}
                     </div>
                 )}
-                <hr className={hr_style}/>
+                <hr className={hr_style} />
 
                 <button
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
-                    type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}
+                    type="submit" color="primary" style={{ maxWidth: "20rem" }} onClick={logout}> {t("settings.logout")}
                 </button>
                 <a href={`${BASE_PATH}/terms`} target="_blank"
-                   className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                    className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
             </div>
         </div>
     );
