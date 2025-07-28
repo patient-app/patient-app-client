@@ -60,7 +60,7 @@ const Login = () => {
             } else {
                 await response.json();
                 setShowPassword(false)
-                router.push("/");
+                router.push("/client/");
             }
         } catch (e) {
             setError(`t("login.error.loginTryAgain")`);
