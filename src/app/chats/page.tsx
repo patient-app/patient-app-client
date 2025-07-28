@@ -4,8 +4,7 @@ import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
 import {useCallback, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
+import {BASE_PATH} from "@/libs/constants";
 
 interface Conversation {
     id: string;
@@ -27,7 +26,7 @@ export default function Home() {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations", requestInit);
             if (!response.ok) {
                 console.warn("Failed to fetch data");
-                router.push("/login");
+                router.push(`${BASE_PATH}/login`);
                 return;
             }
 
@@ -35,7 +34,7 @@ export default function Home() {
             setConversations(respo.reverse());
         } catch (e) {
             console.error(e);
-            router.push("/login");
+            router.push(`${BASE_PATH}/login`);
         }
     }, [router]);
 
@@ -57,7 +56,7 @@ export default function Home() {
                 {conversations.map((conv, i) => (
                     <div
                         key={i}
-                        onClick={() => router.push(`/chats/${conv.id}`)}
+                        onClick={() => router.push(`${BASE_PATH}/chats/${conv.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
                         <p className="font-bold">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>

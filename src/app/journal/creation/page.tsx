@@ -9,6 +9,7 @@ import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {TagSelector} from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
+import {BASE_PATH} from "@/libs/constants";
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
@@ -89,7 +90,7 @@ export default function JournalEntryCreationPage() {
         };
 
         createEntry();
-    }, []);
+    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -119,7 +120,7 @@ export default function JournalEntryCreationPage() {
                 console.log(errorData)
                 setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
             } else {
-                router.push("/journal");
+                router.push(`${BASE_PATH}/journal`);
             }
         } catch (e) {
             setError(t("journalCreationEditing.error.savingTryAgain"));
@@ -141,9 +142,9 @@ export default function JournalEntryCreationPage() {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${journalId}`, requestInit);
             if (response.status !== 204) {
                 const errorData = await response.json();
-                setError((t("") + errorData.message));
+                setError(errorData.message);
             } else {
-                router.push("/journal");
+                router.push(`${BASE_PATH}/journal`);
             }
         } catch (e) {
             setError(t('journal.error.failedToDelete'));

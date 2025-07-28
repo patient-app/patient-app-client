@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { JournalEntryDTO } from "@/dto/output/JournalEntryDTO";
 import { JournalTag } from "@/components/JournalTag";
+import {BASE_PATH} from "@/libs/constants";
 
 const Journal = () => {
     const { t } = useTranslation();
@@ -108,7 +109,7 @@ const Journal = () => {
                 .map((entry) => (
                     <button
                         key={entry.id}
-                        onClick={() => router.push(`/journal/${entry.id}`)}
+                        onClick={() => router.push(`${BASE_PATH}/journal/${entry.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
                         <p className="font-bold">{entry.title}</p>
@@ -128,7 +129,7 @@ const Journal = () => {
                 {t("journal.title")}
             </h1>
             <button
-                onClick={() => router.push("/journal/creation")}
+                onClick={() => router.push(`${BASE_PATH}/journal/creation`)}
                 className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
             >
                 <p className="font-bold">{t("journal.newEntry")}</p>

@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import NavigationButton from "@/components/NavigationButton";
 import {MOBILE_BREAKPOINT} from "@/libs/constants";
 import {Home, MessageSquareText, Settings, Dumbbell, NotebookPen, File, ClipboardPen} from 'lucide-react';
+import {BASE_PATH} from "@/libs/constants";
 
 export default function Navigation() {
     const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function Navigation() {
     }, []);
 
     // Navigation is not shown at these sites:
-    const noNavigationPages = ["/terms", "/client/login", "/reset-password", "/onboarding"];
+    const noNavigationPages = [`${BASE_PATH}/terms`, `${BASE_PATH}/login`, `${BASE_PATH}/reset-password`, `${BASE_PATH}/onboarding`];
     if (noNavigationPages.includes(pathname)) return null;
 
     const logout = async () => {
@@ -32,55 +33,55 @@ export default function Navigation() {
             credentials: "include",
         };
         await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/logout", requestInit);
-        router.push("/login");
+        router.push(`${BASE_PATH}/login`);
     };
 
     const topNavButtons = (
         <>
             <NavigationButton
                 isMobile={isMobile}
-                href="/"
-                onClick={() => router.push("/")}
+                href={`${BASE_PATH}/`}
+                onClick={() => router.push(`${BASE_PATH}/`)}
                 icon={<Home size={24} strokeWidth={2} />}
                 label={t("navigation.home")}
                 showOnMobile={true}
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/chats"
-                onClick={() => router.push("/chats")}
+                href={`${BASE_PATH}/chats`}
+                onClick={() => router.push(`${BASE_PATH}/chats`)}
                 icon={<MessageSquareText size={24} strokeWidth={2} />}
                 label={t("navigation.chats")}
                 showOnMobile={true}
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/exercise"
-                onClick={() => router.push("/exercise")}
+                href={`${BASE_PATH}/exercise`}
+                onClick={() => router.push(`${BASE_PATH}/exercise`)}
                 icon={<Dumbbell size={24} strokeWidth={2} />}
                 label={t("navigation.exercise")}
                 showOnMobile={true}
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/journal"
-                onClick={() => router.push("/journal")}
+                href={`${BASE_PATH}/journal`}
+                onClick={() => router.push(`${BASE_PATH}/journal`)}
                 icon={<NotebookPen size={24} strokeWidth={2} />}
                 label={t("navigation.journal")}
                 showOnMobile={true}
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/questionnaires"
-                onClick={() => router.push("/questionnaires")}
+                href={`${BASE_PATH}/questionnaires`}
+                onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
                 icon={<ClipboardPen size={24} strokeWidth={2} />}
                 label={t("navigation.questionnaires")}
                 showOnMobile={true}
             />
             <NavigationButton
                 isMobile={isMobile}
-                href="/documents"
-                onClick={() => router.push("/documents")}
+                href={`${BASE_PATH}/documents`}
+                onClick={() => router.push(`${BASE_PATH}/documents`)}
                 icon={<File size={24} strokeWidth={2} />}
                 label={t("navigation.documents")}
                 showOnMobile={true}
@@ -92,8 +93,8 @@ export default function Navigation() {
         <>
             <NavigationButton
                 isMobile={isMobile}
-                href="/settings"
-                onClick={() => router.push("/settings")}
+                href={`${BASE_PATH}/settings`}
+                onClick={() => router.push(`${BASE_PATH}/settings`)}
                 icon={<Settings size={24} strokeWidth={2} />}
                 label={t("navigation.settings")}
                 showOnMobile={true}

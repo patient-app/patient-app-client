@@ -9,6 +9,7 @@ import {ArrowLeft} from "lucide-react";
 import {Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {useRouter} from "next/navigation";
+import {BASE_PATH} from "@/libs/constants";
 
 export default function ChatPage() {
     const router = useRouter();
@@ -130,7 +131,7 @@ export default function ChatPage() {
                 const errorData = await response.json();
                 console.warn("Failed to delete chat:", errorData);
             } else {
-                router.push("/chats");
+                router.push(`${BASE_PATH}/chats`);
             }
         } catch (e) {
             console.error("Failed delete conversation:", e);

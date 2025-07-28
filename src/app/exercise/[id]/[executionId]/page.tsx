@@ -18,6 +18,7 @@ import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import MoodTracker from "@/components/MoodTracker";
 import TimerComponent from "@/components/TimerComponent";
+import {BASE_PATH} from "@/libs/constants";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -79,7 +80,7 @@ const ExerciseExecutionInfoPage = () => {
         };
 
         getExercise();
-    }, [id, t]);
+    });
 
     useEffect(() => {
         setStartTime(new Date().toISOString());
@@ -129,7 +130,7 @@ const ExerciseExecutionInfoPage = () => {
                 setError(t('exercise.error.endFailed') + `: ${errorData.message}`);
                 console.log(errorData.message)
             } else {
-                router.push(`/exercise/${id}`);
+                router.push(`${BASE_PATH}/exercise/${id}`);
             }
         } catch (e) {
             setError(t('exercise.error.endFailed'));

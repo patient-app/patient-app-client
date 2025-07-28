@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {ExerciseOverviewDTO} from "@/dto/output/exercise/ExerciseOverviewDTO";
+import {BASE_PATH} from "@/libs/constants";
 
 const Exercise = () => {
     const router = useRouter();
@@ -13,7 +14,7 @@ const Exercise = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const handleExerciseClick = (exerciseId: string, title: string) => {
-        router.push(`/exercise/${exerciseId}?title=${encodeURIComponent(title)}`);
+        router.push(`${BASE_PATH}/exercise/${exerciseId}?title=${encodeURIComponent(title)}`);
     }
 
     useEffect(() => {

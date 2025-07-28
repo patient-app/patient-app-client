@@ -10,6 +10,7 @@ import {TagSelector} from "@/components/TagSelector";
 import {JournalTag} from "@/components/JournalTag";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 import HelpButton from "@/components/HelpButton";
+import {BASE_PATH} from "@/libs/constants";
 
 const JournalEntryPage = () => {
     const router = useRouter();
@@ -98,9 +99,9 @@ const JournalEntryPage = () => {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${id}`, requestInit);
             if (response.status !== 204) {
                 const errorData = await response.json();
-                setError((t("") + errorData.message));
+                setError(errorData.message);
             } else {
-                router.push("/journal");
+                router.push(`${BASE_PATH}/journal`);
             }
         } catch (e) {
             setError(t('journal.error.failedToDelete'));
@@ -136,7 +137,7 @@ const JournalEntryPage = () => {
                 console.log(errorData)
                 setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
             } else {
-                router.push("/journal");
+                router.push(`${BASE_PATH}/journal`);
             }
         } catch (e) {
             setError(t("journalCreationEditing.error.savingTryAgain"));

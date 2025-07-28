@@ -16,7 +16,6 @@ const MeetingComponent = () => {
                     credentials: "include",
                 };
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/meetings", requestInit);
-                console.log(response)
                 if (!response.ok) {
                     console.warn("Failed to fetch meetings");
                     return;

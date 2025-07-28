@@ -1,7 +1,7 @@
-import { createChatBotMessage } from 'react-chatbot-kit';
+import {createChatBotMessage} from 'react-chatbot-kit';
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
-import {CHATBOT_NAME} from "@/libs/constants";
+import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
 import Image from "next/image";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -11,12 +11,11 @@ const config = (
     welcomeMessage: string,
     avatar: string | "none"
 ) => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
     return {
         initialMessages: [createChatBotMessage(welcomeMessage, {})],
         botName: CHATBOT_NAME,
-        actionProvider: (props: any) => <ActionProvider {...props} chatId={chatId} />,
+        actionProvider: (props: any) => <ActionProvider {...props} chatId={chatId}/>,
         messageParser: (props: any) => <MessageParser {...props} />,
         customStyles: {
             chatButton: {
@@ -26,17 +25,20 @@ const config = (
         customComponents: {
             botAvatar: () =>
 
-                    <div className="react-chatbot-kit-chat-bot-avatar">
-                        <div className="react-chatbot-kit-chat-bot-avatar-container">
-                            <Image
-                                src={`${basePath}/avatars/${avatar}.png`}
-                                alt={`${avatar} avatar`}
-                                width={80}
-                                height={80}
-                                className="object-contain rounded-lg mx-auto"
-                            />
-                        </div>
+                <div className="react-chatbot-kit-chat-bot-avatar">
+                    <div className="react-chatbot-kit-chat-bot-avatar-container">
+                        <Image
+                            loader={({src, width, quality}: any) => {
+                                return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
+                            }}
+                            src={`/avatars/${avatar}.png`}
+                            alt={`${avatar} avatar`}
+                            width={80}
+                            height={80}
+                            className="object-contain rounded-lg mx-auto"
+                        />
                     </div>
+                </div>
         }
     };
 };

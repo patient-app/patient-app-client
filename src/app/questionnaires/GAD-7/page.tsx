@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {Check} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
+import {BASE_PATH} from "@/libs/constants";
 
 const question_style = "block text-gray-700 mb-1 font-semibold"
 
@@ -49,9 +50,8 @@ const Questionnaires = () => {
             headers: {"Content-Type": "application/json"},
         };
 
-        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/tests", requestInit);
-        console.log(response);
-        router.push("/questionnaires");
+        await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/tests", requestInit);
+        router.push(`${BASE_PATH}/questionnaires`);
     }
 
     return (
