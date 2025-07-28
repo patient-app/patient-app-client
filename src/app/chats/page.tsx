@@ -5,6 +5,8 @@ import {useTranslation} from "react-i18next";
 import {useCallback, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
+
 interface Conversation {
     id: string;
     name: string | null;
@@ -14,6 +16,7 @@ export default function Home() {
     const router = useRouter();
     const {t} = useTranslation();
     const [conversations, setConversations] = useState<Conversation[]>([]);
+
 
     const fetchConversations = useCallback(async () => {
         try {
@@ -46,7 +49,7 @@ export default function Home() {
             <h1 className="text-3xl font-semibold">{t("chats.title")}</h1>
             <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                 <div
-                    onClick={() => router.push("/chat")}
+                    onClick={() => router.push(`${BASE_PATH}/chat`)}
                     className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
                 >
                     <p className="font-bold">{t("chats.startNewConversation")}</p>
