@@ -4,13 +4,13 @@ import "./globals.css";
 import 'react-chatbot-kit/build/main.css';
 import Navigation from "../components/Navigation";
 import Link from "next/link";
-import React from "react";
+import React, {ReactNode} from "react";
 import TranslationsProvider from "@/libs/provider/translation-provider";
-import {ReactNode} from "react";
 import initTranslations, {i18nNamespaces} from "@/libs/i18n/i18n";
+import {BASE_PATH} from "@/libs/constants";
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'], preload: false });
-const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'], preload: false });
+const geistSans = Geist({variable: '--font-geist-sans', subsets: ['latin'], preload: false});
+const geistMono = Geist_Mono({variable: '--font-geist-mono', subsets: ['latin'], preload: false});
 
 export const metadata: Metadata = {
     title: "Lumina",
@@ -32,11 +32,11 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <title>Lumina</title>
             <link
                 rel="icon"
-                href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/favicon.ico`}
+                href={`${BASE_PATH}/favicon.ico`}
             />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -46,19 +46,19 @@ export default async function RootLayout({
             locale={locale}
             resources={resources}
         >
-        {/* Top-left clickable title: */}
-        <Link
-            href="/"
-            className="absolute top-4 left-4 text-2xl font-bold uppercase cursor-pointer z-10"
-        >
-            <span className="text-3xl">L</span>umina
-        </Link>
+            {/* Top-left clickable title: */}
+            <Link
+                href={`${BASE_PATH}/`}
+                className="absolute top-4 left-4 text-2xl font-bold uppercase cursor-pointer z-10"
+            >
+                <span className="text-3xl">L</span>umina
+            </Link>
 
-        {/* Horizontal layout: sidebar + page content: */}
-        <div className="flex min-h-screen">
-            <Navigation />
-            <main className="flex-1 pt-15 px-6 pb-6 h-screen overflow-y-auto">{children}</main>
-        </div>
+            {/* Horizontal layout: sidebar + page content: */}
+            <div className="flex min-h-screen">
+                <Navigation/>
+                <main className="flex-1 pt-15 px-6 pb-6 h-screen overflow-y-auto">{children}</main>
+            </div>
 
         </TranslationsProvider>
         </body>

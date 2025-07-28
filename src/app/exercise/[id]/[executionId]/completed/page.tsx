@@ -11,6 +11,7 @@ import ExerciseInputField from "@/components/exerciseComponents/ExerciseInputFie
 import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
+import {BASE_PATH} from "@/libs/constants";
 
 
 const ExerciseCompletionInfoPage = () => {
@@ -111,7 +112,7 @@ const ExerciseCompletionInfoPage = () => {
         <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
             <div className="relative w-full flex items-center justify-center mb-3">
                 <ArrowLeft
-                    onClick={() => router.push(`/exercise/${id}`)}
+                    onClick={() => router.push(`${BASE_PATH}/exercise/${id}`)}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
                 <h1 className="text-3xl font-semibold text-center">{exercise?.exerciseTitle}</h1>

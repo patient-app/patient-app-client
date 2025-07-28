@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
 import { BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save } from "lucide-react";
 import { JournalEntryDTO } from "@/dto/output/JournalEntryDTO";
+import {BASE_PATH} from "@/libs/constants";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function Home() {
     const router = useRouter();
@@ -62,7 +62,7 @@ export default function Home() {
                 }
             } catch (e) {
                 console.error(e);
-                router.push("/login");
+                router.push(`${BASE_PATH}/login`);
             }
 
             // Fetch last chat if available
@@ -236,7 +236,7 @@ export default function Home() {
                                 className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                 <p className="font-bold">{lastChatName ? lastChatName : t("chats.unnamedConversation")}</p>
                                 <button
-                                    onClick={() => router.push(`/chats/${lastChatId}`)}
+                                    onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
                                 >
                                     {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2} />
@@ -247,7 +247,7 @@ export default function Home() {
                         }
                     </div>
                     <button
-                        onClick={() => router.push('/chat')}
+                        onClick={() => router.push(`${BASE_PATH}/chat`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
                         {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2} />
@@ -289,7 +289,7 @@ export default function Home() {
                                 <p className="font-bold">{journalEntries[0].title ? journalEntries[0].title : t("home.lastJournal.unnamedJournal")}</p>
                                 <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
                                 <button
-                                    onClick={() => router.push(`/journal/${journalEntries[0].id}`)}
+                                    onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
                                     {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2} />
@@ -300,7 +300,7 @@ export default function Home() {
                         }
                     </div>
                     <button
-                        onClick={() => router.push('/journal/creation')}
+                        onClick={() => router.push(`${BASE_PATH}/journal/creation`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
                         {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2} />
@@ -317,7 +317,7 @@ export default function Home() {
                                     className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                     <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
                                     <button
-                                        onClick={() => router.push("/exercise/" + exercise.id)}
+                                        onClick={() => router.push(`${BASE_PATH}/exercise/${exercise.id}`)}
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
                                         {t("home.exercises.open")} <Play size={16} />
@@ -329,7 +329,7 @@ export default function Home() {
                         )}
                     </div>
                     <button
-                        onClick={() => router.push('/exercise')}
+                        onClick={() => router.push(`${BASE_PATH}/exercise`)}
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
                         {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
@@ -349,14 +349,14 @@ export default function Home() {
                                 <p className="text-sm text-gray-500">{t("questionnaires.GAD-7.explanation")}</p>
                             </div>
                             <button
-                                onClick={() => router.push("/questionnaires/GAD-7")}
+                                onClick={() => router.push(`${BASE_PATH}/questionnaires/GAD-7`)}
                                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                             >
                                 Start <Play size={16} />
                             </button>
                         </div>
                         <button
-                            onClick={() => router.push('/questionnaires')}
+                            onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                         >
                             {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2} />

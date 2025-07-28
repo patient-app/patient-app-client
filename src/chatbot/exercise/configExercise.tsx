@@ -1,6 +1,6 @@
 import {createChatBotMessage} from 'react-chatbot-kit';
 import {Repeat2, X} from 'lucide-react';
-import {CHATBOT_NAME} from "@/libs/constants";
+import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
 import Image from "next/image";
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -12,13 +12,15 @@ export const setExternalActions = (actions: any) => {
 };
 
 const BotAvatar = () => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
     return (
         <div className="react-chatbot-kit-chat-bot-avatar">
             <div className="react-chatbot-kit-chat-bot-avatar-container">
                 <Image
-                    src={`${basePath}/avatars/animalistic.png`}
+                    loader={({src, width, quality}: any) => {
+                        return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
+                    }}
+                    src={`/avatars/animalistic.png`}
                     alt="animalistic avatar"
                     width={80}
                     height={80}
@@ -28,7 +30,6 @@ const BotAvatar = () => {
         </div>
     );
 };
-
 
 
 const configExercise = (

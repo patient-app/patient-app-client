@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {DocumentDTO} from "@/dto/output/DocumentDTO";
 import {useRouter} from "next/navigation";
 import {File} from 'lucide-react';
+import {BASE_PATH} from "@/libs/constants";
 
 const DocumentsPage = () => {
     const {t} = useTranslation();
@@ -76,7 +77,7 @@ const DocumentsPage = () => {
             return documents.map((individualDocument) => (
                 <button
                     key={individualDocument.id}
-                    onClick={() => router.push(`/documents/${individualDocument.id}`)}
+                    onClick={() => router.push(`${BASE_PATH}/documents/${individualDocument.id}`)}
                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <div className="flex items-center gap-2">

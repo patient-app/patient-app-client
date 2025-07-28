@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
 import {ArrowLeft, Play} from "lucide-react";
+import {BASE_PATH} from "@/libs/constants";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -66,7 +67,7 @@ const ExerciseDetailPage = () => {
             } else {
                 const res = await response.json();
                 const exerciseExecutionId = res.exerciseExecutionId;
-                router.push(`/exercise/${id}/${exerciseExecutionId}`);
+                router.push(`${BASE_PATH}/exercise/${id}/${exerciseExecutionId}`);
             }
         } catch (e) {
             setError(t('exercise.error.startFailed'));
@@ -97,7 +98,7 @@ const ExerciseDetailPage = () => {
             {exercises.map(exercise => (
                 <button
                     key={exercise.exerciseExecutionId}
-                    onClick={() => router.push(`/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
+                    onClick={() => router.push(`${BASE_PATH}/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
                     className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <p className="font-bold">{new Date(exercise.executionTitle).toLocaleString()}</p>

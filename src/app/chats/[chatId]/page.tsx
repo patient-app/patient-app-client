@@ -9,7 +9,7 @@ import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
 import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import {CHATBOT_NAME} from "@/libs/constants";
+import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
 import Image from "next/image";
 
 export default function ChatPage() {
@@ -20,7 +20,6 @@ export default function ChatPage() {
     const [conversationName, setConversationName] = useState<string>("");
     const [shareWithCoach, setShareWithCoach] = useState(false);
     const [aiMemory, setAIMemory] = useState(false);
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
     const [avatar, setAvatar] = useState("none");
 
@@ -88,6 +87,13 @@ export default function ChatPage() {
                             <div className="react-chatbot-kit-chat-bot-avatar">
                                 <div className="react-chatbot-kit-chat-bot-avatar-container">
                                     <Image
+                                        loader={({src, width, quality}: {
+                                            src: string;
+                                            width: number;
+                                            quality?: number
+                                        }) => {
+                                            return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
+                                        }}
                                         src={`/avatars/${data.chatBotAvatar.toLowerCase()}.png`}
                                         alt={`${data.chatBotAvatar.toLowerCase()} avatar`}
                                         width={80}
@@ -121,7 +127,7 @@ export default function ChatPage() {
                 <div className="react-chatbot-kit-chat-bot-avatar">
                     <div className="react-chatbot-kit-chat-bot-avatar-container">
                         <Image
-                            src={`${basePath}/avatars/${avatar}.png`}
+                            src={`/avatars/${avatar}.png`}
                             alt={`${avatar} avatar`}
                             width={80}
                             height={80}
@@ -151,7 +157,7 @@ export default function ChatPage() {
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + chatId, requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data");
-                    router.push("/chat");
+                    router.push(`${BASE_PATH}/chat`);
                 } else {
                     const respo = await response.json();
                     const welcomeMessage = respo.welcomeMessage;
@@ -190,7 +196,7 @@ export default function ChatPage() {
                 }
             } catch (e) {
                 console.error(e);
-                router.push("/chat");
+                router.push(`${BASE_PATH}/chat`);
             }
         };
         fetchMyself();
@@ -207,7 +213,7 @@ export default function ChatPage() {
                 const errorData = await response.json();
                 console.warn("Failed to delete chat:", errorData);
             } else {
-                router.push("/chats");
+                router.push(`${BASE_PATH}/chats`);
             }
         } catch (e) {
             console.error("Failed delete conversation:", e);

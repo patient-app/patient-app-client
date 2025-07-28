@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import AvatarSelector from "@/components/AvatarSelector";
+import {BASE_PATH} from "@/libs/constants";
 
 const Onboarding = () => {
     const router = useRouter();
@@ -77,13 +78,13 @@ const Onboarding = () => {
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch patient data");
-                    router.push("/login");
+                    router.push(`${BASE_PATH}/login`);
                     return;
                 }
                 const patient_response = await response.json();
                 if (patient_response.onboarded) {
                     console.log("Patient is already onboarded, redirecting to dashboard.");
-                    router.push("/");
+                    router.push(`${BASE_PATH}/`);
                     return;
                 }
             } catch (error) {
@@ -160,7 +161,7 @@ const Onboarding = () => {
                 setError((t("onboarding.onboardingFailed") + errorData.message) || t("onboarding.onboardingTryAgain"));
                 return;
             }
-            router.push("/");
+            router.push(`${BASE_PATH}/`);
             return;
         }
     };

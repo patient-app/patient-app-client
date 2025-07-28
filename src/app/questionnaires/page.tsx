@@ -5,6 +5,7 @@ import React, {JSX, useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import {ListCheck, Play} from "lucide-react";
 import {Modal, ModalBody, ModalHeader} from "flowbite-react";
+import {BASE_PATH} from "@/libs/constants";
 
 interface PsychologicalTest {
     name: string;
@@ -26,7 +27,7 @@ const Questionnaires = () => {
     const [selectedTestName, setSelectedTestName] = useState<string | null>(null);
     const [testResults, setTestResults] = useState<JSX.Element[] | null>(null);
 
-    {/* 1. Fetch patientId */}
+    /* 1. Fetch patientId */
     useEffect(() => {
         const fetchPatientId = async () => {
             const requestInit: RequestInit = {
@@ -52,7 +53,7 @@ const Questionnaires = () => {
         fetchPatientId();
     }, []);
 
-    {/* 2. Load which tests a patient completed */}
+    /* 2. Load which tests a patient completed */
     useEffect(() => {
         if (!patientId) return;
 
@@ -205,7 +206,7 @@ const Questionnaires = () => {
                     <p className="text-sm text-gray-500">{t("questionnaires.GAD-7.explanation")}</p>
                 </div>
                 <button
-                    onClick={() => router.push("/questionnaires/GAD-7")}
+                    onClick={() => router.push(`${BASE_PATH}/questionnaires/GAD-7`)}
                     className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                 >
                     Start <Play size={16} />

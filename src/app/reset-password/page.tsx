@@ -3,6 +3,7 @@
 import {ResetPasswordPatientDTO} from "@/dto/input/ResetPasswordPatientDTO";
 import {useState} from "react";
 import { useTranslation } from "react-i18next";
+import {BASE_PATH} from "@/libs/constants";
 
 
 const Page = () => {
@@ -93,7 +94,7 @@ const Page = () => {
 
                         <div className="flex gap-1 items-center text-base mt-2">
                             <span>{t("reset.backToLogin")} </span>
-                            <a href="/login" className="text-emerald-600 hover:underline cursor-pointer">{t("reset.login")}</a>
+                            <a href={`${BASE_PATH}/login`} className="text-emerald-600 hover:underline cursor-pointer">{t("reset.login")}</a>
                         </div>
                     </div>
                 </form>
