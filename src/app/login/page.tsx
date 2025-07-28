@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import PasswordField from "@/components/PasswordField";
 import { useRouter } from "next/navigation";
 
-const BASE_PATH = process.env.BASE_PATH;
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 
 const Login = () => {
     const { t, i18n } = useTranslation();
