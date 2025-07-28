@@ -13,7 +13,7 @@ import AvatarSelector from "@/components/AvatarSelector";
 const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
 const hr_style = "w-full border-gray-300 border-1 my-2";
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
 
 const languages = [
     { id: "en", label: "English", native: "English" },
