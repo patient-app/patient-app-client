@@ -217,6 +217,12 @@ function PushNotificationManager() {
             >
                 Subscribe to Push Notifications ANYWAYS
             </button>
+            <button
+                onClick={handleSendTestNotification}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2"
+            >
+                Send Test Notification ANYWAYS <Bell size={16} />
+            </button>
         </div>
     )
 }
