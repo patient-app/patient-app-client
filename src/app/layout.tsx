@@ -32,8 +32,12 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <head>
-            <meta className="viewport" content="width=decive-width, initial-scale=1"/>
-            <title>Patient&#39;s App</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Lumina</title>
+            <link
+                rel="icon"
+                href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/favicon.ico`}
+            />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
