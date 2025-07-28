@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { BASE_PATH } from '@/libs/constants';
 
 const PUBLIC_ROUTES = ['/login', '/reset-password', '/terms'];
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 function parseJwt(token: string | undefined) {
     if (!token) return null;
