@@ -45,13 +45,13 @@ export default function Home() {
                 const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/me", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch patient data");
-                    router.push("/login");
+                    router.push(`${BASE_PATH}/login`);
                 } else {
                     const patient_response = await response.json();
 
                     if (!patient_response.onboarded && window.location.pathname !== "/onboarding") {
                         console.log("Patient is not onboarded, redirecting to onboarding.");
-                        router.push("/onboarding");
+                        router.push(`${BASE_PATH}/onboarding`);
                         return;
                     }
 
@@ -187,7 +187,7 @@ export default function Home() {
             }
 
             console.log("Quick Journal saved successfully");
-            router.push("/journal");
+            router.push(`${BASE_PATH}/journal`);
 
         } catch (e) {
             console.error("Failed to save the journal entry: ", e);
