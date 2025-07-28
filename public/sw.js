@@ -35,17 +35,21 @@ self.addEventListener('push', function (event) {
             event.waitUntil(self.registration.showNotification(data.title || 'Notification', options));
         } catch (error) {
             console.error('[Service Worker] Error handling push notification:', error);
-            
-            // Fallback notification if JSON parsing fails
-            const options = {
+
+            // Fallback notification
+            const fallbackOptions = {
                 body: 'You have a new notification',
                 icon: '/icon.png',
                 badge: '/badge.png',
                 vibrate: [100, 50, 100],
+                data: {
+                    url: '/'
+                }
             };
-            
-            console.log('[Service Worker] Showing fallback notification');
-            event.waitUntil(self.registration.showNotification('New Notification', options));
+
+            event.waitUntil(
+                self.registration.showNotification('New Notification', fallbackOptions)
+            );
         }
     } else {
         console.warn('[Service Worker] Push event received but no data');
