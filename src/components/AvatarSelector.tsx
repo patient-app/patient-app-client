@@ -7,7 +7,7 @@ interface AvatarSelectorProps {
 
 const AvatarSelector = ({ selectedAvatar, onSelect }: AvatarSelectorProps) => {
     const avatars = ['animalistic', 'blob', 'crystal', 'humanistic', 'plant', 'robotic', 'neuralnetwork', 'none'];
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
