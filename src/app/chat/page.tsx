@@ -233,8 +233,11 @@ export default function ChatPage() {
                 }}
                 className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
             />
-
-            <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
+            <div className="flex justify-center">
+                <span className="italic text-sm text-gray-600 text-center">
+                    {t("footer.aiwarning")}
+                </span>
+            </div>
             <div className="chatbot-wrapper chatbot-basic">
                 <Chatbot
                     config={createdConfig}
