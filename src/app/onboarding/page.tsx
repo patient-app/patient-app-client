@@ -98,6 +98,8 @@ const Onboarding = () => {
     const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
         setSelectedLang(lang);
+        i18n.changeLanguage(lang);
+        localStorage.setItem('lang', lang);
     }
 
     const sendLanguageChange = async () => {
