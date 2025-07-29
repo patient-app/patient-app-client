@@ -21,7 +21,7 @@ const BotAvatar = () => {
                     loader={({src, width, quality}: any) => {
                         return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
                     }}
-                    src={`/avatars/animalistic.png`}
+                    src={`/chatbots/Chatbot_Journaling.png`}
                     alt="animalistic avatar"
                     width={80}
                     height={80}

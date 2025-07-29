@@ -182,7 +182,7 @@
     "placeholder": "Ask Lumina AI",
     "sharingoptions": "Sharing Options",
     "deleteChat": "Delete Chat",
-    "loadingChat": "Loading chat...",
+    "loadingChat": "Loading conversation...",
     "unnamedChat": "Unnamed Conversation",
     "awaitingAnswer": "Generating answer...",
     "modal": {
@@ -194,7 +194,7 @@
   "chats": {
     "title": "Conversations",
     "empty": "No chats available.",
-    "loading": "Loading chats...",
+    "loading": "Loading conversations...",
     "chat": "Chat ",
     "startNewConversation": "+ Start a new conversation",
     "unnamedConversation": "Unnamed Conversation",
