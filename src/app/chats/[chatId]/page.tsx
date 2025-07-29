@@ -310,7 +310,7 @@ export default function ChatPage() {
             </span>
 
             {config.initialMessages.length === 0 ? (
-                <p>Loading chat...</p>
+                <p>{t("chat.loadingChat")}</p>
             ) : (
                 <div className="chatbot-wrapper chatbot-basic">
                     <Chatbot
