@@ -250,7 +250,7 @@ const JournalEntryPage = () => {
                 <div className="flex justify-center mt-4">
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
                     >
                         {t("journalCreationEditing.updateButton")}
                     </button>
