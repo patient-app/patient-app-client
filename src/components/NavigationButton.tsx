@@ -39,7 +39,6 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
                 className={`flex-1 flex flex-col items-center justify-center cursor-pointer gap-1 ${selectionClassesMobile} ${className}`}
             >
                 {icon}
-                <span className="text-xs font-medium">{label}</span>
             </button>
         );
     }

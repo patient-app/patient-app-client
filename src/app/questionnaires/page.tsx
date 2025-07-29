@@ -1,8 +1,8 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import React, {JSX, useEffect, useState} from "react";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import {ListCheck, Play} from "lucide-react";
 import {Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {BASE_PATH} from "@/libs/constants";
@@ -19,7 +19,7 @@ interface PsychologicalTest {
 }
 
 const Questionnaires = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const router = useRouter();
     const [tests, setTests] = useState<string[]>([]);
     const [patientId, setPatientId] = useState<number | null>(null);
@@ -63,7 +63,7 @@ const Questionnaires = () => {
                     method: "GET",
                     credentials: "include",
                 };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/"+ patientId + "/psychological-tests", requestInit);
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/" + patientId + "/psychological-tests", requestInit);
                 if (!response.ok) {
                     console.warn("Failed to fetch data:");
                     return;
@@ -83,11 +83,11 @@ const Questionnaires = () => {
     }, [patientId]);
 
     const renderContent = () => {
-        if(!tests || tests.length === 0) {
+        if (!tests || tests.length === 0) {
             return (
                 <div className="w-full text-center text-gray-500">
                     {t("questionnaires.noTests")}
-                        </div>)
+                </div>)
         }
         return tests.map((test) => (
             <div
@@ -102,7 +102,7 @@ const Questionnaires = () => {
                     onClick={() => viewTestResults(test)}
                     className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 transition flex items-center gap-2 cursor-pointer"
                 >
-                    {t("questionnaires.viewResults")} <ListCheck size={16} />
+                    {t("questionnaires.viewResults")} <ListCheck size={16}/>
                 </button>
             </div>
         ));
@@ -121,7 +121,7 @@ const Questionnaires = () => {
                 method: "GET",
                 credentials: "include",
             };
-            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/"+ patientId + "/psychological-tests/" + testName, requestInit);
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/" + patientId + "/psychological-tests/" + testName, requestInit);
             if (!response.ok) {
                 console.warn("Failed to fetch data:");
                 return;
@@ -209,7 +209,7 @@ const Questionnaires = () => {
                     onClick={() => router.push(`${BASE_PATH}/questionnaires/GAD-7`)}
                     className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                 >
-                    Start <Play size={16} />
+                    Start <Play size={16}/>
                 </button>
             </div>
 

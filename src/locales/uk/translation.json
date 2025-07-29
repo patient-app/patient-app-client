@@ -103,6 +103,7 @@
     },
     "questionnaires": {
       "title": "Анкети",
+      "noQuestionnaires": "Поки що немає анкет.",
       "showAll": "Показати всі"
     }
   },
@@ -138,8 +139,8 @@
     "completeExecution": "Виконайте вправу",
     "start": "початок"
   },
-  "exerciseInput":{
-    "error":{
+  "exerciseInput": {
+    "error": {
       "failedToUpdate": "Не вдалося зберегти введені дані"
     },
     "placeholder": "Будь ласка, введіть свою відповідь тут...",
@@ -148,14 +149,14 @@
       "private": "Ваша відповідь не буде передана вашому тренеру."
     }
   },
-  "exerciseImage":{
+  "exerciseImage": {
     "error": {
       "imageMissing": "Дані зображення відсутні",
       "imageLoadFailed": "Не вдалося завантажити зображення"
     },
     "exerciseComponentDescription": "Зображення вправи"
   },
-  "exerciseFile":{
+  "exerciseFile": {
     "error": {
       "dataMissing": "Недійсні дані файлу"
     },
@@ -199,10 +200,10 @@
     "startNewConversation": "+ Почніть нову розмову",
     "unnamedConversation": "Розмова без назви",
     "sharingoptions": {
-      "shareWithCoach_on": "Тренер ділиться досвідом",
-      "shareWithCoach_off": "Тренер ділиться досвідом",
-      "useForAIMemory_on": "Пам'ять штучного інтелекту ввімкнена",
-      "useForAIMemory_off": "Пам'ять штучного інтелекту ввімкнена"
+      "shareWithCoach_on": "Поділіться одним",
+      "shareWithCoach_off": "ділитися",
+      "useForAIMemory_on": "пам'ять включена",
+      "useForAIMemory_off": "пам'ять вимкнено"
     }
   },
   "terms": {
@@ -374,7 +375,7 @@
     }
   },
   "individualDocument": {
-    "download": "Завантажити {{documentName}}",
+    "download": "Завантажити",
     "noPreview": "Попередній перегляд для цього типу файлів недоступний.",
     "error": {
       "fetchFailed": "Не вдалося отримати документ"

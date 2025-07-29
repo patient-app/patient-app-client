@@ -71,7 +71,6 @@ const ExerciseExecutionInfoPage = () => {
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
-                    console.log("Exercise data:", exerciseData);
                 }
             } catch (e) {
                 setError(t('exercise.error.fetchFailedIndividual'));
@@ -80,7 +79,7 @@ const ExerciseExecutionInfoPage = () => {
         };
 
         getExercise();
-    });
+    }, [id, executionId, t]);
 
     useEffect(() => {
         setStartTime(new Date().toISOString());
@@ -188,7 +187,7 @@ const ExerciseExecutionInfoPage = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <div className="relative w-full flex items-center justify-center mb-3">
                 <ArrowLeft
                     onClick={() => setBackModal(true)}

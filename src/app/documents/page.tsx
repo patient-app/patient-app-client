@@ -81,8 +81,13 @@ const DocumentsPage = () => {
                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <div className="flex items-center gap-2">
-                        <File/>
-                        <p className="font-bold">{individualDocument.filename}</p>
+                        <File />
+                        <p
+                            className="font-bold truncate"
+                            title={individualDocument.filename}
+                        >
+                            {individualDocument.filename}
+                        </p>
                     </div>
                 </button>
             ))
@@ -90,7 +95,7 @@ const DocumentsPage = () => {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-20 desktop:mb-0">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center">{t("documents.title")}</h1>
             <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                 {renderContent()}

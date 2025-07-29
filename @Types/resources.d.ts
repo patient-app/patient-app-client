@@ -104,6 +104,7 @@ interface Resources {
             },
             "questionnaires": {
                 "title": "",
+                "noQuestionnaires":"",
                 "showAll": ""
             }
         },

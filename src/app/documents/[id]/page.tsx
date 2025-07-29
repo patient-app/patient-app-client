@@ -84,7 +84,7 @@ const IndividualDocumentPage = () => {
     };
 
     return (
-        <div className="mb-20 desktop:mb-0">
+        <div className="mb-15 desktop:mb-0">
             <ArrowLeft
                 onClick={() => router.back()}
                 className="text-gray-500 text-xl cursor-pointer"
@@ -109,7 +109,7 @@ const IndividualDocumentPage = () => {
                         download={fileName}
                         className="inline-block max-w-xs mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer truncate overflow-hidden whitespace-nowrap"
                     >
-                        {t("individualDocument.download", {documentName: fileName})}
+                        {t("individualDocument.download")}
                     </a>
                 </div>
             )}

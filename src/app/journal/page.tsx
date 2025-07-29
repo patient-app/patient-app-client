@@ -123,13 +123,50 @@ const Journal = () => {
         }
     };
 
+    const handleCreateEntry = async () => {
+        const emptyEntry = {
+            title: "",
+            content: "",
+            tags: [],
+            sharedWithTherapist: false,
+        };
+
+        try {
+            const requestInit: RequestInit = {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(emptyEntry),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+
+            const response = await fetch(
+                process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries",
+                requestInit
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError(t("journal.error.creationFailed") + errorData.message);
+            } else {
+                const res = await response.json();
+                router.push(`${BASE_PATH}/journal/creation/${res.id}`);
+            }
+        } catch (e) {
+            console.error("Failed to create journal entry:", e);
+            setError(t("journal.error.creationFailed"));
+        }
+    };
+
+
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center">
                 {t("journal.title")}
             </h1>
             <button
-                onClick={() => router.push(`${BASE_PATH}/journal/creation`)}
+                onClick={handleCreateEntry}
                 className="w-full max-w-xl border-emerald-500 border shadow-md p-3 rounded-md mb-4 cursor-pointer hover:bg-emerald-200 transition text-center"
             >
                 <p className="font-bold">{t("journal.newEntry")}</p>

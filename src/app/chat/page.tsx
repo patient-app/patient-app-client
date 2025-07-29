@@ -173,8 +173,6 @@ export default function ChatPage() {
                 onClick={() => router.back()}
                 className="text-gray-500 text-xl cursor-pointer"
             />
-            <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-
             {conversationId &&
                 <button
                     className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
@@ -219,6 +217,7 @@ export default function ChatPage() {
             </button>
             }
 
+            <h1 className="text-3xl font-semibold text-center mt-5">{t("chat.title")}</h1>
             <input
                 type="text"
                 placeholder={t("chat.unnamedChat")}

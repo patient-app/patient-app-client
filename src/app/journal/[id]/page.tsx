@@ -167,7 +167,7 @@ const JournalEntryPage = () => {
 
 
     return (
-        <main className="px-4 py-2 rounded-md h-[100%]">
+        <main className="px-4 py-2 rounded-md h-[100%] mb-15 desktop:mb-0">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={handleBack}
@@ -239,8 +239,7 @@ const JournalEntryPage = () => {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
-                />
+                    className="w-full h-[50vh] desktop:h-[65vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
                         {error}
@@ -250,7 +249,7 @@ const JournalEntryPage = () => {
                 <div className="flex justify-center mt-4">
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
                     >
                         {t("journalCreationEditing.updateButton")}
                     </button>

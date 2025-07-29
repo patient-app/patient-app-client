@@ -11,10 +11,9 @@ interface ActionProviderJournalProps {
     createChatBotMessage: any;
     setState: any;
     children: any;
-    propEntryId?: string;
 }
 
-const ActionProviderJournal = ({createChatBotMessage, setState, children, propEntryId}: ActionProviderJournalProps) => {
+const ActionProviderJournal = ({createChatBotMessage, setState, children}: ActionProviderJournalProps) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
@@ -22,7 +21,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children, propEn
     const {t} = useTranslation();
 
     const params = useParams();
-    const entryId = propEntryId ?? params?.id;
+    const entryId =  params?.id;
 
     const createConversation = async () => {
         try {
