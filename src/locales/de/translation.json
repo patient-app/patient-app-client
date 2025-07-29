@@ -103,6 +103,7 @@
     },
     "questionnaires": {
       "title": "Questionnaires",
+      "noQuestionnaires": "Noch keine Questionnaires.",
       "showAll": "Alle anzeigen"
     }
   },
@@ -270,7 +271,7 @@
   "navigation": {
     "home": "Home",
     "chat": "Neuer Chat",
-    "chats": "Unterhaltungen",
+    "chats": "Chats",
     "settings": "Einstellungen",
     "logout": "Log out",
     "exercise": "Übungen",

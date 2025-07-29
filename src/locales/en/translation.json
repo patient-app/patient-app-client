@@ -103,6 +103,7 @@
     },
     "questionnaires": {
       "title": "Questionnaires",
+      "noQuestionnaires": "No questionnaires yet.",
       "showAll": "Show all"
     }
   },
@@ -136,7 +137,7 @@
     },
     "completedExercise": "Completed Exercise",
     "completeExecution": "Complete Exercise",
-    "start":"Start"
+    "start": "Start"
   },
   "exerciseInput": {
     "error": {

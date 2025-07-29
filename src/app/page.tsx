@@ -1,13 +1,14 @@
 "use client";
 
-import { PatientOutputDTO } from "@/dto/output/PatientOutputDTO";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import {PatientOutputDTO} from "@/dto/output/PatientOutputDTO";
+import {useRouter} from "next/navigation";
+import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import MeetingComponent from "@/components/MeetingComponent";
-import { BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save } from "lucide-react";
-import { JournalEntryDTO } from "@/dto/output/JournalEntryDTO";
+import {BookPlus, CircleArrowRight, MessageSquarePlus, Play, Save} from "lucide-react";
+import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
 import {BASE_PATH} from "@/libs/constants";
+import {PsychologicalTestDTO} from "@/dto/output/PsychologicalTestDTO";
 
 const tile_class = "w-full lg:w-[calc(50%-0.5rem)] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 h-[250px] flex flex-col";
 const header_class = "text-xl font-semibold mb-2";
@@ -15,7 +16,7 @@ const header_class = "text-xl font-semibold mb-2";
 
 export default function Home() {
     const router = useRouter();
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
 
     const [mePatient, setMePatient] = useState<PatientOutputDTO>();
 
@@ -26,11 +27,11 @@ export default function Home() {
     const [lastJournalText, setLastJournalText] = useState<string>("");
 
     const [quickJournalContent, setQuickJournalContent] = useState<string>("");
+    const [tests, setTests] = useState<PsychologicalTestDTO[]>([]);
 
     interface ExerciseDTO {
         id: string;
         exerciseTitle: string;
-        exerciseDescription: string;
     }
 
     const [exercises, setExercises] = useState<ExerciseDTO[]>([])
@@ -144,7 +145,7 @@ export default function Home() {
                     credentials: "include"
                 };
                 const response = await fetch(
-                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/exercises",
+                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/dashboard/exercises",
                     requestInit
                 );
                 if (!response.ok) {
@@ -157,10 +158,37 @@ export default function Home() {
                 setExercises(exerciseResponse);
 
             } catch (e) {
-                console.error("Failed to fetch journal entries:", e);
+                console.error("Failed to exercise journal entries:", e);
             }
         }
         fetchExercises();
+    }, []);
+
+    useEffect(() => {
+        const fetchQuestionnaire = async () => {
+            try {
+                const requestInit: RequestInit = {
+                    method: "GET",
+                    credentials: "include"
+                };
+                const response = await fetch(
+                    process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/dashboard/psychological-tests",
+                    requestInit
+                );
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Failed to fetch psychological tests:", errorData.message);
+                    return;
+                }
+
+                const testResponse = await response.json();
+                setTests(testResponse);
+
+            } catch (e) {
+                console.error("Failed to fetch psychological tests:", e);
+            }
+        }
+        fetchQuestionnaire();
     }, []);
 
     const saveQuickJournal = async () => {
@@ -176,7 +204,7 @@ export default function Home() {
                     "tags": ["QuickJournal"],
                     "sharedWithTherapist": false
                 }),
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries", requestInit);
             if (response.status !== 201) {
@@ -199,7 +227,7 @@ export default function Home() {
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
 
-            <MeetingComponent />
+            <MeetingComponent/>
 
             {/* Tile Layout */}
             <div className="w-[90%] lg:w-[65%] flex flex-row flex-wrap items-start justify-center gap-4">
@@ -223,7 +251,6 @@ export default function Home() {
                         <p>
                             <strong>{t("home.yourInformation.avatar")}</strong> {mePatient?.chatBotAvatar ? mePatient.chatBotAvatar.charAt(0).toUpperCase() + mePatient.chatBotAvatar.slice(1).toLowerCase() : "unknown"}
                         </p>
-                        <p><strong>{t("home.yourInformation.id")}</strong> {mePatient?.id || "unknown"}</p>
                     </div>
                 </div>
 
@@ -239,7 +266,7 @@ export default function Home() {
                                     onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
                                 >
-                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2} />
+                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
                             </div>
                             :
@@ -250,7 +277,7 @@ export default function Home() {
                         onClick={() => router.push(`${BASE_PATH}/chat`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2} />
+                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -274,7 +301,7 @@ export default function Home() {
                             }
                             disabled={quickJournalContent.trim().length === 0}
                         >
-                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2} />
+                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2}/>
                         </button>
                     </div>
                 </div>
@@ -292,7 +319,7 @@ export default function Home() {
                                     onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
-                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2} />
+                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
                             </div>
                             :
@@ -303,7 +330,7 @@ export default function Home() {
                         onClick={() => router.push(`${BASE_PATH}/journal/creation`)}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2} />
+                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -314,13 +341,13 @@ export default function Home() {
                         {exercises.length > 0 ? (
                             exercises.map((exercise) => (
                                 <div key={exercise.id}
-                                    className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
+                                     className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
                                     <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
                                     <button
-                                        onClick={() => router.push(`${BASE_PATH}/exercise/${exercise.id}`)}
+                                        onClick={() => router.push(`${BASE_PATH}/exercise/${exercise.id}?title=${encodeURIComponent(exercise.exerciseTitle)}`)}
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
-                                        {t("home.exercises.open")} <Play size={16} />
+                                        {t("home.exercises.open")} <Play size={16}/>
                                     </button>
                                 </div>
                             ))
@@ -332,7 +359,7 @@ export default function Home() {
                         onClick={() => router.push(`${BASE_PATH}/exercise`)}
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
-                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                     </button>
                 </div>
 
@@ -340,26 +367,30 @@ export default function Home() {
                 <div className={tile_class}>
                     <h2 className={header_class}>{t("home.questionnaires.title")}</h2>
                     <div className="flex-grow flex flex-col gap-2">
-
-                        <div
-                            className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
-                        >
-                            <div>
-                                <p className="font-bold text-lg">{t("questionnaires.GAD-7.title")}</p>
-                                <p className="text-sm text-gray-500">{t("questionnaires.GAD-7.explanation")}</p>
-                            </div>
-                            <button
-                                onClick={() => router.push(`${BASE_PATH}/questionnaires/GAD-7`)}
-                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
-                            >
-                                Start <Play size={16} />
-                            </button>
-                        </div>
+                        {tests.length > 0 ? (
+                            tests.map((test) => (
+                                <div key={test.id}
+                                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
+                                >
+                                    <div>
+                                        <p className="font-bold text-lg">{test.testName}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => router.push(`${BASE_PATH}/questionnaires/${test.testName}`)}
+                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                                    >
+                                        Start <Play size={16}/>
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="italic text-gray-500">{t("home.questionnaires.noQuestionnaires")}</p>
+                        )}
                         <button
                             onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                         >
-                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2} />
+                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                         </button>
                     </div>
                 </div>
@@ -367,7 +398,7 @@ export default function Home() {
                 <div
                     className="text-sm text-gray-600 flex gap-2 justify-center">
                     <a href={`${BASE_PATH}/terms`} target="_blank"
-                        className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                       className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                 </div>
 
             </div>
