@@ -224,7 +224,7 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
 
             <MeetingComponent/>

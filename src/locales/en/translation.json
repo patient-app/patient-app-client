@@ -200,10 +200,10 @@
     "startNewConversation": "+ Start a new conversation",
     "unnamedConversation": "Unnamed Conversation",
     "sharingoptions": {
-      "shareWithCoach_on": "Coach Sharing on",
-      "shareWithCoach_off": "Coach Sharing off",
-      "useForAIMemory_on": "AI Memory on",
-      "useForAIMemory_off": "AI Memory off"
+      "shareWithCoach_on": "Sharing on",
+      "shareWithCoach_off": "Sharing off",
+      "useForAIMemory_on": "Memory on",
+      "useForAIMemory_off": "Memory off"
     }
   },
   "terms": {
@@ -375,7 +375,7 @@
     }
   },
   "individualDocument": {
-    "download": "Download {{documentName}}",
+    "download": "Download",
     "noPreview": "Preview not available for this file type.",
     "error": {
       "fetchFailed": "Failed to fetch document"

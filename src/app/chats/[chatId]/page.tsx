@@ -245,22 +245,6 @@ export default function ChatPage() {
                 className="text-gray-500 text-xl cursor-pointer"
             />
             <div className="flex flex-col items-center">
-                <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-                <input
-                    type="text"
-                    placeholder={t("chat.unnamedChat")}
-                    value={conversationName}
-                    onChange={e => setConversationName(e.target.value)}
-                    onBlur={updateConversationName}
-                    onKeyDown={e => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault()
-                            updateConversationName();
-                        }
-                    }}
-                    className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
-                />
-
                 {chatId &&
                     <button
                         className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
@@ -305,6 +289,22 @@ export default function ChatPage() {
                 </button>
 
             </div>
+            <h1 className="text-3xl font-semibold text-center mt-5">{t("chat.title")}</h1>
+            <input
+                type="text"
+                placeholder={t("chat.unnamedChat")}
+                value={conversationName}
+                onChange={e => setConversationName(e.target.value)}
+                onBlur={updateConversationName}
+                onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault()
+                        updateConversationName();
+                    }
+                }}
+                className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
+            />
+
             <span className="italic text-center text-sm text-gray-600">
                 {t("footer.aiwarning")}
             </span>

@@ -200,10 +200,10 @@
     "startNewConversation": "+ Почніть нову розмову",
     "unnamedConversation": "Розмова без назви",
     "sharingoptions": {
-      "shareWithCoach_on": "Тренер ділиться досвідом",
-      "shareWithCoach_off": "Тренер ділиться досвідом",
-      "useForAIMemory_on": "Пам'ять штучного інтелекту ввімкнена",
-      "useForAIMemory_off": "Пам'ять штучного інтелекту ввімкнена"
+      "shareWithCoach_on": "Поділіться одним",
+      "shareWithCoach_off": "ділитися",
+      "useForAIMemory_on": "пам'ять включена",
+      "useForAIMemory_off": "пам'ять вимкнено"
     }
   },
   "terms": {
@@ -375,7 +375,7 @@
     }
   },
   "individualDocument": {
-    "download": "Завантажити {{documentName}}",
+    "download": "Завантажити",
     "noPreview": "Попередній перегляд для цього типу файлів недоступний.",
     "error": {
       "fetchFailed": "Не вдалося отримати документ"

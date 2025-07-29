@@ -263,7 +263,7 @@ const Page = () => {
     if (!isClient) return null;
 
     return (
-        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
+        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-10 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center mb-4">{t("settings.title")}</h1>
             <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
                 {/* Language Selection */}

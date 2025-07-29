@@ -200,10 +200,10 @@
     "startNewConversation": "+ Neue Unterhaltung beginnen",
     "unnamedConversation": "Unbenannte Unterhaltung",
     "sharingoptions": {
-      "shareWithCoach_on": "Coach Teilen ein",
-      "shareWithCoach_off": "Coach Teilen aus",
-      "useForAIMemory_on": "AI Erinnerung ein",
-      "useForAIMemory_off": "AI Erinnerung aus"
+      "shareWithCoach_on": "Teilen ein",
+      "shareWithCoach_off": "Teilen aus",
+      "useForAIMemory_on": "Erinnerung ein",
+      "useForAIMemory_off": "Erinnerung aus"
     }
   },
   "terms": {
@@ -375,7 +375,7 @@
     }
   },
   "individualDocument": {
-    "download": "{{documentName}} herunterladen",
+    "download": "Herunterladen",
     "noPreview": "Vorschau für diesen Dateityp nicht verfügbar.",
     "error": {
       "fetchFailed": "Dokument konnte nicht abgerufen werden"

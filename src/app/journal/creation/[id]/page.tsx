@@ -132,7 +132,7 @@ export default function JournalEntryCreationPage() {
     }, [chatbotTitle, chatbotContent]);
 
     return (
-        <main className="px-4 py-2 rounded-md h-[100%]">
+        <main className="px-4 py-2 rounded-md h-[100%] mb-15 desktop:mb-0">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={handleBack}
@@ -183,8 +183,7 @@ export default function JournalEntryCreationPage() {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
-                />
+                    className="w-full h-[50vh] desktop:h-[65vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
                         {error}
@@ -225,7 +224,7 @@ export default function JournalEntryCreationPage() {
                             {t("journalCreationEditing.modal.backWarning")}
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="red" onClick={() => router.back()}>
+                            <Button color="red" onClick={() => deleteEntry()}>
                                 {t("journalCreationEditing.modal.backDiscard")}
                             </Button>
                             <Button color="alternative" onClick={() => setBackModal(false)}>
