@@ -183,7 +183,7 @@ export default function JournalEntryCreationPage() {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[50vh] desktop:h-[65vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
+                    className="w-full h-[50vh] desktop:h-[55vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
                 {error && (
                     <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
                         {error}
@@ -203,7 +203,6 @@ export default function JournalEntryCreationPage() {
                 <HelpButton
                     chatbot={
                         <JournalChatbot
-                            isOpen={false}
                             onCloseAction={() => {
                             }}
                             getEntryData={getEntryData}

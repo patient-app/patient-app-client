@@ -9,13 +9,10 @@ import ActionProviderExercise from "@/chatbot/exercise/ActionProviderExercise";
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
 
-export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
-    isOpen: boolean,
+export default function ExerciseChatbot({onCloseAction}: Readonly<{
     onCloseAction: () => void,
 }>) {
     const {t} = useTranslation();
-
-    if (!isOpen) return null;
 
     return (
         <div className="fixed bottom-26 desktop:bottom-30 right-10 z-50 max-h-[80vh]">

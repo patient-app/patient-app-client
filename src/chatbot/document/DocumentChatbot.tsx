@@ -8,13 +8,10 @@ import {CHATBOT_NAME} from "@/libs/constants";
 import ActionProviderDocument from "@/chatbot/document/ActionProviderDocument";
 import configDocument from "@/chatbot/document/configDocument";
 
-export default function DocumentChatbot({isOpen, onCloseAction}: Readonly<{
-    isOpen: boolean,
+export default function DocumentChatbot({onCloseAction}: Readonly<{
     onCloseAction: () => void,
 }>) {
     const {t} = useTranslation();
-
-    if (!isOpen) return null;
 
     return (
         <div className="fixed bottom-26 desktop:bottom-30 right-10 z-50 max-h-[80vh]">

@@ -11,12 +11,11 @@ import React, {ComponentProps, useMemo} from "react";
 import MessageParserJournal from "@/chatbot/journal/MessageParserJournal";
 
 type Props = {
-    isOpen: boolean;
     onCloseAction: () => void;
     getEntryData: () => { title: string; content: string };
 };
 
-const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readonly<Props>) => {
+const JournalChatbot = React.memo(({onCloseAction, getEntryData}: Readonly<Props>) => {
     const {t} = useTranslation();
 
     const welcomeMessage = t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME});
@@ -31,8 +30,6 @@ const JournalChatbot = React.memo(({isOpen, onCloseAction, getEntryData}: Readon
 
         return WrappedMessageParser;
     }, [getEntryData]);
-
-    if (!isOpen) return null;
 
     return (
         <div className="fixed bottom-26 desktop:bottom-30 right-10 z-50 max-h-[80vh]">
