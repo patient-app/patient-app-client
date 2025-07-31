@@ -17,27 +17,18 @@ jobs:
       - name: Set Environment Variables
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-
             echo "BRANCH=main" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-main:latest" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BASE_PATH=/client" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BACKEND_URL=https://backend-patient-app-main.jonas-blum.ch" >> $GITHUB_ENV
 
           elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then
-
             echo "BRANCH=production" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-production:latest" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BASE_PATH=/client" >> $GITHUB_ENV
-            echo "NEXT_PUBLIC_BACKEND_URL=https://vllm-imrg.ifi.uzh.ch/client-backend" >> $GITHUB_ENV
-
           fi
 
       - name: Build Frontend Image
         run: |
           docker build \
             --build-arg ENV_NAME=${{ env.BRANCH }} \
-            --build-arg NEXT_PUBLIC_BASE_PATH=${{ env.NEXT_PUBLIC_BASE_PATH }} \
-            --build-arg NEXT_PUBLIC_BACKEND_URL=${{ env.NEXT_PUBLIC_BACKEND_URL }} \
             -t ${{ env.FRONTEND_IMAGE }} .
 
       - name: Push Frontend Image
