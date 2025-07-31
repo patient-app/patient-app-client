@@ -246,7 +246,6 @@ const ExerciseExecutionInfoPage = () => {
 
             <HelpButton chatbot={
                 <ExerciseChatbot
-                    isOpen={false}
                     onCloseAction={() => {
                     }}
                 />

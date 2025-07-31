@@ -118,7 +118,6 @@ const IndividualDocumentPage = () => {
             <HelpButton
                 chatbot={
                     <DocumentChatbot
-                        isOpen={false}
                         onCloseAction={() => {
                         }}
                     />

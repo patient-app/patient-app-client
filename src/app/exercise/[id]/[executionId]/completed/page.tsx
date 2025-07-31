@@ -54,7 +54,7 @@ const ExerciseCompletionInfoPage = () => {
         };
 
         getExercise();
-    });
+    },[id, executionId, t]);
 
 
     const renderElement = (element: ExerciseComponentsDTO) => {
