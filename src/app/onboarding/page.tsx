@@ -340,6 +340,7 @@ const Onboarding = () => {
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
+                    <p className="font-bold">{t("onboarding.sharingNote")}</p>
 
                     <div className="w-full flex justify-center">
                         <button
