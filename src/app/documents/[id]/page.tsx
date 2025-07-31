@@ -71,8 +71,9 @@ const IndividualDocumentPage = () => {
                 <iframe
                     src={downloadUrl}
                     title={fileName}
-                    className="w-full h-[400px] desktop:h-[600px] my-6"
+                    className="w-full desktop:w-[80vw] h-[60vh] desktop:h-[70vh] mt-2 mb-2"
                 />
+
             );
         } else {
             return (
@@ -90,9 +91,9 @@ const IndividualDocumentPage = () => {
                 className="text-gray-500 text-xl cursor-pointer"
             />
             <h1 className="text-3xl font-semibold text-center mb-10">{fileName}</h1>
-
-            {renderPreview()}
-
+            <div className="flex justify-center">
+                {renderPreview()}
+            </div>
             <div className="flex justify-center">
                 {error && (
                     <div

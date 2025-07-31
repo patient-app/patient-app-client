@@ -41,7 +41,7 @@ export default function ExerciseFile({
             {component.fileType === "application/pdf" ? (
                 <iframe
                     src={fileSrc}
-                    className="w-full h-[400px] desktop:h-[600px] my-6"
+                    className="w-full h-[60vh] desktop:h-[80vh] my-6"
                     title={component.fileName}
                 />
             ) : (

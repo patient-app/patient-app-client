@@ -81,7 +81,7 @@ const DocumentsPage = () => {
                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <div className="flex items-center gap-2">
-                        <File />
+                        <File className="w-5 h-5" />
                         <p
                             className="font-bold truncate"
                             title={individualDocument.filename}

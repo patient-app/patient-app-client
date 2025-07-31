@@ -129,7 +129,13 @@ const ExerciseExecutionInfoPage = () => {
                 setError(t('exercise.error.endFailed') + `: ${errorData.message}`);
                 console.log(errorData.message)
             } else {
-                router.push(`${BASE_PATH}/exercise/${id}`);
+                const path = `${BASE_PATH}/exercise/${id}`;
+                const query = exercise?.exerciseTitle
+                    ? `?title=${encodeURIComponent(exercise.exerciseTitle)}`
+                    : "";
+
+                router.push(`${path}${query}`);
+
             }
         } catch (e) {
             setError(t('exercise.error.endFailed'));
@@ -208,11 +214,11 @@ const ExerciseExecutionInfoPage = () => {
             </div>
 
             <TimerComponent onFinish={() => setTimerFinishedModal(true)}/>
-            <hr className="w-[100%] border-gray-300 border-1 my-2"/>
+            <hr className="w-full desktop:w-4/5 border-gray-300 border-1 my-2"/>
 
 
             {exercise && exercise.exerciseComponents && (
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full desktop:w-4/5 flex flex-col gap-4">
                     {exercise.exerciseComponents
                         .slice()
                         .sort((a, b) => a.orderNumber - b.orderNumber)
