@@ -256,7 +256,6 @@ const JournalEntryPage = () => {
                 </div>
             </form>
             <HelpButton chatbot={<JournalChatbot
-                isOpen={false}
                 onCloseAction={() => {
                 }
                 }
