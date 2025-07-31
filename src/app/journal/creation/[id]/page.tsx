@@ -203,7 +203,6 @@ export default function JournalEntryCreationPage() {
                 <HelpButton
                     chatbot={
                         <JournalChatbot
-                            isOpen={false}
                             onCloseAction={() => {
                             }}
                             getEntryData={getEntryData}
