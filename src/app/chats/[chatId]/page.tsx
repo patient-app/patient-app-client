@@ -7,7 +7,7 @@ import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
 import {ComponentProps, useEffect, useState} from "react";
-import {ArrowLeft, Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
 import Image from "next/image";
@@ -19,7 +19,6 @@ export default function ChatPage() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [conversationName, setConversationName] = useState<string>("");
     const [shareWithCoach, setShareWithCoach] = useState(false);
-    const [aiMemory, setAIMemory] = useState(false);
 
     const [avatar, setAvatar] = useState("none");
 
@@ -33,33 +32,15 @@ export default function ChatPage() {
                 method: "PUT",
                 credentials: "include",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: aiMemory}),
+                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: true}),
             });
-            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + aiMemory);
+            console.log("Sharing Options changed: shareWithCoach to " + newValue);
         } catch (err) {
             console.error("Error updating shareWithCoach", err);
             setShareWithCoach(!newValue);
         }
     }
 
-    const toggleAIMemory = async () => {
-        if (!chatId) return;
-        const newValue = !aiMemory;
-        setAIMemory(newValue);
-
-        try {
-            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
-                method: "PUT",
-                credentials: "include",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({shareWithCoach: shareWithCoach, shareWithAi: newValue}),
-            });
-            console.log("Sharing Options changed: shareWithCoach to " + shareWithCoach + " useForMemory:" + newValue);
-        } catch (err) {
-            console.error("Error updating aiMemory", err);
-            setAIMemory(!newValue);
-        }
-    }
 
     useEffect(() => {
         const fetchAvatar = async () => {
@@ -167,10 +148,6 @@ export default function ChatPage() {
                         setShareWithCoach(respo.shareWithCoach);
                         console.log("shareWithCoach:", respo.shareWithCoach);
                     }
-                    if (typeof respo.shareWithAi === "boolean") {
-                        setAIMemory(respo.shareWithAi);
-                        console.log("shareWithAi:", respo.shareWithAi);
-                    }
 
                     const messagePairs = respo.messages.map((msg: MessageDTO) => ({
                         request: msg.requestMessage,
@@ -245,19 +222,6 @@ export default function ChatPage() {
                 className="text-gray-500 text-xl cursor-pointer"
             />
             <div className="flex flex-col items-center">
-                {chatId &&
-                    <button
-                        className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                        onClick={() => toggleAIMemory()}
-                    >
-                        {aiMemory ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
-                        <span className="text-xs font-medium text-center">
-                            {((aiMemory) ? t("chats.sharingoptions.useForAIMemory_on") : t("chats.sharingoptions.useForAIMemory_off")).split(" ").map((word: string, idx: number) => (
-                                <div key={idx}>{word}</div>
-                            ))}
-                        </span>
-                    </button>
-                }
 
                 {chatId &&
                     <button
