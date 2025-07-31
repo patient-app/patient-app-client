@@ -223,6 +223,7 @@ interface Resources {
             "infoText_2": "",
             "configuredTitle": "",
             "configuredText": "",
+            "sharingNote": "",
             "finish": "",
             "languageSelection": "",
             "termsTitle": "",
