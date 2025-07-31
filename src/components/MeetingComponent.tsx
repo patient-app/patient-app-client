@@ -54,8 +54,17 @@ const MeetingComponent = () => {
                     >
                         <p><strong>{t("meetings.start")}</strong> {new Date(meeting.startAt).toLocaleString()}</p>
                         <p><strong>{t("meetings.end")}</strong> {new Date(meeting.endAt).toLocaleString()}</p>
-                        <p><strong>{t("meetings.location")}</strong> {meeting.location}</p>
-                        <p><strong>{t("meetings.status")}</strong> {meeting.meetingStatus}</p>
+                        <p>
+                          <strong>{t("meetings.location")}</strong>{" "}
+                          {meeting.location.startsWith("http") || meeting.location.startsWith("www.") ? (
+                            <a href={meeting.location} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+                              {meeting.location}
+                            </a>
+                          ) : (
+                            meeting.location
+                          )}
+                        </p>
+                        <p><strong>{t("meetings.status")}</strong> {meeting.meetingStatus.charAt(0).toUpperCase() + meeting.meetingStatus.slice(1).toLowerCase()}</p>
 
                     </div>
                 ))}
