@@ -316,59 +316,6 @@ export default function Home() {
                     </button>
                 </div>
 
-                {/* Tile: Quick Journal */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.quickJournal.title")}</h2>
-                    <div className="flex-grow flex flex-col gap-2">
-
-                        <textarea
-                            placeholder={t("home.quickJournal.placeholder")}
-                            value={quickJournalContent}
-                            onChange={e => setQuickJournalContent(e.target.value)}
-                            className="w-full h-[100%] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
-                        />
-
-                        <button
-                            onClick={() => saveQuickJournal()}
-                            className={
-                                "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 mt-auto" +
-                                (quickJournalContent.trim().length === 0 ? " opacity-50 cursor-default" : " cursor-pointer")
-                            }
-                            disabled={quickJournalContent.trim().length === 0}
-                        >
-                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2}/>
-                        </button>
-                    </div>
-                </div>
-
-                {/* Tile: Last Journal */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.lastJournal.title")}</h2>
-                    <div className="flex-grow flex flex-col gap-2">
-
-                        {journalEntries.length > 0 ?
-                            <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
-                                <p className="font-bold">{journalEntries[0].title ? journalEntries[0].title : t("home.lastJournal.unnamedJournal")}</p>
-                                <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
-                                <button
-                                    onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
-                                >
-                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
-                                </button>
-                            </div>
-                            :
-                            <p className="italic text-gray-500">{t("home.lastJournal.noEntriesYet")}</p>
-                        }
-                    </div>
-                    <button
-                        onClick={handleCreateEntry}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
-                    >
-                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
-                    </button>
-                </div>
-
                 {/* Tile: Exercises */}
                 <div className={tile_class}>
                     <h2 className={header_class}>{t("home.exercises.title")}</h2>
@@ -428,6 +375,59 @@ export default function Home() {
                             {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                         </button>
                     </div>
+                </div>
+
+                {/* Tile: Quick Journal */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.quickJournal.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+                        <textarea
+                            placeholder={t("home.quickJournal.placeholder")}
+                            value={quickJournalContent}
+                            onChange={e => setQuickJournalContent(e.target.value)}
+                            className="w-full h-[100%] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
+                        />
+
+                        <button
+                            onClick={() => saveQuickJournal()}
+                            className={
+                                "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 mt-auto" +
+                                (quickJournalContent.trim().length === 0 ? " opacity-50 cursor-default" : " cursor-pointer")
+                            }
+                            disabled={quickJournalContent.trim().length === 0}
+                        >
+                            {t("home.quickJournal.save")} <Save size={20} strokeWidth={2}/>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Tile: Last Journal */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.lastJournal.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+
+                        {journalEntries.length > 0 ?
+                            <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
+                                <p className="font-bold">{journalEntries[0].title ? journalEntries[0].title : t("home.lastJournal.unnamedJournal")}</p>
+                                <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
+                                <button
+                                    onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+                                >
+                                    {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
+                                </button>
+                            </div>
+                            :
+                            <p className="italic text-gray-500">{t("home.lastJournal.noEntriesYet")}</p>
+                        }
+                    </div>
+                    <button
+                        onClick={handleCreateEntry}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                    >
+                        {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
+                    </button>
                 </div>
 
                 <div
