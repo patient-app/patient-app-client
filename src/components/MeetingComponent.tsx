@@ -32,21 +32,20 @@ const MeetingComponent = () => {
         fetchMeetings();
     }, []);
 
+    const upcomingMeetings = meetings
+        .filter(meeting => new Date(meeting.endAt) > new Date())
+        .toSorted((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime())
+
     return (
         <div
             className="w-[90%] lg:w-[65%] border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4">
             <h2 className="text-xl font-semibold mb-2">{t("meetings.title")}</h2>
 
-            {meetings.length === 0 && (
+            {upcomingMeetings.length === 0 && (
                 <p className="text-gray-500 italic">{t("meetings.noneFound")}</p>
             )}
 
-            {meetings
-                .toSorted(
-                    (a, b) =>
-                        new Date(a.startAt).getTime() -
-                        new Date(b.startAt).getTime()
-                )
+            {upcomingMeetings
                 .map((meeting) => (
                     <div
                         key={meeting.id}
@@ -55,16 +54,19 @@ const MeetingComponent = () => {
                         <p><strong>{t("meetings.start")}</strong> {new Date(meeting.startAt).toLocaleString()}</p>
                         <p><strong>{t("meetings.end")}</strong> {new Date(meeting.endAt).toLocaleString()}</p>
                         <p>
-                          <strong>{t("meetings.location")}</strong>{" "}
-                          {meeting.location.startsWith("http") || meeting.location.startsWith("www.") ? (
-                            <a href={meeting.location} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
-                              {meeting.location}
-                            </a>
-                          ) : (
-                            meeting.location
-                          )}
+                            <strong>{t("meetings.location")}</strong>{" "}
+                            {meeting.location.startsWith("http") || meeting.location.startsWith("www.") ? (
+                                <a href={meeting.location} className="text-blue-600 underline" target="_blank"
+                                   rel="noopener noreferrer">
+                                    {meeting.location}
+                                </a>
+                            ) : (
+                                meeting.location
+                            )}
                         </p>
-                        <p><strong>{t("meetings.status")}</strong> {meeting.meetingStatus.charAt(0).toUpperCase() + meeting.meetingStatus.slice(1).toLowerCase()}</p>
+                        <p>
+                            <strong>{t("meetings.status")}</strong> {meeting.meetingStatus.charAt(0).toUpperCase() + meeting.meetingStatus.slice(1).toLowerCase()}
+                        </p>
 
                     </div>
                 ))}
