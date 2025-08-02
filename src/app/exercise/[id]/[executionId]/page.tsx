@@ -296,7 +296,7 @@ const ExerciseExecutionInfoPage = () => {
                             rows={2}
                         />
                         <div className="flex justify-center gap-4 mt-4">
-                            <Button className="bg-blue-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
+                            <Button className="bg-emerald-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
                                 {t('exercise.modal.saveButton')}
                             </Button>
                             <Button color="alternative" className="cursor-pointer" onClick={() => {

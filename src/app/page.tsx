@@ -295,11 +295,11 @@ export default function Home() {
                     <div className="flex-grow">
                         {lastChatId ?
                             <div
-                                className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
+                                className="border border-gray-300 rounded-md p-3 flex items-center justify-between flex-grow flex-col gap-2">
                                 <p className="font-bold">{lastChatName ?? t("chats.unnamedConversation")}</p>
                                 <button
                                     onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
+                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
                                 >
                                     {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
@@ -339,7 +339,7 @@ export default function Home() {
                     </div>
                     <button
                         onClick={() => router.push(`${BASE_PATH}/exercise`)}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                        className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
                         {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                     </button>
@@ -370,7 +370,7 @@ export default function Home() {
                         )}
                         <button
                             onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                            className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                         >
                             {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
                         </button>
@@ -413,7 +413,7 @@ export default function Home() {
                                 <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
                                 <button
                                     onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
                                     {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
