@@ -201,7 +201,7 @@ const Journal = () => {
                 </button>
             </div>
 
-            <div className="w-full flex flex-col items-center gap-4 p-4">
+            <div className="w-full flex flex-col items-center gap-1 p-4">
                 {renderContent()}
             </div>
         </main>

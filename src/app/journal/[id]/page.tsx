@@ -323,7 +323,7 @@ const JournalEntryPage = () => {
                             {t("journalCreationEditing.modal.updateError")}
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button className="bg-blue-600" onClick={() => setUpdateModal(false)}>
+                            <Button className="bg-emerald-600" onClick={() => setUpdateModal(false)}>
                                 {t("journalCreationEditing.modal.updateOkay")}
                             </Button>
                         </div>

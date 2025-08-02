@@ -19,7 +19,12 @@ export default function ExerciseChatbot({onCloseAction}: Readonly<{
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configExercise(onCloseAction, t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("exerciseChatbot.tooltipClearHistory"))}
+                        config={configExercise(
+                            onCloseAction,
+                            t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}),
+                            t("exerciseChatbot.tooltipClearHistory"),
+                            t("exerciseChatbot.tooltipChatbotInfo"),
+                            t("exerciseChatbot.type"))}
                         messageParser={MessageParser}
                         actionProvider={ActionProviderExercise}
                         headerText={t("chat.header")}

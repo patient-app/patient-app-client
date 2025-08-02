@@ -223,6 +223,41 @@ export default function Home() {
 
     }
 
+    const handleCreateEntry = async () => {
+        const emptyEntry = {
+            title: "",
+            content: "",
+            tags: [],
+            sharedWithTherapist: false,
+        };
+
+        try {
+            const requestInit: RequestInit = {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(emptyEntry),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+
+            const response = await fetch(
+                process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries",
+                requestInit
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.log("Failed to create journal entry:", errorData.message);
+            } else {
+                const res = await response.json();
+                router.push(`${BASE_PATH}/journal/creation/${res.id}`);
+            }
+        } catch (e) {
+            console.error("Failed to create journal entry:", e);
+        }
+    };
+
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
@@ -236,8 +271,8 @@ export default function Home() {
                 <div className={tile_class}>
                     <h2 className={header_class}>{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h2>
                     <div className="flex-grow flex flex-col gap-2">
-                        <p><strong>{t("home.yourInformation.name")}</strong> {mePatient?.name || "unknown"}</p>
-                        <p><strong>{t("home.yourInformation.email")}</strong> {mePatient?.email || "unknown"}</p>
+                        <p><strong>{t("home.yourInformation.name")}</strong> {mePatient?.name ?? "unknown"}</p>
+                        <p><strong>{t("home.yourInformation.email")}</strong> {mePatient?.email ?? "unknown"}</p>
                         <p>
                             <strong>{t("home.yourInformation.language")}</strong>{" "}
                             {mePatient?.language === "en"
@@ -246,7 +281,7 @@ export default function Home() {
                                     ? "German"
                                     : mePatient?.language === "uk"
                                         ? "Ukrainian"
-                                        : mePatient?.language || "unknown"}
+                                        : mePatient?.language ?? "unknown"}
                         </p>
                         <p>
                             <strong>{t("home.yourInformation.avatar")}</strong> {mePatient?.chatBotAvatar ? mePatient.chatBotAvatar.charAt(0).toUpperCase() + mePatient.chatBotAvatar.slice(1).toLowerCase() : "unknown"}
@@ -260,11 +295,11 @@ export default function Home() {
                     <div className="flex-grow">
                         {lastChatId ?
                             <div
-                                className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
-                                <p className="font-bold">{lastChatName ? lastChatName : t("chats.unnamedConversation")}</p>
+                                className="border border-gray-300 rounded-md p-3 flex items-center justify-between flex-grow flex-col gap-2">
+                                <p className="font-bold">{lastChatName ?? t("chats.unnamedConversation")}</p>
                                 <button
                                     onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center gap-2 cursor-pointer"
+                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
                                 >
                                     {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
@@ -279,6 +314,85 @@ export default function Home() {
                     >
                         {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2}/>
                     </button>
+                </div>
+
+                {/* Tile: Exercises */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.exercises.title")}</h2>
+                    <div className="flex-grow flex flex-col mb-1 overflow-y-auto gap-2">
+                        {exercises.length > 0 ? (
+                            exercises.map((exercise) => (
+                                <div
+                                    key={exercise.id}
+                                    className="relative border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between"
+                                >
+                                    <div
+                                        className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
+                                    <p className="font-bold">
+                                        {exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}
+                                    </p>
+                                    <button
+                                        onClick={() =>
+                                            router.push(
+                                                `${BASE_PATH}/exercise/${exercise.id}?title=${encodeURIComponent(exercise.exerciseTitle)}`
+                                            )
+                                        }
+                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                                    >
+                                        {t("home.exercises.open")} <Play size={16}/>
+                                    </button>
+                                </div>
+
+                            ))
+                        ) : (
+                            <p className="italic text-gray-500">{t("home.exercises.noExercises")}</p>
+                        )}
+                    </div>
+                    <button
+                        onClick={() => router.push(`${BASE_PATH}/exercise`)}
+                        className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                    >
+                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
+                    </button>
+                </div>
+
+                {/* Tile: Questionnaires */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.questionnaires.title")}</h2>
+                    <div className="flex-grow flex flex-col gap-2">
+                        {tests.length > 0 ? (
+                            tests.map((test) => (
+                                <div
+                                    key={test.id}
+                                    className="relative border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between"
+                                >
+                                    <div className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
+                                    <p className="font-bold">
+                                        {test.testName}
+                                    </p>
+                                    <button
+                                        onClick={() =>
+                                            router.push(
+                                                `${BASE_PATH}/questionnaires/${encodeURIComponent(test.testName)}`
+                                            )
+                                        }
+                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                                    >
+                                        {t("home.questionnaires.start")} <Play size={16}/>
+                                    </button>
+                                </div>
+
+                            ))
+                        ) : (
+                            <p className="italic text-gray-500">{t("home.questionnaires.noQuestionnaires")}</p>
+                        )}
+                        <button
+                            onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
+                            className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                        >
+                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Tile: Quick Journal */}
@@ -317,7 +431,7 @@ export default function Home() {
                                 <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
                                 <button
                                     onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
                                     {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
                                 </button>
@@ -327,72 +441,11 @@ export default function Home() {
                         }
                     </div>
                     <button
-                        onClick={() => router.push(`${BASE_PATH}/journal/creation`)}
+                        onClick={handleCreateEntry}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
                     >
                         {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
                     </button>
-                </div>
-
-                {/* Tile: Exercises */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.exercises.title")}</h2>
-                    <div className="flex-grow flex flex-col mb-1 overflow-y-auto gap-2">
-                        {exercises.length > 0 ? (
-                            exercises.map((exercise) => (
-                                <div key={exercise.id}
-                                     className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
-                                    <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
-                                    <button
-                                        onClick={() => router.push(`${BASE_PATH}/exercise/${exercise.id}?title=${encodeURIComponent(exercise.exerciseTitle)}`)}
-                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
-                                    >
-                                        {t("home.exercises.open")} <Play size={16}/>
-                                    </button>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="italic text-gray-500">{t("home.exercises.noExercises")}</p>
-                        )}
-                    </div>
-                    <button
-                        onClick={() => router.push(`${BASE_PATH}/exercise`)}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
-                    >
-                        {t("home.exercises.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
-                    </button>
-                </div>
-
-                {/* Tile: Questionnaires */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.questionnaires.title")}</h2>
-                    <div className="flex-grow flex flex-col gap-2">
-                        {tests.length > 0 ? (
-                            tests.map((test) => (
-                                <div key={test.id}
-                                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
-                                >
-                                    <div>
-                                        <p className="font-bold text-lg">{test.testName}</p>
-                                    </div>
-                                    <button
-                                        onClick={() => router.push(`${BASE_PATH}/questionnaires/${test.testName}`)}
-                                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
-                                    >
-                                        Start <Play size={16}/>
-                                    </button>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="italic text-gray-500">{t("home.questionnaires.noQuestionnaires")}</p>
-                        )}
-                        <button
-                            onClick={() => router.push(`${BASE_PATH}/questionnaires`)}
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
-                        >
-                            {t("home.questionnaires.showAll")} <CircleArrowRight size={20} strokeWidth={2}/>
-                        </button>
-                    </div>
                 </div>
 
                 <div

@@ -20,6 +20,8 @@ const JournalChatbot = React.memo(({onCloseAction, getEntryData}: Readonly<Props
 
     const welcomeMessage = t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME});
     const clearHistoryTooltip = t("journalChatbot.tooltipClearHistory");
+    const infoTooltip = t("journalChatbot.tooltipChatbotInfo");
+    const chatbotType = t("journalChatbot.type");
 
     const messageParser = useMemo(() => {
         const WrappedMessageParser = (parserProps: ComponentProps<typeof MessageParserJournal>) => (
@@ -36,7 +38,13 @@ const JournalChatbot = React.memo(({onCloseAction, getEntryData}: Readonly<Props
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configJournal(onCloseAction, welcomeMessage, clearHistoryTooltip)}
+                        config={configJournal(
+                            onCloseAction,
+                            welcomeMessage,
+                            clearHistoryTooltip,
+                            infoTooltip,
+                            chatbotType
+                        )}
                         messageParser={messageParser}
                         actionProvider={ActionProviderJournal}
                         headerText={t("chat.header")}

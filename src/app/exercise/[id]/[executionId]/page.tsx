@@ -16,8 +16,8 @@ import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import MoodTracker from "@/components/MoodTracker";
-import TimerComponent from "@/components/TimerComponent";
+import MoodTracker from "@/components/exerciseComponents/MoodTracker";
+import TimerComponent from "@/components/exerciseComponents/TimerComponent";
 import {BASE_PATH} from "@/libs/constants";
 
 
@@ -296,7 +296,7 @@ const ExerciseExecutionInfoPage = () => {
                             rows={2}
                         />
                         <div className="flex justify-center gap-4 mt-4">
-                            <Button className="bg-blue-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
+                            <Button className="bg-emerald-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
                                 {t('exercise.modal.saveButton')}
                             </Button>
                             <Button color="alternative" className="cursor-pointer" onClick={() => {
