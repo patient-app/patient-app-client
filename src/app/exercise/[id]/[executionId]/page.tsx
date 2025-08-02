@@ -16,8 +16,8 @@ import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import MoodTracker from "@/components/MoodTracker";
-import TimerComponent from "@/components/TimerComponent";
+import MoodTracker from "@/components/exerciseComponents/MoodTracker";
+import TimerComponent from "@/components/exerciseComponents/TimerComponent";
 import {BASE_PATH} from "@/libs/constants";
 
 
