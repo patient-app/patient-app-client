@@ -104,7 +104,8 @@
     "questionnaires": {
       "title": "Questionnaires",
       "noQuestionnaires": "No questionnaires yet.",
-      "showAll": "Show all"
+      "showAll": "Show all",
+      "start": "Start"
     }
   },
   "exercise": {
@@ -344,15 +345,20 @@
   "documentChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I assist you with understanding the document?",
     "tooltipClearHistory": "Clear chat history",
-    "tooltipChatbotInfo": "Chatbot is based on the uploaded document."
+    "tooltipChatbotInfo": "Chatbot is based on the uploaded document.",
+    "type": "Document"
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
-    "tooltipClearHistory": "Clear chat history"
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on the exercise content.",
+    "type": "Exercise"
   },
   "journalChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your journaling?",
-    "tooltipClearHistory": "Clear chat history"
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on your journal entry.",
+    "type": "Journal"
   },
   "actionProvider": {
     "error": {

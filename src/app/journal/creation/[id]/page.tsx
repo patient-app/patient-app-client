@@ -246,7 +246,7 @@ export default function JournalEntryCreationPage() {
                             {t("journalCreationEditing.modal.saveError")}
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button className="bg-blue-600" onClick={() => setSaveModal(false)}>
+                            <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
                                 {t("journalCreationEditing.modal.saveOkay")}
                             </Button>
                         </div>
