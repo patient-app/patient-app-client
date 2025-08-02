@@ -344,15 +344,20 @@
   "documentChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Як я можу допомогти вам зрозуміти документ?",
     "tooltipClearHistory": "Очистити історію чату",
-    "tooltipChatbotInfo": "Чат-бот працює на основі завантаженого документа."
+    "tooltipChatbotInfo": "Чат-бот працює на основі завантаженого документа.",
+    "type": "документ"
   },
   "exerciseChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з твоїм тренуванням сьогодні?",
-    "tooltipClearHistory": "Очистити історію чату"
+    "tooltipClearHistory": "Очистити історію чату",
+    "tooltipChatbotInfo": "Чат-бот працює на основі поточної вправи.",
+    "type": "вправа"
   },
   "journalChatbot": {
     "welcomeMessage": "Привіт, я {{chatbotName}}. Чим я можу допомогти тобі з веденням щоденника?",
-    "tooltipClearHistory": "Очистити історію чату"
+    "tooltipClearHistory": "Очистити історію чату",
+    "tooltipChatbotInfo": "Чат-бот працює на основі поточного запису в журналі.",
+    "type": "щоденник"
   },
   "actionProvider": {
     "error": {

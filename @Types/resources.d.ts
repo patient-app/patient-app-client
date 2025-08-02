@@ -345,15 +345,20 @@ interface Resources {
         "documentChatbot": {
             "welcomeMessage": "",
             "tooltipClearHistory": "",
-            "tooltipChatbotInfo": ""
+            "tooltipChatbotInfo": "",
+            "type": ""
         }
         "exerciseChatbot": {
             "welcomeMessage": "",
-            "tooltipClearHistory": ""
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": "",
+            "type":""
         },
         "journalChatbot": {
             "welcomeMessage": "",
-            "tooltipClearHistory": ""
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": "",
+            "type": ""
         },
         "actionProvider": {
             "error": {

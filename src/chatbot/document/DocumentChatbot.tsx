@@ -21,7 +21,8 @@ export default function DocumentChatbot({onCloseAction}: Readonly<{
                         config={configDocument(onCloseAction,
                             t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}),
                             t("documentChatbot.tooltipClearHistory"),
-                            t("documentChatbot.tooltipChatbotInfo"))}
+                            t("documentChatbot.tooltipChatbotInfo"),
+                            t("documentChatbot.type"))}
                         messageParser={MessageParser}
                         actionProvider={ActionProviderDocument}
                         headerText={t("chat.header")}

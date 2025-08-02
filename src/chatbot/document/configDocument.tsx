@@ -32,7 +32,11 @@ const BotAvatar = () => {
 
 
 const configDocument = (
-    onClose: () => void, welcomeMessage: string, toolTipContent: string, toolTipChatbot: string) => ({
+    onClose: () => void,
+    welcomeMessage: string,
+    toolTipContent: string,
+    toolTipChatbot: string,
+    chatbotType:string) => ({
     initialMessages: [createChatBotMessage(welcomeMessage, {})],
     botName: CHATBOT_NAME,
     customStyles: {
@@ -58,7 +62,7 @@ const configDocument = (
                     fontWeight: "bold",
                 }}
             >
-                <div>{CHATBOT_NAME} AI</div>
+                <div>{CHATBOT_NAME} {chatbotType} AI</div>
 
                 <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
                     <Tooltip content={toolTipChatbot}>
