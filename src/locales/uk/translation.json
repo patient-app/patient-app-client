@@ -104,7 +104,8 @@
     "questionnaires": {
       "title": "Анкети",
       "noQuestionnaires": "Поки що немає анкет.",
-      "showAll": "Показати всі"
+      "showAll": "Показати всі",
+      "start": "Почати"
     }
   },
   "exercise": {

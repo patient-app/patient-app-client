@@ -322,16 +322,27 @@ export default function Home() {
                     <div className="flex-grow flex flex-col mb-1 overflow-y-auto gap-2">
                         {exercises.length > 0 ? (
                             exercises.map((exercise) => (
-                                <div key={exercise.id}
-                                     className="border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between">
-                                    <p className="font-bold">{exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}</p>
+                                <div
+                                    key={exercise.id}
+                                    className="relative border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between"
+                                >
+                                    <div
+                                        className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
+                                    <p className="font-bold">
+                                        {exercise.exerciseTitle ? exercise.exerciseTitle : t("home.exercises.unnamedExercise")}
+                                    </p>
                                     <button
-                                        onClick={() => router.push(`${BASE_PATH}/exercise/${exercise.id}?title=${encodeURIComponent(exercise.exerciseTitle)}`)}
+                                        onClick={() =>
+                                            router.push(
+                                                `${BASE_PATH}/exercise/${exercise.id}?title=${encodeURIComponent(exercise.exerciseTitle)}`
+                                            )
+                                        }
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
                                         {t("home.exercises.open")} <Play size={16}/>
                                     </button>
                                 </div>
+
                             ))
                         ) : (
                             <p className="italic text-gray-500">{t("home.exercises.noExercises")}</p>
@@ -351,19 +362,26 @@ export default function Home() {
                     <div className="flex-grow flex flex-col gap-2">
                         {tests.length > 0 ? (
                             tests.map((test) => (
-                                <div key={test.id}
-                                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 flex justify-between items-center hover:bg-gray-50 transition"
+                                <div
+                                    key={test.id}
+                                    className="relative border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between"
                                 >
-                                    <div>
-                                        <p className="font-bold text-lg">{test.testName}</p>
-                                    </div>
+                                    <div className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
+                                    <p className="font-bold">
+                                        {test.testName}
+                                    </p>
                                     <button
-                                        onClick={() => router.push(`${BASE_PATH}/questionnaires/${test.testName}`)}
+                                        onClick={() =>
+                                            router.push(
+                                                `${BASE_PATH}/questionnaires/${encodeURIComponent(test.testName)}`
+                                            )
+                                        }
                                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
                                     >
-                                        Start <Play size={16}/>
+                                        {t("home.questionnaires.start")} <Play size={16}/>
                                     </button>
                                 </div>
+
                             ))
                         ) : (
                             <p className="italic text-gray-500">{t("home.questionnaires.noQuestionnaires")}</p>

@@ -104,7 +104,8 @@
     "questionnaires": {
       "title": "Questionnaires",
       "noQuestionnaires": "No questionnaires yet.",
-      "showAll": "Show all"
+      "showAll": "Show all",
+      "start": "Start"
     }
   },
   "exercise": {

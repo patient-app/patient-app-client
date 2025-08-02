@@ -104,7 +104,8 @@
     "questionnaires": {
       "title": "Fragebögen",
       "noQuestionnaires": "Noch keine Fragebögen.",
-      "showAll": "Alle anzeigen"
+      "showAll": "Alle anzeigen",
+      "start": "Starten"
     }
   },
   "exercise": {

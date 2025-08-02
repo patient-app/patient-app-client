@@ -105,7 +105,8 @@ interface Resources {
             "questionnaires": {
                 "title": "",
                 "noQuestionnaires":"",
-                "showAll": ""
+                "showAll": "",
+                "start": ""
             }
         },
         "exercise": {
