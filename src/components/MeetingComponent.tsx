@@ -51,8 +51,22 @@ const MeetingComponent = () => {
                         key={meeting.id}
                         className="border-b border-gray-200 py-4 last:border-b-0"
                     >
-                        <p><strong>{t("meetings.start")}</strong> {new Date(meeting.startAt).toLocaleString()}</p>
-                        <p><strong>{t("meetings.end")}</strong> {new Date(meeting.endAt).toLocaleString()}</p>
+                        <p><strong>{t("meetings.start")} </strong>{new Date(meeting.startAt).toLocaleString("de-CH", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: false,
+                            })}</p>
+                        <p><strong>{t("meetings.end")} </strong>{new Date(meeting.endAt).toLocaleString("de-CH", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                        })}</p>
                         <p>
                             <strong>{t("meetings.location")}</strong>{" "}
                             {meeting.location.startsWith("http") || meeting.location.startsWith("www.") ? (
