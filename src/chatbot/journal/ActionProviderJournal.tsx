@@ -197,7 +197,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
             if (!response.ok) {
                 throw new Error(t("actionProvider.error.failedToClearHistory"));
             }
-            const initialMessage = createChatBotMessage(t("documentChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), {})
+            const initialMessage = createChatBotMessage(t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), {})
             setState((prev: { messages: any }) => ({
                 ...prev,
                 messages: [initialMessage],
