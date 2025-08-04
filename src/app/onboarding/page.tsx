@@ -217,7 +217,7 @@ const Onboarding = () => {
             {screen === 2 && (
                 <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
-                    <p className="max-w-[50%] text-center mx-auto">{t("onboarding.termsText")}</p>
+                    <p className="text-center mx-auto">{t("onboarding.termsText")}</p>
                     <div className="text-gray-600 flex gap-2 justify-center z-10">
                     <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                     </div>
