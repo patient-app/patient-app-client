@@ -2,9 +2,9 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import {useParams} from "next/navigation";
-import {setExternalActions} from "@/chatbot/exercise/configExercise";
 import {CHATBOT_NAME} from "@/libs/constants";
 import {useTranslation} from "react-i18next";
+import {setExternalActions} from "@/chatbot/document/configDocument";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
