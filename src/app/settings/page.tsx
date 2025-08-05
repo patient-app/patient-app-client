@@ -8,6 +8,7 @@ import PasswordField from "@/components/PasswordField";
 import {Check, X} from "lucide-react";
 import AvatarSelector from "@/components/AvatarSelector";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
@@ -286,12 +287,8 @@ const Page = () => {
                         ))}
                     </select>
 
-                    {languageError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {languageError}
-                        </div>
-                    )}
+                    <ErrorComponent message={languageError}/>
+
                 </div>
                 <hr className={hr_style}/>
 
@@ -313,12 +310,7 @@ const Page = () => {
                         />
                     </div>
 
-                    {nameError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {nameError}
-                        </div>
-                    )}
+                    <ErrorComponent message={nameError}/>
 
                     {nameSuccess && (
                         <div
@@ -413,12 +405,8 @@ const Page = () => {
                         </div>
                     )}
 
-                    {passwordError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {passwordError}
-                        </div>
-                    )}
+                    <ErrorComponent message={passwordError}/>
+
 
                     {passwordSuccess && (
                         <div
@@ -442,12 +430,7 @@ const Page = () => {
                     {t("settings.avatarLabel")}
                 </h2>
                 <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect}/>
-                {avatarError && (
-                    <div
-                        className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                        {avatarError}
-                    </div>
-                )}
+                <ErrorComponent message={avatarError}/>
                 {avatarSuccess && (
                     <div
                         className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">

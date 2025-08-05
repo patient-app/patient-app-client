@@ -5,6 +5,7 @@ import {ArrowLeft, Check} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const question_style = "block text-gray-700 mb-1 font-semibold"
 
@@ -128,12 +129,10 @@ const Questionnaires = () => {
                     </React.Fragment>
                 ))}
 
-                {errorMessage && (
-                    <div
-                        className="w-[50%] mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm text-center">
-                        {errorMessage}
-                    </div>
-                )}
+                <div className="w-[50%]">
+                    <ErrorComponent message={errorMessage}/>
+                </div>
+
 
                 <button
                     onClick={() => submitTest()}

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { JournalEntryDTO } from "@/dto/output/JournalEntryDTO";
 import { JournalTag } from "@/components/JournalTag";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const Journal = () => {
     const { t } = useTranslation();
@@ -89,9 +90,7 @@ const Journal = () => {
     const renderContent = () => {
         if (error) {
             return (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
+                <ErrorComponent message={error}/>
             );
         } else if (journalEntries.length === 0) {
             return (

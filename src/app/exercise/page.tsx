@@ -1,10 +1,11 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {ExerciseOverviewDTO} from "@/dto/output/exercise/ExerciseOverviewDTO";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const Exercise = () => {
     const router = useRouter();
@@ -61,9 +62,7 @@ const Exercise = () => {
             );
         } else if (error) {
             return (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
+                <ErrorComponent message={error}/>
             );
         } else if (exercises.length === 0) {
             return (

@@ -2,10 +2,11 @@
 
 import {useTranslation} from "react-i18next";
 import {useParams, useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import DocumentChatbot from "@/chatbot/document/DocumentChatbot";
 import {ArrowLeft} from "lucide-react";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const IndividualDocumentPage = () => {
     const {t} = useTranslation();
@@ -95,12 +96,7 @@ const IndividualDocumentPage = () => {
                 {renderPreview()}
             </div>
             <div className="flex justify-center">
-                {error && (
-                    <div
-                        className="mt-2 p-2 text-sm bg-red-100 text-red-700 border border-red-300 rounded w-fit max-w-xs">
-                        {error}
-                    </div>
-                )}
+                <ErrorComponent message={error}/>
             </div>
 
             {!error && downloadUrl && (

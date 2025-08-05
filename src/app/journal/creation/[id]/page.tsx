@@ -1,6 +1,6 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {ArrowLeft, Eye, EyeOff} from "lucide-react";
@@ -10,6 +10,7 @@ import {TagSelector} from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
@@ -184,11 +185,7 @@ export default function JournalEntryCreationPage() {
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
                     className="w-full h-[50vh] desktop:h-[55vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
-                {error && (
-                    <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
-                        {error}
-                    </div>
-                )}
+                <ErrorComponent message={error}/>
 
                 <div className="flex justify-center mt-4">
                     <button
