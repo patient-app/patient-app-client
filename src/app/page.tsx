@@ -118,7 +118,7 @@ export default function Home() {
                             credentials: "include"
                         };
                         const lastResponse = await fetch(
-                            process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries/" + journalResponse[0].id,
+                            process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries/" + journalResponse[journalResponse.length - 1].id,
                             requestInit2
                         );
                         if (!lastResponse.ok) {
@@ -366,7 +366,8 @@ export default function Home() {
                                     key={test.id}
                                     className="relative border border-gray-300 rounded-md p-3 flex flex-row items-center justify-between"
                                 >
-                                    <div className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
+                                    <div
+                                        className="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full border border-white"/>
                                     <p className="font-bold">
                                         {test.testName}
                                     </p>
@@ -427,10 +428,10 @@ export default function Home() {
 
                         {journalEntries.length > 0 ?
                             <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
-                                <p className="font-bold">{journalEntries[0].title ? journalEntries[0].title : t("home.lastJournal.unnamedJournal")}</p>
+                                <p className="font-bold">{journalEntries[journalEntries.length - 1].title ? journalEntries[journalEntries.length - 1].title : t("home.lastJournal.unnamedJournal")}</p>
                                 <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
                                 <button
-                                    onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[0].id}`)}
+                                    onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[journalEntries.length - 1].id}`)}
                                     className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center justify-center gap-2 cursor-pointer mt-2"
                                 >
                                     {t("home.lastJournal.openLast")} <CircleArrowRight size={20} strokeWidth={2}/>
