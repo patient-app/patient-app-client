@@ -19,6 +19,7 @@ import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import MoodTracker from "@/components/exerciseComponents/MoodTracker";
 import TimerComponent from "@/components/exerciseComponents/TimerComponent";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -231,11 +232,7 @@ const ExerciseExecutionInfoPage = () => {
                 </div>
             )}
 
-            {error && (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
-            )}
+            <ErrorComponent message={error}/>
 
             <button
                 onClick={() => setMoodAfterModal(prev => !prev)}

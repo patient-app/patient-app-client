@@ -15,7 +15,7 @@ const config = (
     return {
         initialMessages: [createChatBotMessage(welcomeMessage, {})],
         botName: CHATBOT_NAME,
-        actionProvider: (props: any) => <ActionProvider {...props} chatId={chatId}/>,
+        actionProvider: (props: any) => <ActionProvider {...props} chatIdProp={chatId}/>,
         messageParser: (props: any) => <MessageParser {...props} />,
         customStyles: {
             chatButton: {

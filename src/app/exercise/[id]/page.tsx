@@ -8,6 +8,7 @@ import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
 import {ArrowLeft, Play} from "lucide-react";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -106,12 +107,7 @@ const ExerciseDetailPage = () => {
             ))}
 
 
-            {error && (
-                <div
-                    className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
-            )}
+            <ErrorComponent message={error}/>
 
             <HelpButton chatbot={<ExerciseChatbot
                 onCloseAction={() => {
