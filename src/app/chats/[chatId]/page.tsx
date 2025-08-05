@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
-import {ComponentProps, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
@@ -280,9 +280,7 @@ export default function ChatPage() {
                     <Chatbot
                         config={config}
                         messageParser={MessageParser}
-                        actionProvider={(
-                            props: ComponentProps<typeof ActionProvider>
-                        ) => <ActionProvider {...props} chatId={chatId}/>}
+                        actionProvider={ActionProvider}
                         headerText={t("chat.header")}
                         placeholderText={t("chat.placeholder")}
                     />

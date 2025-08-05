@@ -1,9 +1,20 @@
 import React from 'react';
 import {useTranslation} from "react-i18next";
+import {useParams} from "next/navigation";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ActionProvider = ({ createChatBotMessage, setState, children, chatId }: any) => {
-    const {t} = useTranslation();
+export interface ActionProviderProps {
+    createChatBotMessage: any;
+    setState: any;
+    children: any;
+    chatIdProp?: string;
+}
+
+
+const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }: ActionProviderProps) => {
+    const { t } = useTranslation();
+    const params = useParams();
+    const chatId = chatIdProp ?? params?.chatId;
 
     const generateAnswer = async (message: string) => {
         try {
