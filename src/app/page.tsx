@@ -260,61 +260,14 @@ export default function Home() {
 
     return (
         <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
-            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
 
-            <MeetingComponent/>
+            <h1 className="text-3xl font-semibold">{t("home.title")}</h1>
+            <h2 className="text-2xl font-semibold">{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h2>
+
 
             {/* Tile Layout */}
             <div className="w-[90%] lg:w-[65%] flex flex-row flex-wrap items-start justify-center gap-4">
 
-                {/* Tile: Your Information */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h2>
-                    <div className="flex-grow flex flex-col gap-2">
-                        <p><strong>{t("home.yourInformation.name")}</strong> {mePatient?.name ?? "unknown"}</p>
-                        <p><strong>{t("home.yourInformation.email")}</strong> {mePatient?.email ?? "unknown"}</p>
-                        <p>
-                            <strong>{t("home.yourInformation.language")}</strong>{" "}
-                            {mePatient?.language === "en"
-                                ? "English"
-                                : mePatient?.language === "de"
-                                    ? "German"
-                                    : mePatient?.language === "uk"
-                                        ? "Ukrainian"
-                                        : mePatient?.language ?? "unknown"}
-                        </p>
-                        <p>
-                            <strong>{t("home.yourInformation.avatar")}</strong> {mePatient?.chatBotAvatar ? mePatient.chatBotAvatar.charAt(0).toUpperCase() + mePatient.chatBotAvatar.slice(1).toLowerCase() : "unknown"}
-                        </p>
-                    </div>
-                </div>
-
-                {/* Tile: Last Conversation */}
-                <div className={tile_class}>
-                    <h2 className={header_class}>{t("home.lastChat")}</h2>
-                    <div className="flex-grow">
-                        {lastChatId ?
-                            <div
-                                className="border border-gray-300 rounded-md p-3 flex items-center justify-between flex-grow flex-col gap-2">
-                                <p className="font-bold">{lastChatName ?? t("chats.unnamedConversation")}</p>
-                                <button
-                                    onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
-                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
-                                >
-                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
-                                </button>
-                            </div>
-                            :
-                            <p className="italic text-gray-500">{t("home.noConversationsYet")}</p>
-                        }
-                    </div>
-                    <button
-                        onClick={() => router.push(`${BASE_PATH}/chat`)}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
-                    >
-                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2}/>
-                    </button>
-                </div>
 
                 {/* Tile: Exercises */}
                 <div className={tile_class}>
@@ -396,6 +349,33 @@ export default function Home() {
                     </div>
                 </div>
 
+                {/* Tile: Last Conversation */}
+                <div className={tile_class}>
+                    <h2 className={header_class}>{t("home.lastChat")}</h2>
+                    <div className="flex-grow">
+                        {lastChatId ?
+                            <div
+                                className="border border-gray-300 rounded-md p-3 flex items-center justify-between flex-grow flex-col gap-2">
+                                <p className="font-bold">{lastChatName ?? t("chats.unnamedConversation")}</p>
+                                <button
+                                    onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
+                                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
+                                >
+                                    {t("home.continueConversation")} <CircleArrowRight size={20} strokeWidth={2}/>
+                                </button>
+                            </div>
+                            :
+                            <p className="italic text-gray-500">{t("home.noConversationsYet")}</p>
+                        }
+                    </div>
+                    <button
+                        onClick={() => router.push(`${BASE_PATH}/chat`)}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center justify-center gap-2 cursor-pointer mt-auto"
+                    >
+                        {t("home.startNewConversation")} <MessageSquarePlus size={20} strokeWidth={2}/>
+                    </button>
+                </div>
+
                 {/* Tile: Quick Journal */}
                 <div className={tile_class}>
                     <h2 className={header_class}>{t("home.quickJournal.title")}</h2>
@@ -448,6 +428,8 @@ export default function Home() {
                         {t("home.lastJournal.newEntry")} <BookPlus size={20} strokeWidth={2}/>
                     </button>
                 </div>
+
+                <MeetingComponent/>
 
                 <div
                     className="text-sm text-gray-600 flex gap-2 justify-center">
