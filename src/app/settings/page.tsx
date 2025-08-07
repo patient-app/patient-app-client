@@ -102,7 +102,7 @@ const Page = () => {
             }
         };
         fetchAvatar();
-    }, []);
+    }, [t]);
 
     useEffect(() => {
         const fetchNotificationSettings = async () => {
@@ -123,7 +123,7 @@ const Page = () => {
             }
         };
         fetchNotificationSettings();
-    }, []);
+    }, [t]);
 
     const [passwordRules, setPasswordRules] = useState({
         minLength: false,
