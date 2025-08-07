@@ -9,20 +9,20 @@
 ## Environment Variables
 
 - In the frontend there are ususally no secrets (as all of the code is sent to the client anyways)
-- To add a new environment variable, add it to the `.env` file and to the `.env.production.main` and `.env.production.production` files
-- When building the docker image, the environment variables from the `.env.production.main` and `.env.production.production` files are automatically added to the built image
+- To add a new environment variable, add it to the `.env` file and to the `.env.production.main` file
+- When building the docker image, the environment variables from the `.env.production.main`file is automatically added to the built image
 
-## Main and Production Environments
+## Main and UZH Environment
 
 ###  Main Environment
 
 - The "main" environment shows the latest changes on the main branch
 - <https://patient-app-main.jonas-blum.ch>
 
-###  Production Environment
+### UZH Environment
 
-- The "production" environment shows the latest changes on the production branch
-- <https://patient-app-production.jonas-blum.ch/>
+- The "uzh" environment shows the latest changes on the production branch
+- <https://vllm-imrg.ifi.uzh.ch/client/>
 
 ## Pre-Commit Hooks (currently not setup in this repo -> see therapist-app if you want this)
 
