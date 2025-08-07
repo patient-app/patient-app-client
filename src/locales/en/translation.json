@@ -384,6 +384,8 @@
   "individualDocument": {
     "download": "Download",
     "noPreview": "Preview not available for this file type.",
+    "noPreviewMobile": "Preview not available for this file type on mobile.",
+    "openPdf": "Open PDF",
     "error": {
       "fetchFailed": "Failed to fetch document"
     }

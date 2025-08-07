@@ -384,6 +384,8 @@
   "individualDocument": {
     "download": "Herunterladen",
     "noPreview": "Vorschau für diesen Dateityp nicht verfügbar.",
+    "noPreviewMobile": "Vorschau für diesen Dateityp auf mobilen Geräten nicht verfügbar.",
+    "openPdf": "PDF öffnen",
     "error": {
       "fetchFailed": "Dokument konnte nicht abgerufen werden"
     }

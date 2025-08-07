@@ -15,6 +15,7 @@ const IndividualDocumentPage = () => {
     const id = params.id;
 
     const [error, setError] = useState<string | null>(null);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
     const [fileName, setFileName] = useState<string>("");
@@ -68,14 +69,30 @@ const IndividualDocumentPage = () => {
                 />
             );
         } else if (fileType === "application/pdf") {
-            return (
-                <iframe
-                    src={downloadUrl}
-                    title={fileName}
-                    className="w-full desktop:w-[80vw] h-[60vh] desktop:h-[70vh] mt-2 mb-2"
-                />
+            if (isMobile) {
+                return (
+                    <p className="text-center text-gray-500 my-6">
+                        {t("individualDocument.noPreviewMobile")}
+                        <br/>
+                        <a
+                            href={downloadUrl}
+                            className="text-blue-600 underline break-words"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t("individualDocument.openPdf")}</a>
+                    </p>
+                );
+            } else {
+                return (
+                    <iframe
+                        src={downloadUrl}
+                        title={fileName}
+                        className="w-full desktop:w-[80vw] h-[60vh] desktop:h-[70vh] mt-2 mb-2"
+                    />
+                );
 
-            );
+            }
         } else {
             return (
                 <p className="text-center text-gray-500 my-6">
