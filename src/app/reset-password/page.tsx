@@ -18,14 +18,16 @@ const Page = () => {
 
 
     const handleReset = async (e: React.FormEvent) => {
-        setWaiting(true);
         e.preventDefault();
         setError(null);
         setSuccess(null);
+        setWaiting(true);
 
         if (!formData.email) {
+            setWaiting(false);
             return;
         }
+
         try {
             const requestInit: RequestInit = {
                 method: "POST",
@@ -72,15 +74,16 @@ const Page = () => {
                             required
                         />
 
-                        <button className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                                type="submit" color="primary">{t("reset.submit")}
+                        <button
+                            className={`w-full mt-3 px-4 py-2 rounded-md transition ${
+                                waiting ? "bg-gray-300 hover:bg-gray-300 text-gray-700 cursor-default" : "bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                            }`}
+                            type="submit"
+                            color="primary"
+                            disabled={waiting}
+                        >
+                            {waiting ? t("reset.waiting") : t("reset.submit")}
                         </button>
-
-                        {waiting && (
-                            <div className="w-full mt-2 px-4 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-md text-sm">
-                                {t("reset.waiting")}
-                            </div>
-                        )}
 
                         {error && (
                             <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
