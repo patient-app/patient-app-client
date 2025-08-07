@@ -60,7 +60,7 @@ const Login = () => {
             } else {
                 await response.json();
                 setShowPassword(false)
-                router.push(`${BASE_PATH}/`);
+                window.location.href = `${BASE_PATH}/`;
             }
         } catch (e) {
             setError(`t("login.error.loginTryAgain")`);
