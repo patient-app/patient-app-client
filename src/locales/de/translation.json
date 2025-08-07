@@ -213,14 +213,14 @@
     "closebutton": "Bedingungen und Konditionen schließen"
   },
   "onboarding": {
-    "welcomeTitle": "Willkommen bei Lumina AI",
+    "welcomeTitle": "Willkommen bei Lumina",
     "welcomeText": "Lass uns mit ein paar Fragen starten, um deine Erfahrungen zu personalisieren.",
     "continue": "Weiter",
     "nameTitle": "Wie möchtest du genannt werden?",
     "namePlaceholder": "Deinen bevorzugten Namen eingeben",
     "infoTitle": "Schön, dich kennenzulernen, {{name}}!",
     "infoText_1": "Lass uns gemeinsam an deinem Wohlbefinden arbeiten.",
-    "infoText_2": "Lumina AI unterstützt dich mit personalisierten Übungen und begleitet dich bei deiner Entwicklung.",
+    "infoText_2": "Lumina unterstützt dich mit personalisierten Übungen und begleitet dich bei deiner Entwicklung.",
     "configuredTitle": "Dein Coach hat schon ein paar Dinge für dich vorbereitet.",
     "configuredText": "Lumina ist auf deine individuellen Bedürfnisse zugeschnitten. Dein Coach kann die Einstellungen jederzeit anpassen – z. B. wie die KI mit dir spricht oder welches Hintergrundwissen sie nutzt, um dich bestmöglich zu unterstützen.",
     "sharingNote": "Wichtig: Dein Coach bekommt Einblicke in deine App-Nutzung. Du kannst das jederzeit deaktivieren, z. B. beim Chatten mit der KI, über die Option „Mit dem Coach teilen“ oben rechts. Wenn du aber Inhalte eingibst, die auf eine akute Gefährdung hinweisen (z. B. Gedanken an Selbstverletzung), wird dein Coach unabhängig von deinen Freigabeeinstellungen benachrichtigt und erhält die Nachricht, um dich unterstützen zu können.",

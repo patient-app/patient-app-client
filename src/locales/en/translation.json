@@ -213,14 +213,14 @@
     "closebutton": "Close Terms and Conditions"
   },
   "onboarding": {
-    "welcomeTitle": "Welcome to Lumina AI",
+    "welcomeTitle": "Welcome to Lumina",
     "welcomeText": "Let's get started with a few questions to personalize your experience.",
     "continue": "Continue",
     "nameTitle": "How should we call you?",
     "namePlaceholder": "Enter your preferred name",
     "infoTitle": "Nice to meet you, {{name}}!",
     "infoText_1": "Let's work together toward better health.",
-    "infoText_2": "Lumina AI is here to support your well-being and guide you through personalized exercises.",
+    "infoText_2": "Lumina is here to support your well-being and guide you through personalized exercises.",
     "configuredTitle": "Your coach already defined some things for you.",
     "configuredText": "Lumina is tailored to your individual needs. Your coach can adjust it at any time and has configured various parts of the app, including how the AI/chatbot communicates and what background knowledge it uses to support you in the best possible way.",
     "sharingNote": "Important: Your coach will receive insights into how you use the app. You can disable this at any time by clicking the 'Share With Coach' button in the top right, for example when chatting with the AI. However, if you enter harmful content (e.g. related to self-harm), your coach will be notified and receive the relevant chat message, regardless of your sharing settings, so they can support you.",
