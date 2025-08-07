@@ -16,6 +16,8 @@ const PUBLIC = new Set([LOGIN_PATH, RESET_PATH, TERMS_PATH]);
 
 // Also allow raw '/login' as public in case a proxy stripped the base path
 PUBLIC.add('/login');
+PUBLIC.add('/reset-password')
+PUBLIC.add('/terms')
 
 function redirectTo(req: NextRequest, pathname: string, addNextFrom?: string) {
   const url = new URL(pathname, req.url);
