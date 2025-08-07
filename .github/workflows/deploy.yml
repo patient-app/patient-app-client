@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - production
 
 jobs:
   build-and-restart:
@@ -19,10 +18,6 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "BRANCH=main" >> $GITHUB_ENV
             echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-main:latest" >> $GITHUB_ENV
-
-          elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then
-            echo "BRANCH=production" >> $GITHUB_ENV
-            echo "FRONTEND_IMAGE=jonasblum/patient-app-frontend-production:latest" >> $GITHUB_ENV
           fi
 
       - name: Build Frontend Image
@@ -43,9 +38,4 @@ jobs:
             kubectl apply -k .kubernetes/overlays/main
             kubectl rollout restart deployment/patient-app-frontend -n patient-app-main
 
-          elif [[ "${{ github.ref }}" == "refs/heads/production" ]]; then 
-            
-            kubectl apply -k .kubernetes/overlays/production
-            kubectl rollout restart deployment/patient-app-frontend -n patient-app-production
-            
           fi
