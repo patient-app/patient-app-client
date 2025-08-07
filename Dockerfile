@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG ENV_NAME=main
+ARG ENV_NAME=production
 RUN cp .env.production.$ENV_NAME .env
 
 ENV NEXT_LOG_LEVEL=debug
