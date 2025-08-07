@@ -69,6 +69,7 @@
     "submit": "Zurücksetzen",
     "success": "Passwort erfolgreich zurückgesetzt!",
     "spamInformation": "Schau auch im Spam- oder Junk-Ordner nach, wenn du die E-Mail nicht innerhalb weniger Minuten bekommst.",
+    "waiting": "Passwort wird zurückgesetzt, bitte warten...",
     "error": {
       "resetFailed": "Passwort konnte nicht zurückgesetzt werden: ",
       "resetTryAgain": "Das Passwort konnte nicht zurückgesetzt werden, bitte versuch es erneut."

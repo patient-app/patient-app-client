@@ -15,16 +15,20 @@ const Page = () => {
     });
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const [waiting, setWaiting] = useState<boolean>(false);
 
 
     const handleReset = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
-        setSuccess(null)
+        setSuccess(null);
+        setWaiting(true);
 
         if (!formData.email) {
+            setWaiting(false);
             return;
         }
+
         try {
             const requestInit: RequestInit = {
                 method: "POST",
@@ -44,6 +48,7 @@ const Page = () => {
             setError(t("reset.error.resetTryAgain"));
             console.error("Failed to reset the password", e);
         }
+        setWaiting(false);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,8 +77,14 @@ const Page = () => {
                         />
 
                         <button
-                            className="w-full mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                            type="submit" color="primary">{t("reset.submit")}
+                            className={`w-full mt-3 px-4 py-2 rounded-md transition ${
+                                waiting ? "bg-gray-300 hover:bg-gray-300 text-gray-700 cursor-default" : "bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                            }`}
+                            type="submit"
+                            color="primary"
+                            disabled={waiting}
+                        >
+                            {waiting ? t("reset.waiting") : t("reset.submit")}
                         </button>
 
                         <ErrorComponent message={error}/>

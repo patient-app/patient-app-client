@@ -69,6 +69,7 @@
     "submit": "Reset",
     "success": "Password reset successfully!",
     "spamInformation": "Please also check your spam/junk folder if you don't receive the email within a few minutes.",
+    "waiting": "Password reset sent, please wait...",
     "error": {
       "resetFailed": "Failed to reset password: ",
       "resetTryAgain": "Failed to reset the password, please try again."

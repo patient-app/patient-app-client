@@ -70,6 +70,7 @@ interface Resources {
             "submit": "",
             "success": "",
             "spamInformation": "",
+            "waiting": "",
             "error": {
                 "resetFailed": "",
                 "resetTryAgain": ""
