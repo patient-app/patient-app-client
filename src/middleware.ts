@@ -44,8 +44,8 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL(`${basePath}/login`, req.nextUrl));
     }
 
-    if (isPublicRoute && isLoggedIn && [`${basePath}/login`, `${basePath}/reset-password`].includes(path)) {
-        return NextResponse.redirect(new URL(`${basePath}`, req.nextUrl));
+    if (isLoggedIn && [`${basePath}/login`, `${basePath}/reset-password`].includes(path)) {
+        return NextResponse.redirect(new URL(`${basePath}/`, req.nextUrl));
     }
 
     return NextResponse.next();
