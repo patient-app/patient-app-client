@@ -14,7 +14,7 @@ const RESET_PATH = normalizePath(`${basePath}/reset-password`);
 const TERMS_PATH = normalizePath(`${basePath}/terms`);
 const PUBLIC = new Set([LOGIN_PATH, RESET_PATH, TERMS_PATH]);
 
-// Also allow raw '/login' as public in case a proxy stripped the base path
+// Also allow raw paths as public in case a proxy stripped the base path
 PUBLIC.add('/login');
 PUBLIC.add('/reset-password')
 PUBLIC.add('/terms')
