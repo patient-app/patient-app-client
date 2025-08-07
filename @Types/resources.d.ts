@@ -385,6 +385,8 @@ interface Resources {
         "individualDocument": {
             "download": "",
             "noPreview": "",
+            "noPreviewMobile": "",
+            "openPdf": "",
             "error": {
                 "fetchFailed": ""
             }

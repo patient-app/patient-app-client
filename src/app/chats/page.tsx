@@ -59,7 +59,7 @@ export default function Home() {
                         onClick={() => router.push(`${BASE_PATH}/chats/${conv.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
-                        <p className="font-bold">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>
+                        <p className="font-bold truncate overflow-hidden whitespace-nowrap w-full">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>
                     </div>
                 ))}
             </div>

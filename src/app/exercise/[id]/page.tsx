@@ -96,7 +96,9 @@ const ExerciseDetailPage = () => {
                 {t('exercise.completedExercise')}
             </h2>
 
-            {exercises.map(exercise => (
+            {exercises
+                .toSorted((a, b) => new Date(b.executionTitle).getTime() - new Date(a.executionTitle).getTime())
+                .map(exercise => (
                 <button
                     key={exercise.exerciseExecutionId}
                     onClick={() => router.push(`${BASE_PATH}/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
