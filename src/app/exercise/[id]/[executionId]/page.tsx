@@ -16,9 +16,10 @@ import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import MoodTracker from "@/components/MoodTracker";
-import TimerComponent from "@/components/TimerComponent";
+import MoodTracker from "@/components/exerciseComponents/MoodTracker";
+import TimerComponent from "@/components/exerciseComponents/TimerComponent";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const ExerciseExecutionInfoPage = () => {
@@ -71,7 +72,6 @@ const ExerciseExecutionInfoPage = () => {
                 } else {
                     const exerciseData: ExerciseDTO = await response.json();
                     setExercise(exerciseData);
-                    console.log("Exercise data:", exerciseData);
                 }
             } catch (e) {
                 setError(t('exercise.error.fetchFailedIndividual'));
@@ -80,7 +80,7 @@ const ExerciseExecutionInfoPage = () => {
         };
 
         getExercise();
-    });
+    }, [id, executionId, t]);
 
     useEffect(() => {
         setStartTime(new Date().toISOString());
@@ -130,7 +130,13 @@ const ExerciseExecutionInfoPage = () => {
                 setError(t('exercise.error.endFailed') + `: ${errorData.message}`);
                 console.log(errorData.message)
             } else {
-                router.push(`${BASE_PATH}/exercise/${id}`);
+                const path = `${BASE_PATH}/exercise/${id}`;
+                const query = exercise?.exerciseTitle
+                    ? `?title=${encodeURIComponent(exercise.exerciseTitle)}`
+                    : "";
+
+                router.push(`${path}${query}`);
+
             }
         } catch (e) {
             setError(t('exercise.error.endFailed'));
@@ -188,7 +194,7 @@ const ExerciseExecutionInfoPage = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <div className="relative w-full flex items-center justify-center mb-3">
                 <ArrowLeft
                     onClick={() => setBackModal(true)}
@@ -209,11 +215,11 @@ const ExerciseExecutionInfoPage = () => {
             </div>
 
             <TimerComponent onFinish={() => setTimerFinishedModal(true)}/>
-            <hr className="w-[100%] border-gray-300 border-1 my-2"/>
+            <hr className="w-full desktop:w-4/5 border-gray-300 border-1 my-2"/>
 
 
             {exercise && exercise.exerciseComponents && (
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full desktop:w-4/5 flex flex-col gap-4">
                     {exercise.exerciseComponents
                         .slice()
                         .sort((a, b) => a.orderNumber - b.orderNumber)
@@ -226,22 +232,17 @@ const ExerciseExecutionInfoPage = () => {
                 </div>
             )}
 
-            {error && (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
-            )}
+            <ErrorComponent message={error}/>
 
             <button
                 onClick={() => setMoodAfterModal(prev => !prev)}
-                className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
                 {t('exercise.completeExecution')}
             </button>
 
             <HelpButton chatbot={
                 <ExerciseChatbot
-                    isOpen={false}
                     onCloseAction={() => {
                     }}
                 />
@@ -292,7 +293,7 @@ const ExerciseExecutionInfoPage = () => {
                             rows={2}
                         />
                         <div className="flex justify-center gap-4 mt-4">
-                            <Button className="bg-blue-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
+                            <Button className="bg-emerald-600 cursor-pointer" onClick={() => setFeedbackModal(false)}>
                                 {t('exercise.modal.saveButton')}
                             </Button>
                             <Button color="alternative" className="cursor-pointer" onClick={() => {

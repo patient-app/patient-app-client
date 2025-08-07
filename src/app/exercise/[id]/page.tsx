@@ -8,6 +8,7 @@ import ExerciseChatbot from "@/chatbot/exercise/ExerciseChatbot";
 import {IndividualExerciseOverviewDTO} from "@/dto/output/exercise/IndividualExerciseOverviewDTO";
 import {ArrowLeft, Play} from "lucide-react";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const ExerciseDetailPage = () => {
     const params = useParams();
@@ -76,7 +77,7 @@ const ExerciseDetailPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <div className="relative w-full flex items-center justify-center">
                 <ArrowLeft
                     onClick={() => router.back()}
@@ -95,26 +96,22 @@ const ExerciseDetailPage = () => {
                 {t('exercise.completedExercise')}
             </h2>
 
-            {exercises.map(exercise => (
+            {exercises
+                .toSorted((a, b) => new Date(b.executionTitle).getTime() - new Date(a.executionTitle).getTime())
+                .map(exercise => (
                 <button
                     key={exercise.exerciseExecutionId}
                     onClick={() => router.push(`${BASE_PATH}/exercise/${id}/${exercise.exerciseExecutionId}/completed`)}
-                    className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
+                    className="w-full max-w-xl border text-left border-gray-300 shadow-md bg-white p-4 rounded-md cursor-pointer hover:bg-gray-50 transition"
                 >
                     <p className="font-bold">{new Date(exercise.executionTitle).toLocaleString()}</p>
                 </button>
             ))}
 
 
-            {error && (
-                <div
-                    className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
-            )}
+            <ErrorComponent message={error}/>
 
             <HelpButton chatbot={<ExerciseChatbot
-                isOpen={false}
                 onCloseAction={() => {
                 }
                 }/>

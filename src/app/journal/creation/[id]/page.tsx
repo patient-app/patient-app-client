@@ -1,7 +1,7 @@
 "use client";
 
-import {useCallback, useEffect, useRef, useState} from "react";
-import {useRouter} from "next/navigation";
+import React, {useCallback, useEffect, useState} from "react";
+import {useParams, useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {ArrowLeft, Eye, EyeOff} from "lucide-react";
 import {JournalTag} from "@/components/JournalTag";
@@ -10,12 +10,14 @@ import {TagSelector} from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export default function JournalEntryCreationPage() {
     const {t} = useTranslation();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
-    const [journalId, setJournalId] = useState<string>("");
+    const params = useParams();
+    const journalId = params?.id;
 
     const [title, setTitle] = useState("");
     const [chatbotTitle, setChatbotTitle] = useState("");
@@ -26,7 +28,6 @@ export default function JournalEntryCreationPage() {
     const [fetchedTags, setFetchedTags] = useState<string[]>([]);
     const [saveModal, setSaveModal] = useState(false);
     const [backModal, setBackModal] = useState(false);
-    const hasCreatedEntry = useRef(false);
 
 
     useEffect(() => {
@@ -55,42 +56,6 @@ export default function JournalEntryCreationPage() {
         getTags();
     }, [t]);
 
-    useEffect(() => {
-        if (hasCreatedEntry.current) return;
-        hasCreatedEntry.current = true;
-
-        const createEntry = async () => {
-            const formData = {
-                title,
-                content,
-                tags,
-                sharedWithTherapist,
-            };
-
-            try {
-                const requestInit: RequestInit = {
-                    method: "POST",
-                    credentials: "include",
-                    body: JSON.stringify(formData),
-                    headers: {"Content-Type": "application/json"},
-                };
-                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/journal-entries", requestInit);
-                if (response.status !== 201) {
-                    const errorData = await response.json();
-                    console.log(errorData)
-                    setError((t("journalCreationEditing.error.savingFailed") + errorData.message) || t("journalCreationEditing.error.savingTryAgain"));
-                } else {
-                    const res = await response.json();
-                    setJournalId(res.id);
-                }
-            } catch (e) {
-                setError(t("journalCreationEditing.error.savingTryAgain"));
-                console.error("Failed to create journal entry: ", e);
-            }
-        };
-
-        createEntry();
-    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -168,7 +133,7 @@ export default function JournalEntryCreationPage() {
     }, [chatbotTitle, chatbotContent]);
 
     return (
-        <main className="px-4 py-2 rounded-md h-[100%]">
+        <main className="px-4 py-2 rounded-md h-[100%] mb-15 desktop:mb-0">
             <div className="flex justify-between items-center mb-4">
                 <ArrowLeft
                     onClick={handleBack}
@@ -179,7 +144,8 @@ export default function JournalEntryCreationPage() {
                     className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setSharedWithTherapist(prev => !prev)}
                 >
-                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (
+                        <EyeOff size={30} strokeWidth={1.75}/>)}
                     <span className="text-xs font-medium text-center">
                     {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
                         <div key={idx}>{word}</div>
@@ -219,79 +185,75 @@ export default function JournalEntryCreationPage() {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[60vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"
-                />
-                {error && (
-                    <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md">
-                        {error}
-                    </div>
-                )}
+                    className="bg-transparent w-full h-[40vh] desktop:h-[50vh] outline-none placeholder-gray-400 resize-none text-base"/>
+                <ErrorComponent message={error}/>
 
-                <div className="flex justify-center mt-4">
-                    <button
-                        type="submit"
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                    >
+                <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-50">
+                        <button
+                            type="submit"
+                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                            >
                         {t("journalCreationEditing.saveButton")}
-                    </button>
+                </button>
+            </div>
+        </form>
+    {
+        journalId && (
+            <HelpButton
+                chatbot={
+                    <JournalChatbot
+                        onCloseAction={() => {
+                        }}
+                        getEntryData={getEntryData}
+                    />
+                }
+            />
+        )
+    }
+    <Modal
+        show={backModal}
+        onClose={() => setBackModal(false)}
+        size="md"
+        popup
+    >
+        <ModalHeader/>
+        <ModalBody>
+            <div className="text-center">
+                <h3 className="mb-5 text-lg font-normal text-gray-700">
+                    {t("journalCreationEditing.modal.backWarning")}
+                </h3>
+                <div className="flex justify-center gap-4">
+                    <Button color="red" onClick={() => deleteEntry()}>
+                        {t("journalCreationEditing.modal.backDiscard")}
+                    </Button>
+                    <Button color="alternative" onClick={() => setBackModal(false)}>
+                        {t("journalCreationEditing.modal.backStay")}
+                    </Button>
                 </div>
-            </form>
-            {journalId && (
-                <HelpButton
-                    chatbot={
-                        <JournalChatbot
-                            isOpen={false}
-                            onCloseAction={() => {
-                            }}
-                            getEntryData={getEntryData}
-                            propEntryId={journalId}
-                        />
-                    }
-                />
-            )}
-            <Modal
-                show={backModal}
-                onClose={() => setBackModal(false)}
-                size="md"
-                popup
-            >
-                <ModalHeader/>
-                <ModalBody>
-                    <div className="text-center">
-                        <h3 className="mb-5 text-lg font-normal text-gray-700">
-                            {t("journalCreationEditing.modal.backWarning")}
-                        </h3>
-                        <div className="flex justify-center gap-4">
-                            <Button color="red" onClick={() => router.back()}>
-                                {t("journalCreationEditing.modal.backDiscard")}
-                            </Button>
-                            <Button color="alternative" onClick={() => setBackModal(false)}>
-                                {t("journalCreationEditing.modal.backStay")}
-                            </Button>
-                        </div>
-                    </div>
-                </ModalBody>
-            </Modal>
+            </div>
+        </ModalBody>
+    </Modal>
 
-            <Modal
-                show={saveModal}
-                size="md"
-                onClose={() => setSaveModal(false)}
-                popup>
-                <ModalHeader/>
-                <ModalBody>
-                    <div className="text-center">
-                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            {t("journalCreationEditing.modal.saveError")}
-                        </h3>
-                        <div className="flex justify-center gap-4">
-                            <Button className="bg-blue-600" onClick={() => setSaveModal(false)}>
-                                {t("journalCreationEditing.modal.saveOkay")}
-                            </Button>
-                        </div>
-                    </div>
-                </ModalBody>
-            </Modal>
-        </main>
-    );
+    <Modal
+        show={saveModal}
+        size="md"
+        onClose={() => setSaveModal(false)}
+        popup>
+        <ModalHeader/>
+        <ModalBody>
+            <div className="text-center">
+                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    {t("journalCreationEditing.modal.saveError")}
+                </h3>
+                <div className="flex justify-center gap-4">
+                    <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
+                        {t("journalCreationEditing.modal.saveOkay")}
+                    </Button>
+                </div>
+            </div>
+        </ModalBody>
+    </Modal>
+</main>
+)
+    ;
 }

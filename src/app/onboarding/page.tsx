@@ -5,6 +5,7 @@ import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import AvatarSelector from "@/components/AvatarSelector";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const Onboarding = () => {
     const router = useRouter();
@@ -98,6 +99,8 @@ const Onboarding = () => {
     const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = e.target.value;
         setSelectedLang(lang);
+        i18n.changeLanguage(lang);
+        localStorage.setItem('lang', lang);
     }
 
     const sendLanguageChange = async () => {
@@ -169,7 +172,7 @@ const Onboarding = () => {
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center">
             {screen === 1 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.welcomeTitle")}</h2>
                     <p>{t("onboarding.welcomeText")}</p>
                     <p><b>{t("onboarding.languageSelection")}</b></p>
@@ -188,13 +191,7 @@ const Onboarding = () => {
                             ))}
                         </select>
                     </div>
-                    {error && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">
-                            {error}
-                        </div>
-                    )}
-
+                    <ErrorComponent message={error}/>
                     <button
                         onClick={handleNext}
                         className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
@@ -213,11 +210,11 @@ const Onboarding = () => {
             )}
 
             {screen === 2 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
-                    <p className="max-w-[50%] text-center mx-auto">{t("onboarding.termsText")}</p>
+                    <p className="text-center mx-auto">{t("onboarding.termsText")}</p>
                     <div className="text-gray-600 flex gap-2 justify-center z-10">
-                    <a href="/terms" target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
+                    <a href={`${BASE_PATH}/terms`} target="_blank" className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
                     </div>
                     <button
                         onClick={handleNext}
@@ -237,7 +234,7 @@ const Onboarding = () => {
             )}
 
             {screen === 3 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.nameTitle")}</h2>
                     <div className="w-full flex justify-center">
                         <input
@@ -253,12 +250,7 @@ const Onboarding = () => {
                             className="px-4 py-2 border border-gray-300 rounded-md w-full max-w-xs"
                         />
                     </div>
-                    {error && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">
-                            {error}
-                        </div>
-                    )}
+                    <ErrorComponent message={error}/>
                     <div className="w-full flex justify-center">
                         <button
                             onClick={handleNameEntry}
@@ -280,7 +272,7 @@ const Onboarding = () => {
             )}
 
             {screen === 4 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.infoTitle", {name})}</h2>
                     <p>{t("onboarding.infoText_1")}<br/>{t("onboarding.infoText_2")}</p>
                     <button
@@ -301,17 +293,13 @@ const Onboarding = () => {
             )}
 
             {screen === 5 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.chooseAvatarTitle")}</h2>
                     <p className="mb-6">{t("onboarding.chooseAvatarText")}</p>
 
                     <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect} />
 
-                    {error && (
-                        <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm max-w-xs mx-auto">
-                            {error}
-                        </div>
-                    )}
+                    <ErrorComponent message={error}/>
 
                     <div className="w-full flex justify-center">
                         <button
@@ -335,9 +323,10 @@ const Onboarding = () => {
             )}
 
             {screen === 6 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
+                    <p className="font-bold">{t("onboarding.sharingNote")}</p>
 
                     <div className="w-full flex justify-center">
                         <button

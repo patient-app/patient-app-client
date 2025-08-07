@@ -9,20 +9,22 @@ import ActionProviderExercise from "@/chatbot/exercise/ActionProviderExercise";
 import "@/chatbot/chatbot.css";
 import {CHATBOT_NAME} from "@/libs/constants";
 
-export default function ExerciseChatbot({isOpen, onCloseAction}: Readonly<{
-    isOpen: boolean,
+export default function ExerciseChatbot({onCloseAction}: Readonly<{
     onCloseAction: () => void,
 }>) {
     const {t} = useTranslation();
-
-    if (!isOpen) return null;
 
     return (
         <div className="fixed bottom-26 desktop:bottom-30 right-10 z-50 max-h-[80vh]">
             <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="chatbot-wrapper chatbot-help">
                     <Chatbot
-                        config={configExercise(onCloseAction, t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), t("exerciseChatbot.tooltipClearHistory"))}
+                        config={configExercise(
+                            onCloseAction,
+                            t("exerciseChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}),
+                            t("exerciseChatbot.tooltipClearHistory"),
+                            t("exerciseChatbot.tooltipChatbotInfo"),
+                            t("exerciseChatbot.type"))}
                         messageParser={MessageParser}
                         actionProvider={ActionProviderExercise}
                         headerText={t("chat.header")}

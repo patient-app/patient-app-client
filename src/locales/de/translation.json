@@ -5,16 +5,28 @@
     "logout": "Logout",
     "avatarSuccess": "Avatar geändert.",
     "avatarLabel": "Avatar ändern",
+    "notificationSuccess": "Benachrichtigungseinstellung geändert.",
+    "notificationLabel": "Benachrichtigungseinstellung ändern",
+    "notifications":{
+      "enabled":"Benachrichtigungen aktiviert",
+      "disabled":"Benachrichtigungen deaktiviert"
+    },
     "error": {
       "languageFailed": "Sprache konnte nicht geändert werden: ",
-      "languageTryAgain": "Die Sprache konnte nicht geändert werden, bitte versuchen Sie es erneut.",
-      "resetTryAgain": "Die Sprache konnte nicht geändert werden, bitte versuchen Sie es erneut.",
+      "languageTryAgain": "Die Sprache konnte nicht geändert werden, bitte versuch es erneut.",
+      "resetTryAgain": "Die Sprache konnte nicht geändert werden, bitte versuch es erneut.",
       "passwordEmptyFields": "Alle Felder sind erforderlich.",
       "passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
       "passwordChangeFailed": "Das Passwort konnte nicht geändert werden: ",
-      "passwordChangeTryAgain": "Das Passwort konnte nicht geändert werden, bitte versuchen Sie es erneut.",
+      "passwordChangeTryAgain": "Das Passwort konnte nicht geändert werden, bitte versuch es erneut.",
       "nameChangeFailed": "Der Name konnte nicht geändert werden: ",
-      "nameChangeTryAgain": "Der Name konnte nicht geändert werden, bitte versuchen Sie es erneut."
+      "nameChangeTryAgain": "Der Name konnte nicht geändert werden, bitte versuch es erneut.",
+      "avatarChangeFailed": "Der Avatar konnte nicht geändert werden: ",
+      "avatarChangeTryAgain": "Der Avatar konnte nicht geändert werden, bitte versuch es erneut.",
+      "avatarFetchFailed": "Der Avatar konnte nicht abgerufen werden: ",
+      "avatarFetchTryAgain": "Der Avatar konnte nicht abgerufen werden, bitte wähle einen neuen Avatar.",
+      "notificationFetchFailed": "Benachrichtigungseinstellung konnte nicht abgerufen werden",
+      "notificationUpdateFailed": "Benachrichtigungseinstellung konnte nicht aktualisiert werden"
     },
     "password": {
       "label": "Passwort ändern",
@@ -25,7 +37,7 @@
       "success": "Passwort erfolgreich geändert!",
       "rules": {
         "minLength": "Mindestens {{value}} Zeichen",
-        "uppercase": "Mindestens {{value}} Grosbuchstabe(-n)",
+        "uppercase": "Mindestens {{value}} Großbuchstabe(-n)",
         "number": "Mindestens {{value}} Zahl(-en)",
         "specialChar": "Mindestens {{value}} Sonderzeichen"
       }
@@ -41,7 +53,7 @@
     "error": {
       "emptyFields": "Beide Felder sind erforderlich.",
       "loginFailed": "Login fehlgeschlagen: ",
-      "loginTryAgain": "Login fehlgeschlagen, bitte versuchen Sie es erneut."
+      "loginTryAgain": "Login fehlgeschlagen, bitte versuch es erneut."
     },
     "title": "Willkommen zurück",
     "email": "E-Mail-Adresse",
@@ -49,18 +61,18 @@
     "forgotPassword": "Passwort vergessen?",
     "reset": "Zurücksetzen",
     "submit": "Login",
-    "noAccount": "Sie haben noch kein Konto? Bitte kontaktieren Sie Ihren Coach, um Zugang zur App zu erhalten."
+    "noAccount": "Du hast noch kein Konto? Bitte kontaktiere deinen Coach, um Zugang zur App zu erhalten."
   },
   "reset": {
     "title": "Passwort zurücksetzen",
     "email": "E-Mail-Adresse",
     "submit": "Zurücksetzen",
     "success": "Passwort erfolgreich zurückgesetzt!",
-    "spamInformation": "Bitte überprüfen Sie auch Ihren Spam-/Junk-Ordner, wenn Sie die E-Mail nicht innerhalb weniger Minuten erhalten.",
+    "spamInformation": "Schau auch im Spam- oder Junk-Ordner nach, wenn du die E-Mail nicht innerhalb weniger Minuten bekommst.",
     "waiting": "Passwort wird zurückgesetzt, bitte warten...",
     "error": {
       "resetFailed": "Passwort konnte nicht zurückgesetzt werden: ",
-      "resetTryAgain": "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut."
+      "resetTryAgain": "Das Passwort konnte nicht zurückgesetzt werden, bitte versuch es erneut."
     },
     "backToLogin": "Zurück zum Login: ",
     "login": "Login"
@@ -103,8 +115,10 @@
       "open": "Öffnen"
     },
     "questionnaires": {
-      "title": "Questionnaires",
-      "showAll": "Alle anzeigen"
+      "title": "Fragebögen",
+      "noQuestionnaires": "Noch keine Fragebögen.",
+      "showAll": "Alle anzeigen",
+      "start": "Starten"
     }
   },
   "exercise": {
@@ -126,8 +140,8 @@
       "very_pleasant": "sehr angenehm",
       "save": "Speichern"
     },
-    "modal":{
-      "feedbackText":"Teile deine Gedanken zu dieser Übung mit deinem Coach.",
+    "modal": {
+      "feedbackText": "Teile deine Gedanken zu dieser Übung mit deinem Coach.",
       "feedbackPlaceholder": "Gib hier dein Feedback ein...",
       "timeUpText": "Dein Timer ist abgelaufen.",
       "saveButton": "Speichern",
@@ -136,11 +150,11 @@
       "buttonText": "Feedback für Coach"
     },
     "completedExercise": "Abgeschlossene Übungen",
-    "completeExecution": "Übung abschliessen",
-    "start":"Start"
+    "completeExecution": "Übung abschließen",
+    "start": "Start"
   },
-  "exerciseInput":{
-    "error":{
+  "exerciseInput": {
+    "error": {
       "failedToUpdate": "Deine Eingabe konnte nicht gespeichert werden"
     },
     "placeholder": "Gib hier deine Antwort ein...",
@@ -149,14 +163,14 @@
       "private": "Deine Antwort ist privat und wird nicht geteilt."
     }
   },
-  "exerciseImage":{
+  "exerciseImage": {
     "error": {
       "imageMissing": "Bilddaten fehlen",
       "imageLoadFailed": "Bild konnte nicht geladen werden"
     },
     "exerciseComponentDescription": "Übungsbild"
   },
-  "exerciseFile":{
+  "exerciseFile": {
     "error": {
       "dataMissing": "Ungültige Dateidaten"
     },
@@ -164,7 +178,7 @@
     "noPreview": "Vorschau für diesen Dateityp nicht verfügbar."
   },
   "timer": {
-    "title":"Stelle einen Timer ein:",
+    "title": "Stell einen Timer ein:",
     "units": {
       "hours": "Stunden",
       "minutes": "Minuten",
@@ -180,14 +194,14 @@
     "title": "Lumina AI",
     "name": "Lumina",
     "header": "Lumina AI",
-    "placeholder": "Lumina AI fragen",
+    "placeholder": "Frag Lumina AI etwas",
     "sharingoptions": "Freigabeoptionen",
     "deleteChat": "Chat löschen",
-    "loadingChat": "Chat wird geladen...",
+    "loadingChat": "Unterhaltung wird geladen...",
     "unnamedChat": "Unbenannte Konversation",
     "awaitingAnswer": "Warte auf Antwort...",
     "modal": {
-      "deleteWarning": "Sind Sie sicher, dass Sie diesen Chat löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "deleteWarning": "Bist du sicher, dass du diesen Chat löschen willst? Diese Aktion kann nicht rückgängig gemacht werden.",
       "deleteConfirm": "Löschen bestätigen",
       "deleteCancel": "Abbrechen"
     }
@@ -200,47 +214,48 @@
     "startNewConversation": "+ Neue Unterhaltung beginnen",
     "unnamedConversation": "Unbenannte Unterhaltung",
     "sharingoptions": {
-      "shareWithCoach_on": "Coach Teilen ein",
-      "shareWithCoach_off": "Coach Teilen aus",
-      "useForAIMemory_on": "AI Erinnerung ein",
-      "useForAIMemory_off": "AI Erinnerung aus"
+      "shareWithCoach_on": "Teilen ein",
+      "shareWithCoach_off": "Teilen aus",
+      "useForAIMemory_on": "Erinnerung ein",
+      "useForAIMemory_off": "Erinnerung aus"
     }
   },
   "terms": {
     "title": "Bedingungen und Konditionen",
-    "text": "<b>Nutzungsbedingungen</b><br>Willkommen in unserer Patienten-Support-Anwendung (\"App\"). Durch die Nutzung dieser App stimmen Sie den folgenden Nutzungsbedingungen zu. Bitte lesen Sie diese sorgfältig durch.<br><br><b>1. Zweck der App</b><br>Diese App wurde entwickelt, um Patient*innen zwischen psychotherapeutischen Sitzungen zu unterstützen – durch geführte Übungen, Erinnerungen, Journaling-Tools, Stimmungstracking und eine KI-gestützte Chatbegleitung. Die App kann es zudem Ihrem/Ihrer Therapeut*in ermöglichen, Ihren Fortschritt zu verfolgen und Feedback zu geben.<br><br><b>2. Kein Ersatz für medizinischen Rat</b><br>Die App ersetzt keinen professionellen medizinischen Rat, keine Diagnose und keine Behandlung. Suchen Sie bei Fragen zu gesundheitlichen Beschwerden immer den Rat Ihres/Ihrer qualifizierten Behandler*in. Ignorieren oder verzögern Sie niemals die professionelle Beratung aufgrund von Informationen aus dieser App.<br><br><b>3. Nutzungsberechtigung</b><br>Diese App ist für Patient*innen in psychotherapeutischer Behandlung und deren Therapeut*innen bestimmt. Mit der Nutzung der App bestätigen Sie, dass Sie mindestens 18 Jahre alt sind oder die Zustimmung eines gesetzlichen Vertreters/einer Vertreterin haben.<br><br><b>4. Datenschutz und Datensicherheit</b><br>Personenbezogene und gesundheitsbezogene Daten, die Sie in dieser App eingeben, werden sicher gespeichert und nur mit Ihrem/Ihrer Therapeut*in geteilt, wie vereinbart.<br>Sie haben die Kontrolle darüber, welche Daten mit Ihrem/Ihrer Therapeut*in geteilt werden. Weitere Informationen finden Sie in unserer <a href=\"/privacy-policy\">Datenschutzerklärung</a>.<br>Für Forschungszwecke werden Daten soweit möglich anonymisiert.<br><br><b>5. Nutzung der KI und des Chatbots</b><br>Der KI-Chatbot soll Sie unterstützen und motivieren, kann jedoch nicht immer korrekte oder angemessene Informationen liefern.<br>Verlassen Sie sich bei kritischen Entscheidungen oder Notfällen nicht ausschließlich auf die Ratschläge der KI.<br>Alle Unterhaltungen können zu Qualitätsverbesserungs- und Forschungszwecken gespeichert werden, wie in der Datenschutzerklärung beschrieben.<br><br><b>6. Verantwortung der Nutzer*innen</b><br>Sie sind für die Richtigkeit der von Ihnen angegebenen Informationen verantwortlich.<br>Verwenden Sie die App nicht, um sich selbst oder andere zu schädigen oder für illegale Aktivitäten.<br><br><b>7. Benachrichtigungen und Erinnerungen</b><br>Die App kann Ihnen Benachrichtigungen senden, um Sie an Therapieaufgaben, Termine oder gesunde Gewohnheiten zu erinnern. Sie können die Benachrichtigungseinstellungen in Ihrem Profil verwalten.<br><br><b>8. Konto und Sicherheit</b><br>Bewahren Sie Ihre Zugangsdaten vertraulich auf.<br>Benachrichtigen Sie uns umgehend, falls Sie einen unbefugten Zugriff auf Ihr Konto vermuten.<br><br><b>9. Änderungen an der App und den Bedingungen</b><br>Wir können Funktionen jederzeit aktualisieren oder einstellen.<br>Die Bedingungen können sich ändern; wesentliche Änderungen werden Ihnen mitgeteilt. Die fortgesetzte Nutzung gilt als Zustimmung zu den neuen Bedingungen.<br><br><b>10. Haftungsbeschränkung</b><br>Wir bemühen uns, eine zuverlässige App bereitzustellen, können jedoch nicht garantieren, dass sie immer verfügbar, fehlerfrei oder Ihren Erwartungen entsprechend ist. Wir übernehmen keine Haftung für Schäden, die aus der Nutzung der App entstehen.<br><br><b>11. Zustimmung</b><br>Mit der Erstellung eines Kontos oder der Nutzung der App akzeptieren Sie diese Nutzungsbedingungen.<br>",
-    "closebutton": "Bedingungen und Konditionen schliessen"
+    "text": "<b>Allgemeine Geschäftsbedingungen</b><br>Willkommen bei Lumina (auch bezeichnet als \"App\" oder \"Anwendung\"). Wenn du diese App nutzt, stimmst du den folgenden Bedingungen zu.<br><br><b>1. Zweck der App</b><br>Diese App wurde entwickelt, um dich zwischen psychotherapeutischen Sitzungen zu unterstützen – mit einem KI-basierten Gesprächsbegleiter, angeleiteten Übungen, Tagebuchfunktionen und Stimmungstracking. Dein Coach kann deinen Fortschritt verfolgen und dir Feedback geben.<br><br><b>2. Kein Ersatz für medizinischen Rat</b><br>Diese App ersetzt keine professionelle medizinische Beratung, Diagnose oder Behandlung. Wende dich bei gesundheitlichen Fragen immer an medizinisches Fachpersonal. Verzichte nicht auf professionelle Hilfe aufgrund von Informationen aus dieser App. Die Nutzung der App ist nur bei stabilem psychischem Zustand erlaubt.<br><br><b>3. Nutzungsvoraussetzungen</b><br>Die App ist für Klient:innen in psychotherapeutischer Behandlung und ihre Coaches gedacht. Mit der Nutzung bestätigst du, dass du mindestens 18 Jahre alt bist oder die Zustimmung einer gesetzlichen Vertretung hast.<br><br><b>4. Datenschutz und Datensicherheit</b><br>Deine persönlichen und gesundheitsbezogenen Daten werden sicher auf einem Server der Universität gespeichert und nur wie vereinbart mit deinem Coach geteilt.<br>Du kannst selbst entscheiden, welche Daten du mit deinem Coach teilst, indem du die Freigabe ein- oder ausschaltest. Anonyme Daten dürfen zu Forschungszwecken verwendet werden.<br><br><b>5. Nutzung von KI und Chatbot</b><br>Der KI-gestützte Chatbot soll dich unterstützen und motivieren, aber er liefert nicht immer korrekte oder passende Informationen.<br>Verlass dich bei wichtigen Entscheidungen oder in Notfällen nicht auf die KI. Ruf in dringenden Fällen den Notdienst.<br><br><b>6. Deine Pflichten</b><br>Du bist verantwortlich für die Richtigkeit der Informationen, die du eingibst.<br>Nutze die App nicht, um dir selbst oder anderen zu schaden oder für illegale Aktivitäten. Wenn du Inhalte eingibst, die auf akute Gefährdung hinweisen, wird dein Coach informiert – unabhängig von den Freigabeeinstellungen.<br><br><b>7. Konto und Sicherheit</b><br>Bewahre deine Zugangsdaten sicher auf.<br>Gib uns sofort Bescheid, wenn du einen unbefugten Zugriff vermutest.<br><br><b>8. Änderungen an App und Bedingungen</b><br>Wir können Funktionen ändern oder entfernen.<br>Die Bedingungen können sich ändern. Wenn du die App weiterhin nutzt, gilt das als Zustimmung zu den neuen Bedingungen.<br><br><b>9. Haftungsbeschränkung</b><br>Wir bemühen uns um eine zuverlässige App, garantieren aber keine ständige Verfügbarkeit oder Fehlerfreiheit. Wir übernehmen keine Haftung für Schäden durch die Nutzung der App.<br><br><b>10. Zustimmung</b><br>Wenn du ein Konto erstellst oder die App nutzt, stimmst du diesen Bedingungen zu.<br>",
+    "closebutton": "Bedingungen und Konditionen schließen"
   },
   "onboarding": {
-    "welcomeTitle": "Willkommen bei Lumina AI",
-    "welcomeText": "Beginnen wir mit ein paar Fragen, um Ihre Erfahrungen zu personalisieren.",
+    "welcomeTitle": "Willkommen bei Lumina",
+    "welcomeText": "Lass uns mit ein paar Fragen starten, um deine Erfahrungen zu personalisieren.",
     "continue": "Weiter",
     "nameTitle": "Wie möchtest du genannt werden?",
-    "namePlaceholder": "Bevorzugten Namen eingeben",
-    "infoTitle": "Schön, Sie kennenzulernen, {{name}}!",
-    "infoText_1": "Lassen Sie uns gemeinsam an einer besseren Gesundheit arbeiten.",
-    "infoText_2": "Lumina AI unterstützt Ihr Wohlbefinden und führt Sie durch personalisierte Übungen.",
-    "configuredTitle": "Ihr Coach hat bereits einige Dinge für Sie festgelegt.",
-    "configuredText": "Lumina ist auf Ihre individuellen Bedürfnisse zugeschnitten. Sie können mit Ihrem Coach sprechen, um sie zu ändern, und in der gesamten App Anpassungen vornehmen.",
+    "namePlaceholder": "Deinen bevorzugten Namen eingeben",
+    "infoTitle": "Schön, dich kennenzulernen, {{name}}!",
+    "infoText_1": "Lass uns gemeinsam an deinem Wohlbefinden arbeiten.",
+    "infoText_2": "Lumina unterstützt dich mit personalisierten Übungen und begleitet dich bei deiner Entwicklung.",
+    "configuredTitle": "Dein Coach hat schon ein paar Dinge für dich vorbereitet.",
+    "configuredText": "Lumina ist auf deine individuellen Bedürfnisse zugeschnitten. Dein Coach kann die Einstellungen jederzeit anpassen – z. B. wie die KI mit dir spricht oder welches Hintergrundwissen sie nutzt, um dich bestmöglich zu unterstützen.",
+    "sharingNote": "Wichtig: Dein Coach bekommt Einblicke in deine App-Nutzung. Du kannst das jederzeit deaktivieren, z. B. beim Chatten mit der KI, über die Option „Mit dem Coach teilen“ oben rechts. Wenn du aber Inhalte eingibst, die auf eine akute Gefährdung hinweisen (z. B. Gedanken an Selbstverletzung), wird dein Coach unabhängig von deinen Freigabeeinstellungen benachrichtigt und erhält die Nachricht, um dich unterstützen zu können.",
     "finish": "Los geht's!",
-    "languageSelection": "Welche Sprache möchten Sie verwenden??",
-    "termsTitle": "Zuerst etwas Technisches.",
-    "termsText": "Um unsere Anwendung nutzen zu können, müssen Sie den Nutzungsbedingungen und der Datenschutzrichtlinie zustimmen. Wir tun unser Bestes, um Ihre Daten zu schützen. Sie können die Nutzungsbedingungen lesen, indem Sie unten klicken.",
+    "languageSelection": "Welche Sprache möchtest du verwenden?",
+    "termsTitle": "Bevor wir starten...",
+    "termsText": "Um die App zu nutzen, musst du den Nutzungsbedingungen und der Datenschutzerklärung zustimmen. Wir geben unser Bestes, deine Daten zu schützen. Du kannst die Bedingungen unten nachlesen.",
     "termsButton": "Einverstanden & Weiter",
     "onboardingError": "Einsteigen fehlgeschlagen: ",
-    "onboardingTryAgain": "Das Boarding ist fehlgeschlagen, bitte versuchen Sie es erneut.",
-    "onboardingErrorName": "Ihr Name konnte nicht festgelegt werden: ",
-    "onboardingTryAgainName": "Die Eingabe Ihres Namens ist fehlgeschlagen, bitte versuchen Sie es erneut.",
-    "chooseAvatarTitle": "Wählen Sie einen Avatar!",
-    "chooseAvatarText": "Sie können wählen, wie der Chatbot, Lumina AI, aussehen soll.",
-    "avatarRequired": "Bitte wählen Sie einen Avatar, um fortzufahren.",
+    "onboardingTryAgain": "Der Einstieg ist fehlgeschlagen, bitte versuch es erneut.",
+    "onboardingErrorName": "Dein Name konnte nicht gespeichert werden: ",
+    "onboardingTryAgainName": "Deine Namenseingabe ist fehlgeschlagen, bitte versuch es erneut.",
+    "chooseAvatarTitle": "Wähle einen Avatar!",
+    "chooseAvatarText": "Du kannst entscheiden, wie der Chatbot Lumina AI für dich aussehen soll.",
+    "avatarRequired": "Bitte wähle einen Avatar, um fortzufahren.",
     "avatarError": "Avatar konnte nicht gespeichert werden: ",
-    "avatarTryAgain": "Avatar konnte nicht gespeichert werden, bitte versuchen Sie es erneut."
+    "avatarTryAgain": "Avatar konnte nicht gespeichert werden, bitte versuch es erneut."
   },
   "questionnaires": {
     "title": "Questionnaires",
-    "disclaimer": "Disclaimer: Diese Fragebögen unterstützen die Selbstreflexion, sind aber keine Diagnoseinstrumente. Bitte konsultieren Sie Ihren Coach für eine professionelle Beratung.",
-    "selection": "Welchen Fragebogen/Test möchten Sie ausfüllen?",
+    "disclaimer": "Disclaimer: Diese Fragebögen unterstützen die Selbstreflexion, sind aber keine Diagnoseinstrumente. Bitte konsultiere deinen Coach für eine professionelle Beratung.",
+    "selection": "Welchen Fragebogen/Test möchtest du ausfüllen?",
     "completed": "Ausgefüllte Fragebögen:",
     "submit": "Speichern",
     "noTests": "Bisher wurden keine Fragebögen ausgefüllt.",
@@ -250,7 +265,7 @@
     "GAD-7": {
       "title": "GAD-7",
       "explanation": "Generalisierte Angststörungsskala 7 Fragebogen",
-      "description": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+      "description": "Wie oft hast du dich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt gefühlt?",
       "questions": [
         "Nervosität, Ängstlichkeit oder Anspannung",
         "Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren",
@@ -271,7 +286,7 @@
   "navigation": {
     "home": "Home",
     "chat": "Neuer Chat",
-    "chats": "Unterhaltungen",
+    "chats": "Chats",
     "settings": "Einstellungen",
     "logout": "Log out",
     "exercise": "Übungen",
@@ -282,7 +297,7 @@
   "footer": {
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzbestimmungen",
-    "aiwarning": "AI-Antworten können ungenau sein. Überprüfen Sie wichtige Informationen."
+    "aiwarning": "AI-Antworten können ungenau sein. Überprüfe wichtige Informationen."
   },
   "journal": {
     "title": "Journal",
@@ -300,19 +315,19 @@
     "error": {
       "tagsFailed": "Tags konnten nicht abgerufen werden: ",
       "savingFailed": "Journaleintrag konnte nicht gespeichert werden: ",
-      "savingTryAgain": "Der Journaleintrag konnte nicht gespeichert werden, bitte versuchen Sie es erneut."
+      "savingTryAgain": "Der Journaleintrag konnte nicht gespeichert werden, bitte versuche es erneut."
     },
     "modal": {
-      "backWarning": "Sind Sie sicher, dass Sie zurückgehen wollen? Ihr Tagebucheintrag wird verloren gehen.",
-      "backUpdateWarning": "Sind Sie sicher, dass Sie zurückgehen wollen? Ihre Aktualisierungen gehen dann verloren.",
+      "backWarning": "Bist du sicher, dass du zurückgehen willst? Dein Tagebucheintrag wird verloren gehen.",
+      "backUpdateWarning": "Bist du sicher, dass du zurückgehen willst? Deine Aktualisierungen gehen dann verloren.",
       "backDiscard": "Änderungen verwerfen",
       "backStay": "Bleiben",
-      "saveError": "Vergewissern Sie sich, dass Sie einen Titel und eine Notiz haben.",
+      "saveError": "Vergewissere dich, dass du einen Titel und eine Notiz hast.",
       "saveOkay": "Okay",
-      "deleteWarning": "Sind Sie sicher, dass Sie diesen Journaleintrag löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "deleteWarning": "Bist du sicher, dass du diesen Journaleintrag löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
       "deleteConfirm": "Löschen bestätigen",
       "deleteCancel": "Abbrechen",
-      "updateError": "Vergewissern Sie sich, dass Sie einen Titel und eine Notiz haben.",
+      "updateError": "Vergewissere dich, dass du einen Titel und eine Notiz hast.",
       "updateOkay": "Okay"
     },
     "tooltip": {
@@ -341,29 +356,34 @@
     "status": "Status:"
   },
   "documentChatbot": {
-    "welcomeMessage": "Hallo, ich bin {{chatbotName}}. Wie kann ich Ihnen helfen, das Dokument zu verstehen?",
+    "welcomeMessage": "Hallo, ich bin {{chatbotName}}. Wie kann ich dir helfen, das Dokument zu verstehen?",
     "tooltipClearHistory": "Chat-Verlauf löschen",
-    "tooltipChatbotInfo": "Der Chatbot basiert auf dem hochgeladenen Dokument."
+    "tooltipChatbotInfo": "Der Chatbot basiert auf dem hochgeladenen Dokument.",
+    "type": "Dokument"
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Training helfen?",
-    "tooltipClearHistory": "Chat-Verlauf löschen"
+    "tooltipClearHistory": "Chat-Verlauf löschen",
+    "tooltipChatbotInfo": "Der Chatbot basiert auf der Übung, die du gerade durchführst.",
+    "type": "Übung"
   },
   "journalChatbot": {
     "welcomeMessage": "Hey, ich bin {{chatbotName}}. Wie kann ich dir heute bei deinem Journal helfen?",
-    "tooltipClearHistory": "Chat-Verlauf löschen"
+    "tooltipClearHistory": "Chat-Verlauf löschen",
+    "tooltipChatbotInfo": "Der Chatbot basiert auf dem Journal, das du gerade schreibst.",
+    "type": "Journal"
   },
   "actionProvider": {
     "error": {
       "failedToCreateConversation": "Unterhaltung konnte nicht erstellt werden.",
       "failedToFetchPreviousMessages": "Vorherige Nachrichten konnten nicht abgerufen werden.",
       "failedToGenerateResponse": "Keine Netzwerkverbindung.",
-      "tryAgain": "Ich habe Ihre Nachricht erhalten, konnte aber keine richtige Antwort erstellen. Bitte versuchen Sie es später noch einmal.",
+      "tryAgain": "Ich habe deine Nachricht erhalten, konnte aber keine richtige Antwort erstellen. Bitte versuche es später noch einmal.",
       "failedToClearHistory": "Chat-Verlauf konnte nicht gelöscht werden."
     },
     "chatbotMessage": {
-      "errorMessage": "Leider ist bei der Bearbeitung Ihrer Anfrage ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
-      "emptyInputMessage": "Bitte geben Sie etwas in das Eingabefeld ein, damit ich Ihnen helfen kann."
+      "errorMessage": "Leider ist bei der Bearbeitung deiner Anfrage ein Fehler aufgetreten. Bitte versuche es später noch einmal.",
+      "emptyInputMessage": "Bitte gib etwas in das Eingabefeld ein, damit ich dir helfen kann."
     }
   },
   "documents": {
@@ -371,12 +391,14 @@
     "noDocuments": "Zurzeit sind keine Dokumente verfügbar.",
     "error": {
       "fetchFailed": "Dokumente konnten nicht abgerufen werden: ",
-      "fetchFailedTryAgain": "Der Abruf der Dokumente ist fehlgeschlagen, bitte versuchen Sie es erneut."
+      "fetchFailedTryAgain": "Der Abruf der Dokumente ist fehlgeschlagen, bitte versuche es erneut."
     }
   },
   "individualDocument": {
-    "download": "{{documentName}} herunterladen",
+    "download": "Herunterladen",
     "noPreview": "Vorschau für diesen Dateityp nicht verfügbar.",
+    "noPreviewMobile": "Vorschau für diesen Dateityp auf mobilen Geräten nicht verfügbar.",
+    "openPdf": "PDF öffnen",
     "error": {
       "fetchFailed": "Dokument konnte nicht abgerufen werden"
     }

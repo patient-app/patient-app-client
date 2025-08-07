@@ -1,14 +1,15 @@
 "use client";
 
-import { LoginPatientDTO } from "@/dto/input/LoginPatientDTO";
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import {LoginPatientDTO} from "@/dto/input/LoginPatientDTO";
+import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import PasswordField from "@/components/PasswordField";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const Login = () => {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
 
     const [, setLanguageReady] = useState(false);
 
@@ -50,7 +51,7 @@ const Login = () => {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify(formData),
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/login", requestInit);
             if (!response.ok) {
@@ -68,7 +69,7 @@ const Login = () => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({...formData, [e.target.name]: e.target.value});
     };
 
     return (
@@ -77,7 +78,7 @@ const Login = () => {
             <h2 className="text-2xl font-medium mb-3">{t("login.title")}</h2>
 
             <form onSubmit={handleLogin} className="flex flex-col items-center gap-4 w-full"
-                style={{ maxWidth: "20rem" }}>
+                  style={{maxWidth: "20rem"}}>
                 <div className="flex flex-col gap-2 w-full">
                     <label className="font-semibold" htmlFor="email">{t("login.email")}</label>
                     <input
@@ -103,7 +104,7 @@ const Login = () => {
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span>{t("login.forgotPassword")}</span>
                         <a href={`${BASE_PATH}/reset-password`}
-                            className="text-emerald-600 hover:underline cursor-pointer">{t("login.reset")}</a>
+                           className="text-emerald-600 hover:underline cursor-pointer">{t("login.reset")}</a>
                     </div>
 
                     <button
@@ -112,17 +113,13 @@ const Login = () => {
                         {t("login.submit")}
                     </button>
 
-                    {error && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {error}
-                        </div>
-                    )}
+                    <ErrorComponent message={error}/>
 
                     <div className="flex gap-1 items-center text-base mt-2">
                         <span className="italic">{t("login.noAccount")}</span>
                     </div>
-                    <a href={`${BASE_PATH}/terms`} target="_blank" className="text-emerald-600 hover:underline w-full text-center">{t("footer.terms")}</a>
+                    <a href={`${BASE_PATH}/terms`} target="_blank"
+                       className="text-emerald-600 hover:underline w-full text-center">{t("footer.terms")}</a>
 
 
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 import {Eye, EyeOff} from "lucide-react";
 import {Tooltip} from "flowbite-react";
@@ -23,6 +23,15 @@ export default function ExerciseInputField({
 }>) {
     const [input, setInput] = useState(component.userInput ?? "");
     const {t} = useTranslation();
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        if (readonly && textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    }, [readonly, component.userInput]);
+
 
     const updateExerciseComponent = async () => {
         if (readonly) return;
@@ -64,6 +73,7 @@ export default function ExerciseInputField({
             </label>
             <div className="relative w-full">
                 <textarea
+                    ref={textareaRef}
                     id={elementId}
                     value={readonly ? (component.userInput ?? " ") : input}
                     onChange={(e) => !readonly && setInput(e.target.value)}

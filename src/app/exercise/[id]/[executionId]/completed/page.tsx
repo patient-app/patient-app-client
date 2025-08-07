@@ -12,6 +12,7 @@ import ExerciseImage from "@/components/exerciseComponents/ExerciseImage";
 import ExerciseYoutube from "@/components/exerciseComponents/ExerciseYoutube";
 import ExerciseFile from "@/components/exerciseComponents/ExerciseFile";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const ExerciseCompletionInfoPage = () => {
@@ -54,7 +55,7 @@ const ExerciseCompletionInfoPage = () => {
         };
 
         getExercise();
-    });
+    }, [id, executionId, t]);
 
 
     const renderElement = (element: ExerciseComponentsDTO) => {
@@ -109,20 +110,23 @@ const ExerciseCompletionInfoPage = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 ">
+        <div className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <div className="relative w-full flex items-center justify-center mb-3">
                 <ArrowLeft
-                    onClick={() => router.push(`${BASE_PATH}/exercise/${id}`)}
+                    onClick={() => router.push(
+                        `${BASE_PATH}/exercise/${id}${exercise?.exerciseTitle ? `?title=${encodeURIComponent(exercise.exerciseTitle)}` : ""}`
+                    )
+                    }
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
                 <h1 className="text-3xl font-semibold text-center">{exercise?.exerciseTitle}</h1>
             </div>
 
-            <hr className="w-[100%] border-gray-300 border-1 my-2"/>
+            <hr className="w-full desktop:w-4/5 border-gray-300 border-1 my-2"/>
 
 
             {exercise && exercise.exerciseComponents && (
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full desktop:w-4/5 flex flex-col gap-4">
                     {exercise.exerciseComponents
                         .slice()
                         .sort((a, b) => a.orderNumber - b.orderNumber)
@@ -135,11 +139,7 @@ const ExerciseCompletionInfoPage = () => {
                 </div>
             )}
 
-            {error && (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
-            )}
+            <ErrorComponent message={error}/>
 
 
         </div>

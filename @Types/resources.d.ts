@@ -6,6 +6,12 @@ interface Resources {
             "logout": "",
             "avatarSuccess": "",
             "avatarLabel": "",
+            "notificationSuccess": "",
+            "notificationLabel": "",
+            "notifications":{
+                "enabled":"",
+                "disabled":""
+            }
             "error": {
                 "languageFailed": "",
                 "languageTryAgain": "",
@@ -15,7 +21,13 @@ interface Resources {
                 "passwordChangeFailed": "",
                 "passwordChangeTryAgain": "",
                 "nameChangeFailed": "",
-                "nameChangeTryAgain": ""
+                "nameChangeTryAgain": "",
+                "avatarChangeFailed": "",
+                "avatarChangeTryAgain": "",
+                "avatarFetchFailed": "",
+                "avatarFetchTryAgain": ""
+                "notificationFetchFailed": "",
+                "notificationsUpdateFailed": ""
             },
             "password": {
                 "label": "",
@@ -105,7 +117,9 @@ interface Resources {
             },
             "questionnaires": {
                 "title": "",
-                "showAll": ""
+                "noQuestionnaires":"",
+                "showAll": "",
+                "start": ""
             }
         },
         "exercise": {
@@ -223,6 +237,7 @@ interface Resources {
             "infoText_2": "",
             "configuredTitle": "",
             "configuredText": "",
+            "sharingNote": "",
             "finish": "",
             "languageSelection": "",
             "termsTitle": "",
@@ -344,15 +359,20 @@ interface Resources {
         "documentChatbot": {
             "welcomeMessage": "",
             "tooltipClearHistory": "",
-            "tooltipChatbotInfo": ""
+            "tooltipChatbotInfo": "",
+            "type": ""
         }
         "exerciseChatbot": {
             "welcomeMessage": "",
-            "tooltipClearHistory": ""
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": "",
+            "type":""
         },
         "journalChatbot": {
             "welcomeMessage": "",
-            "tooltipClearHistory": ""
+            "tooltipClearHistory": "",
+            "tooltipChatbotInfo": "",
+            "type": ""
         },
         "actionProvider": {
             "error": {
@@ -378,6 +398,8 @@ interface Resources {
         "individualDocument": {
             "download": "",
             "noPreview": "",
+            "noPreviewMobile": "",
+            "openPdf": "",
             "error": {
                 "fetchFailed": ""
             }

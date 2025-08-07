@@ -5,8 +5,7 @@ import Chatbot from "react-chatbot-kit";
 import '../../chatbot/chatbot.css'
 import {useTranslation} from "react-i18next";
 import {useEffect, useMemo, useRef, useState} from "react";
-import {ArrowLeft} from "lucide-react";
-import {Bot, BotOff, Eye, EyeOff, Trash2} from "lucide-react";
+import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
 import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
 import {useRouter} from "next/navigation";
 import {BASE_PATH} from "@/libs/constants";
@@ -21,10 +20,9 @@ export default function ChatPage() {
     const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null); // use null for consistency
     const [avatar, setAvatar] = useState("none");
     const [shareWithCoach, setShareWithCoach] = useState(false);
-    const [aiMemory, setAIMemory] = useState(false);
 
     const toggleCoachSharing = async () => {
-        if(!conversationId) return;
+        if (!conversationId) return;
         const newValue = !shareWithCoach;
         setShareWithCoach(newValue);
 
@@ -32,34 +30,16 @@ export default function ChatPage() {
             await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
                 method: "PUT",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: aiMemory }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: true}),
             });
-            console.log("Sharing Options changed: shareWithCoach to " + newValue + " useForMemory:" + aiMemory);
+            console.log("Sharing Options changed: shareWithCoach to " + newValue);
         } catch (err) {
             console.error("Error updating shareWithCoach", err);
             setShareWithCoach(!newValue);
         }
     }
 
-    const toggleAIMemory = async () => {
-        if(!conversationId) return;
-        const newValue = !aiMemory;
-        setAIMemory(newValue);
-
-        try {
-            await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${conversationId}`, {
-                method: "PUT",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shareWithCoach: shareWithCoach, shareWithAi: newValue }),
-            });
-            console.log("Sharing Options changed: shareWithCoach to " + shareWithCoach + " useForMemory:" + newValue);
-        } catch (err) {
-            console.error("Error updating aiMemory", err);
-            setAIMemory(!newValue);
-        }
-    }
 
     useEffect(() => {
         if (hasCreatedConversation.current) return;
@@ -75,7 +55,6 @@ export default function ChatPage() {
                     },
                 });
 
-                setAIMemory(true);
                 setShareWithCoach(true);
 
                 if (response.status !== 201) {
@@ -120,7 +99,7 @@ export default function ChatPage() {
     }, []);
 
     const deleteChat = async () => {
-        if(!conversationId) return;
+        if (!conversationId) return;
         try {
             const requestInit: RequestInit = {
                 method: "DELETE",
@@ -173,21 +152,6 @@ export default function ChatPage() {
                 onClick={() => router.back()}
                 className="text-gray-500 text-xl cursor-pointer"
             />
-            <h1 className="text-3xl font-semibold text-center">{t("chat.title")}</h1>
-
-            {conversationId &&
-                <button
-                    className="absolute top-8 right-42 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
-                    onClick={() => toggleAIMemory()}
-                >
-                    {aiMemory ? (<Bot size={30} strokeWidth={1.75}/>) : (<BotOff size={30} strokeWidth={1.75}/>)}
-                    <span className="text-xs font-medium text-center">
-                            {((aiMemory) ? t("chats.sharingoptions.useForAIMemory_on") : t("chats.sharingoptions.useForAIMemory_off")).split(" ").map((word: string, idx: number) => (
-                                <div key={idx}>{word}</div>
-                            ))}
-                        </span>
-                </button>
-            }
 
             {conversationId &&
                 <button
@@ -219,6 +183,7 @@ export default function ChatPage() {
             </button>
             }
 
+            <h1 className="text-3xl font-semibold text-center mt-5">{t("chat.title")}</h1>
             <input
                 type="text"
                 placeholder={t("chat.unnamedChat")}
@@ -233,8 +198,11 @@ export default function ChatPage() {
                 }}
                 className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
             />
-
-            <span className="italic text-center text-sm text-gray-600">{t("footer.aiwarning")} </span>
+            <div className="flex justify-center">
+                <span className="italic text-sm text-gray-600 text-center">
+                    {t("footer.aiwarning")}
+                </span>
+            </div>
             <div className="chatbot-wrapper chatbot-basic">
                 <Chatbot
                     config={createdConfig}

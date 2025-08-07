@@ -25,9 +25,6 @@ COPY . .
 ARG ENV_NAME=production
 RUN cp .env.production.$ENV_NAME .env
 
-ARG NEXT_PUBLIC_BASE_PATH
-ENV NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH
-
 ENV NEXT_LOG_LEVEL=debug
 
 RUN ls -la .env && cat .env

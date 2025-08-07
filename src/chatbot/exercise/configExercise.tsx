@@ -1,5 +1,5 @@
 import {createChatBotMessage} from 'react-chatbot-kit';
-import {Repeat2, X} from 'lucide-react';
+import {Info, Repeat2, X} from 'lucide-react';
 import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
 import {Tooltip} from "flowbite-react";
 import Image from "next/image";
@@ -20,7 +20,7 @@ const BotAvatar = () => {
                     loader={({src, width, quality}: any) => {
                         return `${BASE_PATH}/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality || 75}`;
                     }}
-                    src={`/avatars/animalistic.png`}
+                    src={`/chatbots/Chatbot_Exercises.png`}
                     alt="animalistic avatar"
                     width={80}
                     height={80}
@@ -33,7 +33,11 @@ const BotAvatar = () => {
 
 
 const configExercise = (
-    onClose: () => void, welcomeMessage: string, toolTipContent: string) => ({
+    onClose: () => void,
+    welcomeMessage: string,
+    toolTipContent: string,
+    toolTipChatbot: string,
+    chatbotType: string) => ({
     initialMessages: [createChatBotMessage(welcomeMessage, {})],
     botName: CHATBOT_NAME,
     customStyles: {
@@ -59,9 +63,24 @@ const configExercise = (
                     fontWeight: "bold",
                 }}
             >
-                <div>{CHATBOT_NAME} AI</div>
+                <div>{CHATBOT_NAME} {chatbotType} AI</div>
 
                 <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
+                    <Tooltip content={toolTipChatbot}>
+                        <button
+                            style={{
+                                background: "none",
+                                border: "none",
+                                color: "#514f4f",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                padding: "0 4px",
+                            }}
+                        >
+                            <Info/>
+                        </button>
+                    </Tooltip>
 
                     <Tooltip content={toolTipContent}>
                         <button

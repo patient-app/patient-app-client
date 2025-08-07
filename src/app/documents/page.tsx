@@ -1,11 +1,12 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {DocumentDTO} from "@/dto/output/DocumentDTO";
 import {useRouter} from "next/navigation";
 import {File} from 'lucide-react';
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const DocumentsPage = () => {
     const {t} = useTranslation();
@@ -63,9 +64,7 @@ const DocumentsPage = () => {
             );
         } else if (error) {
             return (
-                <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                    {error}
-                </div>
+                <ErrorComponent message={error}/>
             );
         } else if (documents.length === 0) {
             return (
@@ -81,8 +80,13 @@ const DocumentsPage = () => {
                     className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                 >
                     <div className="flex items-center gap-2">
-                        <File/>
-                        <p className="font-bold">{individualDocument.filename}</p>
+                        <File className="w-5 h-5"/>
+                        <p
+                            className="font-bold truncate"
+                            title={individualDocument.filename}
+                        >
+                            {individualDocument.filename}
+                        </p>
                     </div>
                 </button>
             ))
@@ -90,7 +94,7 @@ const DocumentsPage = () => {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-20 desktop:mb-0">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center">{t("documents.title")}</h1>
             <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                 {renderContent()}

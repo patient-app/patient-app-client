@@ -2,10 +2,11 @@
 
 import {useTranslation} from "react-i18next";
 import {useParams, useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import HelpButton from "@/components/HelpButton";
 import DocumentChatbot from "@/chatbot/document/DocumentChatbot";
 import {ArrowLeft} from "lucide-react";
+import ErrorComponent from "@/components/ErrorComponent";
 
 const IndividualDocumentPage = () => {
     const {t} = useTranslation();
@@ -14,6 +15,7 @@ const IndividualDocumentPage = () => {
     const id = params.id;
 
     const [error, setError] = useState<string | null>(null);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
     const [fileName, setFileName] = useState<string>("");
@@ -67,13 +69,30 @@ const IndividualDocumentPage = () => {
                 />
             );
         } else if (fileType === "application/pdf") {
-            return (
-                <iframe
-                    src={downloadUrl}
-                    title={fileName}
-                    className="w-full h-[400px] desktop:h-[600px] my-6"
-                />
-            );
+            if (isMobile) {
+                return (
+                    <p className="text-center text-gray-500 my-6">
+                        {t("individualDocument.noPreviewMobile")}
+                        <br/>
+                        <a
+                            href={downloadUrl}
+                            className="text-blue-600 underline break-words"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t("individualDocument.openPdf")}</a>
+                    </p>
+                );
+            } else {
+                return (
+                    <iframe
+                        src={downloadUrl}
+                        title={fileName}
+                        className="w-full desktop:w-[80vw] h-[60vh] desktop:h-[70vh] mt-2 mb-2"
+                    />
+                );
+
+            }
         } else {
             return (
                 <p className="text-center text-gray-500 my-6">
@@ -84,22 +103,17 @@ const IndividualDocumentPage = () => {
     };
 
     return (
-        <div className="mb-20 desktop:mb-0">
+        <div className="mb-15 desktop:mb-0">
             <ArrowLeft
                 onClick={() => router.back()}
                 className="text-gray-500 text-xl cursor-pointer"
             />
             <h1 className="text-3xl font-semibold text-center mb-10">{fileName}</h1>
-
-            {renderPreview()}
-
             <div className="flex justify-center">
-                {error && (
-                    <div
-                        className="mt-2 p-2 text-sm bg-red-100 text-red-700 border border-red-300 rounded w-fit max-w-xs">
-                        {error}
-                    </div>
-                )}
+                {renderPreview()}
+            </div>
+            <div className="flex justify-center">
+                <ErrorComponent message={error}/>
             </div>
 
             {!error && downloadUrl && (
@@ -109,7 +123,7 @@ const IndividualDocumentPage = () => {
                         download={fileName}
                         className="inline-block max-w-xs mt-3 px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer truncate overflow-hidden whitespace-nowrap"
                     >
-                        {t("individualDocument.download", {documentName: fileName})}
+                        {t("individualDocument.download")}
                     </a>
                 </div>
             )}
@@ -117,7 +131,6 @@ const IndividualDocumentPage = () => {
             <HelpButton
                 chatbot={
                     <DocumentChatbot
-                        isOpen={false}
                         onCloseAction={() => {
                         }}
                     />

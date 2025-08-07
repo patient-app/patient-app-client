@@ -44,7 +44,7 @@ export default function Home() {
 
 
     return (
-        <main className="flex flex-col items-center justify-center w-full gap-5 p-5">
+        <main className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold">{t("chats.title")}</h1>
             <div className="w-[80%] max-w-3xl flex flex-col items-center justify-center">
                 <div
@@ -59,8 +59,7 @@ export default function Home() {
                         onClick={() => router.push(`${BASE_PATH}/chats/${conv.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
-                        <p className="font-bold">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>
-                        <p className="italic text-gray-400 text-sm">{conv.id}</p>
+                        <p className="font-bold truncate overflow-hidden whitespace-nowrap w-full">{conv.name ? conv.name : t("chats.unnamedConversation")}</p>
                     </div>
                 ))}
             </div>

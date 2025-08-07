@@ -4,7 +4,7 @@
 
     /* 100vh = screen height | 24px = chatbot padding | 52px = chatbot margin | 80px = mobile navigation height*/
     /* 20px spacing */
-    height: calc(100vh - 205px); /* 24 + 52 + 80 + 20 = 176 */
+    height: calc(100vh - 232px); /* 24 + 52 + 80 + 20 = 176 */
 
     margin-left: auto;
     margin-right: auto;
@@ -21,9 +21,21 @@
 /* From 0 pixels up to 725, i.e. when navigation is at the bottom: */
 @media screen and (max-width: 725px) {
     .chatbot-basic .react-chatbot-kit-chat-input-container {
-        position: relative;
+        position: fixed;
+        bottom: 5rem;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        padding: 8px 12px;
+        background: white;
+    }
+
+    .chatbot-basic .react-chatbot-kit-chat-container {
+        padding-bottom: 1rem;
     }
 }
+
+
 
 
 .chatbot-basic .react-chatbot-kit-chat-inner-container {

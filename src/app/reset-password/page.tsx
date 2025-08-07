@@ -2,12 +2,13 @@
 
 import {ResetPasswordPatientDTO} from "@/dto/input/ResetPasswordPatientDTO";
 import {useState} from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const Page = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const [formData, setFormData] = useState<ResetPasswordPatientDTO>({
         email: "",
@@ -38,10 +39,10 @@ const Page = () => {
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/reset-password", requestInit);
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(( t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
+                setError((t("reset.error.resetFailed") + errorData.message) || t("reset.error.resetTryAgain"));
             } else {
                 setSuccess(t("reset.success"));
-                setFormData({ email: "" });
+                setFormData({email: ""});
             }
         } catch (e) {
             setError(t("reset.error.resetTryAgain"));
@@ -60,7 +61,8 @@ const Page = () => {
             <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
                 <h2 className="text-2xl font-medium mb-3">{t("reset.title")}</h2>
 
-                <form onSubmit={handleReset} className="flex flex-col items-center gap-4 w-full" style={{ maxWidth: "20rem" }}>
+                <form onSubmit={handleReset} className="flex flex-col items-center gap-4 w-full"
+                      style={{maxWidth: "20rem"}}>
                     <div className="flex flex-col gap-2 w-full">
                         <label className="font-semibold" htmlFor="email">{t("reset.email")}</label>
                         <input
@@ -85,11 +87,7 @@ const Page = () => {
                             {waiting ? t("reset.waiting") : t("reset.submit")}
                         </button>
 
-                        {error && (
-                            <div className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                                {error}
-                            </div>
-                        )}
+                        <ErrorComponent message={error}/>
 
                         {success && (
                             <>
@@ -102,11 +100,12 @@ const Page = () => {
                                     {t("reset.spamInformation")}
                                 </div>
                             </>
-                    )}
+                        )}
 
                         <div className="flex gap-1 items-center text-base mt-2">
                             <span>{t("reset.backToLogin")} </span>
-                            <a href={`${BASE_PATH}/login`} className="text-emerald-600 hover:underline cursor-pointer">{t("reset.login")}</a>
+                            <a href={`${BASE_PATH}/login`}
+                               className="text-emerald-600 hover:underline cursor-pointer">{t("reset.login")}</a>
                         </div>
                     </div>
                 </form>

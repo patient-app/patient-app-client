@@ -5,6 +5,12 @@
     "logout": "Logout",
     "avatarSuccess": "Avatar changed.",
     "avatarLabel": "Change Avatar",
+    "notificationSuccess": "Notification settings updated.",
+    "notificationLabel": "Change Notification Settings",
+    "notifications":{
+      "enabled":"Notifications enabled",
+      "disabled":"Notifications disabled"
+    },
     "error": {
       "languageFailed": "Failed to change language: ",
       "languageTryAgain": "Failed to change the language, please try again.",
@@ -14,7 +20,13 @@
       "passwordChangeFailed": "Failed to change password: ",
       "passwordChangeTryAgain": "Failed to change the password, please try again.",
       "nameChangeFailed": "Failed to change name: ",
-      "nameChangeTryAgain": "Failed to change the name, please try again."
+      "nameChangeTryAgain": "Failed to change the name, please try again.",
+      "avatarChangeFailed": "Failed to change avatar: ",
+      "avatarChangeTryAgain": "Failed to change the avatar, please try again.",
+      "avatarFetchFailed": "Failed to fetch avatars: ",
+      "avatarFetchTryAgain": "Failed to fetch avatars, please choose a new one.",
+      "notificationFetchFailed": "Failed to fetch notification settings",
+      "notificationsUpdateFailed": "Failed to update notification settings"
     },
     "password": {
       "label": "Change Password",
@@ -104,7 +116,9 @@
     },
     "questionnaires": {
       "title": "Questionnaires",
-      "showAll": "Show all"
+      "noQuestionnaires": "No questionnaires yet.",
+      "showAll": "Show all",
+      "start": "Start"
     }
   },
   "exercise": {
@@ -137,7 +151,7 @@
     },
     "completedExercise": "Completed Exercise",
     "completeExecution": "Complete Exercise",
-    "start":"Start"
+    "start": "Start"
   },
   "exerciseInput": {
     "error": {
@@ -183,7 +197,7 @@
     "placeholder": "Ask Lumina AI",
     "sharingoptions": "Sharing Options",
     "deleteChat": "Delete Chat",
-    "loadingChat": "Loading chat...",
+    "loadingChat": "Loading conversation...",
     "unnamedChat": "Unnamed Conversation",
     "awaitingAnswer": "Generating answer...",
     "modal": {
@@ -195,33 +209,34 @@
   "chats": {
     "title": "Conversations",
     "empty": "No chats available.",
-    "loading": "Loading chats...",
+    "loading": "Loading conversations...",
     "chat": "Chat ",
     "startNewConversation": "+ Start a new conversation",
     "unnamedConversation": "Unnamed Conversation",
     "sharingoptions": {
-      "shareWithCoach_on": "Coach Sharing on",
-      "shareWithCoach_off": "Coach Sharing off",
-      "useForAIMemory_on": "AI Memory on",
-      "useForAIMemory_off": "AI Memory off"
+      "shareWithCoach_on": "Sharing on",
+      "shareWithCoach_off": "Sharing off",
+      "useForAIMemory_on": "Memory on",
+      "useForAIMemory_off": "Memory off"
     }
   },
   "terms": {
     "title": "Terms and Conditions",
-    "text": "<b>Terms and Conditions</b><br>Welcome to our Patient Support Application (\"App\"). By using this App, you agree to the following terms and conditions. Please read them carefully.<br><br><b>1. Purpose of the App</b><br>This App is designed to support patients between psychotherapeutic sessions by providing guided exercises, reminders, journaling tools, mood tracking, and a conversational AI companion. The App may also allow your therapist to monitor your progress and provide feedback.<br><br><b>2. Not a Substitute for Medical Advice</b><br>The App is not a substitute for professional medical advice, diagnosis, or treatment. Always seek advice from your qualified healthcare provider with any questions regarding a medical condition. Never disregard or delay seeking professional advice because of information provided by this App.<br><br><b>3. User Eligibility</b><br>This App is intended for use by patients receiving psychotherapeutic treatment and their therapists. By using this App, you confirm you are at least 18 years old or have consent from a legal guardian.<br><br><b>4. Privacy and Data Protection</b><br>Personal data and health-related information you enter in this App will be stored securely and only shared with your therapist as agreed.<br>You have control over what data is shared with your therapist. See our <a href=\"/privacy-policy\">Privacy Policy</a> for full details.<br>We anonymize data for research purposes where possible.<br><br><b>5. Use of AI and Chatbot</b><br>The AI chatbot is intended to support and motivate you, but may not always provide correct or appropriate information.<br>Do not rely solely on AI advice for critical decisions or emergencies.<br>All conversations may be logged for quality improvement and research, as described in the privacy policy.<br><br><b>6. User Responsibilities</b><br>You are responsible for the accuracy of the information you provide.<br>Do not use the App to harm yourself or others, or for any illegal activities.<br><br><b>7. Notifications and Reminders</b><br>The App can send notifications to remind you of therapy tasks, appointments, or healthy habits. You can manage notification settings in your profile.<br><br><b>8. Account and Security</b><br>Keep your login credentials confidential.<br>Notify us immediately if you suspect unauthorized access to your account.<br><br><b>9. Changes to the App and Terms</b><br>We may update or discontinue features at any time.<br>Terms may change; material changes will be communicated to you. Continued use means acceptance of the new terms.<br><br><b>10. Limitation of Liability</b><br>We do our best to provide a reliable App, but we cannot guarantee it will always be available, error-free, or meet your expectations. We are not liable for any damages arising from your use of the App.<br><br><b>11. Acceptance</b><br>By creating an account or using the App, you accept these Terms and Conditions.<br>",
+    "text": "<b>Terms and Conditions</b><br>Welcome to Lumina (also referred to as \"App\" or \"Application\"). By using this App, you agree to the following terms and conditions.<br><br><b>1. Purpose of the App</b><br>This App is designed to support clients between psychotherapeutic sessions by providing an artificial intelligence (AI) conversation companion, guided exercises, journaling tools, mood tracking. The App also allows your coach to monitor your progress and provide feedback.<br><br><b>2. Not a Substitute for Medical Advice</b><br>The App is not a substitute for professional medical advice, diagnosis, or treatment. Always seek advice from your qualified healthcare provider with any questions regarding a medical condition. Never disregard or delay seeking professional advice because of information provided by this App. Using the app is only allowed for people with stable mental conditions.<br><br><b>3. User Eligibility</b><br>This App is intended for use by clients receiving psychotherapeutic treatment and their coaches. By using this App, you confirm you are at least 18 years old or have consent from a legal guardian.<br><br><b>4. Privacy and Data Protection</b><br>Personal data and health-related information you enter in this App will be stored securely on a storage at the university and only shared with your coach as agreed.<br>You have control over what data is shared with your therapist by enabling and disabling the sharing. We are allowed to use analytical data for research purposes.<br><br><b>5. Use of AI and Chatbot</b><br>The AI chatbot is intended to support and motivate you, but may not always provide correct or appropriate information.<br>Do not rely solely on AI advice for critical decisions or emergencies. If in need for urgent help, contact emergency services.<br><br><b>6. User Responsibilities</b><br>You are responsible for the accuracy of the information you provide.<br>Do not use the App to harm yourself or others, or for any illegal activities. If entering harmful content, your coach will be informed regardless of your sharing settings, and will be able to see the message with the harmful content.<br><br><b>7. Account and Security</b><br>Keep your login credentials confidential.<br>Notify us immediately if you suspect unauthorized access to your account.<br><br><b>8. Changes to the App and Terms</b><br>We may update or discontinue features at any time.<br>Terms may change. Continued use means acceptance of the new terms.<br><br><b>9. Limitation of Liability</b><br>We do our best to provide a reliable App, but we cannot guarantee it will always be available, error-free, or meet your expectations. We are not liable for any damages arising from your use of the App.<br><br><b>10. Acceptance</b><br>By creating an account or using the App, you accept these Terms and Conditions.<br>",
     "closebutton": "Close Terms and Conditions"
   },
   "onboarding": {
-    "welcomeTitle": "Welcome to Lumina AI",
+    "welcomeTitle": "Welcome to Lumina",
     "welcomeText": "Let's get started with a few questions to personalize your experience.",
     "continue": "Continue",
     "nameTitle": "How should we call you?",
     "namePlaceholder": "Enter your preferred name",
     "infoTitle": "Nice to meet you, {{name}}!",
     "infoText_1": "Let's work together toward better health.",
-    "infoText_2": "Lumina AI is here to support your well-being and guide you through personalized exercises.",
+    "infoText_2": "Lumina is here to support your well-being and guide you through personalized exercises.",
     "configuredTitle": "Your coach already defined some things for you.",
-    "configuredText": "Lumina is personalized for your individual needs. You can talk to your coach to change it, and make adjustments throughout the app.",
+    "configuredText": "Lumina is tailored to your individual needs. Your coach can adjust it at any time and has configured various parts of the app, including how the AI/chatbot communicates and what background knowledge it uses to support you in the best possible way.",
+    "sharingNote": "Important: Your coach will receive insights into how you use the app. You can disable this at any time by clicking the 'Share With Coach' button in the top right, for example when chatting with the AI. However, if you enter harmful content (e.g. related to self-harm), your coach will be notified and receive the relevant chat message, regardless of your sharing settings, so they can support you.",
     "finish": "Get started!",
     "languageSelection": "What language would you like to use?",
     "termsTitle": "Something technical first.",
@@ -343,15 +358,20 @@
   "documentChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I assist you with understanding the document?",
     "tooltipClearHistory": "Clear chat history",
-    "tooltipChatbotInfo": "Chatbot is based on the uploaded document."
+    "tooltipChatbotInfo": "Chatbot is based on the uploaded document.",
+    "type": "Document"
   },
   "exerciseChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your exercise today?",
-    "tooltipClearHistory": "Clear chat history"
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on the exercise content.",
+    "type": "Exercise"
   },
   "journalChatbot": {
     "welcomeMessage": "Hey, I'm {{chatbotName}}. How can I help you with your journaling?",
-    "tooltipClearHistory": "Clear chat history"
+    "tooltipClearHistory": "Clear chat history",
+    "tooltipChatbotInfo": "Chatbot is based on your journal entry.",
+    "type": "Journal"
   },
   "actionProvider": {
     "error": {
@@ -375,8 +395,10 @@
     }
   },
   "individualDocument": {
-    "download": "Download {{documentName}}",
+    "download": "Download",
     "noPreview": "Preview not available for this file type.",
+    "noPreviewMobile": "Preview not available for this file type on mobile.",
+    "openPdf": "Open PDF",
     "error": {
       "fetchFailed": "Failed to fetch document"
     }

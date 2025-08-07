@@ -8,6 +8,7 @@ import PasswordField from "@/components/PasswordField";
 import {Check, X} from "lucide-react";
 import AvatarSelector from "@/components/AvatarSelector";
 import {BASE_PATH} from "@/libs/constants";
+import ErrorComponent from "@/components/ErrorComponent";
 
 
 const title_style = "text-xl font-semibold text-gray-800 w-full mb-2 text-center";
@@ -37,13 +38,19 @@ const Page = () => {
     const [languageError, setLanguageError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [passwordSuccess, setPasswordSuccess] = useState(false);
-    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
     const [avatarError, setAvatarError] = useState<string | null>(null);
     const [avatarSuccess, setAvatarSuccess] = useState<string | null>(null);
+    const [notificationError, setNotificationError] = useState<string | null>(null);
+    const [notificationSuccess, setNotificationSuccess] = useState(false);
 
     const [showOld, setShowOld] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+
+    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+
+    const [notificationEnabled, setNotificationEnabled] = useState(false);
+
 
     const handleAvatarSelect = async (avatar: string) => {
         if (selectedAvatar === avatar) return;
@@ -85,16 +92,37 @@ const Page = () => {
                     credentials: "include",
                 });
                 if (!response.ok) {
-                    setAvatarError("Failed to fetch avatar, please choose a new one.")
+                    setAvatarError(t("settings.error.avatarFetchTryAgain"));
                 }
                 const data = await response.json();
                 setSelectedAvatar(data.chatBotAvatar.toLowerCase());
             } catch (error) {
                 console.error("Failed to fetch avatar", error);
-                setAvatarError("Failed to fetch avatar, please choose a new one.")
+                setAvatarError(t("settings.error.avatarFetchTryAgain"));
             }
         };
         fetchAvatar();
+    }, []);
+
+    useEffect(() => {
+        const fetchNotificationSettings = async () => {
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/notifications", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!response.ok) {
+                    setNotificationError(t("settings.error.notificationFetchFailed"));
+                    return;
+                }
+                const data = await response.json();
+                setNotificationEnabled(data.getNotifications);
+            } catch (error) {
+                console.log("Failed to fetch notification settings:", error);
+                setNotificationError(t("settings.error.notificationFetchFailed"));
+            }
+        };
+        fetchNotificationSettings();
     }, []);
 
     const [passwordRules, setPasswordRules] = useState({
@@ -133,16 +161,17 @@ const Page = () => {
     }, [formData.newPassword]);
 
     useEffect(() => {
-        if (passwordSuccess || nameSuccess || avatarSuccess) {
+        if (passwordSuccess || nameSuccess || avatarSuccess || notificationSuccess) {
             const timer = setTimeout(() => {
                 setPasswordSuccess(false);
-                setNameSuccess(false)
-                setAvatarSuccess(null)
+                setNameSuccess(false);
+                setAvatarSuccess(null);
+                setNotificationSuccess(false);
             }, 5000);
 
             return () => clearTimeout(timer);
         }
-    }, [passwordSuccess, nameSuccess, avatarSuccess]);
+    }, [passwordSuccess, nameSuccess, avatarSuccess, notificationSuccess]);
 
 
     const logout = async () => {
@@ -259,11 +288,38 @@ const Page = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
+    const handleNotificationToggle = async () => {
+        if (notificationEnabled === null) return;
+        const newStatus = !notificationEnabled;
+        setNotificationError(null);
+
+        try {
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/notifications", {
+                method: "PUT",
+                credentials: "include",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({getNotifications: newStatus}),
+            });
+
+            if (response.status !== 204) {
+                const errorData = await response.json();
+                console.error("Failed to update notification settings", errorData.message);
+                setNotificationError(t("settings.error.notificationsUpdateFailed"));
+            }
+
+            setNotificationEnabled(newStatus);
+            setNotificationSuccess(true);
+        } catch (error) {
+            console.error("Failed to update notification settings", error);
+            setNotificationError(t("settings.error.notificationsUpdateFailed"));
+        }
+    };
+
 
     if (!isClient) return null;
 
     return (
-        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-18">
+        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-10 mb-15 desktop:mb-0">
             <h1 className="text-3xl font-semibold text-center mb-4">{t("settings.title")}</h1>
             <div className="flex flex-col items-center gap-4 w-full" style={{maxWidth: "20rem"}}>
                 {/* Language Selection */}
@@ -286,12 +342,8 @@ const Page = () => {
                         ))}
                     </select>
 
-                    {languageError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {languageError}
-                        </div>
-                    )}
+                    <ErrorComponent message={languageError}/>
+
                 </div>
                 <hr className={hr_style}/>
 
@@ -313,12 +365,7 @@ const Page = () => {
                         />
                     </div>
 
-                    {nameError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {nameError}
-                        </div>
-                    )}
+                    <ErrorComponent message={nameError}/>
 
                     {nameSuccess && (
                         <div
@@ -413,12 +460,8 @@ const Page = () => {
                         </div>
                     )}
 
-                    {passwordError && (
-                        <div
-                            className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                            {passwordError}
-                        </div>
-                    )}
+                    <ErrorComponent message={passwordError}/>
+
 
                     {passwordSuccess && (
                         <div
@@ -437,17 +480,45 @@ const Page = () => {
                 </form>
                 <hr className={hr_style}/>
 
+                {/* Notification Settings */}
+                <h2 className={title_style}>
+                    {t("settings.notificationLabel")}
+                </h2>
+                <div className="w-full flex items-center justify-between py-2">
+                    <span className="block font-semibold text-gray-700 mb-1">
+                        {notificationEnabled
+                            ? t("settings.notifications.enabled")
+                            : t("settings.notifications.disabled")}
+                    </span>
+
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            id="notificationToggle"
+                            type="checkbox"
+                            checked={notificationEnabled || false}
+                            onChange={handleNotificationToggle}
+                            className="sr-only peer"
+                        />
+                        <div
+                            className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-teal-200 dark:peer-focus:ring-teal-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-400 dark:peer-checked:bg-teal-400"/>
+                    </label>
+                </div>
+
+                <ErrorComponent message={notificationError}/>
+                {notificationSuccess && (
+                    <div
+                        className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
+                        {t("settings.notificationSuccess")}
+                    </div>
+                )}
+                <hr className={hr_style}/>
+
                 {/* Avatar Selector */}
                 <h2 className={title_style}>
                     {t("settings.avatarLabel")}
                 </h2>
                 <AvatarSelector selectedAvatar={selectedAvatar} onSelect={handleAvatarSelect}/>
-                {avatarError && (
-                    <div
-                        className="w-full mt-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md text-sm">
-                        {avatarError}
-                    </div>
-                )}
+                <ErrorComponent message={avatarError}/>
                 {avatarSuccess && (
                     <div
                         className="w-full mt-2 px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded-md text-sm">
@@ -456,10 +527,13 @@ const Page = () => {
                 )}
                 <hr className={hr_style}/>
 
+
+                {/* Log out */}
                 <button
                     className="w-full mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
                     type="submit" color="primary" style={{maxWidth: "20rem"}} onClick={logout}> {t("settings.logout")}
                 </button>
+                {/* Terms of use*/}
                 <a href={`${BASE_PATH}/terms`} target="_blank"
                    className="text-emerald-600 hover:underline">{t("footer.terms")}</a>
             </div>
