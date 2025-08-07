@@ -21,9 +21,21 @@
 /* From 0 pixels up to 725, i.e. when navigation is at the bottom: */
 @media screen and (max-width: 725px) {
     .chatbot-basic .react-chatbot-kit-chat-input-container {
-        position: relative;
+        position: fixed;
+        bottom: 5rem;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        padding: 8px 12px;
+        background: white;
+    }
+
+    .chatbot-basic .react-chatbot-kit-chat-container {
+        padding-bottom: 1rem;
     }
 }
+
+
 
 
 .chatbot-basic .react-chatbot-kit-chat-inner-container {

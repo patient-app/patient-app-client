@@ -117,7 +117,7 @@ export default function Navigation() {
             {bottomNavButtons}
         </footer>
     ) : (
-        <aside className="h-screen w-64 bg-[#F9F9F9] p-4 pt-20 pl-7">
+        <aside className="h-screen w-64 bg-[#F9F9F9] p-4 pt-20 pl-7 z-8">
             <nav className="flex flex-col gap-2 h-full">
                 {topNavButtons}
                 <div className="mt-auto flex flex-col gap-2">

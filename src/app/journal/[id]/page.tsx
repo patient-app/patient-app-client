@@ -179,7 +179,8 @@ const JournalEntryPage = () => {
                     className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setSharedWithTherapist(prev => !prev)}
                 >
-                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (<EyeOff size={30} strokeWidth={1.75}/>)}
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (
+                        <EyeOff size={30} strokeWidth={1.75}/>)}
                     <span className="text-xs font-medium text-center">
                         {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
                             <div key={idx}>{word}</div>
@@ -204,7 +205,7 @@ const JournalEntryPage = () => {
             </div>
 
             <div
-                className="text-gray-500 text-sm">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
+                className="text-gray-500 text-sm pt-3">{t("journalCreationEditing.creationDate")} {journalEntry?.createdAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
             <div
                 className="text-gray-500 text-sm mb-4">{t("journalCreationEditing.updateDate")} {journalEntry?.updatedAt ? new Date(journalEntry.updatedAt).toLocaleString() : "—"}</div>
 
@@ -240,10 +241,10 @@ const JournalEntryPage = () => {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[50vh] desktop:h-[55vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"                />
+                    className="w-full h-[30vh] desktop:h-[40vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"/>
                 <ErrorComponent message={error}/>
 
-                <div className="flex justify-center mt-4">
+                <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-50">
                     <button
                         type="submit"
                         className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"

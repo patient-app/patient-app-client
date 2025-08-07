@@ -172,7 +172,7 @@ const Onboarding = () => {
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center">
             {screen === 1 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.welcomeTitle")}</h2>
                     <p>{t("onboarding.welcomeText")}</p>
                     <p><b>{t("onboarding.languageSelection")}</b></p>
@@ -210,7 +210,7 @@ const Onboarding = () => {
             )}
 
             {screen === 2 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.termsTitle")}</h2>
                     <p className="text-center mx-auto">{t("onboarding.termsText")}</p>
                     <div className="text-gray-600 flex gap-2 justify-center z-10">
@@ -234,7 +234,7 @@ const Onboarding = () => {
             )}
 
             {screen === 3 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.nameTitle")}</h2>
                     <div className="w-full flex justify-center">
                         <input
@@ -272,7 +272,7 @@ const Onboarding = () => {
             )}
 
             {screen === 4 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.infoTitle", {name})}</h2>
                     <p>{t("onboarding.infoText_1")}<br/>{t("onboarding.infoText_2")}</p>
                     <button
@@ -293,7 +293,7 @@ const Onboarding = () => {
             )}
 
             {screen === 5 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.chooseAvatarTitle")}</h2>
                     <p className="mb-6">{t("onboarding.chooseAvatarText")}</p>
 
@@ -323,7 +323,7 @@ const Onboarding = () => {
             )}
 
             {screen === 6 && (
-                <div className="w-4/5 text-center space-y-4 p-20 rounded-md shadow-xl bg-gray-50">
+                <div className="w-4/5 text-center space-y-4 p-5 py-10 desktop:p-20 rounded-md shadow-xl bg-gray-50">
                     <h2 className="text-2xl font-semibold">{t("onboarding.configuredTitle")}</h2>
                     <p>{t("onboarding.configuredText")}</p>
                     <p className="font-bold">{t("onboarding.sharingNote")}</p>

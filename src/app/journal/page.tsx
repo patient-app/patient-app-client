@@ -111,7 +111,7 @@ const Journal = () => {
                         onClick={() => router.push(`${BASE_PATH}/journal/${entry.id}`)}
                         className="w-full max-w-xl border border-gray-300 shadow-md bg-white p-4 rounded-md mb-4 cursor-pointer hover:bg-gray-50 transition"
                     >
-                        <p className="font-bold">{entry.title}</p>
+                        <p className="font-bold truncate overflow-hidden whitespace-nowrap w-full">{entry.title}</p>
                         <div className="flex flex-wrap gap-2 mt-1">
                             {entry.tags.map((tag) => (
                                 <JournalTag key={tag} label={tag} />

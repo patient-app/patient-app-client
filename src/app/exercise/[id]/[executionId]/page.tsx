@@ -236,7 +236,7 @@ const ExerciseExecutionInfoPage = () => {
 
             <button
                 onClick={() => setMoodAfterModal(prev => !prev)}
-                className="mt-10 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
+                className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2 cursor-pointer"
             >
                 {t('exercise.completeExecution')}
             </button>
