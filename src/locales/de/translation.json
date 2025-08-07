@@ -5,6 +5,12 @@
     "logout": "Logout",
     "avatarSuccess": "Avatar geändert.",
     "avatarLabel": "Avatar ändern",
+    "notificationSuccess": "Benachrichtigungseinstellung geändert.",
+    "notificationLabel": "Benachrichtigungseinstellung ändern",
+    "notifications":{
+      "enabled":"Benachrichtigungen aktiviert",
+      "disabled":"Benachrichtigungen deaktiviert"
+    },
     "error": {
       "languageFailed": "Sprache konnte nicht geändert werden: ",
       "languageTryAgain": "Die Sprache konnte nicht geändert werden, bitte versuch es erneut.",
@@ -14,7 +20,13 @@
       "passwordChangeFailed": "Das Passwort konnte nicht geändert werden: ",
       "passwordChangeTryAgain": "Das Passwort konnte nicht geändert werden, bitte versuch es erneut.",
       "nameChangeFailed": "Der Name konnte nicht geändert werden: ",
-      "nameChangeTryAgain": "Der Name konnte nicht geändert werden, bitte versuch es erneut."
+      "nameChangeTryAgain": "Der Name konnte nicht geändert werden, bitte versuch es erneut.",
+      "avatarChangeFailed": "Der Avatar konnte nicht geändert werden: ",
+      "avatarChangeTryAgain": "Der Avatar konnte nicht geändert werden, bitte versuch es erneut.",
+      "avatarFetchFailed": "Der Avatar konnte nicht abgerufen werden: ",
+      "avatarFetchTryAgain": "Der Avatar konnte nicht abgerufen werden, bitte wähle einen neuen Avatar.",
+      "notificationFetchFailed": "Benachrichtigungseinstellung konnte nicht abgerufen werden",
+      "notificationUpdateFailed": "Benachrichtigungseinstellung konnte nicht aktualisiert werden"
     },
     "password": {
       "label": "Passwort ändern",

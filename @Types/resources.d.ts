@@ -6,6 +6,12 @@ interface Resources {
             "logout": "",
             "avatarSuccess": "",
             "avatarLabel": "",
+            "notificationSuccess": "",
+            "notificationLabel": "",
+            "notifications":{
+                "enabled":"",
+                "disabled":""
+            }
             "error": {
                 "languageFailed": "",
                 "languageTryAgain": "",
@@ -15,7 +21,13 @@ interface Resources {
                 "passwordChangeFailed": "",
                 "passwordChangeTryAgain": "",
                 "nameChangeFailed": "",
-                "nameChangeTryAgain": ""
+                "nameChangeTryAgain": "",
+                "avatarChangeFailed": "",
+                "avatarChangeTryAgain": "",
+                "avatarFetchFailed": "",
+                "avatarFetchTryAgain": ""
+                "notificationFetchFailed": "",
+                "notificationsUpdateFailed": ""
             },
             "password": {
                 "label": "",

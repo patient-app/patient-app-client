@@ -5,6 +5,12 @@
     "logout": "вийти",
     "avatarSuccess": "Аватар змінено.",
     "avatarLabel": "Змінити аватар",
+    "notificationSuccess": "Налаштування сповіщень оновлено.",
+    "notificationLabel": "Змінити налаштування сповіщень",
+    "notifications":{
+      "enabled":"Сповіщення ввімкнено",
+      "disabled":"Сповіщення вимкнено"
+    },
     "error": {
       "languageFailed": "Не вдалося змінити мову: ",
       "languageTryAgain": "Не вдалося змінити мову, будь ласка, спробуйте ще раз.",
@@ -14,7 +20,13 @@
       "passwordChangeFailed": "Не вдалося змінити пароль: ",
       "passwordChangeTryAgain": "Не вдалося змінити пароль, повторіть спробу.",
       "nameChangeFailed": "Не вдалося змінити ім'я: ",
-      "nameChangeTryAgain": "Не вдалося змінити ім'я, спробуйте ще раз."
+      "nameChangeTryAgain": "Не вдалося змінити ім'я, спробуйте ще раз.",
+      "avatarChangeFailed": "Не вдалося змінити аватар: ",
+      "avatarChangeTryAgain": "Не вдалося змінити аватар, спробуйте ще раз.",
+      "avatarFetchFailed": "Не вдалося отримати аватар: ",
+      "avatarFetchTryAgain": "Не вдалося отримати аватар, спробуйте ще раз.",
+      "notificationFetchFailed": "Не вдалося отримати сповіщення: ",
+      "notificationsUpdateFailed": "Не вдалося оновити налаштування сповіщень"
     },
     "password": {
       "label": "Змінити пароль",

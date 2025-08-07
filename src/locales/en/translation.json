@@ -5,6 +5,12 @@
     "logout": "Logout",
     "avatarSuccess": "Avatar changed.",
     "avatarLabel": "Change Avatar",
+    "notificationSuccess": "Notification settings updated.",
+    "notificationLabel": "Change Notification Settings",
+    "notifications":{
+      "enabled":"Notifications enabled",
+      "disabled":"Notifications disabled"
+    },
     "error": {
       "languageFailed": "Failed to change language: ",
       "languageTryAgain": "Failed to change the language, please try again.",
@@ -14,7 +20,13 @@
       "passwordChangeFailed": "Failed to change password: ",
       "passwordChangeTryAgain": "Failed to change the password, please try again.",
       "nameChangeFailed": "Failed to change name: ",
-      "nameChangeTryAgain": "Failed to change the name, please try again."
+      "nameChangeTryAgain": "Failed to change the name, please try again.",
+      "avatarChangeFailed": "Failed to change avatar: ",
+      "avatarChangeTryAgain": "Failed to change the avatar, please try again.",
+      "avatarFetchFailed": "Failed to fetch avatars: ",
+      "avatarFetchTryAgain": "Failed to fetch avatars, please choose a new one.",
+      "notificationFetchFailed": "Failed to fetch notification settings",
+      "notificationsUpdateFailed": "Failed to update notification settings"
     },
     "password": {
       "label": "Change Password",
