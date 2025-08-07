@@ -6,10 +6,13 @@ const basePath = BASE_PATH ?? '';
 const PUBLIC_ROUTES_RAW = [`${basePath}/login`, `${basePath}/reset-password`, `${basePath}/terms`];
 
 function normalizePath(p: string) {
-  if (!p) return '/';
-  if (p === '/') return '/';
-  return p.replace(/\/+$/, '');
+  if (!p || p === '/') return '/';
+  while (p.length > 1 && p.endsWith('/')) {
+    p = p.slice(0, -1);
+  }
+  return p;
 }
+
 const PUBLIC_ROUTES = new Set(PUBLIC_ROUTES_RAW.map(normalizePath));
 
 function parseJwt(token: string | undefined) {
