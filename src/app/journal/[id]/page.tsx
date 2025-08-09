@@ -244,7 +244,7 @@ const JournalEntryPage = () => {
                     className="w-full h-[30vh] desktop:h-[40vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"/>
                 <ErrorComponent message={error}/>
 
-                <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-50">
+                <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-10">
                     <button
                         type="submit"
                         className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"

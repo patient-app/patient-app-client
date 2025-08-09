@@ -37,7 +37,7 @@ export default function HelpButton({chatbot}: Readonly<HelpButtonProps>) {
     }
 
     return (
-        <div className="fixed right-4 bottom-25 desktop:bottom-10 desktop:right-10"
+        <div className="fixed right-4 bottom-25 desktop:bottom-10 desktop:right-10 z-40"
              ref={helpRef}>
             <div>
                 <button
