@@ -1,19 +1,19 @@
 "use client";
 
-import React, {useCallback, useEffect, useState} from "react";
-import {useParams, useRouter} from "next/navigation";
-import {useTranslation} from "react-i18next";
-import {ArrowLeft, Eye, EyeOff} from "lucide-react";
-import {JournalTag} from "@/components/JournalTag";
-import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import {TagSelector} from "@/components/TagSelector";
+import React, { useCallback, useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { JournalTag } from "@/components/JournalTag";
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { TagSelector } from "@/components/TagSelector";
 import HelpButton from "@/components/HelpButton";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
-import {BASE_PATH} from "@/libs/constants";
+import { BASE_PATH } from "@/libs/constants";
 import ErrorComponent from "@/components/ErrorComponent";
 
 export default function JournalEntryCreationPage() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const params = useParams();
@@ -77,7 +77,7 @@ export default function JournalEntryCreationPage() {
                 method: "PUT",
                 credentials: "include",
                 body: JSON.stringify(formData),
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${journalId}`, requestInit);
             if (!response.ok) {
@@ -144,13 +144,13 @@ export default function JournalEntryCreationPage() {
                     className="absolute top-8 right-8 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setSharedWithTherapist(prev => !prev)}
                 >
-                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (
-                        <EyeOff size={30} strokeWidth={1.75}/>)}
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75} />) : (
+                        <EyeOff size={30} strokeWidth={1.75} />)}
                     <span className="text-xs font-medium text-center">
-                    {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
             </div>
 
@@ -159,9 +159,15 @@ export default function JournalEntryCreationPage() {
                     type="text"
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => setChatbotTitle(title)}
-                    className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
+                    onFocus={(e) => e.currentTarget.select()}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.currentTarget.blur(); setChatbotTitle(title); }
+                        if (e.key === "Escape") { e.currentTarget.blur(); }
+                    }}
+                    title={t("common.clickToRename")}
+                    className="inline-block w-auto min-w-[24rem] max-w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400 cursor-text border-b border-transparent hover:border-gray-300 focus:border-gray-400 transition-colors pr-4"
                 />
 
                 <div className="space-y-2">
@@ -175,7 +181,7 @@ export default function JournalEntryCreationPage() {
 
                     <div className="flex flex-wrap gap-2">
                         {tags.map(tag => (
-                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)}/>
+                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)} />
                         ))}
                     </div>
                 </div>
@@ -185,75 +191,75 @@ export default function JournalEntryCreationPage() {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="bg-transparent w-full h-[40vh] desktop:h-[50vh] outline-none placeholder-gray-400 resize-none text-base"/>
-                <ErrorComponent message={error}/>
+                    className="bg-transparent w-full h-[40vh] desktop:h-[50vh] outline-none placeholder-gray-400 resize-none text-base" />
+                <ErrorComponent message={error} />
 
                 <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-10">
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                            >
+                    <button
+                        type="submit"
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                    >
                         {t("journalCreationEditing.saveButton")}
-                </button>
-            </div>
-        </form>
-    {
-        journalId && (
-            <HelpButton
-                chatbot={
-                    <JournalChatbot
-                        onCloseAction={() => {
-                        }}
-                        getEntryData={getEntryData}
+                    </button>
+                </div>
+            </form>
+            {
+                journalId && (
+                    <HelpButton
+                        chatbot={
+                            <JournalChatbot
+                                onCloseAction={() => {
+                                }}
+                                getEntryData={getEntryData}
+                            />
+                        }
                     />
-                }
-            />
-        )
-    }
-    <Modal
-        show={backModal}
-        onClose={() => setBackModal(false)}
-        size="md"
-        popup
-    >
-        <ModalHeader/>
-        <ModalBody>
-            <div className="text-center">
-                <h3 className="mb-5 text-lg font-normal text-gray-700">
-                    {t("journalCreationEditing.modal.backWarning")}
-                </h3>
-                <div className="flex justify-center gap-4">
-                    <Button color="red" onClick={() => deleteEntry()}>
-                        {t("journalCreationEditing.modal.backDiscard")}
-                    </Button>
-                    <Button color="alternative" onClick={() => setBackModal(false)}>
-                        {t("journalCreationEditing.modal.backStay")}
-                    </Button>
-                </div>
-            </div>
-        </ModalBody>
-    </Modal>
+                )
+            }
+            <Modal
+                show={backModal}
+                onClose={() => setBackModal(false)}
+                size="md"
+                popup
+            >
+                <ModalHeader />
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">
+                            {t("journalCreationEditing.modal.backWarning")}
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="red" onClick={() => deleteEntry()}>
+                                {t("journalCreationEditing.modal.backDiscard")}
+                            </Button>
+                            <Button color="alternative" onClick={() => setBackModal(false)}>
+                                {t("journalCreationEditing.modal.backStay")}
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
 
-    <Modal
-        show={saveModal}
-        size="md"
-        onClose={() => setSaveModal(false)}
-        popup>
-        <ModalHeader/>
-        <ModalBody>
-            <div className="text-center">
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    {t("journalCreationEditing.modal.saveError")}
-                </h3>
-                <div className="flex justify-center gap-4">
-                    <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
-                        {t("journalCreationEditing.modal.saveOkay")}
-                    </Button>
-                </div>
-            </div>
-        </ModalBody>
-    </Modal>
-</main>
-)
-    ;
+            <Modal
+                show={saveModal}
+                size="md"
+                onClose={() => setSaveModal(false)}
+                popup>
+                <ModalHeader />
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            {t("journalCreationEditing.modal.saveError")}
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
+                                {t("journalCreationEditing.modal.saveOkay")}
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
+        </main>
+    )
+        ;
 }

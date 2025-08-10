@@ -1,21 +1,21 @@
 "use client";
 
 import '../../../chatbot/chatbot.css';
-import {useParams, useRouter} from "next/navigation";
-import {useTranslation} from "react-i18next";
-import Chatbot, {createChatBotMessage} from "react-chatbot-kit";
+import { useParams, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import Chatbot, { createChatBotMessage } from "react-chatbot-kit";
 import MessageParser from "@/chatbot/MessageParser";
 import ActionProvider from "@/chatbot/ActionProvider";
-import {useEffect, useState} from "react";
-import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
-import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import {BASE_PATH, CHATBOT_NAME} from "@/libs/constants";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Eye, EyeOff, Trash2 } from "lucide-react";
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { BASE_PATH, CHATBOT_NAME } from "@/libs/constants";
 import Image from "next/image";
 
 export default function ChatPage() {
     const router = useRouter();
-    const {chatId} = useParams();
-    const {t} = useTranslation();
+    const { chatId } = useParams();
+    const { t } = useTranslation();
     const [deleteModal, setDeleteModal] = useState(false);
     const [conversationName, setConversationName] = useState<string>("");
     const [shareWithCoach, setShareWithCoach] = useState(false);
@@ -31,8 +31,8 @@ export default function ChatPage() {
             await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}`, {
                 method: "PUT",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({shareWithCoach: newValue, shareWithAi: true}),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ shareWithCoach: newValue, shareWithAi: true }),
             });
             console.log("Sharing Options changed: shareWithCoach to " + newValue);
         } catch (err) {
@@ -68,7 +68,7 @@ export default function ChatPage() {
                             <div className="react-chatbot-kit-chat-bot-avatar">
                                 <div className="react-chatbot-kit-chat-bot-avatar-container">
                                     <Image
-                                        loader={({src, width, quality}: {
+                                        loader={({ src, width, quality }: {
                                             src: string;
                                             width: number;
                                             quality?: number
@@ -201,8 +201,8 @@ export default function ChatPage() {
             const requestInit: RequestInit = {
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify({conversationName}),
-                headers: {"Content-Type": "application/json"}
+                body: JSON.stringify({ conversationName }),
+                headers: { "Content-Type": "application/json" }
             }
             const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/conversations/${chatId}/conversation-name`, requestInit);
             if (!response.ok) {
@@ -228,8 +228,8 @@ export default function ChatPage() {
                         className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                         onClick={() => toggleCoachSharing()}
                     >
-                        {shareWithCoach ? (<Eye size={30} strokeWidth={1.75}/>) : (
-                            <EyeOff size={30} strokeWidth={1.75}/>)}
+                        {shareWithCoach ? (<Eye size={30} strokeWidth={1.75} />) : (
+                            <EyeOff size={30} strokeWidth={1.75} />)}
                         <span className="text-xs font-medium text-center">
                             {((shareWithCoach) ? t("chats.sharingoptions.shareWithCoach_on") : t("chats.sharingoptions.shareWithCoach_off")).split(" ").map((word: string, idx: number) => (
                                 <div key={idx}>{word}</div>
@@ -243,33 +243,33 @@ export default function ChatPage() {
                     onClick={() => setDeleteModal(true)}
                 >
                     <Trash2 size={30} strokeWidth={1.75}
-                            className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                        className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
                     />
                     <span className="text-xs font-medium text-center">
-                    {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
 
             </div>
             <h1 className="text-3xl font-semibold text-center mt-5">{t("chat.title")}</h1>
-            <input
-                type="text"
-                placeholder={t("chat.unnamedChat")}
-                value={conversationName}
-                onChange={e => setConversationName(e.target.value)}
-                onBlur={updateConversationName}
-                onKeyDown={e => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault()
-                        updateConversationName();
-                    }
-                }}
-                className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
-            />
 
-            <span className="italic text-center text-sm text-gray-600">
+            <div className="mx-auto w-fit">
+                <input
+                    type="text"
+                    placeholder={t("chat.unnamedChat")}
+                    value={conversationName}
+                    onChange={e => setConversationName(e.target.value)}
+                    onBlur={updateConversationName}
+                    onKeyDown={e => {
+                        if (e.key === "Enter") { e.preventDefault(); updateConversationName(); }
+                    }}
+                    className="inline-block w-auto min-w-[24rem] max-w-full text-center text-2xl font-semibold bg-transparent outline-none placeholder-gray-400 cursor-text border-b border-transparent hover:border-gray-300 focus:border-gray-400 transition-colors pr-4"
+                />
+            </div>
+
+            <span className="block mt-2 italic text-center text-sm text-gray-600">
                 {t("footer.aiwarning")}
             </span>
 
@@ -293,7 +293,7 @@ export default function ChatPage() {
                 size="md"
                 popup
             >
-                <ModalHeader/>
+                <ModalHeader />
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
@@ -304,7 +304,7 @@ export default function ChatPage() {
                                 {t("chat.modal.deleteConfirm")}
                             </Button>
                             <Button className="cursor-pointer" color="alternative"
-                                    onClick={() => setDeleteModal(false)}>
+                                onClick={() => setDeleteModal(false)}>
                                 {t("chat.modal.deleteCancel")}
                             </Button>
                         </div>

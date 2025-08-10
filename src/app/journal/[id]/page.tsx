@@ -1,21 +1,21 @@
 "use client";
 
-import {useParams, useRouter} from "next/navigation";
-import {useTranslation} from "react-i18next";
-import React, {useCallback, useEffect, useState} from "react";
-import {JournalEntryDTO} from "@/dto/output/JournalEntryDTO";
-import {ArrowLeft, Eye, EyeOff, Trash2} from "lucide-react";
-import {Button, Modal, ModalBody, ModalHeader} from "flowbite-react";
-import {TagSelector} from "@/components/TagSelector";
-import {JournalTag} from "@/components/JournalTag";
+import { useParams, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import React, { useCallback, useEffect, useState } from "react";
+import { JournalEntryDTO } from "@/dto/output/JournalEntryDTO";
+import { ArrowLeft, Eye, EyeOff, Trash2 } from "lucide-react";
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { TagSelector } from "@/components/TagSelector";
+import { JournalTag } from "@/components/JournalTag";
 import JournalChatbot from "@/chatbot/journal/JournalChatbot";
 import HelpButton from "@/components/HelpButton";
-import {BASE_PATH} from "@/libs/constants";
+import { BASE_PATH } from "@/libs/constants";
 import ErrorComponent from "@/components/ErrorComponent";
 
 const JournalEntryPage = () => {
     const router = useRouter();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const params = useParams();
     const id = params.id;
@@ -130,7 +130,7 @@ const JournalEntryPage = () => {
                 method: "PUT",
                 credentials: "include",
                 body: JSON.stringify(formData),
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patients/journal-entries/${id}`, requestInit);
             if (!response.ok) {
@@ -179,8 +179,8 @@ const JournalEntryPage = () => {
                     className="absolute top-8 right-25 flex flex-col items-center justify-center cursor-pointer gap-1 hover:bg-gray-100 rounded p-2"
                     onClick={() => setSharedWithTherapist(prev => !prev)}
                 >
-                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (
-                        <EyeOff size={30} strokeWidth={1.75}/>)}
+                    {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75} />) : (
+                        <EyeOff size={30} strokeWidth={1.75} />)}
                     <span className="text-xs font-medium text-center">
                         {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
                             <div key={idx}>{word}</div>
@@ -193,13 +193,13 @@ const JournalEntryPage = () => {
                     onClick={() => setDeleteModal(true)}
                 >
                     <Trash2 size={30} strokeWidth={1.75}
-                            className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
+                        className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
                     />
                     <span className="text-xs font-medium text-center">
-                    {t("journal.deleteButton").split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {t("journal.deleteButton").split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
 
             </div>
@@ -215,9 +215,15 @@ const JournalEntryPage = () => {
                     type="text"
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => setChatbotTitle(title)}
-                    className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
+                    onFocus={(e) => e.currentTarget.select()}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") { e.currentTarget.blur(); setChatbotTitle(title); }
+                        if (e.key === "Escape") { e.currentTarget.blur(); }
+                    }}
+                    title={t("common.clickToRename")}
+                    className="inline-block w-auto min-w-[24rem] max-w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400 cursor-text border-b border-transparent hover:border-gray-300 focus:border-gray-400 transition-colors pr-4"
                 />
 
                 <div className="space-y-2">
@@ -231,7 +237,7 @@ const JournalEntryPage = () => {
 
                     <div className="flex flex-wrap gap-2">
                         {tags.map(tag => (
-                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)}/>
+                            <JournalTag key={tag} label={tag} onRemove={() => removeTag(tag)} />
                         ))}
                     </div>
                 </div>
@@ -241,8 +247,8 @@ const JournalEntryPage = () => {
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     onBlur={() => setChatbotContent(content)}
-                    className="w-full h-[30vh] desktop:h-[40vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base"/>
-                <ErrorComponent message={error}/>
+                    className="w-full h-[30vh] desktop:h-[40vh] bg-transparent outline-none placeholder-gray-400 resize-none text-base" />
+                <ErrorComponent message={error} />
 
                 <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-10">
                     <button
@@ -259,14 +265,14 @@ const JournalEntryPage = () => {
                 }
                 getEntryData={getEntryData}
             />
-            }/>
+            } />
             <Modal
                 show={backModal}
                 onClose={() => setBackModal(false)}
                 size="md"
                 popup
             >
-                <ModalHeader/>
+                <ModalHeader />
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
@@ -290,7 +296,7 @@ const JournalEntryPage = () => {
                 size="md"
                 popup
             >
-                <ModalHeader/>
+                <ModalHeader />
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-700">
@@ -314,7 +320,7 @@ const JournalEntryPage = () => {
                 size="md"
                 onClose={() => setUpdateModal(false)}
                 popup>
-                <ModalHeader/>
+                <ModalHeader />
                 <ModalBody>
                     <div className="text-center">
                         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
