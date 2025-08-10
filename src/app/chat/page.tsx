@@ -195,7 +195,22 @@ export default function ChatPage() {
                     onKeyDown={e => {
                         if (e.key === "Enter") { e.preventDefault(); updateConversationName(); }
                     }}
-                    className="inline-block w-auto min-w-[24rem] max-w-full text-center text-2xl font-semibold bg-transparent outline-none placeholder-gray-400 cursor-text border-b border-transparent hover:border-gray-300 focus:border-gray-400 transition-colors pr-4"
+                    className="
+                          text-center
+                          w-full
+                          text-2xl
+                          font-semibold
+                          bg-transparent
+                          outline-none
+                          placeholder-gray-400
+                          decoration-transparent
+                          hover:underline
+                          hover:decoration-gray-300
+                          focus:underline
+                          focus:decoration-gray-300
+                          transition
+                          duration-200
+                        "
                 />
             </div>
 

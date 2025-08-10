@@ -271,7 +271,7 @@ export default function Home() {
             <main
                 className="relative z-9 flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
 
-                <h1 className="w-full text-3xl font-semibold mb-4 break-words">{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h1>
+                <h1 className="w-full text-center text-3xl font-semibold mb-4 break-words">{mePatient?.name ? `${t("home.welcome")}, ${mePatient.name}!` : t("home.title")}</h1>
 
                 {/* Tile Layout */}
                 <div className="w-[90%] lg:w-[65%] flex flex-row flex-wrap items-start justify-center gap-4">
