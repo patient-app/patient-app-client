@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from "react-i18next";
 import {useParams} from "next/navigation";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface ActionProviderProps {
@@ -11,10 +12,22 @@ export interface ActionProviderProps {
 }
 
 
-const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }: ActionProviderProps) => {
-    const { t } = useTranslation();
+const ActionProvider = ({createChatBotMessage, setState, children, chatIdProp}: ActionProviderProps) => {
+    const {t} = useTranslation();
     const params = useParams();
     const chatId = chatIdProp ?? params?.chatId;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+
+    useEffect(() => {
+        if (!isMobile) {
+            const btn = document.querySelector<HTMLButtonElement>('.react-chatbot-kit-chat-btn-send');
+            if (!btn) return;
+            const onMouseDown = (e: MouseEvent) => e.preventDefault(); // don’t grab focus
+            btn.addEventListener('mousedown', onMouseDown);
+            return () => btn.removeEventListener('mousedown', onMouseDown);
+        }
+    }, []);
 
     const generateAnswer = async (message: string) => {
         try {
@@ -68,10 +81,23 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }
         }
 
         // Enable the input field once an answer is generated
-        const inputFields = document.querySelectorAll('.react-chatbot-kit-chat-input');
-        if(inputFields.length === 1) {
-            inputFields[0].removeAttribute('disabled');
-            inputFields[0].setAttribute('placeholder', t("chat.placeholder"));
+        const input = document.querySelector<HTMLInputElement>('.react-chatbot-kit-chat-input');
+        if (input) {
+            input.removeAttribute('disabled');
+            input.setAttribute('placeholder', t('chat.placeholder'));
+            if (!isMobile) {
+                // Wait for DOM/state to settle, then focus and move caret to end
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        input.focus();
+                        try {
+                            const len = input.value.length;
+                            input.setSelectionRange(len, len);
+                        } catch {
+                        }
+                    });
+                });
+            }
         }
     };
 
