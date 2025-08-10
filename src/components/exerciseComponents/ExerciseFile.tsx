@@ -1,7 +1,8 @@
 "use client";
 
-import { ExerciseComponentsDTO } from "@/dto/output/exercise/ExerciseComponentsDTO";
+import {ExerciseComponentsDTO} from "@/dto/output/exercise/ExerciseComponentsDTO";
 import {useTranslation} from "react-i18next";
+import React from "react";
 
 export default function ExerciseFile({
                                          component,
@@ -10,7 +11,8 @@ export default function ExerciseFile({
     component: ExerciseComponentsDTO;
     onError?: (error: string) => void;
 }>) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (!component.fileData || !component.fileType || !component.fileName) {
         onError?.(t("exerciseFile.error.dataMissing"));
@@ -30,6 +32,40 @@ export default function ExerciseFile({
         URL.revokeObjectURL(url);
     };
 
+    let filePreview;
+    if (component.fileType === "application/pdf") {
+        if (isMobile) {
+            filePreview = (
+                <p className="text-center text-gray-500 my-6">
+                    {t("individualDocument.noPreviewMobile")}
+                    <br/>
+                    <a
+                        href={fileSrc}
+                        className="text-blue-600 underline break-words"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {t("individualDocument.openPdf")}
+                    </a>
+                </p>
+            );
+        } else {
+            filePreview = (
+                <iframe
+                    src={fileSrc}
+                    className="w-full h-[60vh] desktop:h-[80vh] my-6"
+                    title={component.fileName}
+                />
+            );
+        }
+    } else {
+        filePreview = (
+            <p className="text-gray-500 text-center mb-2">
+                {t("exerciseFile.noPreview")}
+            </p>
+        );
+    }
+
     return (
         <div className="my-4 w-full">
             {component.exerciseComponentDescription && (
@@ -38,26 +74,20 @@ export default function ExerciseFile({
                 </p>
             )}
 
-            {component.fileType === "application/pdf" ? (
-                <iframe
-                    src={fileSrc}
-                    className="w-full h-[60vh] desktop:h-[80vh] my-6"
-                    title={component.fileName}
-                />
-            ) : (
-                <p className="text-gray-500 text-center mb-2">
-                    {t('exerciseFile.noPreview')}
-                </p>
-            )}
+            {filePreview}
 
             <div className="flex justify-center mt-4">
                 <button
                     onClick={handleDownload}
-                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
+                    title={component.fileName}
+                    className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer min-w-0"
                 >
-                    {t("exerciseFile.download")} {component.fileName}
+                    <span className="truncate block max-w-[12rem]">
+                        {t("exerciseFile.download")} {component.fileName}
+                    </span>
                 </button>
             </div>
+
         </div>
     );
 }
@@ -79,5 +109,5 @@ function b64toBlob(b64Data: string, contentType = "", sliceSize = 512): Blob {
         byteArrays.push(byteArray);
     }
 
-    return new Blob(byteArrays, { type: contentType });
+    return new Blob(byteArrays, {type: contentType});
 }

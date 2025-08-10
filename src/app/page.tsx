@@ -364,7 +364,7 @@ export default function Home() {
                             {lastChatId ?
                                 <div
                                     className="border border-gray-300 rounded-md p-3 flex items-center justify-between flex-grow flex-col gap-2">
-                                    <p className="font-bold">{lastChatName ?? t("chats.unnamedConversation")}</p>
+                                    <p className="truncate font-bold w-full">{lastChatName ?? t("chats.unnamedConversation")}</p>
                                     <button
                                         onClick={() => router.push(`${BASE_PATH}/chats/${lastChatId}`)}
                                         className="bg-teal-400 text-white px-4 py-2 rounded hover:bg-teal-500 transition flex items-center gap-2 cursor-pointer"
@@ -416,7 +416,7 @@ export default function Home() {
 
                             {journalEntries.length > 0 ?
                                 <div className="border border-gray-300 rounded-md p-3 flex flex-col items-center">
-                                    <p className="font-bold">{journalEntries[journalEntries.length - 1].title ? journalEntries[journalEntries.length - 1].title : t("home.lastJournal.unnamedJournal")}</p>
+                                    <p className="truncate font-bold w-full">{journalEntries[journalEntries.length - 1].title ? journalEntries[journalEntries.length - 1].title : t("home.lastJournal.unnamedJournal")}</p>
                                     <p className="italic text-gray-400 text-sm text-center">{lastJournalText ? lastJournalText.slice(0, 30) + "..." : t("home.lastJournal.emptyJournal")}</p>
                                     <button
                                         onClick={() => router.push(`${BASE_PATH}/journal/${journalEntries[journalEntries.length - 1].id}`)}
