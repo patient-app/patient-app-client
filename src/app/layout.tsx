@@ -8,6 +8,7 @@ import React, {ReactNode} from "react";
 import TranslationsProvider from "@/libs/provider/translation-provider";
 import initTranslations, {i18nNamespaces} from "@/libs/i18n/i18n";
 import {BASE_PATH} from "@/libs/constants";
+import {ThemeInit} from "../../.flowbite-react/init";
 
 const geistSans = Geist({variable: '--font-geist-sans', subsets: ['latin'], preload: false});
 const geistMono = Geist_Mono({variable: '--font-geist-mono', subsets: ['latin'], preload: false});
@@ -40,6 +41,7 @@ export default async function RootLayout({
             />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ThemeInit/>
 
         <TranslationsProvider
             namespaces={i18nNamespaces}

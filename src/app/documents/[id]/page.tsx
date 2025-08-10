@@ -108,7 +108,7 @@ const IndividualDocumentPage = () => {
                 onClick={() => router.back()}
                 className="text-gray-500 text-xl cursor-pointer"
             />
-            <h1 className="text-3xl font-semibold text-center mb-10">{fileName}</h1>
+            <h1 className="truncate text-3xl font-semibold text-center mb-10">{fileName}</h1>
             <div className="flex justify-center">
                 {renderPreview()}
             </div>

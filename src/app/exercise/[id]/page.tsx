@@ -80,7 +80,7 @@ const ExerciseDetailPage = () => {
         <div className="flex flex-col items-center justify-center w-full gap-5 p-5 mb-15 desktop:mb-0">
             <div className="relative w-full flex items-center justify-center">
                 <ArrowLeft
-                    onClick={() => router.back()}
+                    onClick={() => router.push(`${BASE_PATH}/exercise`)}
                     className="absolute left-0 text-gray-500 text-xl cursor-pointer"
                 />
                 <h1 className="text-3xl font-semibold text-center">{title}</h1>

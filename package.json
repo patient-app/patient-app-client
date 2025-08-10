@@ -7,11 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "i18n": "i18next-resources-for-ts interface -i ./src/locales/en -o ./@Types/resources.d.ts",
-    "postinstall": "flowbite-react patch"
+    "i18n": "i18next-resources-for-ts interface -i ./src/locales/en -o ./@Types/resources.d.ts"
   },
   "dependencies": {
-    "flowbite-react": "^0.11.8",
+    "flowbite-react": "^0.12.6",
     "i18next": "^25.1.2",
     "i18next-resources-for-ts": "^1.6.0",
     "i18next-resources-to-backend": "^1.2.1",
