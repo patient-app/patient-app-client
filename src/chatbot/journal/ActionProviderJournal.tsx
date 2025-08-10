@@ -1,10 +1,10 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "next/navigation";
-import {setExternalActions} from "@/chatbot/journal/configJournal";
-import {CHATBOT_NAME} from "@/libs/constants";
-import {useTranslation} from "react-i18next";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
+import { setExternalActions } from "@/chatbot/journal/configJournal";
+import { CHATBOT_NAME } from "@/libs/constants";
+import { useTranslation } from "react-i18next";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface ActionProviderJournalProps {
@@ -13,22 +13,31 @@ interface ActionProviderJournalProps {
     children: any;
 }
 
-const ActionProviderJournal = ({createChatBotMessage, setState, children}: ActionProviderJournalProps) => {
+const ActionProviderJournal = ({ createChatBotMessage, setState, children }: ActionProviderJournalProps) => {
     const [conversationCreated, setConversationCreated] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const hasInitialized = useRef(false);
     const hasPreviousMessages = useRef(false);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const params = useParams();
-    const entryId =  params?.id;
+    const entryId = params?.id;
+
+    useEffect(() => {
+        // Prevent the send button from stealing focus on mouse down
+        const btn = document.querySelector<HTMLButtonElement>(".react-chatbot-kit-chat-btn-send");
+        if (!btn) return;
+        const onMouseDown = (e: MouseEvent) => e.preventDefault();
+        btn.addEventListener("mousedown", onMouseDown);
+        return () => btn.removeEventListener("mousedown", onMouseDown);
+    }, []);
 
     const createConversation = async () => {
         try {
             const requestInit: RequestInit = {
                 method: "GET",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entries/${entryId}/chatbot`,
@@ -64,7 +73,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
             const requestInit: RequestInit = {
                 method: "GET",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entry-conversation/${conversationId}/messages`,
@@ -126,7 +135,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
                     journalTitle: title,
                     journalContent: content,
                 }),
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
 
             const response = await fetch(
@@ -164,10 +173,20 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
         }
 
         // Enable the input field once an answer is generated
-        const inputFields = document.querySelectorAll('.react-chatbot-kit-chat-input');
-        if(inputFields.length === 1) {
-            inputFields[0].removeAttribute('disabled');
-            inputFields[0].setAttribute('placeholder', t("chat.placeholder"));
+        const input = document.querySelector<HTMLInputElement>(".react-chatbot-kit-chat-input");
+        if (input) {
+            input.removeAttribute("disabled");
+            input.setAttribute("placeholder", t("chat.placeholder"));
+            // Wait for DOM updates, then focus and put caret at the end
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    input.focus();
+                    try {
+                        const len = input.value.length;
+                        input.setSelectionRange(len, len);
+                    } catch { }
+                });
+            });
         }
     };
 
@@ -187,7 +206,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
             const requestInit: RequestInit = {
                 method: "DELETE",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             };
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/patients/journal-entry-conversation/${conversationId}`,
@@ -197,7 +216,7 @@ const ActionProviderJournal = ({createChatBotMessage, setState, children}: Actio
             if (!response.ok) {
                 throw new Error(t("actionProvider.error.failedToClearHistory"));
             }
-            const initialMessage = createChatBotMessage(t("journalChatbot.welcomeMessage", {chatbotName: CHATBOT_NAME}), {})
+            const initialMessage = createChatBotMessage(t("journalChatbot.welcomeMessage", { chatbotName: CHATBOT_NAME }), {})
             setState((prev: { messages: any }) => ({
                 ...prev,
                 messages: [initialMessage],
