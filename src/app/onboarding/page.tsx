@@ -247,6 +247,7 @@ const Onboarding = () => {
                                     handleNameEntry();
                                 }
                             }}
+                            maxLength={50}
                             className="px-4 py-2 border border-gray-300 rounded-md w-full max-w-xs"
                         />
                     </div>

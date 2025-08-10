@@ -333,8 +333,8 @@
     "tooltip": {
       "aiAccessEnabled": "Доступ штучного інтелекту увімкнено.",
       "aiAccessDisabled": "Доступ штучного інтелекту вимкнено.",
-      "therapistShareEnabled": "Спільне використання терапевта ввімкнено.",
-      "therapistShareDisabled": "Спільне використання терапевта вимкнено."
+      "therapistShareEnabled": "Поділіться одним",
+      "therapistShareDisabled": "ділитися"
     },
     "title": "Назва",
     "note": "Примітка",

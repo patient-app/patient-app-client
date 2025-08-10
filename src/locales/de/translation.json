@@ -333,8 +333,8 @@
     "tooltip": {
       "aiAccessEnabled": "AI Erinnerung ein",
       "aiAccessDisabled": "AI Erinnerung aus",
-      "therapistShareEnabled": "Coach Teilen ein",
-      "therapistShareDisabled": "Coach Teilen aus"
+      "therapistShareEnabled": "Teilen ein",
+      "therapistShareDisabled": "Teilen aus"
     },
     "title": "Titel",
     "note": "Notiz",

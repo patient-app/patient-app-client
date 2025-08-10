@@ -333,8 +333,8 @@
     "tooltip": {
       "aiAccessEnabled": "AI Memory on",
       "aiAccessDisabled": "AI Memory off",
-      "therapistShareEnabled": "Coach Sharing on",
-      "therapistShareDisabled": "Coach Sharing off"
+      "therapistShareEnabled": "Sharing on",
+      "therapistShareDisabled": "Sharing off"
     },
     "title": "Title",
     "note": "Note",
