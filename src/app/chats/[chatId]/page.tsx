@@ -246,30 +246,48 @@ export default function ChatPage() {
                             className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
                     />
                     <span className="text-xs font-medium text-center">
-                    {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {t("chat.deleteChat").split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
 
             </div>
             <h1 className="text-3xl font-semibold text-center mt-5">{t("chat.title")}</h1>
-            <input
-                type="text"
-                placeholder={t("chat.unnamedChat")}
-                value={conversationName}
-                onChange={e => setConversationName(e.target.value)}
-                onBlur={updateConversationName}
-                onKeyDown={e => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault()
-                        updateConversationName();
-                    }
-                }}
-                className="text-center w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
-            />
 
-            <span className="italic text-center text-sm text-gray-600">
+            <div className="mx-auto w-fit">
+                <input
+                    type="text"
+                    placeholder={t("chat.unnamedChat")}
+                    value={conversationName}
+                    onChange={e => setConversationName(e.target.value)}
+                    onBlur={updateConversationName}
+                    onKeyDown={e => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            updateConversationName();
+                        }
+                    }}
+                    className="
+                          text-center
+                          w-full
+                          text-2xl
+                          font-semibold
+                          bg-transparent
+                          outline-none
+                          placeholder-gray-400
+                          decoration-transparent
+                          hover:underline
+                          hover:decoration-gray-300
+                          focus:underline
+                          focus:decoration-gray-300
+                          transition
+                          duration-200
+                        "
+                />
+            </div>
+
+            <span className="block mt-2 italic text-center text-sm text-gray-600">
                 {t("footer.aiwarning")}
             </span>
 

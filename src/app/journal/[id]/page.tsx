@@ -196,10 +196,10 @@ const JournalEntryPage = () => {
                             className="text-red-500 hover:text-red-700 transition duration-200 cursor-pointer"
                     />
                     <span className="text-xs font-medium text-center">
-                    {t("journal.deleteButton").split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {t("journal.deleteButton").split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
 
             </div>
@@ -215,10 +215,33 @@ const JournalEntryPage = () => {
                     type="text"
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => setChatbotTitle(title)}
-                    className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
-                />
+                    onFocus={(e) => e.currentTarget.select()}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.currentTarget.blur();
+                            setChatbotTitle(title);
+                        }
+                        if (e.key === "Escape") {
+                            e.currentTarget.blur();
+                        }
+                    }}
+                    className="
+                        w-full
+                        text-2xl
+                        font-semibold
+                        bg-transparent
+                        outline-none
+                        placeholder-gray-400
+                        decoration-transparent
+                        hover:decoration-gray-300
+                        focus:decoration-gray-300
+                        hover:underline
+                        focus:underline
+                        transition
+                        duration-200
+                        "/>
 
                 <div className="space-y-2">
                     <div className="relative w-full max-w-sm">

@@ -147,10 +147,10 @@ export default function JournalEntryCreationPage() {
                     {sharedWithTherapist ? (<Eye size={30} strokeWidth={1.75}/>) : (
                         <EyeOff size={30} strokeWidth={1.75}/>)}
                     <span className="text-xs font-medium text-center">
-                    {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
-                        <div key={idx}>{word}</div>
-                    ))}
-                </span>
+                        {((sharedWithTherapist) ? t("journalCreationEditing.tooltip.therapistShareEnabled") : t("journalCreationEditing.tooltip.therapistShareDisabled")).split(" ").map((word: string, idx: number) => (
+                            <div key={idx}>{word}</div>
+                        ))}
+                    </span>
                 </button>
             </div>
 
@@ -159,9 +159,33 @@ export default function JournalEntryCreationPage() {
                     type="text"
                     placeholder={t("journalCreationEditing.title")}
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => setChatbotTitle(title)}
-                    className="w-full text-2xl font-semibold bg-transparent outline-none placeholder-gray-400"
+                    onFocus={(e) => e.currentTarget.select()}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.currentTarget.blur();
+                            setChatbotTitle(title);
+                        }
+                        if (e.key === "Escape") {
+                            e.currentTarget.blur();
+                        }
+                    }}
+                    className="
+                        w-full
+                        text-2xl
+                        font-semibold
+                        bg-transparent
+                        outline-none
+                        placeholder-gray-400
+                        decoration-transparent
+                        hover:decoration-gray-300
+                        focus:decoration-gray-300
+                        hover:underline
+                        focus:underline
+                        transition
+                        duration-200
+                        "
                 />
 
                 <div className="space-y-2">
@@ -189,71 +213,71 @@ export default function JournalEntryCreationPage() {
                 <ErrorComponent message={error}/>
 
                 <div className="fixed bottom-[100px] desktop:bottom-10 left-0 w-full flex justify-center z-10">
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
-                            >
+                    <button
+                        type="submit"
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition cursor-pointer"
+                    >
                         {t("journalCreationEditing.saveButton")}
-                </button>
-            </div>
-        </form>
-    {
-        journalId && (
-            <HelpButton
-                chatbot={
-                    <JournalChatbot
-                        onCloseAction={() => {
-                        }}
-                        getEntryData={getEntryData}
+                    </button>
+                </div>
+            </form>
+            {
+                journalId && (
+                    <HelpButton
+                        chatbot={
+                            <JournalChatbot
+                                onCloseAction={() => {
+                                }}
+                                getEntryData={getEntryData}
+                            />
+                        }
                     />
-                }
-            />
-        )
-    }
-    <Modal
-        show={backModal}
-        onClose={() => setBackModal(false)}
-        size="md"
-        popup
-    >
-        <ModalHeader/>
-        <ModalBody>
-            <div className="text-center">
-                <h3 className="mb-5 text-lg font-normal text-gray-700">
-                    {t("journalCreationEditing.modal.backWarning")}
-                </h3>
-                <div className="flex justify-center gap-4">
-                    <Button color="red" onClick={() => deleteEntry()}>
-                        {t("journalCreationEditing.modal.backDiscard")}
-                    </Button>
-                    <Button color="alternative" onClick={() => setBackModal(false)}>
-                        {t("journalCreationEditing.modal.backStay")}
-                    </Button>
-                </div>
-            </div>
-        </ModalBody>
-    </Modal>
+                )
+            }
+            <Modal
+                show={backModal}
+                onClose={() => setBackModal(false)}
+                size="md"
+                popup
+            >
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">
+                            {t("journalCreationEditing.modal.backWarning")}
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="red" onClick={() => deleteEntry()}>
+                                {t("journalCreationEditing.modal.backDiscard")}
+                            </Button>
+                            <Button color="alternative" onClick={() => setBackModal(false)}>
+                                {t("journalCreationEditing.modal.backStay")}
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
 
-    <Modal
-        show={saveModal}
-        size="md"
-        onClose={() => setSaveModal(false)}
-        popup>
-        <ModalHeader/>
-        <ModalBody>
-            <div className="text-center">
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    {t("journalCreationEditing.modal.saveError")}
-                </h3>
-                <div className="flex justify-center gap-4">
-                    <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
-                        {t("journalCreationEditing.modal.saveOkay")}
-                    </Button>
-                </div>
-            </div>
-        </ModalBody>
-    </Modal>
-</main>
-)
-    ;
+            <Modal
+                show={saveModal}
+                size="md"
+                onClose={() => setSaveModal(false)}
+                popup>
+                <ModalHeader/>
+                <ModalBody>
+                    <div className="text-center">
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            {t("journalCreationEditing.modal.saveError")}
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button className="bg-emerald-600" onClick={() => setSaveModal(false)}>
+                                {t("journalCreationEditing.modal.saveOkay")}
+                            </Button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
+        </main>
+    )
+        ;
 }
