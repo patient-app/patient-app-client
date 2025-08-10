@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { useTranslation } from "react-i18next";
-import { useParams } from "next/navigation";
+import React, {useEffect} from 'react';
+import {useTranslation} from "react-i18next";
+import {useParams} from "next/navigation";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface ActionProviderProps {
@@ -11,17 +12,21 @@ export interface ActionProviderProps {
 }
 
 
-const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }: ActionProviderProps) => {
-    const { t } = useTranslation();
+const ActionProvider = ({createChatBotMessage, setState, children, chatIdProp}: ActionProviderProps) => {
+    const {t} = useTranslation();
     const params = useParams();
     const chatId = chatIdProp ?? params?.chatId;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
     useEffect(() => {
-        const btn = document.querySelector<HTMLButtonElement>('.react-chatbot-kit-chat-btn-send');
-        if (!btn) return;
-        const onMouseDown = (e: MouseEvent) => e.preventDefault(); // don’t grab focus
-        btn.addEventListener('mousedown', onMouseDown);
-        return () => btn.removeEventListener('mousedown', onMouseDown);
+        if (!isMobile) {
+            const btn = document.querySelector<HTMLButtonElement>('.react-chatbot-kit-chat-btn-send');
+            if (!btn) return;
+            const onMouseDown = (e: MouseEvent) => e.preventDefault(); // don’t grab focus
+            btn.addEventListener('mousedown', onMouseDown);
+            return () => btn.removeEventListener('mousedown', onMouseDown);
+        }
     }, []);
 
     const generateAnswer = async (message: string) => {
@@ -40,7 +45,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }
                 body: JSON.stringify({
                     message: message,
                 }),
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
             };
             const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/patients/conversations/messages/" + chatId, requestInit);
 
@@ -80,16 +85,19 @@ const ActionProvider = ({ createChatBotMessage, setState, children, chatIdProp }
         if (input) {
             input.removeAttribute('disabled');
             input.setAttribute('placeholder', t('chat.placeholder'));
-            // Wait for DOM/state to settle, then focus and move caret to end
-            requestAnimationFrame(() => {
+            if (!isMobile) {
+                // Wait for DOM/state to settle, then focus and move caret to end
                 requestAnimationFrame(() => {
-                    input.focus();
-                    try {
-                        const len = input.value.length;
-                        input.setSelectionRange(len, len);
-                    } catch { }
+                    requestAnimationFrame(() => {
+                        input.focus();
+                        try {
+                            const len = input.value.length;
+                            input.setSelectionRange(len, len);
+                        } catch {
+                        }
+                    });
                 });
-            });
+            }
         }
     };
 

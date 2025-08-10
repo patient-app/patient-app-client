@@ -14,16 +14,19 @@ const ActionProviderDocument = ({ createChatBotMessage, setState, children }: an
     const hasInitialized = useRef(false);
     const { t } = useTranslation();
 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const params = useParams();
     const documentId = params?.id;
 
     useEffect(() => {
-        // Prevent the send button from stealing focus on mouse down
-        const btn = document.querySelector<HTMLButtonElement>(".react-chatbot-kit-chat-btn-send");
-        if (!btn) return;
-        const onMouseDown = (e: MouseEvent) => e.preventDefault();
-        btn.addEventListener("mousedown", onMouseDown);
-        return () => btn.removeEventListener("mousedown", onMouseDown);
+        if (!isMobile) {
+            const btn = document.querySelector<HTMLButtonElement>('.react-chatbot-kit-chat-btn-send');
+            if (!btn) return;
+            const onMouseDown = (e: MouseEvent) => e.preventDefault(); // don’t grab focus
+            btn.addEventListener('mousedown', onMouseDown);
+            return () => btn.removeEventListener('mousedown', onMouseDown);
+        }
     }, []);
 
     const createConversation = async () => {
@@ -165,16 +168,19 @@ const ActionProviderDocument = ({ createChatBotMessage, setState, children }: an
         if (input) {
             input.removeAttribute("disabled");
             input.setAttribute("placeholder", t("chat.placeholder"));
-            // Wait for DOM updates, then focus and put caret at the end
-            requestAnimationFrame(() => {
+            if (!isMobile) {
+                // Wait for DOM/state to settle, then focus and move caret to end
                 requestAnimationFrame(() => {
-                    input.focus();
-                    try {
-                        const len = input.value.length;
-                        input.setSelectionRange(len, len);
-                    } catch { }
+                    requestAnimationFrame(() => {
+                        input.focus();
+                        try {
+                            const len = input.value.length;
+                            input.setSelectionRange(len, len);
+                        } catch {
+                        }
+                    });
                 });
-            });
+            }
         }
     };
 
