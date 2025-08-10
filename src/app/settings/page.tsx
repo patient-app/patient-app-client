@@ -361,6 +361,7 @@ const Page = () => {
                             value={name}
                             placeholder={t("settings.name.placeholder")}
                             onChange={(e) => setName(e.target.value)}
+                            maxLength={50}
                             required
                         />
                     </div>
