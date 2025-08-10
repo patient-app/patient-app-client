@@ -260,7 +260,9 @@ const ExerciseExecutionInfoPage = () => {
                             Some text here about leaving the page
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="red" onClick={() => router.back()}>
+                            <Button color="red" onClick={() => router.push(
+                                `${BASE_PATH}/exercise/${id}${exercise?.exerciseTitle ? `?title=${encodeURIComponent(exercise.exerciseTitle)}` : ""}`
+                            )}>
                                 Leave Page
                             </Button>
                             <Button color="alternative" onClick={() => setBackModal(false)}>
