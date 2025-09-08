@@ -1,4 +1,4 @@
-# Patient App Client
+# Lumina Frontend
 
 ##  How to run
 
